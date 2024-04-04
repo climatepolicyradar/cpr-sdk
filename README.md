@@ -226,3 +226,14 @@ For clean up:
 ```
 make vespa_dev_down
 ```
+
+## Release Flow:
+
+- Make updates to the package.
+- Bump the package version in the `cpr_sdk/version.py` module.
+- Make a PR.
+  - In CI/CD we will check that the version is greater than the latest release.
+- Merge.
+- Tag a release manually in github with a version that matches the latest on main that you just merged.
+  - In CI/CD we will check that the latest release matches the versions defined in code.
+- Check in `pypi`.

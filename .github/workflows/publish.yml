@@ -34,6 +34,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: [precommit-checks, fixme-checks, package-version-checks]
     steps: 
     - name: Check out repository code
       uses: actions/checkout@v4
@@ -43,14 +44,14 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    needs: [test]
     timeout-minutes: 10
-    needs: [precommit-checks, fixme-checks, package-version-checks, test]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
       - name: Install poetry
-        run: pipx install poetry==1.3.2
+        run: pipx install poetry==1.7.1
 
       - name: Install python or load from cache with dependencies
         uses: actions/setup-python@v5
@@ -60,7 +61,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --all-extras --with dev
+          poetry install
+
+      - name: Update version in pyproject.toml 
+        run: |
+          PACKAGE_VERSION=$(python -c "from src import cpr_sdk; print(cpr_sdk.__version__)")
+          poetry version $PACKAGE_VERSION 
 
       - name: Build 
         run: |

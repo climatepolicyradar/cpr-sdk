@@ -3,7 +3,8 @@ import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
-from typing import List, Optional, Sequence, Tuple, TypeVar, Union
+import json
+from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -373,3 +374,54 @@ class ParserOutput(BaseParserOutput):
         unflattened = remove_key_if_all_nested_vals_none(unflattened, "pdf_data")
 
         return ParserOutput.model_validate(unflattened)
+
+    def to_passage_level_json(self) -> list[dict[str, Any]]:
+        """
+        Convert the parser output to a passage-level JSON format.
+
+        In passage-level format we have a row for every text block in the document. This
+        is as for natural language processing tasks we often want to work with text at
+        the passage level.
+
+        HTML data won't contain PDF fields and vice versa, thus we must fill this in.
+        We could rely on the hugging face dataset transformation to fill in the missing
+        fields, but this is more explicit and provides default values.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
+        """
+        if self.text_blocks is None:
+            return []
+
+        common_fields_dict = json.loads(
+            self.model_dump_json(
+                exclude={
+                    "pdf_data": {"text_blocks", "page_metadata"},
+                    "html_data": {"text_blocks"},
+                }
+            )
+        )
+
+        passages_array = [
+            common_fields_dict
+            | json.loads(block.model_dump_json(exclude={"text"}))
+            | {"text": block.to_string(), "block_index": idx}
+            for idx, block in enumerate(self.text_blocks)
+        ]
+
+        empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
+        empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
+
+        passages_array_filled = []
+        for passage in passages_array:
+            for key in empty_html_text_block_keys:
+                if key not in passage:
+                    passage[key] = None
+            for key in empty_pdf_text_block_keys:
+                if key not in passage:
+                    passage[key] = None
+            passages_array_filled.append(passage)
+
+        return passages_array_filled
