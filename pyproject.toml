@@ -4,6 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "cpr_sdk"
+# This version in a placeholder and should not be updated. 
+# During the release flow the version from the cpr_sdk/__init__.py is used. 
 version = "0.0.0"
 description = ""
 authors = ["CPR Tech <tech@climatepolicyradar.org>"]
