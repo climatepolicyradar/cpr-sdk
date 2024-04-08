@@ -30,7 +30,7 @@ runs:
       PYPROJECT_EQUALS_PACKAGE_VERSION=$(python -c "from packaging.version import Version; print(Version('${PYPROJECT_VERSION}') == Version('${PACKAGE_VERSION}'))")
       echo "PYPROJECT_EQUALS_PACKAGE_VERSION=${PYPROJECT_EQUALS_PACKAGE_VERSION}"
 
-      if [[ PYPROJECT_EQUALS_PACKAGE_VERSION ]]; then
+      if [[ "$PYPROJECT_EQUALS_PACKAGE_VERSION" == True ]]; then
         echo "The pyproject.toml version is the same as the version in the package __init__.py module."
       else
         echo "The pyproject.toml version is NOT the same as the version in the package __init__.py module."
