@@ -3,7 +3,6 @@ on:
   release:
     types:
       - published
-  pull_request:
 
 jobs:
   precommit-checks:
@@ -45,7 +44,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # needs: [precommit-checks, fixme-checks, package-version-checks, test]
+    needs: [precommit-checks, fixme-checks, package-version-checks, test]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
