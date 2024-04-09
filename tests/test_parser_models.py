@@ -6,6 +6,8 @@ from cpr_sdk.parser_models import (
     ParserOutput,
     PDFTextBlock,
     VerticalFlipError,
+    HTMLTextBlock,
+    TextBlock
 )
 from cpr_sdk.pipeline_general_models import CONTENT_TYPE_HTML, CONTENT_TYPE_PDF
 
@@ -158,12 +160,26 @@ def test_to_passage_level_json_method(
     for parser_output_json in [parser_output_json_pdf, parser_output_json_html]:
         parser_output = ParserOutput.model_validate(parser_output_json)
         passage_level_array = parser_output.to_passage_level_json()
+
         assert isinstance(passage_level_array, list)
         assert len(passage_level_array) > 0
         assert len(passage_level_array) == len(parser_output.text_blocks)
         assert all(isinstance(passage, dict) for passage in passage_level_array)
-        # TODO Check that all the keys are correct
+
         first_doc_keys = set(passage_level_array[0].keys())
         assert all(
             set(passage.keys()) == first_doc_keys for passage in passage_level_array
+        )
+
+        expected_model_fields = set(
+            list(TextBlock.model_fields.keys())
+            + list(HTMLTextBlock.model_fields.keys())
+            + list(PDFTextBlock.model_fields.keys())
+            + list(ParserOutput.model_fields.keys())
+            + ["block_index"]
+        )
+
+        assert all(
+            set(passage.keys()) == expected_model_fields
+            for passage in passage_level_array
         )
