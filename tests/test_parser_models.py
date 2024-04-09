@@ -1,15 +1,13 @@
 import pydantic
 import pytest
+
 from cpr_sdk.parser_models import (
     ParserInput,
     ParserOutput,
     PDFTextBlock,
     VerticalFlipError,
 )
-from cpr_sdk.pipeline_general_models import (
-    CONTENT_TYPE_HTML,
-    CONTENT_TYPE_PDF,
-)
+from cpr_sdk.pipeline_general_models import CONTENT_TYPE_HTML, CONTENT_TYPE_PDF
 
 
 def test_parser_input_object(parser_output_json_pdf) -> None:
@@ -150,3 +148,22 @@ def test_parser_output_object(
     with pytest.raises(pydantic.ValidationError) as context:
         ParserOutput.model_validate(parser_output_json_flat)
     parser_output = ParserOutput.from_flat_json(parser_output_json_flat)
+
+
+def test_to_passage_level_json_method(
+    parser_output_json_pdf: dict,
+    parser_output_json_html: dict,
+) -> None:
+    """Test that we can successfully create a passage level array from the text blocks."""
+    for parser_output_json in [parser_output_json_pdf, parser_output_json_html]:
+        parser_output = ParserOutput.model_validate(parser_output_json)
+        passage_level_array = parser_output.to_passage_level_json()
+        assert isinstance(passage_level_array, list)
+        assert len(passage_level_array) > 0
+        assert len(passage_level_array) == len(parser_output.text_blocks)
+        assert all(isinstance(passage, dict) for passage in passage_level_array)
+        # TODO Check that all the keys are correct
+        first_doc_keys = set(passage_level_array[0].keys())
+        assert all(
+            set(passage.keys()) == first_doc_keys for passage in passage_level_array
+        )
