@@ -3,7 +3,7 @@ import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
-from typing import List, Optional, Sequence, Tuple, TypeVar, Union
+from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -373,3 +373,28 @@ class ParserOutput(BaseParserOutput):
         unflattened = remove_key_if_all_nested_vals_none(unflattened, "pdf_data")
 
         return ParserOutput.model_validate(unflattened)
+
+    def to_passage_level_json(self) -> list[dict[str, Any]]:
+        """
+        Convert the parser output to a passage-level JSON format.
+
+        In passage-level format we have a row for every text block in the document. This
+        is as for natural language processing tasks we often want to work with text at
+        the passage level.
+        """
+        if self.text_blocks is None:
+            return []
+
+        common_fields_dict = self.model_dump(
+            exclude={
+                "pdf_data": {"text_blocks", "page_metadata"},
+                "html_data": {"text_blocks"},
+            }
+        )
+
+        return [
+            common_fields_dict
+            | block.model_dump(exclude={"text"})
+            | {"text": block.to_string(), "block_index": idx}
+            for idx, block in enumerate(self.text_blocks)
+        ]
