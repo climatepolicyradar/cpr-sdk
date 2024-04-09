@@ -7,7 +7,7 @@ from cpr_sdk.parser_models import (
     PDFTextBlock,
     VerticalFlipError,
     HTMLTextBlock,
-    TextBlock
+    TextBlock,
 )
 from cpr_sdk.pipeline_general_models import CONTENT_TYPE_HTML, CONTENT_TYPE_PDF
 
