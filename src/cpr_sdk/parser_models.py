@@ -382,6 +382,10 @@ class ParserOutput(BaseParserOutput):
         In passage-level format we have a row for every text block in the document. This
         is as for natural language processing tasks we often want to work with text at
         the passage level.
+
+        HTML data won't contain PDF fields and vice versa, thus we must fill this in.
+        We could rely on the hugging face dataset transformation to fill in the missing
+        fields, but this is more explicit and provides default values.
         """
         if self.text_blocks is None:
             return []
@@ -400,9 +404,6 @@ class ParserOutput(BaseParserOutput):
             for idx, block in enumerate(self.text_blocks)
         ]
 
-        # HTML data won't contain PDF fields and vice versa, thus we must fill this in.
-        # We could rely on the hugging face dataset transformation to fill in the
-        # missing fields, but this is more explicit and provides default values.
         class BlockIndex:
             default = None
 
