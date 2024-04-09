@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import date
 from enum import Enum
 from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
+from pydantic_core.core_schema import PydanticUndefined
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -392,9 +393,33 @@ class ParserOutput(BaseParserOutput):
             }
         )
 
-        return [
+        passages_array = [
             common_fields_dict
             | block.model_dump(exclude={"text"})
             | {"text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
+
+        # HTML data won't contain PDF fields and vice versa, thus we must fill this in.
+        # We could rely on the hugging face dataset transformation to fill in the
+        # missing fields, but this is more explicit and provides default values.
+        class BlockIndex:
+            default = None
+
+        expected_model_fields = (
+            TextBlock.model_fields
+            | HTMLTextBlock.model_fields
+            | PDFTextBlock.model_fields
+            | ParserOutput.model_fields
+            | {"block_index": BlockIndex}
+        )
+
+        passages_array_filled = []
+        for passage in passages_array:
+            for key in expected_model_fields:
+                if key not in passage:
+                    default = expected_model_fields[key].default
+                    passage[key] = default if default != PydanticUndefined else None
+            passages_array_filled.append(passage)
+
+        return passages_array
