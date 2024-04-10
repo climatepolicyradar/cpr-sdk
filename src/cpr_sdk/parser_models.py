@@ -4,7 +4,6 @@ from collections import Counter
 from datetime import date
 from enum import Enum
 from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
-from pydantic_core._pydantic_core import PydanticUndefined
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -404,23 +403,33 @@ class ParserOutput(BaseParserOutput):
             for idx, block in enumerate(self.text_blocks)
         ]
 
-        class BlockIndex:
-            default = None
-
-        expected_model_fields = (
-            TextBlock.model_fields
-            | HTMLTextBlock.model_fields
-            | PDFTextBlock.model_fields
-            | ParserOutput.model_fields
-            | {"block_index": BlockIndex}
-        )
+        empty_html_text_block: dict[str, Any] = HTMLTextBlock.model_validate(
+            {
+                "text": [],
+                "text_block_id": "",
+                "type": BlockType.TEXT,
+                "type_confidence": 1.0,
+            }
+        ).model_dump()
+        empty_pdf_text_block: dict[str, Any] = PDFTextBlock.model_validate(
+            {
+                "text": [],
+                "text_block_id": "",
+                "type": BlockType.TEXT,
+                "type_confidence": 1.0,
+                "coords": [],
+                "page_number": 0,
+            }
+        ).model_dump()
 
         passages_array_filled = []
         for passage in passages_array:
-            for key in expected_model_fields:
+            for key in empty_html_text_block.keys():
                 if key not in passage:
-                    default = expected_model_fields[key].default
-                    passage[key] = default if default != PydanticUndefined else None
+                    passage[key] = empty_html_text_block[key]
+            for key in empty_pdf_text_block.keys():
+                if key not in passage:
+                    passage[key] = empty_pdf_text_block[key]
             passages_array_filled.append(passage)
 
         return passages_array
