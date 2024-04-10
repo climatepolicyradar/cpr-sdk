@@ -4,7 +4,7 @@ from collections import Counter
 from datetime import date
 from enum import Enum
 from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
-from pydantic_core.core_schema import PydanticUndefined
+from pydantic_core._pydantic_core import PydanticUndefined
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
