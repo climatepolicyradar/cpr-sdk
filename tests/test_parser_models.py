@@ -157,13 +157,16 @@ def test_to_passage_level_json_method(
     parser_output_json_html: dict,
 ) -> None:
     """Test that we can successfully create a passage level array from the text blocks."""
-    for parser_output_json in [parser_output_json_pdf, parser_output_json_html]:
-        parser_output = ParserOutput.model_validate(parser_output_json)
-        passage_level_array = parser_output.to_passage_level_json()
+    parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
+    passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
 
-        assert isinstance(passage_level_array, list)
-        assert len(passage_level_array) > 0
-        assert len(passage_level_array) == len(parser_output.text_blocks)
+    parser_output_html = ParserOutput.model_validate(parser_output_json_html)
+    passage_level_array_html = parser_output_html.to_passage_level_json()
+
+    assert len(passage_level_array_pdf) == len(parser_output_pdf.text_blocks)
+    assert len(passage_level_array_html) == len(parser_output_html.text_blocks)
+
+    for passage_level_array in [passage_level_array_pdf, passage_level_array_html]:
         assert all(isinstance(passage, dict) for passage in passage_level_array)
 
         first_doc_keys = set(passage_level_array[0].keys())
@@ -183,3 +186,11 @@ def test_to_passage_level_json_method(
             set(passage.keys()) == expected_model_fields
             for passage in passage_level_array
         )
+
+    passage_level_array_pdf_first_doc = passage_level_array_pdf[0]
+    passage_level_array_html_first_doc = passage_level_array_html[0]
+
+    assert (
+        passage_level_array_pdf_first_doc.keys()
+        == passage_level_array_html_first_doc.keys()
+    )
