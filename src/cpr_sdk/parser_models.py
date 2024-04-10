@@ -3,6 +3,7 @@ import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
+import json
 from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
 
 from cpr_sdk.pipeline_general_models import (
@@ -385,42 +386,53 @@ class ParserOutput(BaseParserOutput):
         HTML data won't contain PDF fields and vice versa, thus we must fill this in.
         We could rely on the hugging face dataset transformation to fill in the missing
         fields, but this is more explicit and provides default values.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
         """
         if self.text_blocks is None:
             return []
 
-        common_fields_dict = self.model_dump(
-            exclude={
-                "pdf_data": {"text_blocks", "page_metadata"},
-                "html_data": {"text_blocks"},
-            }
+        common_fields_dict = json.loads(
+            self.model_dump_json(
+                exclude={
+                    "pdf_data": {"text_blocks", "page_metadata"},
+                    "html_data": {"text_blocks"},
+                }
+            )
         )
 
         passages_array = [
             common_fields_dict
-            | block.model_dump(exclude={"text"})
+            | json.loads(block.model_dump_json(exclude={"text"}))
             | {"text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
 
-        empty_html_text_block: dict[str, Any] = HTMLTextBlock.model_validate(
-            {
-                "text": [],
-                "text_block_id": "",
-                "type": BlockType.TEXT,
-                "type_confidence": 1.0,
-            }
-        ).model_dump()
-        empty_pdf_text_block: dict[str, Any] = PDFTextBlock.model_validate(
-            {
-                "text": [],
-                "text_block_id": "",
-                "type": BlockType.TEXT,
-                "type_confidence": 1.0,
-                "coords": [],
-                "page_number": 0,
-            }
-        ).model_dump()
+        empty_html_text_block: dict[str, Any] = json.loads(
+            HTMLTextBlock.model_validate(
+                {
+                    "text": [],
+                    "text_block_id": "",
+                    "type": BlockType.TEXT,
+                    "type_confidence": 1.0,
+                }
+            ).model_dump_json()
+        )
+        empty_pdf_text_block: dict[str, Any] = json.loads(
+            PDFTextBlock.model_validate(
+                {
+                    "text": [],
+                    "text_block_id": "",
+                    "type": BlockType.TEXT,
+                    "type_confidence": 1.0,
+                    "coords": [],
+                    "page_number": 0,
+                }
+            ).model_dump_json()
+        )
 
         passages_array_filled = []
         for passage in passages_array:
