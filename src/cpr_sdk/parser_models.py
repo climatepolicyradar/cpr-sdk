@@ -432,4 +432,4 @@ class ParserOutput(BaseParserOutput):
                     passage[key] = empty_pdf_text_block[key]
             passages_array_filled.append(passage)
 
-        return passages_array
+        return passages_array_filled
