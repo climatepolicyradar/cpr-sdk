@@ -411,37 +411,17 @@ class ParserOutput(BaseParserOutput):
             for idx, block in enumerate(self.text_blocks)
         ]
 
-        empty_html_text_block: dict[str, Any] = json.loads(
-            HTMLTextBlock.model_validate(
-                {
-                    "text": [],
-                    "text_block_id": "",
-                    "type": BlockType.TEXT,
-                    "type_confidence": 1.0,
-                }
-            ).model_dump_json()
-        )
-        empty_pdf_text_block: dict[str, Any] = json.loads(
-            PDFTextBlock.model_validate(
-                {
-                    "text": [],
-                    "text_block_id": "",
-                    "type": BlockType.TEXT,
-                    "type_confidence": 1.0,
-                    "coords": [],
-                    "page_number": 0,
-                }
-            ).model_dump_json()
-        )
+        empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
+        empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
 
         passages_array_filled = []
         for passage in passages_array:
-            for key in empty_html_text_block.keys():
+            for key in empty_html_text_block_keys:
                 if key not in passage:
-                    passage[key] = empty_html_text_block[key]
-            for key in empty_pdf_text_block.keys():
+                    passage[key] = None
+            for key in empty_pdf_text_block_keys:
                 if key not in passage:
-                    passage[key] = empty_pdf_text_block[key]
+                    passage[key] = None
             passages_array_filled.append(passage)
 
         return passages_array_filled
