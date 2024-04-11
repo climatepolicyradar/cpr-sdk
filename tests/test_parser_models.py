@@ -1,15 +1,15 @@
 import pydantic
 import pytest
+
 from cpr_sdk.parser_models import (
     ParserInput,
     ParserOutput,
     PDFTextBlock,
     VerticalFlipError,
+    HTMLTextBlock,
+    TextBlock,
 )
-from cpr_sdk.pipeline_general_models import (
-    CONTENT_TYPE_HTML,
-    CONTENT_TYPE_PDF,
-)
+from cpr_sdk.pipeline_general_models import CONTENT_TYPE_HTML, CONTENT_TYPE_PDF
 
 
 def test_parser_input_object(parser_output_json_pdf) -> None:
@@ -150,3 +150,47 @@ def test_parser_output_object(
     with pytest.raises(pydantic.ValidationError) as context:
         ParserOutput.model_validate(parser_output_json_flat)
     parser_output = ParserOutput.from_flat_json(parser_output_json_flat)
+
+
+def test_to_passage_level_json_method(
+    parser_output_json_pdf: dict,
+    parser_output_json_html: dict,
+) -> None:
+    """Test that we can successfully create a passage level array from the text blocks."""
+    parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
+    passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
+
+    parser_output_html = ParserOutput.model_validate(parser_output_json_html)
+    passage_level_array_html = parser_output_html.to_passage_level_json()
+
+    assert len(passage_level_array_pdf) == len(parser_output_pdf.text_blocks)
+    assert len(passage_level_array_html) == len(parser_output_html.text_blocks)
+
+    for passage_level_array in [passage_level_array_pdf, passage_level_array_html]:
+        assert all(isinstance(passage, dict) for passage in passage_level_array)
+
+        first_doc_keys = set(passage_level_array[0].keys())
+        assert all(
+            set(passage.keys()) == first_doc_keys for passage in passage_level_array
+        )
+
+        expected_model_fields = set(
+            list(TextBlock.model_fields.keys())
+            + list(HTMLTextBlock.model_fields.keys())
+            + list(PDFTextBlock.model_fields.keys())
+            + list(ParserOutput.model_fields.keys())
+            + ["block_index"]
+        )
+
+        assert all(
+            set(passage.keys()) == expected_model_fields
+            for passage in passage_level_array
+        )
+
+    passage_level_array_pdf_first_doc = passage_level_array_pdf[0]
+    passage_level_array_html_first_doc = passage_level_array_html[0]
+
+    assert (
+        passage_level_array_pdf_first_doc.keys()
+        == passage_level_array_html_first_doc.keys()
+    )
