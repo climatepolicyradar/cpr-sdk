@@ -11,13 +11,13 @@ runs:
 
     - shell: bash
       run: |
-        pipx install poetry==1.3.2
+        pipx install poetry==1.7.1
 
     - name: Install python or load from cache with dependencies
       uses: actions/setup-python@v5
       with:
         python-version: "3.10"
-        cache: "poetry"
+        cache: poetry
 
     - shell: bash
       run: |
