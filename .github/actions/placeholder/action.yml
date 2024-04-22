@@ -18,7 +18,8 @@ runs:
 
   - shell: bash
     run: | 
-      echo "PYPROJECT_VERSION=$(poetry version --short)"
+      PYPROJECT_VERSION=$(poetry version --short)
+      echo "PYPROJECT_VERSION=${PYPROJECT_VERSION}"
 
       if [[ "$PYPROJECT_VERSION" == "0.0.0" ]]; then
         echo "The pyproject.toml version is the correct placeholder version."
