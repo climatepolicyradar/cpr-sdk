@@ -11,7 +11,7 @@ runs:
 
     - shell: bash
       run: |
-        pipx install poetry==1.7.1
+        pipx install poetry==1.8.2
 
     - name: Install python or load from cache with dependencies
       uses: actions/setup-python@v5
