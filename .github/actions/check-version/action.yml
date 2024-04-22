@@ -1,5 +1,5 @@
-name: check-pyproject-version
-description: Check that the pyproject.toml version is greater than the latest GitHub release
+name: check-package-attribute-version
+description: Check that the package attribute version is greater than the latest GitHub release
 
 runs:
   using: composite
@@ -15,8 +15,8 @@ runs:
   - shell: bash
     run: |
       pip install packaging==24.0
-      PYPROJECT_VERSION=$(python -c "from src import cpr_sdk; print(cpr_sdk.__version__)")
-      echo "PYPROJECT_VERSION=${PYPROJECT_VERSION}"
+      PACKAGE_ATTRIBUTE_VERSION=$(python -c "from src import cpr_sdk; print(cpr_sdk.__version__)")
+      echo "PACKAGE_ATTRIBUTE_VERSION=${PACKAGE_ATTRIBUTE_VERSION}"
 
       GITHUB_RELEASE_VERSION=$(curl --silent "https://api.github.com/repos/climatepolicyradar/cpr-sdk/releases/latest" | jq -r '.tag_name')
       # remove the "v" from the version
@@ -24,12 +24,12 @@ runs:
       echo "GITHUB_RELEASE_VERSION=${GITHUB_RELEASE_VERSION}"
       
       # Check that semver tag is greater than the github release version
-      PYPROJECT_GREATER_THAN_GITHUB_RELEASE=$(python -c "from packaging.version import Version; print(Version('${PYPROJECT_VERSION}') > Version('${GITHUB_RELEASE_VERSION}'))")
-      echo "PYPROJECT_GREATER_THAN_GITHUB_RELEASE=${PYPROJECT_GREATER_THAN_GITHUB_RELEASE}"
+      PACKAGE_ATTRIBUTE_GREATER_THAN_GITHUB_RELEASE=$(python -c "from packaging.version import Version; print(Version('${PACKAGE_ATTRIBUTE_VERSION}') > Version('${GITHUB_RELEASE_VERSION}'))")
+      echo "PACKAGE_ATTRIBUTE_GREATER_THAN_GITHUB_RELEASE=${PACKAGE_ATTRIBUTE_GREATER_THAN_GITHUB_RELEASE}"
 
-      if [[ "$PYPROJECT_GREATER_THAN_GITHUB_RELEASE" == True ]]; then
-        echo "The pyproject.toml version is greater than the latest GitHub release."
+      if [[ "$PACKAGE_ATTRIBUTE_GREATER_THAN_GITHUB_RELEASE" == True ]]; then
+        echo "The cpr_sdk.__init__ version is greater than the latest GitHub release."
       else
-        echo "The pyproject.toml version is not greater than the latest GitHub release."
+        echo "The cpr_sdk.__init__ version is not greater than the latest GitHub release."
         exit 1
       fi
