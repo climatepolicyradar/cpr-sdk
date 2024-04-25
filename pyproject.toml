@@ -4,7 +4,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "cpr_sdk"
-version = "1.0.2"
+# This version is a placeholder that is overwritten during release.
+# The placeholder is replaced by the value from the cpr_sdk package itself.
+version = "0.0.0"
 description = ""
 authors = ["CPR Tech <tech@climatepolicyradar.org>"]
 readme = "README.md"
