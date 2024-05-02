@@ -89,13 +89,19 @@ def test_huggingface_dataset_gst() -> HuggingFaceDataset:
 @pytest.fixture
 def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
     """Test HuggingFace dataset with flattened passage level schema."""
+    # TODO Make sure we have some translated documents in this dataset sample
     dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat"
     dataset_files = os.listdir(dataset_dir)
-    dataset = HuggingFaceDataset.from_parquet(
-        path_or_paths=[os.path.join(dataset_dir, f) for f in dataset_files]
-    )
-    assert isinstance(dataset, HuggingFaceDataset)
-    return dataset
+    # TODO read in each file to a df, fill missing columns with None, and concatenate
+
+    dfs = []
+    for f in [os.path.join(dataset_dir, f) for f in dataset_files]:
+        df = pd.read_parquet(f)
+        dfs.append(df)
+
+    df_all = pd.concat(dfs)
+
+    return HuggingFaceDataset.from_pandas(df_all)
 
 
 def test_dataset_metadata_df(test_dataset):
@@ -463,7 +469,7 @@ def test_dataset_from_huggingface_gst(
 
     # CPR Dataset from passage level flat dataset schema
     dataset = Dataset(document_model=CPRDocument)._from_huggingface_parquet(
-        test_huggingface_dataset_cpr_passage_level_flat
+        test_huggingface_dataset_cpr_passage_level_flat, unflatten=True
     )
 
     assert isinstance(dataset, Dataset)

@@ -13,6 +13,7 @@ from typing import (
     TypeVar,
     Literal,
     Annotated,
+    Iterator,
 )
 from pathlib import Path
 import datetime
@@ -35,6 +36,7 @@ from pydantic import (
 from tqdm.auto import tqdm
 import numpy as np
 import random
+from flatten_dict import unflatten as unflatten_dict
 
 from datasets import Dataset as HFDataset, DatasetInfo, load_dataset
 import cpr_sdk.data_adaptors as adaptors
@@ -1279,6 +1281,7 @@ class Dataset:
         self,
         huggingface_dataset: HFDataset,
         limit: Optional[int] = None,
+        unflatten: bool = False,
     ) -> "Dataset":
         """
         Create a dataset from a huggingface dataset.
@@ -1287,9 +1290,23 @@ class Dataset:
         :param limit: optionally limit the number of documents to load
         :return self: with documents loaded from huggingface dataset
         """
+        hf_dataframe = huggingface_dataset.to_pandas()
+        if not isinstance(hf_dataframe, pd.DataFrame):
+            raise ValueError(
+                "The huggingface dataset is not a DataFrame it is a: "
+                f"{type(hf_dataframe)}."
+            )
 
-        # TODO: validate that we really do have a DataFrame & not an iterator
-        hf_dataframe: pd.DataFrame = huggingface_dataset.to_pandas()  # type: ignore
+        if unflatten:
+            unflattened_columns = unflatten_dict(
+                {k: None for k in hf_dataframe.columns}, splitter="dot"
+            )
+
+            df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+            for indx, row in hf_dataframe.iterrows():
+                unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
+                df_unflattened.loc[indx] = pd.Series(unflattened_row)
+            hf_dataframe = df_unflattened
 
         # This undoes the renaming of columns done in to_huggingface()
         hf_dataframe = hf_dataframe.rename(columns={"document_languages": "languages"})
