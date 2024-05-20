@@ -446,11 +446,8 @@ def test_dataset_from_huggingface_cpr(test_huggingface_dataset_cpr, limit):
     assert len(dataset) == limit
 
 
-def test_dataset_from_huggingface_gst(
-    test_huggingface_dataset_gst, test_huggingface_dataset_cpr_passage_level_flat
-):
+def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
     """Test that a dataset can be created from a HuggingFace dataset."""
-    # GST Dataset
     dataset = Dataset(document_model=GSTDocument)._from_huggingface_parquet(
         test_huggingface_dataset_gst
     )
@@ -467,9 +464,14 @@ def test_dataset_from_huggingface_gst(
     )
     assert dataset_text_blocks_number == len(test_huggingface_dataset_gst)
 
-    # CPR Dataset from passage level flat dataset schema
-    dataset = Dataset(document_model=CPRDocument)._from_huggingface_parquet(
-        test_huggingface_dataset_cpr_passage_level_flat, unflatten=True
+
+def test_dataset_from_huggingface_cpr_passage_level_flat(
+    test_huggingface_dataset_cpr_passage_level_flat,
+):
+    dataset = Dataset(document_model=CPRDocument)._from_huggingface_parquet_new(
+        test_huggingface_dataset_cpr_passage_level_flat,
+        unflatten=True,
+        from_passage_level=True,
     )
 
     assert isinstance(dataset, Dataset)

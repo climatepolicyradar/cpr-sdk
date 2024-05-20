@@ -1275,6 +1275,19 @@ class Dataset:
 
         return huggingface_dataset
 
+    def _from_huggingface_parquet_new(
+        self,
+        huggingface_dataset: HFDataset,
+        limit: Optional[int] = None,
+        unflatten: bool = False,
+        from_passage_level: bool = False,
+    ) -> "Dataset":
+        """
+        Create a dataset from a huggingface dataset.
+        """
+
+        return self
+
     def _from_huggingface_parquet(
         self,
         huggingface_dataset: HFDataset,
