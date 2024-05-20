@@ -35,10 +35,18 @@ from pydantic import (
 from tqdm.auto import tqdm
 import numpy as np
 import random
+from flatten_dict import unflatten as unflatten_dict
 
 from datasets import Dataset as HFDataset, DatasetInfo, load_dataset
 import cpr_sdk.data_adaptors as adaptors
-from cpr_sdk.parser_models import BlockType, BaseParserOutput
+from cpr_sdk.parser_models import (
+    BlockType,
+    BaseParserOutput,
+    PDFData,
+    PDFPageMetadata,
+    PDFTextBlock,
+    HTMLData,
+)
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
     CONTENT_TYPE_PDF,
@@ -1282,9 +1290,76 @@ class Dataset:
         unflatten: bool = False,
         from_passage_level: bool = False,
     ) -> "Dataset":
-        """
-        Create a dataset from a huggingface dataset.
-        """
+        """Create a dataset from a huggingface dataset."""
+        hf_dataframe = huggingface_dataset.to_pandas()
+
+        if not isinstance(hf_dataframe, pd.DataFrame):
+            raise ValueError(
+                "The huggingface dataset is not a DataFrame it is a: "
+                f"{type(hf_dataframe)}."
+            )
+
+        if unflatten:
+            unflattened_columns = unflatten_dict(
+                {k: None for k in hf_dataframe.columns}, splitter="dot"
+            )
+
+            df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+            for indx, row in hf_dataframe.iterrows():
+                unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
+                df_unflattened.loc[indx] = pd.Series(unflattened_row)
+            hf_dataframe: pd.DataFrame = df_unflattened
+
+        document_ids = hf_dataframe["document_id"].unique()
+
+        for document_id in document_ids:
+            document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
+            document_languages = np.unique(document_df["languages"])
+
+            for document_language in document_languages:
+                document_language: list = list(document_language)
+                assert len(document_language) in [0, 1]
+                document_lang_df = document_df[
+                    document_df["languages"] == document_language[0]
+                ]
+
+                if from_passage_level:
+                    if document_lang_df["content_type"].iloc[0] == "application/pdf":
+                        page_metadata = []
+                        md5sum = document_lang_df["document_md5_sum"].iloc[0]
+                        text_blocks = []
+
+                        for row in document_lang_df:
+                            page_metadata.append(
+                                PDFPageMetadata(
+                                    page_number=row["page_number"],
+                                    dimensions=row["coords"],
+                                )
+                            )
+                            text_blocks.append(
+                                PDFTextBlock(
+                                    text=row["text"],
+                                    text_block_id=row["text_block_id"],
+                                    language=row["language"],
+                                    type=row["type"],
+                                    type_confidence=row["type_confidence"],
+                                    page_number=row["page_number"],
+                                    coords=row["coords"],
+                                )
+                            )
+
+                        pdf_data = PDFData(
+                            page_metadata=page_metadata,
+                            text_blocks=text_blocks,
+                            md5sum=md5sum,
+                        )
+
+                    elif document_lang_df["content_type"].iloc[0] == "text/html":
+                        pass
+                    else:
+                        raise ValueError("The content type is not supported")
+
+                # TODO: Create a CPRDocument object from each row
 
         return self
 

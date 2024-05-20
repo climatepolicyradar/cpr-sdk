@@ -89,7 +89,6 @@ def test_huggingface_dataset_gst() -> HuggingFaceDataset:
 @pytest.fixture
 def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
     """Test HuggingFace dataset with flattened passage level schema."""
-    # TODO Make sure we have some translated documents in this dataset sample
     dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat"
     dataset_files = os.listdir(dataset_dir)
     # TODO read in each file to a df, fill missing columns with None, and concatenate
@@ -465,6 +464,7 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
     assert dataset_text_blocks_number == len(test_huggingface_dataset_gst)
 
 
+@pytest.mark.new_hf_format
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
 ):
@@ -473,6 +473,8 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
         unflatten=True,
         from_passage_level=True,
     )
+
+    breakpoint()
 
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, CPRDocument) for doc in dataset.documents)
