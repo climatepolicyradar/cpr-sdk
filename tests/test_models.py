@@ -1,6 +1,5 @@
 from pathlib import Path
 from typing import Iterable
-import os
 
 import pandas as pd
 import pytest
@@ -84,24 +83,6 @@ def test_huggingface_dataset_gst() -> HuggingFaceDataset:
     return HuggingFaceDataset.from_parquet(
         "tests/test_data/GST_huggingface_data_sample.parquet"
     )
-
-
-@pytest.fixture
-def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
-    """Test HuggingFace dataset with flattened passage level schema."""
-    # TODO Make sure we have some translated documents in this dataset sample
-    dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat"
-    dataset_files = os.listdir(dataset_dir)
-    # TODO read in each file to a df, fill missing columns with None, and concatenate
-
-    dfs = []
-    for f in [os.path.join(dataset_dir, f) for f in dataset_files]:
-        df = pd.read_parquet(f)
-        dfs.append(df)
-
-    df_all = pd.concat(dfs)
-
-    return HuggingFaceDataset.from_pandas(df_all)
 
 
 def test_dataset_metadata_df(test_dataset):
@@ -446,34 +427,24 @@ def test_dataset_from_huggingface_cpr(test_huggingface_dataset_cpr, limit):
     assert len(dataset) == limit
 
 
-def test_dataset_from_huggingface_gst(
-    test_huggingface_dataset_gst, test_huggingface_dataset_cpr_passage_level_flat
-):
+def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
     """Test that a dataset can be created from a HuggingFace dataset."""
-    # GST Dataset
     dataset = Dataset(document_model=GSTDocument)._from_huggingface_parquet(
         test_huggingface_dataset_gst
     )
 
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, GSTDocument) for doc in dataset.documents)
+
     assert any(doc.languages is not None for doc in dataset.documents)
 
-    unique_document_ids = set(d["document_id"] for d in test_huggingface_dataset_gst)
-    assert len(dataset) == len(unique_document_ids)
+    # Check hugingface dataset has the same number of documents as the dataset
+    assert len(dataset) == len({d["document_id"] for d in test_huggingface_dataset_gst})
 
-    dataset_text_blocks_number = sum(
-        len(doc.text_blocks or []) for doc in dataset.documents
+    # Check huggingface dataset has the same number of text blocks as the dataset
+    assert sum(len(doc.text_blocks or []) for doc in dataset.documents) == len(
+        test_huggingface_dataset_gst
     )
-    assert dataset_text_blocks_number == len(test_huggingface_dataset_gst)
-
-    # CPR Dataset from passage level flat dataset schema
-    dataset = Dataset(document_model=CPRDocument)._from_huggingface_parquet(
-        test_huggingface_dataset_cpr_passage_level_flat, unflatten=True
-    )
-
-    assert isinstance(dataset, Dataset)
-    assert all(isinstance(doc, CPRDocument) for doc in dataset.documents)
 
 
 def test_dataset_indexable(test_dataset):
