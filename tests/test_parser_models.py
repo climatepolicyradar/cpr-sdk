@@ -1,15 +1,15 @@
 import pydantic
 import pytest
-
 from cpr_sdk.parser_models import (
     HTMLData,
-    PDFData,
+    HTMLTextBlock,
     ParserInput,
     ParserOutput,
+    PDFData,
     PDFTextBlock,
-    VerticalFlipError,
-    HTMLTextBlock,
     TextBlock,
+    VerticalFlipError,
+    PDF_PAGE_METADATA_KEY
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -168,7 +168,7 @@ def test_to_passage_level_json_method(
         + list(HTMLTextBlock.model_fields.keys())
         + list(PDFTextBlock.model_fields.keys())
         + list(ParserOutput.model_fields.keys())
-        + ["block_index", "pdf_data_page_metadata"]
+        + ["block_index", PDF_PAGE_METADATA_KEY]
     )
     expected_document_metadata_fields = set(list(BackendDocument.model_fields.keys()))
     expected_html_data_fields = set(list(HTMLData.model_fields.keys()))

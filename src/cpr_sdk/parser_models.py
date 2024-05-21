@@ -1,10 +1,10 @@
+import json
 import logging
 import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
-import json
-from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
+from typing import Any, Final, List, Optional, Sequence, Tuple, TypeVar, Union
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -18,10 +18,11 @@ from pydantic import AnyHttpUrl, BaseModel, Field, model_validator
 
 _LOGGER = logging.getLogger(__name__)
 
-PARSER_METADATA_KEY = "parser_metadata"
-AZURE_API_VERSION_KEY = "azure_api_version"
-AZURE_MODEL_ID_KEY = "azure_model_id"
-PARSING_DATE_KEY = "parsing_date"
+PARSER_METADATA_KEY: Final = "parser_metadata"
+AZURE_API_VERSION_KEY: Final = "azure_api_version"
+AZURE_MODEL_ID_KEY: Final = "azure_model_id"
+PARSING_DATE_KEY: Final = "parsing_date"
+PDF_PAGE_METADATA_KEY: Final = "pdf_data_page_metadata"
 
 
 class VerticalFlipError(Exception):
@@ -417,9 +418,9 @@ class ParserOutput(BaseParserOutput):
                 page_metadata = self.get_page_metadata_by_page_number(
                     passage["page_number"]
                 )
-                passage["pdf_data_page_metadata"] = page_metadata
+                passage[PDF_PAGE_METADATA_KEY] = page_metadata
             else:
-                passage["pdf_data_page_metadata"] = None
+                passage[PDF_PAGE_METADATA_KEY] = None
             passages_array_with_pdf_page_metadata.append(passage)
 
         passages_array = passages_array_with_pdf_page_metadata
