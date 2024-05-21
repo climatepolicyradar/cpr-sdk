@@ -398,7 +398,7 @@ class ParserOutput(BaseParserOutput):
         common_fields_dict = json.loads(
             self.model_dump_json(
                 exclude={
-                    "pdf_data": {"text_blocks"},
+                    "pdf_data": {"text_blocks", "page_metadata"},
                     "html_data": {"text_blocks"},
                 }
             )
@@ -410,6 +410,19 @@ class ParserOutput(BaseParserOutput):
             | {"text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
+
+        passages_array_with_pdf_page_metadata = []
+        for passage in passages_array:
+            if "page_number" in passage.keys():
+                page_metadata = self.get_page_metadata_by_page_number(
+                    passage["page_number"]
+                )
+                passage["pdf_data_page_metadata"] = page_metadata
+            else:
+                passage["pdf_data_page_metadata"] = None
+            passages_array_with_pdf_page_metadata.append(passage)
+
+        passages_array = passages_array_with_pdf_page_metadata
 
         empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
         empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
@@ -425,3 +438,17 @@ class ParserOutput(BaseParserOutput):
             passages_array_filled.append(passage)
 
         return passages_array_filled
+
+    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
+        """
+        Retrieve the first element of PDF page metadata where the page number matches the given page number.
+
+        :param pdf_data: PDFData object containing the metadata.
+        :param page_number: The page number to match.
+        :return: The first matching PDFPageMetadata object, or None if no match is found.
+        """
+        if self.pdf_data and self.pdf_data.page_metadata:
+            for metadata in self.pdf_data.page_metadata:
+                if metadata.page_number == page_number:
+                    return json.loads(metadata.model_dump_json())
+        return None

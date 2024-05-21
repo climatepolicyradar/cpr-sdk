@@ -168,13 +168,14 @@ def test_to_passage_level_json_method(
         + list(HTMLTextBlock.model_fields.keys())
         + list(PDFTextBlock.model_fields.keys())
         + list(ParserOutput.model_fields.keys())
-        + ["block_index"]
+        + ["block_index", "pdf_data_page_metadata"]
     )
     expected_document_metadata_fields = set(list(BackendDocument.model_fields.keys()))
     expected_html_data_fields = set(list(HTMLData.model_fields.keys()))
     expected_html_data_fields.remove("text_blocks")
     expected_pdf_data_fields = set(list(PDFData.model_fields.keys()))
     expected_pdf_data_fields.remove("text_blocks")
+    expected_pdf_data_fields.remove("page_metadata")
 
     parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
     passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
