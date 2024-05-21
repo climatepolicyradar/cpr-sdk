@@ -398,7 +398,7 @@ class ParserOutput(BaseParserOutput):
         common_fields_dict = json.loads(
             self.model_dump_json(
                 exclude={
-                    "pdf_data": {"text_blocks", "page_metadata"},
+                    "pdf_data": {"text_blocks"},
                     "html_data": {"text_blocks"},
                 }
             )
