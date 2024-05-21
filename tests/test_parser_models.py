@@ -2,6 +2,8 @@ import pydantic
 import pytest
 
 from cpr_sdk.parser_models import (
+    HTMLData,
+    PDFData,
     ParserInput,
     ParserOutput,
     PDFTextBlock,
@@ -9,7 +11,11 @@ from cpr_sdk.parser_models import (
     HTMLTextBlock,
     TextBlock,
 )
-from cpr_sdk.pipeline_general_models import CONTENT_TYPE_HTML, CONTENT_TYPE_PDF
+from cpr_sdk.pipeline_general_models import (
+    CONTENT_TYPE_HTML,
+    CONTENT_TYPE_PDF,
+    BackendDocument,
+)
 
 
 def test_parser_input_object(parser_output_json_pdf) -> None:
@@ -157,6 +163,17 @@ def test_to_passage_level_json_method(
     parser_output_json_html: dict,
 ) -> None:
     """Test that we can successfully create a passage level array from the text blocks."""
+    expected_top_level_fields = set(
+        list(TextBlock.model_fields.keys())
+        + list(HTMLTextBlock.model_fields.keys())
+        + list(PDFTextBlock.model_fields.keys())
+        + list(ParserOutput.model_fields.keys())
+        + ["block_index"]
+    )
+    expected_document_metadata_fields = set(list(BackendDocument.model_fields.keys()))
+    expected_html_data_fields = set(list(HTMLData.model_fields.keys()))
+    expected_pdf_data_fields = set(list(PDFData.model_fields.keys()))
+
     parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
     passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
 
@@ -167,25 +184,22 @@ def test_to_passage_level_json_method(
     assert len(passage_level_array_html) == len(parser_output_html.text_blocks)
 
     for passage_level_array in [passage_level_array_pdf, passage_level_array_html]:
-        assert all(isinstance(passage, dict) for passage in passage_level_array)
-
         first_doc_keys = set(passage_level_array[0].keys())
-        assert all(
-            set(passage.keys()) == first_doc_keys for passage in passage_level_array
-        )
+        for passage in passage_level_array:
+            assert set(passage.keys()) == first_doc_keys
+            assert isinstance(passage, dict)
+            assert set(passage.keys()) == expected_top_level_fields
+            assert (
+                set(passage["document_metadata"].keys())
+                == expected_document_metadata_fields
+            )
 
-        expected_model_fields = set(
-            list(TextBlock.model_fields.keys())
-            + list(HTMLTextBlock.model_fields.keys())
-            + list(PDFTextBlock.model_fields.keys())
-            + list(ParserOutput.model_fields.keys())
-            + ["block_index"]
-        )
-
-        assert all(
-            set(passage.keys()) == expected_model_fields
-            for passage in passage_level_array
-        )
+            if passage["document_content_type"] == CONTENT_TYPE_PDF:
+                assert set(passage["pdf_data"].keys()) == expected_pdf_data_fields
+            elif passage["document_content_type"] == CONTENT_TYPE_HTML:
+                assert set(passage["html_data"].keys()) == expected_html_data_fields
+            else:
+                raise ValueError("Document content type must be either PDF or HTML")
 
     passage_level_array_pdf_first_doc = passage_level_array_pdf[0]
     passage_level_array_html_first_doc = passage_level_array_html[0]
