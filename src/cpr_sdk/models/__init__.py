@@ -46,6 +46,7 @@ from cpr_sdk.parser_models import (
     PDFPageMetadata,
     PDFTextBlock,
     HTMLData,
+    HTMLTextBlock,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -56,6 +57,70 @@ from cpr_sdk.pipeline_general_models import (
 LOGGER = logging.getLogger(__name__)
 
 AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
+
+
+def passage_to_document_level_df(df: pd.DataFrame) -> pd.DataFrame:
+    """A function to group the passage level data to document level data."""
+    pdf_data = None
+    html_data = None
+    if df["document_content_type"].iloc[0] == CONTENT_TYPE_PDF:
+        page_metadata = []
+        md5sum = df["document_md5_sum"].iloc[0]
+        text_blocks = []
+
+        for _, row in df.iterrows():
+            page_metadata.append(
+                PDFPageMetadata(
+                    page_number=row["page_number"],
+                    dimensions=row["dimensions"],
+                )
+            )
+
+            text_blocks.append(
+                PDFTextBlock(
+                    text=row["text"],
+                    text_block_id=row["text_block_id"],
+                    language=row["language"],
+                    type=row["type"],
+                    type_confidence=row["type_confidence"],
+                    page_number=row["page_number"],
+                    coords=row["coords"],
+                )
+            )
+
+        pdf_data = PDFData(
+            page_metadata=page_metadata,
+            text_blocks=text_blocks,
+            md5sum=md5sum,
+        )
+
+    elif df["document_content_type"].iloc[0] == CONTENT_TYPE_HTML:
+        text_blocks = []
+        for _, row in df.iterrows():
+            text_blocks.append(
+                HTMLTextBlock(
+                    text=row["text"],
+                    text_block_id=row["text_block_id"],
+                    language=row["language"],
+                    type=row["type"],
+                    type_confidence=row["type_confidence"],
+                )
+            )
+
+        html_data = HTMLData(
+            detected_title=df["detected_title"].iloc[0],
+            detected_date=df["detected_date"].iloc[0],
+            has_valid_text=df["has_valid_text"].iloc[0],
+            text_blocks=text_blocks,
+        )
+    else:
+        raise ValueError("The content type is not supported")
+
+    df = df.iloc[0]
+    df["pdf_data"] = pdf_data.model_dump() if pdf_data else None
+    df["html_data"] = html_data.model_dump() if html_data else None
+
+    return df
 
 
 def _load_and_validate_metadata_csv(
@@ -1310,8 +1375,10 @@ class Dataset:
                 df_unflattened.loc[indx] = pd.Series(unflattened_row)
             hf_dataframe: pd.DataFrame = df_unflattened
 
-        document_ids = hf_dataframe["document_id"].unique()
+        # TODO validate format - columns and types
+        # TODO validate all of the relevant columns are the same i.e md5sum
 
+        document_ids = hf_dataframe["document_id"].unique()
         for document_id in document_ids:
             document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
             document_languages = np.unique(document_df["languages"])
@@ -1324,40 +1391,7 @@ class Dataset:
                 ]
 
                 if from_passage_level:
-                    if document_lang_df["content_type"].iloc[0] == "application/pdf":
-                        page_metadata = []
-                        md5sum = document_lang_df["document_md5_sum"].iloc[0]
-                        text_blocks = []
-
-                        for row in document_lang_df:
-                            page_metadata.append(
-                                PDFPageMetadata(
-                                    page_number=row["page_number"],
-                                    dimensions=row["coords"],
-                                )
-                            )
-                            text_blocks.append(
-                                PDFTextBlock(
-                                    text=row["text"],
-                                    text_block_id=row["text_block_id"],
-                                    language=row["language"],
-                                    type=row["type"],
-                                    type_confidence=row["type_confidence"],
-                                    page_number=row["page_number"],
-                                    coords=row["coords"],
-                                )
-                            )
-
-                        pdf_data = PDFData(
-                            page_metadata=page_metadata,
-                            text_blocks=text_blocks,
-                            md5sum=md5sum,
-                        )
-
-                    elif document_lang_df["content_type"].iloc[0] == "text/html":
-                        pass
-                    else:
-                        raise ValueError("The content type is not supported")
+                    document_lang_df = passage_to_document_level_df(document_lang_df)
 
                 # TODO: Create a CPRDocument object from each row
 
