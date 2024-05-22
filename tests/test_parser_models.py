@@ -9,7 +9,7 @@ from cpr_sdk.parser_models import (
     PDFTextBlock,
     TextBlock,
     VerticalFlipError,
-    PDF_PAGE_METADATA_KEY
+    PDF_PAGE_METADATA_KEY,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
