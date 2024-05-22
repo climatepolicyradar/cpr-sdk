@@ -1,68 +1,71 @@
 """Data models for data access."""
 
-import itertools
-from typing import (
-    Iterable,
-    Sequence,
-    Optional,
-    List,
-    Dict,
-    Tuple,
-    Any,
-    Union,
-    TypeVar,
-    Literal,
-    Annotated,
-)
-from pathlib import Path
 import datetime
 import hashlib
+import itertools
 import logging
-from functools import cached_property
 import os
-
-import pandas as pd
-from pydantic import (
-    AnyHttpUrl,
-    BaseModel,
-    Field,
-    StringConstraints,
-    NonNegativeInt,
-    PrivateAttr,
-    model_validator,
-    ConfigDict,
-)
-from tqdm.auto import tqdm
-import numpy as np
 import random
-from flatten_dict import unflatten as unflatten_dict
+from functools import cached_property
+from pathlib import Path
+from typing import (
+    Annotated,
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Literal,
+    Optional,
+    Sequence,
+    Tuple,
+    TypeVar,
+    Union,
+)
 
-from datasets import Dataset as HFDataset, DatasetInfo, load_dataset
 import cpr_sdk.data_adaptors as adaptors
+import numpy as np
+import pandas as pd
 from cpr_sdk.parser_models import (
-    BlockType,
     BaseParserOutput,
+    BlockType,
+    HTMLData,
+    HTMLTextBlock,
+    ParserOutput,
     PDFData,
     PDFPageMetadata,
     PDFTextBlock,
-    HTMLData,
-    HTMLTextBlock,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
     CONTENT_TYPE_PDF,
     Json,
 )
+from datasets import Dataset as HFDataset
+from datasets import DatasetInfo, load_dataset
+from flatten_dict import unflatten as unflatten_dict
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    ConfigDict,
+    Field,
+    NonNegativeInt,
+    PrivateAttr,
+    StringConstraints,
+    model_validator,
+)
+
+from tqdm.auto import tqdm
 
 LOGGER = logging.getLogger(__name__)
 
 AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 
 
-def passage_to_document_level_df(df: pd.DataFrame) -> pd.DataFrame:
-    """A function to group the passage level data to document level data."""
+def passage_level_df_to_parser_output(df: pd.DataFrame) -> ParserOutput:
+    """A function to group the passage level data and convert to a parser output."""
     pdf_data = None
     html_data = None
+
     if df["document_content_type"].iloc[0] == CONTENT_TYPE_PDF:
         page_metadata = []
         md5sum = df["document_md5_sum"].iloc[0]
@@ -71,14 +74,15 @@ def passage_to_document_level_df(df: pd.DataFrame) -> pd.DataFrame:
         for _, row in df.iterrows():
             page_metadata.append(
                 PDFPageMetadata(
-                    page_number=row["page_number"],
-                    dimensions=row["dimensions"],
+                    # TODO get key from config
+                    page_number=row["pdf_data_page_metadata"]["page_number"],
+                    dimensions=row["pdf_data_page_metadata"]["dimensions"],
                 )
             )
 
             text_blocks.append(
                 PDFTextBlock(
-                    text=row["text"],
+                    text=[row["text"]],
                     text_block_id=row["text_block_id"],
                     language=row["language"],
                     type=row["type"],
@@ -108,19 +112,28 @@ def passage_to_document_level_df(df: pd.DataFrame) -> pd.DataFrame:
             )
 
         html_data = HTMLData(
-            detected_title=df["detected_title"].iloc[0],
-            detected_date=df["detected_date"].iloc[0],
-            has_valid_text=df["has_valid_text"].iloc[0],
+            detected_title=df["html_data"]["detected_title"].iloc[0],
+            detected_date=df["html_data"]["detected_date"].iloc[0],
+            has_valid_text=df["html_data"]["has_valid_text"].iloc[0],
             text_blocks=text_blocks,
         )
     else:
         raise ValueError("The content type is not supported")
 
-    df = df.iloc[0]
-    df["pdf_data"] = pdf_data.model_dump() if pdf_data else None
-    df["html_data"] = html_data.model_dump() if html_data else None
+    df = df.iloc[[0]]
 
-    return df
+    assert df.shape[0] == 1
+    document_dict_array = df.to_dict(orient="records")
+    assert len(document_dict_array) == 1
+    document_dict = document_dict_array[0]
+
+    document_dict["pdf_data"] = pdf_data.model_dump() if pdf_data else None
+    document_dict["html_data"] = html_data.model_dump() if html_data else None
+    document_dict["languages"] = document_dict["languages"].tolist()
+    document_dict["document_metadata"]["languages"] = document_dict[
+        "document_metadata"
+    ]["languages"].tolist()
+    return ParserOutput.model_validate(document_dict)
 
 
 def _load_and_validate_metadata_csv(
@@ -1375,9 +1388,6 @@ class Dataset:
                 df_unflattened.loc[indx] = pd.Series(unflattened_row)
             hf_dataframe: pd.DataFrame = df_unflattened
 
-        # TODO validate format - columns and types
-        # TODO validate all of the relevant columns are the same i.e md5sum
-
         document_ids = hf_dataframe["document_id"].unique()
         for document_id in document_ids:
             document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
@@ -1390,10 +1400,10 @@ class Dataset:
                     document_df["languages"] == document_language[0]
                 ]
 
+                # TODO Remove flag as out of scope
                 if from_passage_level:
-                    document_lang_df = passage_to_document_level_df(document_lang_df)
-
-                # TODO: Create a CPRDocument object from each row
+                    parser_output = passage_level_df_to_parser_output(document_lang_df)
+                    print(parser_output)
 
         return self
 

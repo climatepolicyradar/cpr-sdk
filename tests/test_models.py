@@ -474,8 +474,6 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
         from_passage_level=True,
     )
 
-    breakpoint()
-
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, CPRDocument) for doc in dataset.documents)
 
