@@ -472,23 +472,14 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
     # Type hints here as the Dataset class types document model as being a subclass of
     # BaseDocument. Whereas parser outputs etc. are subclasses of pydantics BaseModel.
 
-    dataset = Dataset(document_model=ParserOutput)._from_huggingface_parquet_new(
+    dataset = Dataset(document_model=BaseDocument)._from_huggingface_parquet_new(
         test_huggingface_dataset_cpr_passage_level_flat,
         unflatten=True,
         from_passage_level=True,
     )
 
     assert isinstance(dataset, Dataset)
-    assert all(isinstance(doc, ParserOutput) for doc in dataset.documents)
-
-    dataset = Dataset(document_model=BaseParserOutput)._from_huggingface_parquet_new(
-        test_huggingface_dataset_cpr_passage_level_flat,
-        unflatten=True,
-        from_passage_level=True,
-    )
-
-    assert isinstance(dataset, Dataset)
-    assert all(isinstance(doc, BaseParserOutput) for doc in dataset.documents)
+    assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
 
 
 def test_dataset_indexable(test_dataset):

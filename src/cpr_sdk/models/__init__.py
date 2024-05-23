@@ -35,6 +35,7 @@ from cpr_sdk.parser_models import (
     PDFPageMetadata,
     PDFTextBlock,
     PDF_PAGE_METADATA_KEY,
+    BackendDocument,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -62,11 +63,9 @@ AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 
 
 def passage_level_df_to_document_model(
-    df: pd.DataFrame, document_model: Union[ParserOutput, BaseParserOutput]
-) -> Union[ParserOutput, BaseParserOutput]:
+    df: pd.DataFrame, document_model: AnyDocument
+) -> AnyDocument:
     """A function to group the passage level data and convert to a parser output."""
-    if document_model.__name__ not in ["ParserOutput", "BaseParserOutput"]:
-        raise ValueError("document_model must be an instance of ParserOutput!")
     pdf_data = None
     html_data = None
 
@@ -136,7 +135,15 @@ def passage_level_df_to_document_model(
     document_dict["document_metadata"]["languages"] = document_dict[
         "document_metadata"
     ]["languages"].tolist()
-    return document_model.model_validate(document_dict)
+    document_dict["document_metadata"] = (
+        document_dict["document_metadata"] if document_dict["document_metadata"] else {}
+    )
+    document_dict["pipeline_metadata"] = (
+        document_dict["pipeline_metadata"] if document_dict["pipeline_metadata"] else {}
+    )
+    parser_output = ParserOutput.model_validate(document_dict)
+
+    return document_model.from_parser_output(parser_output)
 
 
 def _load_and_validate_metadata_csv(
@@ -486,7 +493,7 @@ class BaseDocument(BaseModel):
     page_metadata: Optional[
         Sequence[PageMetadata]
     ] = None  # Properties such as page numbers and dimensions for paged documents
-    document_metadata: BaseMetadata
+    document_metadata: Union[BaseMetadata, BackendDocument]
     # The current fields are set in the document parser:
     # https://github.com/climatepolicyradar/navigator-document-parser/blob/5a2872389a85e9f81cdde148b388383d7490807e/cli/parse_pdfs.py#L435
     # These are azure_api_version, azure_model_id and parsing_date
