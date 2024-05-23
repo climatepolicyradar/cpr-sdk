@@ -26,6 +26,8 @@ import cpr_sdk.data_adaptors as adaptors
 import numpy as np
 import pandas as pd
 from cpr_sdk.parser_models import (
+    PDF_PAGE_METADATA_KEY,
+    BackendDocument,
     BaseParserOutput,
     BlockType,
     HTMLData,
@@ -34,8 +36,6 @@ from cpr_sdk.parser_models import (
     PDFData,
     PDFPageMetadata,
     PDFTextBlock,
-    PDF_PAGE_METADATA_KEY,
-    BackendDocument,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -1371,27 +1371,22 @@ class Dataset:
 
         return huggingface_dataset
 
-    def _from_huggingface_parquet_new(
-        self,
-        huggingface_dataset: HFDataset,
-        limit: Optional[int] = None,
-        unflatten: bool = False,
-        from_passage_level: bool = False,
+    def _from_huggingface_passage_level_flat_parquet(
+        self, huggingface_dataset: HFDataset
     ) -> "Dataset":
         """Create a dataset from a huggingface dataset."""
-        hf_dataframe = huggingface_dataset.to_pandas()
+        hf_dataframe = huggingface_dataset.to_pandas()  # type: ignore
         assert isinstance(hf_dataframe, pd.DataFrame)
 
-        if unflatten:
-            unflattened_columns = unflatten_dict(
-                {k: None for k in hf_dataframe.columns}, splitter="dot"
-            )
+        unflattened_columns = unflatten_dict(
+            {k: None for k in hf_dataframe.columns}, splitter="dot"
+        )
 
-            df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
-            for indx, row in hf_dataframe.iterrows():
-                unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
-                df_unflattened.loc[indx] = pd.Series(unflattened_row)
-            hf_dataframe: pd.DataFrame = df_unflattened
+        df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+        for indx, row in hf_dataframe.iterrows():
+            unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
+            df_unflattened.loc[indx] = pd.Series(unflattened_row)
+        hf_dataframe: pd.DataFrame = df_unflattened
 
         documents = []
         document_ids = hf_dataframe["document_id"].unique()
@@ -1406,12 +1401,10 @@ class Dataset:
                     document_df["languages"] == document_language[0]
                 ]
 
-                # TODO Remove flag as out of scope
-                if from_passage_level:
-                    parser_output = passage_level_df_to_document_model(
-                        df=document_lang_df, document_model=self.document_model
-                    )
-                    documents.append(parser_output)
+                parser_output = passage_level_df_to_document_model(
+                    df=document_lang_df, document_model=self.document_model
+                )
+                documents.append(parser_output)
 
         self.documents = documents
 
@@ -1498,6 +1491,7 @@ class Dataset:
         dataset_name: Optional[str] = None,
         dataset_version: Optional[str] = None,
         limit: Optional[int] = None,
+        passage_level_and_flat: bool = False,
         **kwargs,
     ) -> "Dataset":
         """
@@ -1531,4 +1525,7 @@ class Dataset:
         )
 
         # TODO: validate the result coming from the below method
-        return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
+        if passage_level_and_flat:
+            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset)  # type: ignore
+        else:
+            return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore

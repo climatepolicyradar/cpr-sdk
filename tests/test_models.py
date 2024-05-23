@@ -1,6 +1,6 @@
+import os
 from pathlib import Path
 from typing import Iterable
-import os
 
 import pandas as pd
 import pytest
@@ -471,10 +471,10 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
     # Type hints here as the Dataset class types document model as being a subclass of
     # BaseDocument. Whereas parser outputs etc. are subclasses of pydantics BaseModel.
 
-    dataset = Dataset(document_model=BaseDocument)._from_huggingface_parquet_new(
-        test_huggingface_dataset_cpr_passage_level_flat,
-        unflatten=True,
-        from_passage_level=True,
+    dataset = Dataset(
+        document_model=BaseDocument
+    )._from_huggingface_passage_level_flat_parquet(
+        test_huggingface_dataset_cpr_passage_level_flat
     )
 
     assert isinstance(dataset, Dataset)
