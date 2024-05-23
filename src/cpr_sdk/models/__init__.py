@@ -26,6 +26,8 @@ import cpr_sdk.data_adaptors as adaptors
 import numpy as np
 import pandas as pd
 from cpr_sdk.parser_models import (
+    PDF_PAGE_METADATA_KEY,
+    BackendDocument,
     BaseParserOutput,
     BlockType,
     HTMLData,
@@ -34,7 +36,6 @@ from cpr_sdk.parser_models import (
     PDFData,
     PDFPageMetadata,
     PDFTextBlock,
-    PDF_PAGE_METADATA_KEY,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -62,11 +63,9 @@ AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 
 
 def passage_level_df_to_document_model(
-    df: pd.DataFrame, document_model: Union[ParserOutput, BaseParserOutput]
-) -> Union[ParserOutput, BaseParserOutput]:
+    df: pd.DataFrame, document_model: type[AnyDocument]
+) -> AnyDocument:
     """A function to group the passage level data and convert to a parser output."""
-    if document_model.__name__ not in ["ParserOutput", "BaseParserOutput"]:
-        raise ValueError("document_model must be an instance of ParserOutput!")
     pdf_data = None
     html_data = None
 
@@ -106,7 +105,7 @@ def passage_level_df_to_document_model(
         for _, row in df.iterrows():
             text_blocks.append(
                 HTMLTextBlock(
-                    text=row["text"],
+                    text=[row["text"]],
                     text_block_id=row["text_block_id"],
                     language=row["language"],
                     type=row["type"],
@@ -115,9 +114,9 @@ def passage_level_df_to_document_model(
             )
 
         html_data = HTMLData(
-            detected_title=df["html_data"]["detected_title"].iloc[0],
-            detected_date=df["html_data"]["detected_date"].iloc[0],
-            has_valid_text=df["html_data"]["has_valid_text"].iloc[0],
+            detected_title=df["html_data"].iloc[0]["detected_title"],
+            detected_date=df["html_data"].iloc[0]["detected_date"],
+            has_valid_text=df["html_data"].iloc[0]["has_valid_text"],
             text_blocks=text_blocks,
         )
     else:
@@ -136,7 +135,15 @@ def passage_level_df_to_document_model(
     document_dict["document_metadata"]["languages"] = document_dict[
         "document_metadata"
     ]["languages"].tolist()
-    return document_model.model_validate(document_dict)
+    document_dict["document_metadata"] = (
+        document_dict["document_metadata"] if document_dict["document_metadata"] else {}
+    )
+    document_dict["pipeline_metadata"] = (
+        document_dict["pipeline_metadata"] if document_dict["pipeline_metadata"] else {}
+    )
+    parser_output = ParserOutput.model_validate(document_dict)
+
+    return document_model.from_parser_output(parser_output)
 
 
 def _load_and_validate_metadata_csv(
@@ -486,7 +493,7 @@ class BaseDocument(BaseModel):
     page_metadata: Optional[
         Sequence[PageMetadata]
     ] = None  # Properties such as page numbers and dimensions for paged documents
-    document_metadata: BaseMetadata
+    document_metadata: Union[BaseMetadata, BackendDocument]
     # The current fields are set in the document parser:
     # https://github.com/climatepolicyradar/navigator-document-parser/blob/5a2872389a85e9f81cdde148b388383d7490807e/cli/parse_pdfs.py#L435
     # These are azure_api_version, azure_model_id and parsing_date
@@ -1364,27 +1371,22 @@ class Dataset:
 
         return huggingface_dataset
 
-    def _from_huggingface_parquet_new(
-        self,
-        huggingface_dataset: HFDataset,
-        limit: Optional[int] = None,
-        unflatten: bool = False,
-        from_passage_level: bool = False,
+    def _from_huggingface_passage_level_flat_parquet(
+        self, huggingface_dataset: HFDataset
     ) -> "Dataset":
         """Create a dataset from a huggingface dataset."""
-        hf_dataframe = huggingface_dataset.to_pandas()
+        hf_dataframe = huggingface_dataset.to_pandas()  # type: ignore
         assert isinstance(hf_dataframe, pd.DataFrame)
 
-        if unflatten:
-            unflattened_columns = unflatten_dict(
-                {k: None for k in hf_dataframe.columns}, splitter="dot"
-            )
+        unflattened_columns = unflatten_dict(
+            {k: None for k in hf_dataframe.columns}, splitter="dot"
+        )
 
-            df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
-            for indx, row in hf_dataframe.iterrows():
-                unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
-                df_unflattened.loc[indx] = pd.Series(unflattened_row)
-            hf_dataframe: pd.DataFrame = df_unflattened
+        df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+        for indx, row in hf_dataframe.iterrows():
+            unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
+            df_unflattened.loc[indx] = pd.Series(unflattened_row)
+        hf_dataframe: pd.DataFrame = df_unflattened
 
         documents = []
         document_ids = hf_dataframe["document_id"].unique()
@@ -1399,12 +1401,10 @@ class Dataset:
                     document_df["languages"] == document_language[0]
                 ]
 
-                # TODO Remove flag as out of scope
-                if from_passage_level:
-                    parser_output = passage_level_df_to_document_model(
-                        df=document_lang_df, document_model=self.document_model
-                    )
-                    documents.append(parser_output)
+                parser_output = passage_level_df_to_document_model(
+                    df=document_lang_df, document_model=self.document_model
+                )
+                documents.append(parser_output)
 
         self.documents = documents
 
@@ -1491,6 +1491,7 @@ class Dataset:
         dataset_name: Optional[str] = None,
         dataset_version: Optional[str] = None,
         limit: Optional[int] = None,
+        passage_level_and_flat: bool = False,
         **kwargs,
     ) -> "Dataset":
         """
@@ -1524,4 +1525,7 @@ class Dataset:
         )
 
         # TODO: validate the result coming from the below method
-        return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
+        if passage_level_and_flat:
+            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset)  # type: ignore
+        else:
+            return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
