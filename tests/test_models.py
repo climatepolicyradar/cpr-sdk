@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Iterable
 import os
 import json
+from dictdiffer import diff
 
 import pandas as pd
 import pytest
@@ -509,6 +510,12 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
                 and doc.languages == original_parser_output.languages
                 and doc.translated == original_parser_output.translated
             ):
+                diff_ = [
+                    d
+                    for d in diff(doc.model_dump(), original_parser_output.model_dump())
+                ]
+
+                assert diff_ == []
                 assert doc == original_parser_output
 
     dataset = Dataset(document_model=BaseParserOutput)._from_huggingface_parquet_new(
