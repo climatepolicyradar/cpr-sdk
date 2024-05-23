@@ -34,6 +34,7 @@ from cpr_sdk.parser_models import (
     PDFData,
     PDFPageMetadata,
     PDFTextBlock,
+    PDF_PAGE_METADATA_KEY,
 )
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -77,9 +78,8 @@ def passage_level_df_to_document_model(
         for _, row in df.iterrows():
             page_metadata.append(
                 PDFPageMetadata(
-                    # TODO get key from config
-                    page_number=row["pdf_data_page_metadata"]["page_number"],
-                    dimensions=row["pdf_data_page_metadata"]["dimensions"],
+                    page_number=row[PDF_PAGE_METADATA_KEY]["page_number"],
+                    dimensions=row[PDF_PAGE_METADATA_KEY]["dimensions"],
                 )
             )
 
@@ -1373,12 +1373,7 @@ class Dataset:
     ) -> "Dataset":
         """Create a dataset from a huggingface dataset."""
         hf_dataframe = huggingface_dataset.to_pandas()
-
-        if not isinstance(hf_dataframe, pd.DataFrame):
-            raise ValueError(
-                "The huggingface dataset is not a DataFrame it is a: "
-                f"{type(hf_dataframe)}."
-            )
+        assert isinstance(hf_dataframe, pd.DataFrame)
 
         if unflatten:
             unflattened_columns = unflatten_dict(
