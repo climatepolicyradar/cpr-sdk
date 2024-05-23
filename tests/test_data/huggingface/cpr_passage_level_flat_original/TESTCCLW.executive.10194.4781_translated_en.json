@@ -1,0 +1,7488 @@
+{
+  "document_id": "TESTCCLW.executive.10194.4781",
+  "document_metadata": {
+    "name": "Decree on Climate Change 321/2019",
+    "description": "This document sets general rules to enable mitigation and adaptation actions within the country.",
+    "import_id": "TESTCCLW.executive.10194.4781",
+    "slug": "decree-on-climate-change-321-2019_6d13",
+    "family_import_id": "TESTCCLW.family.10194.0",
+    "family_slug": "slug_TESTCCLW.family.10194.0",
+    "publication_ts": "2019-11-18T00:00:00Z",
+    "date": "18/11/2019",
+    "source_url": "https://sandbox-test-cdn.dev.climatepolicyradar.org/input/TESTCCLW.executive.10194.4781.pdf",
+    "download_url": null,
+    "type": "Decree",
+    "source": "CCLW",
+    "category": "Executive",
+    "geography": "LAO",
+    "languages": [],
+    "metadata": {
+      "hazards": [],
+      "frameworks": [],
+      "instruments": [],
+      "keywords": [],
+      "sectors": [],
+      "topics": []
+    }
+  },
+  "document_name": "Decree on Climate Change 321/2019",
+  "document_description": "This document sets general rules to enable mitigation and adaptation actions within the country.",
+  "document_source_url": "https://sandbox-test-cdn.dev.climatepolicyradar.org/input/TESTCCLW.executive.10194.4781.pdf",
+  "document_cdn_object": "LAO/2019/decree-on-climate-change-321-2019_def887b0c103bc3df51834089af30a5c.pdf",
+  "document_content_type": "application/pdf",
+  "document_md5_sum": "def887b0c103bc3df51834089af30a5c",
+  "document_slug": "decree-on-climate-change-321-2019_6d13",
+  "languages": [
+    "en"
+  ],
+  "translated": true,
+  "html_data": null,
+  "pdf_data": {
+    "page_metadata": [
+      {
+        "page_number": 0,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 1,
+        "dimensions": [
+          612.0,
+          841.9968
+        ]
+      },
+      {
+        "page_number": 2,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 3,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 4,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 5,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 6,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 7,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 8,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 9,
+        "dimensions": [
+          612.0,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 10,
+        "dimensions": [
+          612.0,
+          841.9968
+        ]
+      },
+      {
+        "page_number": 11,
+        "dimensions": [
+          612.0,
+          841.9968
+        ]
+      },
+      {
+        "page_number": 12,
+        "dimensions": [
+          612.0,
+          842.9975999999999
+        ]
+      },
+      {
+        "page_number": 13,
+        "dimensions": [
+          612.0,
+          841.9968
+        ]
+      }
+    ],
+    "md5sum": "def887b0c103bc3df51834089af30a5c",
+    "text_blocks": [
+      {
+        "text": [
+          "Lamalak branch, Paatipatai, Palachimlao, Samtiphai (9 ralad, Palathipatai, Rerapab, Atthamarauom"
+        ],
+        "text_block_id": "0",
+        "language": "en",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.55120000000002,
+            98.8056
+          ],
+          [
+            449.9208,
+            99.54
+          ],
+          [
+            449.8272,
+            132.8688
+          ],
+          [
+            185.4576,
+            132.1344
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Ladrubaam"
+        ],
+        "text_block_id": "1",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.544,
+            148.9248
+          ],
+          [
+            134.7408,
+            148.9248
+          ],
+          [
+            134.7408,
+            164.26080000000002
+          ],
+          [
+            86.544,
+            164.26080000000002
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Letti 3.34./delete Matharamtu Avarajab, Amti ..... 8 /09 / 2019"
+        ],
+        "text_block_id": "2",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            362.8872,
+            149.29919999999998
+          ],
+          [
+            580.5215999999999,
+            146.7432
+          ],
+          [
+            580.9608,
+            184.33440000000002
+          ],
+          [
+            363.3264,
+            186.8904
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Damlad Athoi Ramapathompaekimpharaphat"
+        ],
+        "text_block_id": "3",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            217.31040000000002,
+            204.2568
+          ],
+          [
+            410.88239999999996,
+            204.624
+          ],
+          [
+            410.796,
+            250.0344
+          ],
+          [
+            217.224,
+            249.6744
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "- Rawtam Tikkhmai A Tho Lat Ruekham Sachachot Lekthi 04/Sop2, Liu Amthi 08 Phajok 2016;"
+        ],
+        "text_block_id": "4",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            83.6208,
+            265.0032
+          ],
+          [
+            456.4584,
+            265.3704
+          ],
+          [
+            456.444,
+            282.888
+          ],
+          [
+            83.60640000000001,
+            282.5208
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "- Jutaṃ Thodkhmaiṭaṭhīphampakpakdhamsaenvironment Sabablekti 041/SP2, Liuamthi 18 Tam&#39;a 2012;"
+        ],
+        "text_block_id": "5",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            84.348,
+            285.0768
+          ],
+          [
+            544.4856,
+            286.1712
+          ],
+          [
+            544.4496,
+            302.9616
+          ],
+          [
+            84.312,
+            301.86719999999997
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "- remember Tam Bhidmai as inferior utmiyim and udipārasad Sakhatlekthi 36/Sop2, Liuamthi 13 Phajok 2017;"
+        ],
+        "text_block_id": "6",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            83.2536,
+            304.7904
+          ],
+          [
+            526.9608000000001,
+            305.88480000000004
+          ],
+          [
+            526.9176,
+            323.4024
+          ],
+          [
+            83.21039999999999,
+            322.308
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "- Juttam Chasisathenyakaaobchappayagummalad and environment Samablett 4642/Rsa, Liu Amthi 16 Sisa 2019."
+        ],
+        "text_block_id": "7",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            82.89359999999999,
+            325.59839999999997
+          ],
+          [
+            544.1184,
+            326.6928
+          ],
+          [
+            544.032,
+            362.7936
+          ],
+          [
+            82.8072,
+            361.6992
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Ladruekham 99kdamlat:"
+        ],
+        "text_block_id": "8",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            253.4184,
+            378.15840000000003
+          ],
+          [
+            370.99440000000004,
+            378.15840000000003
+          ],
+          [
+            370.99440000000004,
+            396.7704
+          ],
+          [
+            253.4184,
+            396.7704
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Chomodti 1 twisted the pipe and stuffed it."
+        ],
+        "text_block_id": "9",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            276.4224,
+            413.568
+          ],
+          [
+            349.0848,
+            413.568
+          ],
+          [
+            349.0848,
+            444.22560000000004
+          ],
+          [
+            276.4224,
+            444.22560000000004
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "1 eye patch, acne patch"
+        ],
+        "text_block_id": "10",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            80.3376,
+            460.2888
+          ],
+          [
+            164.68560000000002,
+            460.2888
+          ],
+          [
+            164.68560000000002,
+            475.9848
+          ],
+          [
+            80.3376,
+            475.9848
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Damladsababmi do bidfufaram, labrababham and maktaram to wait for rapbhamkumthara, follow the eye of orbhavampatham paekimphaapad to tam, sabhadam, Toodhom Tha-am sent from Ngiep Katip291 Ramapathom “Padibfa Warad Mae wears a patch with a lot of grace. Jod, Surapap, Chip Sip, Environment, Come, Come, Pub, Oh, Lao, Pim, Ask. It can be linked with Phat Phup, Sapip Pakob Sob Chao Bai Pham Pad Tha Ma. “Sodruaphod-Sangkim29]Chad Tamtidgyimying and Si2or."
+        ],
+        "text_block_id": "11",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.81360000000001,
+            478.1232
+          ],
+          [
+            541.9152,
+            478.8
+          ],
+          [
+            541.764,
+            580.6872
+          ],
+          [
+            99.6624,
+            580.0104
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Makta 2 Picture of Pathompadimfa Arad"
+        ],
+        "text_block_id": "12",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.1416,
+            590.9616000000001
+          ],
+          [
+            238.44959999999998,
+            590.9616000000001
+          ],
+          [
+            238.44959999999998,
+            606.2904
+          ],
+          [
+            78.1416,
+            606.2904
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Pham Pathom “Pa Dib Fah Apad Mae M Sapa Apham Pathom Pae] 29 Rama Chapoom Sallei as much as Phim Phue Lok that adds a pump to add the game Pikrati, long Laiya leaves which come from Tamara did 29 namāmud by ka ṭ tavrom tu born from doing mahad. that wipes the view together 291 dip and drive Yaphad Pathom Pae]."
+        ],
+        "text_block_id": "13",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.2296,
+            607.7520000000001
+          ],
+          [
+            540.432,
+            607.7520000000001
+          ],
+          [
+            540.432,
+            658.4904
+          ],
+          [
+            98.2296,
+            658.4904
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Makta 3 Tamratibai Dam Chopped"
+        ],
+        "text_block_id": "14",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            76.6008,
+            670.5360000000001
+          ],
+          [
+            206.316,
+            669.8087999999999
+          ],
+          [
+            206.3952,
+            684.4104
+          ],
+          [
+            76.67999999999999,
+            685.1376
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "Chopped tham that causes the black leaves to fall apart. Mithammai Nut Mee: 1. Thaam with thin edges, skein, Thaam joins in the cross and threatens to be able to accept the coconut milk money that comes from the Ram. Pathom Pae Kim Fa Arphad;"
+        ],
+        "text_block_id": "15",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.768,
+            685.8648000000001
+          ],
+          [
+            538.236,
+            685.8648000000001
+          ],
+          [
+            538.236,
+            738.7919999999999
+          ],
+          [
+            96.768,
+            738.7919999999999
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "2. If A Thibtam Khaimai Keng, Thammasad the leaves and received the coconut milk, kissed the shoulder of Pirati. 291 Lum Chim, Sua Kim Lom Hua Hall said the ground. Marum and Labibbied;"
+        ],
+        "text_block_id": "16",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.112,
+            742.6008
+          ],
+          [
+            538.2288,
+            740.2751999999999
+          ],
+          [
+            538.4232000000001,
+            777.7224
+          ],
+          [
+            95.30640000000001,
+            780.0408
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "1"
+        ],
+        "text_block_id": "17",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            304.5384,
+            807.4152
+          ],
+          [
+            309.6504,
+            807.4152
+          ],
+          [
+            309.6504,
+            816.5448
+          ],
+          [
+            304.5384,
+            816.5448
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "3. Lack of money to solve. Selling a sedan, Sam Tha is missing Yai, Pematip, Pharabob Plow 99 (CO2), Mitam (CH4), Mittrad Raeklai (N20), Hydro Fruyothopharabom. (HPCs), Pefthuothopathbom (PFCs), Reglafrurlai (SF6) who fell ill from making Malad, taṃ kekjab from Bhambhatha 29] Mamut Im Su Lum Bab. Yaphakram is considered to be a delicious tasting glass. Things that bring sake to make the world ready. Bhampathom pae kibfa vakad, Pemtim, Ram Ngao, oil fever, fire, Bhampathom transforms the land and forests, Ramsao and destroys everything. ;"
+        ],
+        "text_block_id": "18",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.02,
+            73.45439999999999
+          ],
+          [
+            546.192,
+            73.45439999999999
+          ],
+          [
+            546.192,
+            191.13119999999998
+          ],
+          [
+            106.02,
+            191.13119999999998
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "4. Stick Jum Chap if the program Borom Khamai Kaeng Pamphai, Kim, Wrong and Jab Phraya Kob Nam that Jum Chap and (with Phat Chao Hat program Bob from Lim Chao Ya Phad through the Ram Sua Thao Saeng regime;"
+        ],
+        "text_block_id": "19",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.4216,
+            196.7184
+          ],
+          [
+            545.0976,
+            195.1488
+          ],
+          [
+            545.2344,
+            234.324
+          ],
+          [
+            104.56559999999999,
+            235.8936
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "5. Tham sends and sells sedans, Pabhiram, Thuṃ, Khao Ram brothers, things that will be the cause of the cause of the milim. Kathi Tajip Tee with Jod, Saap, Lab Sip, Sang Chiang Mai, Jiwa Ma Ma Pub, Hall Lao Pim Rue;"
+        ],
+        "text_block_id": "20",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.12639999999999,
+            236.8656
+          ],
+          [
+            543.996,
+            236.03760000000003
+          ],
+          [
+            544.068,
+            272.8944
+          ],
+          [
+            104.19120000000001,
+            273.7224
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "6. Model of the Aphaad shoulder bag, Khaimai Seang, Pham Thod Chai Tang, with a Sakuti handle. that is put in Thumlaksama through the handle, Scorpio, Them and Dija, Chungpem Jiwapakob, Bhamathimthawa leaf and Siksara, Khob Rama Pathom, Paeng Kibfa Apatha, and is also the goal. Causing Chao Bai Pham to establish Patibad Worabhavam to evaluate and tray Thame Sae Thimpha Yaphad Lailaiya."
+        ],
+        "text_block_id": "21",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.80879999999999,
+            276.0336
+          ],
+          [
+            543.6288,
+            274.248
+          ],
+          [
+            543.924,
+            346.12559999999996
+          ],
+          [
+            103.0968,
+            347.91119999999995
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "· Makta 4 Mayobay 29] arranged Continue with Onpawam Thumtha Monastery Pathom Paedip Fa Raphat."
+        ],
+        "text_block_id": "22",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.8912,
+            362.5272
+          ],
+          [
+            422.2584,
+            361.8
+          ],
+          [
+            422.2944,
+            378.972
+          ],
+          [
+            70.9272,
+            379.7064
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Lad Jai Jai Ornpawam Khumkaram Pathom Pae Kim Fa Aphad Poor Arapa Bayo Bai, Yudchasat, Padtha Ma Rab Phraya Kaboon, Padthamasura Sudtam Siksa, Thim if itayasad, sao jed sambik, sa chao 2 corners chaa sam, vippamam, adruepakob, payama, all the way down to the local pumpabya. to establish Pathibad Worabhavam Thangphao Salad: Wamipasikdipap and Patiddikhamma. Ready to receive as soon as the leaves are flattened and made into a stir-fried chama. Sed Thakod-Sua Kim Sae] Chad, “I Yud Tasat and Phaen Maram 29]2 Chaemaram and at the end of the day I did it. Chao Bai Pae Ram Thang Tha District"
+        ],
+        "text_block_id": "23",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.8576,
+            381.8088
+          ],
+          [
+            543.0744,
+            378.1944
+          ],
+          [
+            543.996,
+            490.84560000000005
+          ],
+          [
+            101.77199999999999,
+            494.46
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Lad ◌ฺTyu sendsembukdib, mitibukjim and phamjat hua phai bai and taopathekklotim, ae ruam and pakkom nue bai pham jang patibad orpawam. Pathom Pae Kim Fa Apha,"
+        ],
+        "text_block_id": "24",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.4616,
+            495.9864
+          ],
+          [
+            542.5344,
+            495.0576
+          ],
+          [
+            542.6136,
+            531.9
+          ],
+          [
+            100.5408,
+            532.8288
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Madtā 5, Dukramabhat Abhayaornbhavamthumtha, Aram Pathom Peru, Kimfa Apha."
+        ],
+        "text_block_id": "25",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            79.33680000000001,
+            547.0776
+          ],
+          [
+            378.02160000000003,
+            545.616
+          ],
+          [
+            378.10080000000005,
+            561.3335999999999
+          ],
+          [
+            79.4088,
+            562.7952
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Tu Kramaporn and Ornpawam Thum Drapham Pathom &quot;Pa Dib Fah Arphad Mee Nua Mee:"
+        ],
+        "text_block_id": "26",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            132.19920000000002,
+            563.8896
+          ],
+          [
+            427.37760000000003,
+            561.3335999999999
+          ],
+          [
+            427.52160000000003,
+            578.1456
+          ],
+          [
+            132.3432,
+            580.7016000000001
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "1. Rabpapapaamseamseamreorabhavamtumthawarabpathamapakimfaaabhad Chao Bai Thab made 5 Saitad, Yudthasad, &quot;I stir-fried chamasedthaphit-sawakim, &quot;I&#39;m Ram, sassy, Tho Ram 29]amthacha sassy. Pham Aum Sib Pha and Thong Thim Bai But Laiya;"
+        ],
+        "text_block_id": "27",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.18639999999999,
+            579.7008
+          ],
+          [
+            541.0728,
+            578.5128
+          ],
+          [
+            541.2312000000001,
+            636.6888
+          ],
+          [
+            98.34479999999999,
+            637.8768
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "2. Rabpa with Ramkhambid and established Patikhat Maktarampabchum. Chao Thap Sapha Brahmapathom Paewakim, the weather and the choice of Bai Ramud Phrom Pham, sick, Tadriam cured. Let there be patchatidipā and pa sikdipim;"
+        ],
+        "text_block_id": "28",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            97.5672,
+            639.2016000000001
+          ],
+          [
+            541.0728,
+            638.8055999999999
+          ],
+          [
+            541.1232,
+            691.8048
+          ],
+          [
+            97.6104,
+            692.2008
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "3. Rabpa and Ramsachabhat, Mum, Laa-asam, if Aorbhavampathamapraedibfaharpaka use Mae Sua Kim grilled Peplabib and Thapram;"
+        ],
+        "text_block_id": "29",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            97.9776,
+            695.8223999999999
+          ],
+          [
+            539.9784,
+            695.8223999999999
+          ],
+          [
+            539.9784,
+            730.5408
+          ],
+          [
+            97.9776,
+            730.5408
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "4. Pa Samithip and Rammi Som join29Thukpara Som Bai Sua Thim;"
+        ],
+        "text_block_id": "30",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            130.5,
+            736.3872
+          ],
+          [
+            425.5272,
+            736.02
+          ],
+          [
+            425.5488,
+            751.7303999999999
+          ],
+          [
+            130.5144,
+            752.0976
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "5. In line with Simthasamya and Samyasaphim at Lao PDR, Pempathi."
+        ],
+        "text_block_id": "31",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            130.0752,
+            756.1224
+          ],
+          [
+            437.24879999999996,
+            754.6536
+          ],
+          [
+            437.3208,
+            770.3712
+          ],
+          [
+            130.1472,
+            771.8328
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "2"
+        ],
+        "text_block_id": "32",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            305.63280000000003,
+            806.9184
+          ],
+          [
+            311.8464,
+            806.9184
+          ],
+          [
+            311.8464,
+            816.4152
+          ],
+          [
+            305.63280000000003,
+            816.4152
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Makta 6, Pubtha 2, Rayu Dib, Miti Buk Dib and Ram Jangjit"
+        ],
+        "text_block_id": "33",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            85.392,
+            72.6408
+          ],
+          [
+            324.9864,
+            71.9064
+          ],
+          [
+            325.044,
+            90.1584
+          ],
+          [
+            85.4496,
+            90.8928
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Burim, Mitibukthim and Phamjat, there are folded tabai bham following Rampathom Paedibfah Arad and Pakobsombai Ramudphobrarampoy if it&#39;s really fast. To meet with Pham Phatthama, following Tid Gym Ying and Si2or."
+        ],
+        "text_block_id": "34",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.58879999999999,
+            95.29920000000001
+          ],
+          [
+            546.6384,
+            94.9032
+          ],
+          [
+            546.6816,
+            148.212
+          ],
+          [
+            106.6392,
+            148.608
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Maadta 7 29Bramsaeng"
+        ],
+        "text_block_id": "35",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            85.40639999999999,
+            160.9704
+          ],
+          [
+            212.88240000000002,
+            160.6104
+          ],
+          [
+            212.9256,
+            175.20479999999998
+          ],
+          [
+            85.4496,
+            175.572
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Eliminate Saiyabby, causing Samlap to invade Kim, Miti Burim and Ram, arrange tickets for Hua Phai Bai and different places at Dam Ling Jod and Kiam Thai Yu, Lao PDR."
+        ],
+        "text_block_id": "36",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            105.16319999999999,
+            178.85520000000002
+          ],
+          [
+            545.544,
+            178.85520000000002
+          ],
+          [
+            545.544,
+            216.0936
+          ],
+          [
+            105.16319999999999,
+            216.0936
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Lots of 8 pictures of Misaki"
+        ],
+        "text_block_id": "37",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            83.2536,
+            227.772
+          ],
+          [
+            203.76,
+            227.772
+          ],
+          [
+            203.76,
+            243.468
+          ],
+          [
+            83.2536,
+            243.468
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Lak Sisem Ram Phuep Phap, Hom Miphai Foreign Country, Para Phuep and Sarib Ku Arapa Arapham Pathom Pae, Tom Fa Apha, Tho Ram Laek Pathom Bidthatham, Amum La Asam, Itayasad, (Tuabolodi, Bhampadthama Chhaphayakambud and Rampatikasimdisapya and Samyasaphimthi Lao PDR Pemphali."
+        ],
+        "text_block_id": "38",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.2128,
+            246.204
+          ],
+          [
+            544.3199999999999,
+            243.7416
+          ],
+          [
+            544.644,
+            301.9608
+          ],
+          [
+            104.544,
+            304.4232
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Hmodti 2 Labibtummum Chaa Sam If Maram Pathom Pae Kim Fa Arath"
+        ],
+        "text_block_id": "39",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            199.3752,
+            318.6576
+          ],
+          [
+            425.0376,
+            318.6576
+          ],
+          [
+            425.0376,
+            351.51120000000003
+          ],
+          [
+            199.3752,
+            351.51120000000003
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Makta 9 Kamasala Biblimum Laa Sam Phattha Abhairam Pathom Phae Dib Fa Aphaad"
+        ],
+        "text_block_id": "40",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            81.7344,
+            363.924
+          ],
+          [
+            402.336,
+            362.82959999999997
+          ],
+          [
+            402.4008,
+            381.0816
+          ],
+          [
+            81.79199999999999,
+            382.176
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "• Thalu Achab Phaya Krom Tam Mahad and Environment Khaola Bibs Mub Cha Asamphon and Rama Pathom “Pādiṃfā āpād for collecting, illicit, Khumth91, Sachbra and Bamlithāmamum, hunt for Asam Ramapathom. Pang and Fah Arphat use Kuk Tong, Jak (end, Thap Tam, Prom lock up with Rak Salee Mum, Suiya Amam, Pradphai and Samak Rue Tee and Labib Aum Mum, Ya A Sam Phai Phi is as polished as Chad. and sumsakatin thachad By Pat Thirty Tip, Bhabra 2 Arim, and Ryubhamapitkara, a locality that was waiting nearby."
+        ],
+        "text_block_id": "41",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.4336,
+            381.096
+          ],
+          [
+            543.7008,
+            380.7144
+          ],
+          [
+            543.78,
+            475.8048
+          ],
+          [
+            101.5128,
+            476.1936
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Cha Khaem Maram Dab Phraya Krom Tam Malad and Si Ad Lom Lim Thong Thum Saeng, Pappu), Khum Dr, Mam Hai La Bibs Mum La Asampham Pathom Pae Thim Fa Arad 29] Tim At three very low sequins and pretty angles, Laa Sam Phu Ro and Ram Pathom Prae Kim Fa Aphak 291, Ka of Chap Phraya Krom Ma Lad and Sang Nung Lom and Lamp Tam Nam, Mub Cha A Sam and Chakhaemararam is full at Koroi 9) Aum everywhere at the resolution."
+        ],
+        "text_block_id": "42",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.304,
+            477.6336
+          ],
+          [
+            542.5056,
+            475.15680000000003
+          ],
+          [
+            542.8944,
+            545.0544
+          ],
+          [
+            101.7,
+            547.524
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Chasemāraṃ that has gone on nine times, Pemtiip rasitham and forest, point of branch dom and rapha, phaluagam and card, yotāditam and chibsi], &quot;thagam and sata. Addithamsangkim, Inayasad and Tekboloti, Ka Lao, Adchamatham and Thothua, Sitsadiwam and Bhila, Lamasup branch Sachbalmum. that is stuck Fold with Ornwam Pathom Pa Dim Fah Arphad At the address of Bai Tha-am, the 29th round] Cha Sae Maram Tim Chai Cha Khae Maram Chap Phraya Krom Ma Lad and Si Add Lom."
+        ],
+        "text_block_id": "43",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.25200000000001,
+            549.7848
+          ],
+          [
+            542.2248,
+            548.9424
+          ],
+          [
+            542.3976,
+            640.8576
+          ],
+          [
+            99.4248,
+            641.6999999999999
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Makta 10 Ramen Thueng and Phambamhai Aumum Chaa Sam"
+        ],
+        "text_block_id": "44",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.0912,
+            651.1895999999999
+          ],
+          [
+            314.34479999999996,
+            650.4624
+          ],
+          [
+            314.3952,
+            666.8856
+          ],
+          [
+            78.1416,
+            667.6200000000001
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Kondib, Miti Kondib and Phamjad, Misid Chaokeng and Mae Tumum, Lao Sam, Phu Roab Pha Pathom “Padibfayapad. What was obtained was spread out on the top of the Ram, each leaf bidding at the corners, saying three things: Katho and Ramapathom, Paeng Kim Fa, Yaphad, according to each of the Brahma."
+        ],
+        "text_block_id": "45",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            97.7904,
+            669.5136
+          ],
+          [
+            540.792,
+            668.7144
+          ],
+          [
+            540.8928000000001,
+            722.8656
+          ],
+          [
+            97.8912,
+            723.6648
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Secret Amum waiting to receive the message and praying that if Mampham Pathom is the sky-kim that makes you the target of every kingdom. Use setha to make mroom and take niliram according to bhubram."
+        ],
+        "text_block_id": "46",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.0496,
+            724.7664
+          ],
+          [
+            540.792,
+            722.3688
+          ],
+          [
+            540.9864,
+            757.116
+          ],
+          [
+            98.2368,
+            759.5136
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "3"
+        ],
+        "text_block_id": "47",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            306.72720000000004,
+            805.2264
+          ],
+          [
+            313.3008,
+            805.2264
+          ],
+          [
+            313.3008,
+            815.0832
+          ],
+          [
+            306.72720000000004,
+            815.0832
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "Look at 11 pictures of Wamaphat with Ramapathomprae and Fa Yapha."
+        ],
+        "text_block_id": "48",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            79.94160000000001,
+            64.6056
+          ],
+          [
+            331.9272,
+            64.2456
+          ],
+          [
+            331.9488,
+            81.036
+          ],
+          [
+            79.9704,
+            81.396
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Cha Khaem Maram Chap Phraya Krom made Malat and the environment Cham Thong Thim Lai Wam Saen Ram Pathom Phrae Dip Fah Arphad Bai Local has decided to use Tam Terng 29 wattip. By mixing Thip Thib with Pa Mak Pham, Thong Ram and Phar Som Im filtered."
+        ],
+        "text_block_id": "49",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.90639999999999,
+            81.432
+          ],
+          [
+            539.3376000000001,
+            81.036
+          ],
+          [
+            539.388,
+            136.9656
+          ],
+          [
+            98.9568,
+            137.3616
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Kaṭa karoi 91 is tim ra akāsi tam and forest, rayong luk sātha tam and ram tha, rasuā pha lua ngam and pandha, ka2 ayothādiram and chibsi], Kaṭhaṃaṃ and sajāattham saqākim, rahaīthāyāsād and tābolo®, rahā kaṭṭhālā, ṭṭhamāmaṃ and thāhār, ra 2vasiksā. Dhirām and Bhil, Kaṣāsādālamasubhā. By patching thirty tibs with Asebaram and Viram, Phikthawa though at Troy 9] satubsangjom saeng over the first forest evergreen sky Arad. Acne uses ragong, chap phaya, krom tam malad, and si add lom."
+        ],
+        "text_block_id": "50",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.9256,
+            139.9968
+          ],
+          [
+            539.2224,
+            137.8656
+          ],
+          [
+            539.7768,
+            252.29520000000002
+          ],
+          [
+            96.48,
+            254.4192
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Rivalry, trying to make Mahad and the environment, the pattern is using the lakkrabam, waiting to receive the shoulder, Rama Pathom Pae Kim Fa Ya Rad Bai 29 baht (2 thatopa khao, by Ryu, as follows, corner of the picture of the Rama pattern 2912 Khaemaram Saitang 29]Tip and Kalarm at Tron9. Then Laiwa used Qtam to establish Saphim. According to Sithisamya and Sabya Saphim at Lao PDR, Pempathi."
+        ],
+        "text_block_id": "51",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.34320000000001,
+            254.8152
+          ],
+          [
+            537.4944,
+            254.4192
+          ],
+          [
+            537.552,
+            321.3
+          ],
+          [
+            96.4008,
+            321.696
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Top 3, Rama received Mirampathamphae and Fa Apad."
+        ],
+        "text_block_id": "52",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            226.3176,
+            337.5144
+          ],
+          [
+            383.3784,
+            337.1472
+          ],
+          [
+            383.4504,
+            369.7632
+          ],
+          [
+            226.3968,
+            370.1304
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Mādta 12 Kama accepts no question of Pathompaeng and Fa Apatha."
+        ],
+        "text_block_id": "53",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            73.764,
+            383.2704
+          ],
+          [
+            281.1672,
+            383.2704
+          ],
+          [
+            281.1672,
+            399.6936
+          ],
+          [
+            73.764,
+            399.6936
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Rama receives Miram, Pathom, Pae, Kabfa, Arath, Mae Mam, Tamdam Khem drives Thaworn Pham. Waiting to receive Ram Papto. Phairaram Pathom Paedipfa Apad and Phamtoudpho Mahadraiabthae A."
+        ],
+        "text_block_id": "54",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.4856,
+            400.89599999999996
+          ],
+          [
+            536.0472,
+            399.6936
+          ],
+          [
+            536.1408,
+            433.26
+          ],
+          [
+            94.57920000000001,
+            434.4624
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Madata 13 Maktaram receives Miram Pathom Pae Kab Fa Aphaad."
+        ],
+        "text_block_id": "55",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            73.764,
+            447.87600000000003
+          ],
+          [
+            312.2064,
+            447.5088
+          ],
+          [
+            312.23519999999996,
+            463.2048
+          ],
+          [
+            73.78559999999999,
+            463.572
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Chakhaem Maram at Koral 9 Must do Bidmad Takam to receive Miraram Pathom Paeng Ngu Kab Fa Apha. At Phue Phap Phai Cha Khaema Ramtib leaves each Laiya. In order to overcome the difficulty of using it quickly (2 straight jaws at the Royal), was very disappointed. If Grandma is really smooth, Pemtim, Ram makes the land, forest, Chap Phraya Department of Water, Rasitham, Lamasura branch, Phalua Wam, Udsakasatham, Ram Pad Chamatotchil. 291 Hall Lao Pimruam."
+        ],
+        "text_block_id": "56",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            93.1824,
+            464.8248
+          ],
+          [
+            535.9824,
+            463.0608
+          ],
+          [
+            536.2776,
+            537.0048
+          ],
+          [
+            93.4776,
+            538.7687999999999
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Samodti 4 Ramap is considered to be connected with Bhampathomparekimfahapatha."
+        ],
+        "text_block_id": "57",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            206.8632,
+            554.5152
+          ],
+          [
+            400.75919999999996,
+            555.6096
+          ],
+          [
+            400.572,
+            588.0455999999999
+          ],
+          [
+            206.676,
+            586.9512000000001
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Episode 14: Kamapato Chao Phai Ram Pathom Paeng and Fa Apha"
+        ],
+        "text_block_id": "58",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            71.568,
+            601.1856
+          ],
+          [
+            315.12960000000004,
+            601.1856
+          ],
+          [
+            315.12960000000004,
+            617.2416000000001
+          ],
+          [
+            71.568,
+            617.2416000000001
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Rampap holds it together with Phampathom Phraed Fa Apha Mae Pampap carries 29] Thim, Saat, Wrong, Labibbi Aed, Wow, just asked, the husband is exactly the same, the leaves are exactly the same. and gradually use a low twist to carry the pathom pae dip fa aphak and get the least amount of coconut milk. The Ram proceeded to take many steps at Khao Si Bai Ramud Phrom, Tha Aam Khim Yang, Tha Aam Sang, and the damage at Yad Kek Chim."
+        ],
+        "text_block_id": "59",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.4832,
+            619.6967999999999
+          ],
+          [
+            534.9312,
+            616.644
+          ],
+          [
+            535.464,
+            694.4975999999999
+          ],
+          [
+            92.016,
+            697.5504
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "Cha Sae Baram Lab Phaya Kop Tam Malat and the surroundings of Sam Sam Thib with Cha Khae Maram Im and the view of Tampi, the busy traffic at the corner. Continuing to follow Sam Sod Ram Pathom in the sky, pinpointing the issue."
+        ],
+        "text_block_id": "60",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.5624,
+            700.5600000000001
+          ],
+          [
+            534.1752,
+            699.4656
+          ],
+          [
+            534.2616,
+            735.5088000000001
+          ],
+          [
+            91.65599999999999,
+            736.6032
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4"
+        ],
+        "text_block_id": "61",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.7936,
+            799.3872
+          ],
+          [
+            306.36719999999997,
+            799.3872
+          ],
+          [
+            306.36719999999997,
+            808.8768
+          ],
+          [
+            299.7936,
+            808.8768
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "delicate, delicate shades, delicate hair Let Dem Sam Chao Bai Phaan Chama Sethe Ruphat-Sua Kim Sae Chad, Paen Brahm and Pabwab 29) Chayae Maram and Thoi Thum Bai Tang Laiya. Mad Ta 15 Ram Sam Su Aram Pathom Phae and Fa Ya Pha."
+        ],
+        "text_block_id": "62",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            82.3248,
+            67.60079999999999
+          ],
+          [
+            542.6208,
+            66.0528
+          ],
+          [
+            542.8152,
+            124.74719999999999
+          ],
+          [
+            82.52640000000001,
+            126.2952
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Kama Samhu Adrap Pathom Pae Dib Fa Apath Mae Ba Ram Rab Tam Sang Lob Chum, Pa Meem, Agile Angle, and Khao Saa Aphad Model. In order to make the leaves of Pham may crumble, Thum Thawarab, Pathom Pae, Dib, Fah Harath."
+        ],
+        "text_block_id": "63",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.9384,
+            128.88
+          ],
+          [
+            541.5264,
+            128.5056
+          ],
+          [
+            541.5552,
+            165.70080000000002
+          ],
+          [
+            102.97439999999999,
+            166.0824
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Madata 16 Bhammapamibtha bathed in white"
+        ],
+        "text_block_id": "64",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            80.6976,
+            179.5896
+          ],
+          [
+            244.656,
+            179.5896
+          ],
+          [
+            244.656,
+            195.2856
+          ],
+          [
+            80.6976,
+            195.2856
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Bhāmapakhethaayai is fragile, mother Bhāmatilatha extinguishes fragility, and traythaṃmejimrātib. From Tha Ang 29 Rama Pathom Paeng Ubchapum, Palimam Nam Phup and Khao Kram ฺ Sikkathib from Saap Ram. Pathom Pae Kim Fa Apha, Pem Tip Payu, Pai Nam Kom, Pai Actually, Pai Chao, by Ryu wearing the emup that can be done, Bai But Laiya and Ngib Pham Trat Bae Bai Lamchad To make a pump Come and give Pae a hug and ask for the leaves. Bhamamayobai, “I have Yukkhasat and Phaenbram in order to be ready with Bai Bhamri."
+        ],
+        "text_block_id": "65",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.41120000000001,
+            196.524
+          ],
+          [
+            540.4248,
+            194.8464
+          ],
+          [
+            540.792,
+            291.8016
+          ],
+          [
+            100.78559999999999,
+            293.472
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Eye size 17, smooth, close the shade, remove the thin edge."
+        ],
+        "text_block_id": "66",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.50880000000001,
+            309.9024
+          ],
+          [
+            256.3704,
+            310.26239999999996
+          ],
+          [
+            256.34159999999997,
+            325.2312
+          ],
+          [
+            78.48,
+            324.864
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Ram made a mistake. (2 Thāma fragility. Mother Ram kāmbidlamsama, got up and asked questions, and then stopped asking questions in order for her to answer the elders. Tib, Rampaptue goes with Phampathomperthim Fa Arath and Ramoam &quot;I Pattama Setthaphit-Sangkim and Environment Pemtim, the picture of the weapon of the husband&#39;s hair (.Bill]29]Tue (there are 9), Phamjadsampumlumbet, Phampadchamathong, lower-floor bowls, various rampadthama bowls."
+        ],
+        "text_block_id": "67",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.892,
+            328.9104
+          ],
+          [
+            540.0648,
+            328.536
+          ],
+          [
+            540.1296,
+            405.88559999999995
+          ],
+          [
+            98.9568,
+            406.2672
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Come see 18 as she shows off her fragility."
+        ],
+        "text_block_id": "68",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.0472,
+            421.2288
+          ],
+          [
+            257.0688,
+            420.8616
+          ],
+          [
+            257.1048,
+            437.29200000000003
+          ],
+          [
+            77.0832,
+            437.6592
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Ram Sao &quot;Hair that is fragile, mother, covering various angles. 29] Paphet bathes in Jararam. First Phrae raw fa yarad and if the volunteers come to the leaf sheaths at Neem Kao Sa ask the location of Phum Sabrue and Phum Lam Bao29]Palachip, Chhapsip and make malad that is difficult to cause misfortune. Sara who had a serious complaint against Ijad and Jubsib29] Palachim and Suaakim."
+        ],
+        "text_block_id": "69",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            97.6824,
+            438.48
+          ],
+          [
+            538.9272,
+            437.364
+          ],
+          [
+            539.1071999999999,
+            509.1768
+          ],
+          [
+            97.8624,
+            510.2928
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "I miss 5 Phamsudephomhadraireungmkaew"
+        ],
+        "text_block_id": "70",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            235.3752,
+            525.6432
+          ],
+          [
+            377.424,
+            523.4544
+          ],
+          [
+            377.9352,
+            556.6536
+          ],
+          [
+            235.8936,
+            558.8424
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Many eyes, 19 years old, are suffering from atrophy and lack of vitality&quot;"
+        ],
+        "text_block_id": "71",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            72.8712,
+            572.7167999999999
+          ],
+          [
+            266.92560000000003,
+            570.888
+          ],
+          [
+            267.0912,
+            588.0383999999999
+          ],
+          [
+            73.0296,
+            589.8672
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Pham talks about the great Drythium. Mother, Ram continues the regime. Pham Phu waits to welcome Ramud, worried about Pham being sick. Apply an offering to Riam and add a kiss stick to the bomb list."
+        ],
+        "text_block_id": "72",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.6736,
+            588.0455999999999
+          ],
+          [
+            537.1416,
+            588.0455999999999
+          ],
+          [
+            537.1416,
+            621.6264
+          ],
+          [
+            95.6736,
+            621.6264
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Many eyes 20 follow the suction, atrophy, the Ram is weak, completely torn and smoothed out."
+        ],
+        "text_block_id": "73",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            73.69200000000001,
+            636.9552
+          ],
+          [
+            304.9056,
+            635.8608
+          ],
+          [
+            304.9776,
+            651.1895999999999
+          ],
+          [
+            73.764,
+            652.284
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Phamuk is sick and tired of Ram&#39;s pain. Mother Ram is very depressed. It is the right choice. Ten Bai Pham talks about how sick Ram is really without any help. Jaraphamra made 29 pearl pumps to randomly drive the drug in use. Leaves and leaves with the fourth pipe, serious silence. Textbook of the first page, Kim Fa Arath 29] greedy."
+        ],
+        "text_block_id": "74",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.184,
+            653.148
+          ],
+          [
+            537.1416,
+            651.5568000000001
+          ],
+          [
+            537.3288,
+            703.1880000000001
+          ],
+          [
+            95.3712,
+            704.7864000000001
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Chachoba Ramchab tried to do the Mahad and ordered the surrounding area to cover the Sam Sim Thib with Cha Chacha Maramrim and the view of Ram Pithaya Thim at Kathon 9] did it completely Mayobai, Pae Yudchasad and “I raped Phatho and Arūpaṃ Ramaṭūd is truly relieved."
+        ],
+        "text_block_id": "75",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            93.40559999999999,
+            704.9088
+          ],
+          [
+            536.3784,
+            699.8976
+          ],
+          [
+            536.9976,
+            754.596
+          ],
+          [
+            94.0248,
+            759.6
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "5"
+        ],
+        "text_block_id": "76",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            301.2768,
+            801.4176
+          ],
+          [
+            307.0944,
+            801.216
+          ],
+          [
+            307.4616,
+            811.4328
+          ],
+          [
+            301.6368,
+            811.6416
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "Leave the rewinding sabāraṃ, pemtiip phaluwam and card, branch point and cave image, bhalithaṃ and forest, yotādiram and chibsiṃ, itayasād and (tak Bolo takes 29 baht of liability for the daughter “I am Ram, Phambid Madtaraumtebik, Diao Mi and Tao Bolo® to relieve Ram who is sick and has a genuine rayria. 29 baht (20 liability 29 baht) 29]Tim By Pa Samib Thib and Cha Khaem Maram Chap Phaya Krom Tam Mahad and Si Aet Lom."
+        ],
+        "text_block_id": "77",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.1456,
+            68.99040000000001
+          ],
+          [
+            540.792,
+            68.99040000000001
+          ],
+          [
+            540.792,
+            166.0824
+          ],
+          [
+            101.1456,
+            166.0824
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Makta 21 Phampermpaengchimchathaayapabharam"
+        ],
+        "text_block_id": "78",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            80.3376,
+            180.684
+          ],
+          [
+            295.0776,
+            181.05120000000002
+          ],
+          [
+            295.0488,
+            198.56879999999998
+          ],
+          [
+            80.3016,
+            198.2016
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Pham added a kissing stick to the beach, and Pham agreed. Mom, Bham did it very well, Ta Pham too, looking at the right place. Baitam added a dhaksaad, a move that controlled the chap and just like Phattha, the remains of the bomb show from Lim Bam Yapha, by each side, Khob Ram Sua Thao Saeng, Pem Tom, forest, raw, wrong, Chapphaya Department of Water."
+        ],
+        "text_block_id": "79",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.5472,
+            199.0296
+          ],
+          [
+            539.3304,
+            197.892
+          ],
+          [
+            539.4744000000001,
+            252.18
+          ],
+          [
+            99.684,
+            253.3248
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Chachaemaram, the first 9 years ago, was Tim, Lab Phaya Krom Tam Malad, and Si Surrounding, Rasitham, and Forest, covering Sam Sim Thib with the view of Ram Piktha Ruthai Thin, Do Mid, Mayobai, panel. Yudchasad and &quot;I am waiting and waiting with Ram for more of Khubchat Physical Bomb.&quot;"
+        ],
+        "text_block_id": "80",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.324,
+            257.3352
+          ],
+          [
+            539.3376000000001,
+            257.3352
+          ],
+          [
+            539.3376000000001,
+            315.37440000000004
+          ],
+          [
+            99.324,
+            315.37440000000004
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Makta 22 Ram Samdu Adram Poi Miss Grandma Riam Tae"
+        ],
+        "text_block_id": "81",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            76.6584,
+            329.6088
+          ],
+          [
+            303.8112,
+            329.24879999999996
+          ],
+          [
+            303.8328,
+            344.5776
+          ],
+          [
+            76.67999999999999,
+            344.9448
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Akhaemmaramchabphayaram did mahat and ordered add lom, patching thirty tibs with chabaobaram at koroi 9 for samhuod, (with Than Mub (the posture to make a burd and &quot;the posture to control the chap, list) BOB (Tip pump, lack of equipment, 99n Dairy (CO2), Bib (CH4), Maitri 99klai (N20), Hydrophthalate (HFCs), Pefthuothopa Thomb (PFCs), Rika Frurlai (SF6) to be the best angler, asked to use the mother Ramkam. Mith chooses Bai Ramud Pho Braam Poi Hat Rai Reab authentic A."
+        ],
+        "text_block_id": "82",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.34320000000001,
+            346.5576
+          ],
+          [
+            537.5016,
+            344.6856
+          ],
+          [
+            537.9264,
+            444.1752
+          ],
+          [
+            96.768,
+            446.0544
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Top 6 Rami Samom Together 29] Sangkim"
+        ],
+        "text_block_id": "83",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            246.11759999999998,
+            463.2048
+          ],
+          [
+            362.9664,
+            463.2048
+          ],
+          [
+            362.9664,
+            494.5968
+          ],
+          [
+            246.11759999999998,
+            494.5968
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Look at 23 pictures that don&#39;t seem to be together 29 times."
+        ],
+        "text_block_id": "84",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            73.0296,
+            509.9328
+          ],
+          [
+            241.00560000000002,
+            509.9328
+          ],
+          [
+            241.00560000000002,
+            525.6216
+          ],
+          [
+            73.0296,
+            525.6216
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Pham Sao Yud Chasad, Ram Pa in a delicate form, Pham Pap To, Pham speaks modestly and loses his grandmother quickly, Thao and Ram Tamon Thod Ta On Ram Nut Tha O. The body does not repair the body. 29) Sangkim and Pahachim who do 291 especially those who receive money through the method."
+        ],
+        "text_block_id": "85",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.2264,
+            528.876
+          ],
+          [
+            535.3488,
+            529.2792
+          ],
+          [
+            535.3056,
+            581.6448
+          ],
+          [
+            94.1832,
+            581.2416000000001
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Mad Ta 24, Sitthi Images and Pham Sao Jed Sambik"
+        ],
+        "text_block_id": "86",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.812,
+            595.3464
+          ],
+          [
+            272.0376,
+            594.9792
+          ],
+          [
+            272.0664,
+            610.6752
+          ],
+          [
+            70.8408,
+            611.0424
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Tukpha Sombai Sangkim Mishba who joins and joins the Lord Baibhamsikasā karbhayaarabhavam pathompaekimphāapad is boiled Rampadakamahuksuphamsikassā taṃ hukūdramaṭhaṭha Mabham examined each of the leaves: Bibdhowdham, Madalabibddowdham, Dhowdhaminalibtuklim, and Mataithayalaithangpaklad and Erachim. ."
+        ],
+        "text_block_id": "87",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.65599999999999,
+            611.4024
+          ],
+          [
+            535.3199999999999,
+            611.4024
+          ],
+          [
+            535.3199999999999,
+            682.9488
+          ],
+          [
+            91.65599999999999,
+            682.9488
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Arrange &amp;Thyu and blackheads, raw konjac, mitiburim and phamjat, Khao Chad Sammipha, ṭṭho and Ramapathom, Paeng and Fayapa and washed Chakhob Rammiang, various ophad amsathum leaves. ."
+        ],
+        "text_block_id": "88",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            92.016,
+            683.6759999999999
+          ],
+          [
+            534.2184,
+            683.6759999999999
+          ],
+          [
+            534.2184,
+            717.9911999999999
+          ],
+          [
+            92.016,
+            717.9911999999999
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "6"
+        ],
+        "text_block_id": "89",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            297.96479999999997,
+            804.4992
+          ],
+          [
+            305.27279999999996,
+            804.4992
+          ],
+          [
+            305.27279999999996,
+            813.9888000000001
+          ],
+          [
+            297.96479999999997,
+            813.9888000000001
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Samodti 7 Brother Thibram Pathama Pae Kampha Apad"
+        ],
+        "text_block_id": "90",
+        "language": "en",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            240.5592,
+            70.5744
+          ],
+          [
+            388.4472,
+            70.2144
+          ],
+          [
+            388.5264,
+            102.5712
+          ],
+          [
+            240.6384,
+            102.9384
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Madta 25 Thayathimram Pathom Padib Fa Yarad"
+        ],
+        "text_block_id": "91",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            85.08239999999999,
+            118.9944
+          ],
+          [
+            284.7672,
+            118.2672
+          ],
+          [
+            284.81759999999997,
+            133.596
+          ],
+          [
+            85.14000000000001,
+            134.3304
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Parathimphampathamapaedipfaharphad mother, command the brothers29wakatibwingpakdhammasas remove the siege. According to what has been done, Bhikkhai is said to be inferior to Ram, winged and thaksa environment."
+        ],
+        "text_block_id": "92",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.47359999999999,
+            135.22320000000002
+          ],
+          [
+            545.544,
+            133.2288
+          ],
+          [
+            545.6952,
+            167.63039999999998
+          ],
+          [
+            106.632,
+            169.6248
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Matha 26 Yaya Thimpham Pathom Pae Kib Fa Arath"
+        ],
+        "text_block_id": "93",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            83.9376,
+            170.46
+          ],
+          [
+            303.444,
+            169.7328
+          ],
+          [
+            303.49440000000004,
+            185.0616
+          ],
+          [
+            83.988,
+            185.796
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Mauracharanthuthatim29]Thathip wings to plant the environmental flag. According to what has been done, the Bhikkhai leaves Picture of the wings of Pakthammasa, the part of the siege and Yang Mitthatim Thunmee:"
+        ],
+        "text_block_id": "94",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.1712,
+            186.99120000000002
+          ],
+          [
+            544.4496,
+            185.796
+          ],
+          [
+            544.536,
+            219.18959999999998
+          ],
+          [
+            106.2576,
+            220.3848
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "1. Tim received from Thayathimsabhim Samlap Onphawabraram Pathom Paedim Fa Yapha;"
+        ],
+        "text_block_id": "95",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            143.8704,
+            223.0272
+          ],
+          [
+            475.812,
+            223.38719999999998
+          ],
+          [
+            475.7976,
+            239.4504
+          ],
+          [
+            143.856,
+            239.0832
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "2. “Tha Thim Im that the cook must follow and sell."
+        ],
+        "text_block_id": "96",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            142.0488,
+            242.73360000000002
+          ],
+          [
+            313.3008,
+            242.73360000000002
+          ],
+          [
+            313.3008,
+            259.164
+          ],
+          [
+            142.0488,
+            259.164
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Madtā 27 Goals Ramma gave to do at Thibram Pathom Pae Kim Fa Apad Paradhibrampathampaewakimphayaphad Let the target leaves wither away, crushed beans:"
+        ],
+        "text_block_id": "97",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            82.52640000000001,
+            272.6712
+          ],
+          [
+            413.4024,
+            273.096
+          ],
+          [
+            413.352,
+            307.33200000000005
+          ],
+          [
+            82.4832,
+            306.9072
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "1. Ramsao and Pappumayobai, &quot;I yuthasa, mitham,&quot; &quot;I Ram and Phaebaam Phatthaphai Arupaarampathamapaedipfahapak;"
+        ],
+        "text_block_id": "98",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.0384,
+            309.8952
+          ],
+          [
+            542.592,
+            305.82
+          ],
+          [
+            542.9448,
+            344.15279999999996
+          ],
+          [
+            102.3912,
+            348.228
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "2. Bhamlimthaa ithayasad and Taobolodī, sātādiptaṃ, model sao and the floor where the torso in the form of Ramappa holds the king and Ramapathom for a long time, the sky is āpaka;"
+        ],
+        "text_block_id": "99",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.24,
+            351.8784
+          ],
+          [
+            542.6208,
+            351.8784
+          ],
+          [
+            542.6208,
+            390.204
+          ],
+          [
+            102.24,
+            390.204
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "3. Picture sent to add Bhambam (Tak Molody which is a mid-low environment and Pham Poi Hat Yai Riam, a low-level solution;"
+        ],
+        "text_block_id": "100",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.88,
+            392.3928
+          ],
+          [
+            542.988,
+            392.3928
+          ],
+          [
+            542.988,
+            427.068
+          ],
+          [
+            101.88,
+            427.068
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "4. Ramayimladabthaamru and thaamsamath, the handle of Inaram uses Mae Burathalarob, Ramasika Sa and Pukok Sammik, Tha Aphai Pham Pathom Pae Kab Fa. Arak;"
+        ],
+        "text_block_id": "101",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.40480000000001,
+            433.7496
+          ],
+          [
+            542.2536,
+            432.4752
+          ],
+          [
+            542.3616,
+            470.6928
+          ],
+          [
+            101.5128,
+            471.96720000000005
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "5. Bhamkumara and true Ram (2 babyaarampathamapadimphahara which is a bulima attached to leaves and various things; 6. Phamonphon, Thunglem and Fadthamapoompamya Thongthim The leaf sheath is held together with a shoulder bag. Pathom Paeng Kim Fa Ram Mak, Pham Phut Phim Ram Poi Hat Rai Fast M Tae A."
+        ],
+        "text_block_id": "102",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.116,
+            477.6336
+          ],
+          [
+            541.7856,
+            475.4088
+          ],
+          [
+            542.088,
+            535.4496
+          ],
+          [
+            100.4184,
+            537.6672
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Mādta 28 according to Khum Riṣṇi and Maṭaṃ in the language of Timram Pathom Paeng Ngu Kim Fa Akā"
+        ],
+        "text_block_id": "103",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.1272,
+            553.3632
+          ],
+          [
+            385.6032,
+            553.0032
+          ],
+          [
+            385.6248,
+            568.6992
+          ],
+          [
+            78.1416,
+            569.0592
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Ramkumthaya and Bamaṭaṭaṭiṭaṭhampathamapaedipfaapa Used to scrub the ears of the jaws. Nutmee: 1. Wear the pump and the peamrerapap according to the bibvibpamam of the lad and the saratha with the monks. Tayjib Pa Mamsa Lad;"
+        ],
+        "text_block_id": "104",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.07920000000001,
+            570.7008
+          ],
+          [
+            541.0728,
+            568.6272
+          ],
+          [
+            541.3176,
+            620.0424
+          ],
+          [
+            99.324,
+            622.116
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "2. Personal gigs according to goals, payat and mipasidtisib;"
+        ],
+        "text_block_id": "105",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.4752,
+            626.3712
+          ],
+          [
+            363.3264,
+            626.3712
+          ],
+          [
+            363.3264,
+            643.5288
+          ],
+          [
+            135.4752,
+            643.5288
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "3. Every pattern for receiving and paying pattern must be twisted and twisted from the leaves of the cat&#39;s leaf. Ruptam background Ruemaphambabchit Tha Jad;"
+        ],
+        "text_block_id": "106",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.784,
+            648.8064
+          ],
+          [
+            541.152,
+            646.7904
+          ],
+          [
+            541.332,
+            684.9504
+          ],
+          [
+            98.9568,
+            686.9592
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "4. Let Mithāma weigh down, araai, stop doing and clear, accept papa lai pay. According to the annual report; 5. Miram Thodorn and Thodsab Pampikrati followed by sale."
+        ],
+        "text_block_id": "107",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.712,
+            692.0712
+          ],
+          [
+            535.6800000000001,
+            691.7112000000001
+          ],
+          [
+            535.716,
+            727.1136
+          ],
+          [
+            134.7408,
+            727.4807999999999
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "7"
+        ],
+        "text_block_id": "108",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            306.72720000000004,
+            804.4992
+          ],
+          [
+            312.57360000000006,
+            804.4992
+          ],
+          [
+            312.57360000000006,
+            813.9888000000001
+          ],
+          [
+            306.72720000000004,
+            813.9888000000001
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "This 8th Amendment is prohibited."
+        ],
+        "text_block_id": "109",
+        "language": "en",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            293.21999999999997,
+            70.0848
+          ],
+          [
+            337.4064,
+            70.0848
+          ],
+          [
+            337.4064,
+            100.3824
+          ],
+          [
+            293.21999999999997,
+            100.3824
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "This 29th look is too blunt."
+        ],
+        "text_block_id": "110",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.1768,
+            115.34400000000001
+          ],
+          [
+            194.2632,
+            115.34400000000001
+          ],
+          [
+            194.2632,
+            132.5016
+          ],
+          [
+            86.1768,
+            132.5016
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Cross kon daw, mit kon daw and pam sang jit no mistake do nut bby:"
+        ],
+        "text_block_id": "111",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            144.9144,
+            136.152
+          ],
+          [
+            389.2536,
+            135.4248
+          ],
+          [
+            389.304,
+            152.2152
+          ],
+          [
+            144.9648,
+            152.94240000000002
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "1. Invade and destroy the surrounding countryside. Small leaves that are crossed; 2. Sa Rupasak, Chad2 Akampatibadcha at 293 officials and Pa Makwam at wife 29]lad; 3. Patisetharamruammi, layayam do use the corner where one of the king&#39;s grandfathers beat their duty and paami bhāma that do wait293; 4. Use the ten-bib of the official and the pa-makwam who are responsible for asking for the blessings of the monks;"
+        ],
+        "text_block_id": "112",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            143.0496,
+            158.0544
+          ],
+          [
+            542.9376,
+            157.6224
+          ],
+          [
+            543.0312,
+            241.9272
+          ],
+          [
+            143.1432,
+            242.352
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "5. Slander and slander Si ṭṭhosamathabkumbhamsaṃ and phamakvāb 29) Organized by threatening Mimupatha-Amaca; 6. Milik makes a mark that is Ram&#39;s violation."
+        ],
+        "text_block_id": "113",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            141.7176,
+            245.2896
+          ],
+          [
+            537.9048,
+            246.024
+          ],
+          [
+            537.84,
+            282.18240000000003
+          ],
+          [
+            141.6456,
+            281.448
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "In these 30 years, don&#39;t secretly draw horses at Tu Phamak Ngam."
+        ],
+        "text_block_id": "114",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            82.26,
+            293.1048
+          ],
+          [
+            284.81759999999997,
+            294.2064
+          ],
+          [
+            284.724,
+            312.4584
+          ],
+          [
+            82.1592,
+            311.35679999999996
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Across the officials, doing phamakwam is not wrong, nutmee:"
+        ],
+        "text_block_id": "115",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.5872,
+            311.72400000000005
+          ],
+          [
+            333.74879999999996,
+            311.72400000000005
+          ],
+          [
+            333.74879999999996,
+            328.5144
+          ],
+          [
+            140.5872,
+            328.5144
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "1. Take on the duty of Tam Samma To meet the best of the best, to use completely, to make the whole world;"
+        ],
+        "text_block_id": "116",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            141.31439999999998,
+            331.0704
+          ],
+          [
+            498.8376,
+            331.7976
+          ],
+          [
+            498.8016,
+            349.3224
+          ],
+          [
+            141.2784,
+            348.58799999999997
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "2. Ta Ah Chao, 2 Chao, Thap Sib Gym Jarabuk Lim, Miti Burim and Pham Chuang;"
+        ],
+        "text_block_id": "117",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.8528,
+            353.34
+          ],
+          [
+            448.77599999999995,
+            353.34
+          ],
+          [
+            448.77599999999995,
+            369.7632
+          ],
+          [
+            139.8528,
+            369.7632
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "3. Be neglectful, disengaged, abandon duties and take responsibility for the responsibility assigned to you; 4. Phod Mong, reciting various Mphijala Bang Rasam texts;"
+        ],
+        "text_block_id": "118",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.4928,
+            374.50800000000004
+          ],
+          [
+            529.8552,
+            374.8752
+          ],
+          [
+            529.8192,
+            413.35920000000004
+          ],
+          [
+            139.4496,
+            412.99199999999996
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "5. Param&quot;Paera Sam made us Para Sam Param, opened only the secret of the shortcut to Ruabham;"
+        ],
+        "text_block_id": "119",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.1256,
+            417.9456
+          ],
+          [
+            479.8152,
+            417.9456
+          ],
+          [
+            479.8152,
+            434.0088
+          ],
+          [
+            139.1256,
+            434.0088
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "6. After a while, do Blikamal, Mumbha, Abhaya, Atthakaram, Pathom, Pae, Kimfah, Apad. by which the medicine has been specified; 7. Don&#39;t make a mistake or commit a mistake."
+        ],
+        "text_block_id": "120",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            138.7584,
+            439.11359999999996
+          ],
+          [
+            538.236,
+            439.11359999999996
+          ],
+          [
+            538.236,
+            474.15599999999995
+          ],
+          [
+            138.7584,
+            474.15599999999995
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Samothi 9 Ram Khum Khot and Phra Onram Ram Pathom Phae Dib Fah Apatha"
+        ],
+        "text_block_id": "121",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            175.23360000000002,
+            490.068
+          ],
+          [
+            444.3696,
+            489.7008
+          ],
+          [
+            444.41279999999995,
+            522.3384
+          ],
+          [
+            175.2768,
+            522.7056
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Makta 31, Chawaramkumarura and Thor Arupamrampathompraegibfaharpatha"
+        ],
+        "text_block_id": "122",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.50880000000001,
+            538.4016
+          ],
+          [
+            409.34159999999997,
+            538.4016
+          ],
+          [
+            409.34159999999997,
+            554.4648
+          ],
+          [
+            78.50880000000001,
+            554.4648
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Lattarabam Khumra and Rodpha Arupavamrampathompaevadipfahyaphad grilled the smoke and Pem &quot;9 Raphabbai 29b (2 Thothopathet) By giving it to Chap Phrayaob to make a malad and ordering Adlom to accept 29 baht for wrongdoing and pay thirty tibs and 2 ka rim, Heupham and Jewram Pitra Tai Thum. which is slowly increasing Established Patibad Aorbhavam Thang Tha District."
+        ],
+        "text_block_id": "123",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.3384,
+            558.0792
+          ],
+          [
+            540.0935999999999,
+            558.4752
+          ],
+          [
+            540.036,
+            624.456
+          ],
+          [
+            99.2808,
+            624.0600000000001
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Rivaramthumdra and Thodra Arupavamrampathamapradimfahaphad pakobdam:"
+        ],
+        "text_block_id": "124",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.108,
+            625.6368
+          ],
+          [
+            482.37120000000004,
+            625.6368
+          ],
+          [
+            482.37120000000004,
+            642.0672
+          ],
+          [
+            135.108,
+            642.0672
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "1. Thalu Ajab Phayaram Tam Mahad and the environment;"
+        ],
+        "text_block_id": "125",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.7848,
+            644.6232
+          ],
+          [
+            373.1904,
+            643.8888
+          ],
+          [
+            373.24080000000004,
+            660.6792
+          ],
+          [
+            135.83520000000001,
+            661.4136
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "2. Phabae Phayaa Kob Tam Mahad and the environment Aum (221;"
+        ],
+        "text_block_id": "126",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.3304,
+            665.064
+          ],
+          [
+            418.83119999999997,
+            664.3296
+          ],
+          [
+            418.8816,
+            682.2144
+          ],
+          [
+            134.3736,
+            682.9488
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "3. At the end, Kamchab Phraya Krom made Malat and the environment is Aum Puen."
+        ],
+        "text_block_id": "127",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.9704,
+            685.5047999999999
+          ],
+          [
+            420.66,
+            684.7704
+          ],
+          [
+            420.7032,
+            701.2008
+          ],
+          [
+            134.0136,
+            701.928
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Madta 32 Sit and Page 29 Waka Cha A Jab Phraya Krom Tam Mahad and Liaw Dok Lom"
+        ],
+        "text_block_id": "128",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            74.1096,
+            715.4352
+          ],
+          [
+            425.0376,
+            715.068
+          ],
+          [
+            425.0592,
+            732.5927999999999
+          ],
+          [
+            74.12400000000001,
+            732.9528
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "Rayong caught Phraya Krom making Malad and ordered Add to surround Misid and Chama at Nuan Bi:"
+        ],
+        "text_block_id": "129",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.596,
+            733.32
+          ],
+          [
+            457.5384,
+            732.2256
+          ],
+          [
+            457.58880000000005,
+            747.9216
+          ],
+          [
+            133.6464,
+            749.0160000000001
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "8"
+        ],
+        "text_block_id": "130",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            303.8112,
+            804.8663999999999
+          ],
+          [
+            309.6504,
+            804.8663999999999
+          ],
+          [
+            309.6504,
+            813.6216
+          ],
+          [
+            303.8112,
+            813.6216
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "1. Limtha Asa and Pappung Mayobai, (Sob Yud Chasat, Bhikkhamai and Labruptam Bhathaaphai Raab Pathom Paeng and Fa Aphaad. Sachemi to organize Kuyam Pijalama;"
+        ],
+        "text_block_id": "131",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            107.97120000000001,
+            73.84320000000001
+          ],
+          [
+            546.9984,
+            72.5832
+          ],
+          [
+            547.1064,
+            111.53519999999999
+          ],
+          [
+            108.08640000000001,
+            112.788
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "2. Pubchayayampamyukkhasad, Bhikkhimai and Labraram Trophai Aphavampham Pathompaeng. Timfa aphad used under the name &quot;I am ram, mewam, thōkalamlaud and saṭṭapatikat;"
+        ],
+        "text_block_id": "132",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            107.316,
+            119.0304
+          ],
+          [
+            546.2712,
+            118.584
+          ],
+          [
+            546.3072,
+            156.5064
+          ],
+          [
+            107.352,
+            156.96
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "3. Thosaba, propagating, &quot;I pay my respects, Bhikkhus, and Labaram, waiting to receive the first Ramayana.&quot; Preakkimfa Arphad Certificate 29B (2 roads at Apa Khet;"
+        ],
+        "text_block_id": "133",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.54560000000001,
+            162.5112
+          ],
+          [
+            545.5368,
+            161.6328
+          ],
+          [
+            545.616,
+            200.2464
+          ],
+          [
+            106.62480000000001,
+            201.1248
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "4. Follow the path of the subtle plucking, serpents, twisting of the leaves and sucking the ten rays of the Rama Pathom Pa Dib Fa Apaka;"
+        ],
+        "text_block_id": "134",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.0128,
+            206.4816
+          ],
+          [
+            546.2496,
+            203.53680000000003
+          ],
+          [
+            546.5016,
+            240.8904
+          ],
+          [
+            106.2576,
+            243.83520000000001
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "5. Khao La Bibs Mup 2 Chor Sam, Lam Thod, Pham Lim Tha Ao Jai, Keb Pham, Sachom Yal Mub and Tangsang Patibad Orpawam Ram Pathom Phrae Kim Fa Harak;"
+        ],
+        "text_block_id": "135",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            105.16319999999999,
+            243.83520000000001
+          ],
+          [
+            544.8095999999999,
+            243.83520000000001
+          ],
+          [
+            544.8095999999999,
+            283.61519999999996
+          ],
+          [
+            105.16319999999999,
+            283.61519999999996
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "6. Follow Thodrachaamsangsapatikad Orphamrampathompaewdibfahvarad Leaves 29 baht (2 Thothapathet;"
+        ],
+        "text_block_id": "136",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            141.6816,
+            288.0
+          ],
+          [
+            543.7296,
+            288.36719999999997
+          ],
+          [
+            543.7152,
+            305.88480000000004
+          ],
+          [
+            141.6672,
+            305.51759999999996
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "7. Sapemijo made a sip of Lan Tik Ling, command, Tham Ma Ma and &quot;Ja Ram 2912 Zaab Ram To Wipham Pickra Thong Thim&quot; that abducted with monks;"
+        ],
+        "text_block_id": "137",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.0904,
+            309.8664
+          ],
+          [
+            544.0968,
+            310.26239999999996
+          ],
+          [
+            544.0608,
+            348.4872
+          ],
+          [
+            104.0544,
+            348.084
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "8. Chi Nam Sai Tang29]Tip The leaves set up Patibad Aorn Krabrabpathom “Padibfa Wakad;"
+        ],
+        "text_block_id": "138",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.5872,
+            351.51120000000003
+          ],
+          [
+            489.7296,
+            352.60560000000004
+          ],
+          [
+            489.672,
+            370.49039999999997
+          ],
+          [
+            140.5296,
+            369.39599999999996
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "9. Sao, Yum Lung and Gymla and Phamakwab If Brahma Pathom prepares Kim Fah Akat and Khao Thiam Ai gives Mae Tuphapha Som Bai Sua Kim joins and Pakob Sop Bai Raab Thee Obthai Aotkram Tao Tao;"
+        ],
+        "text_block_id": "139",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.2696,
+            374.5728
+          ],
+          [
+            543.7152,
+            373.7808
+          ],
+          [
+            543.7872,
+            413.09999999999997
+          ],
+          [
+            103.3416,
+            413.892
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "10. Pa Samib Thib with Kradong, Rikampi in the local language and View of the Pham Im at Ro Lai Bai Ram Established Patikad Arbhavam29]Tib;"
+        ],
+        "text_block_id": "140",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.7016,
+            417.5784
+          ],
+          [
+            543.7152,
+            417.5784
+          ],
+          [
+            543.7152,
+            455.544
+          ],
+          [
+            103.7016,
+            455.544
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "11. Phue Pub and joining with Tao Pa Khaod, Para Phueb, and Saphim Bai Athakram Rama Pathom Pa Dib Fa Aphaad; 12. Satub and Laiwamram arranged tickets for Patikad Aorbhavambhampathompakimphaaphad to Ladruiyam Yaupempikrati;"
+        ],
+        "text_block_id": "141",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.69359999999999,
+            460.1088
+          ],
+          [
+            542.9736,
+            457.848
+          ],
+          [
+            543.2544,
+            512.4168
+          ],
+          [
+            102.97439999999999,
+            514.6776
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "13. Satisfy and satiate those who are full. As was done by Bai Phikhkhai."
+        ],
+        "text_block_id": "142",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            138.3768,
+            518.328
+          ],
+          [
+            435.2616,
+            517.9608000000001
+          ],
+          [
+            435.2832,
+            534.024
+          ],
+          [
+            138.3912,
+            534.384
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Madta 33 Sok and Page 29] Phamaekchab tries to make malad and the environment is full."
+        ],
+        "text_block_id": "143",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            79.9704,
+            548.2584
+          ],
+          [
+            468.85679999999996,
+            548.2584
+          ],
+          [
+            468.85679999999996,
+            564.6816
+          ],
+          [
+            79.9704,
+            564.6816
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Phabae Phraya includes making malad and Cham environment [20] has rights and duties according to 29B.20 Thaam is liable 29B291 Tim Thuabby: 1. Established Pati Khat Khae Yud Thasat, Damlat. and Labraramphon and Ramapathompaekiphaarath;"
+        ],
+        "text_block_id": "144",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.81519999999999,
+            566.2152
+          ],
+          [
+            542.2248,
+            565.4088
+          ],
+          [
+            542.3256,
+            618.3288
+          ],
+          [
+            101.916,
+            619.1351999999999
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "2. Thosaba, Siaphae Phaenbyutthasat, Bhikkhamai and Labatbottam Katho and Atthakramarampathom. Paekim Fa Yarad;"
+        ],
+        "text_block_id": "145",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.324,
+            623.8152
+          ],
+          [
+            540.792,
+            623.8152
+          ],
+          [
+            540.792,
+            660.3191999999999
+          ],
+          [
+            99.324,
+            660.3191999999999
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "3.Damkeebrampamenthaamfragile, fried rice was held, made a small path, the leaves were protected, and was amulet with ten coconut milk from Pham Pathom Paedib Fa Aphak;"
+        ],
+        "text_block_id": "146",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.4096,
+            666.7343999999999
+          ],
+          [
+            541.512,
+            664.5312
+          ],
+          [
+            541.692,
+            701.1936
+          ],
+          [
+            98.58959999999999,
+            703.3896
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "4. Khao Labi Blum Mum Cha A Sam, Sam Thu Aod, Bham Lim Tha A Wi Jai, (Rab Tham, Sach Bal Mum Bhara Rab Bham Pathama Phra Dib Fah Apad Used to catch Phaya Hom to make Mahad and Sam Aet siege;"
+        ],
+        "text_block_id": "147",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.5464,
+            704.16
+          ],
+          [
+            540.432,
+            703.6848
+          ],
+          [
+            540.468,
+            742.6944000000001
+          ],
+          [
+            98.58959999999999,
+            743.1768
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "5.Follow Thodpha Phamsajakpatikad Ornphavambhampathompraekimphayarad;"
+        ],
+        "text_block_id": "148",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.1256,
+            747.9216
+          ],
+          [
+            464.1336,
+            748.2887999999999
+          ],
+          [
+            464.11199999999997,
+            764.712
+          ],
+          [
+            139.10399999999998,
+            764.3448
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "9"
+        ],
+        "text_block_id": "149",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            305.63280000000003,
+            807.4152
+          ],
+          [
+            312.2064,
+            807.4152
+          ],
+          [
+            312.2064,
+            817.272
+          ],
+          [
+            305.63280000000003,
+            817.272
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "6. Sakhemijo do tam liberate the tongues, commands, advice, and Jaaram 29]Phamakbham tu jow bhampikthayaam exactly. that was recorded with the monks;"
+        ],
+        "text_block_id": "150",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            108.1368,
+            72.9144
+          ],
+          [
+            546.2712,
+            73.84320000000001
+          ],
+          [
+            546.192,
+            112.2552
+          ],
+          [
+            108.0504,
+            111.3336
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "7. Finally, the secret picture of Phraya Krom Tamlad and the environment is completely hidden. Bai Pham arranges tickets for Patiyat. Arupavamrampathamaphaedimfahtharatha;"
+        ],
+        "text_block_id": "151",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.5384,
+            114.71039999999999
+          ],
+          [
+            546.2712,
+            113.688
+          ],
+          [
+            546.3576,
+            150.8184
+          ],
+          [
+            106.62480000000001,
+            151.848
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "8. Heel, Yum Lung, and Gymala and Pamatwam If Ramapathom &quot;Padim Fa Ya Rak&quot; and &quot;Short Thiam I&quot; are used. Mae Thumpar Sombai Sangkim Chao repair and Pakob Suambaipham Iamthai Orpwam Nuatthao;"
+        ],
+        "text_block_id": "152",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            106.22160000000001,
+            156.62879999999998
+          ],
+          [
+            545.5224,
+            156.2112
+          ],
+          [
+            545.5656,
+            195.5952
+          ],
+          [
+            106.2576,
+            196.0128
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "9. Pa Sam Sim Dip Bhai Pa Ba Ram and It Kamapiktha Armple. Baipham set up Patibadwan Wam29]Tim;"
+        ],
+        "text_block_id": "153",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.5296,
+            199.4976
+          ],
+          [
+            544.3776,
+            193.5936
+          ],
+          [
+            544.8456,
+            228.80880000000002
+          ],
+          [
+            104.99759999999999,
+            234.70559999999998
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "10. Phue Phap and Hommee Phai Tao Pathet, Phaphapum and Sarib Bai Ornphawam Rama Pathom&quot;Pa Dib Fah 9 Narat as assigned by Ram291 Lim Theng;"
+        ],
+        "text_block_id": "154",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.9896,
+            239.904
+          ],
+          [
+            543.7152,
+            238.98239999999998
+          ],
+          [
+            543.7944,
+            277.22159999999997
+          ],
+          [
+            104.0688,
+            278.14320000000004
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "11. Satub and Lai Wampham set up Patiyad Araphamrab Pathom Padi Fa Apad used to be fierce. Grilled Pepi Krati; 12. Make sik and patibadchma that are full. As has been done secretly."
+        ],
+        "text_block_id": "155",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.3416,
+            280.332
+          ],
+          [
+            542.988,
+            280.332
+          ],
+          [
+            542.988,
+            335.8152
+          ],
+          [
+            103.3416,
+            335.8152
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Mad Ta 34 Sod and Lad No. 29] Tong Kam Chap, Phraya Krom Ma Lad, and Si Add surrounded and dipped ghosts. Thong Thap Chap Phraya Krom made malad and the environment is very mid-sized and slow according to 29 baht (2 Tha Aam is liable 29 baht 29) Tim Nuts:"
+        ],
+        "text_block_id": "156",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            81.432,
+            349.6896
+          ],
+          [
+            541.8936,
+            349.6896
+          ],
+          [
+            541.8936,
+            399.6936
+          ],
+          [
+            81.432,
+            399.6936
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "1. Established Patibad Phaenmayutthanasad, Bidkhamai and Sabotabram connected with Ramapathompaekibfakaraka;"
+        ],
+        "text_block_id": "157",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            144.6048,
+            401.88239999999996
+          ],
+          [
+            541.5840000000001,
+            403.34400000000005
+          ],
+          [
+            541.5264,
+            419.7672
+          ],
+          [
+            144.54,
+            418.3128
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "2. Ngiapai, I yuddhasad, Bhikkhimai and Labrabham, kathaaphaiarabhavamramarampathompaengdimphah arphad Baitum exactly;"
+        ],
+        "text_block_id": "158",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.0872,
+            424.4328
+          ],
+          [
+            541.5552,
+            425.2464
+          ],
+          [
+            541.4832,
+            462.024
+          ],
+          [
+            100.0224,
+            461.2176
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "3. Let&#39;s fix the fragility of the Ram, make the bread pan, make the choice between the Ram Pang Pham and Thuk Phrom Pim Ka Thib Jarararam Pathom Paedib Fa Aphak;"
+        ],
+        "text_block_id": "159",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.25200000000001,
+            465.9048
+          ],
+          [
+            542.6064,
+            464.40000000000003
+          ],
+          [
+            542.736,
+            502.5816
+          ],
+          [
+            99.3816,
+            504.0936
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "4. Save it, save it, save it, save it, save it, save it, save it. Use mixed Phamaekchaphaya to make makhat and hormonal segments;"
+        ],
+        "text_block_id": "160",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.9568,
+            505.1808
+          ],
+          [
+            540.0648,
+            505.1808
+          ],
+          [
+            540.0648,
+            543.5136
+          ],
+          [
+            98.9568,
+            543.5136
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "5. Follow Thodpa Pham to arrange a ticket for Patipad Orapham Pham Pathom &quot;Padibfa Wakad;"
+        ],
+        "text_block_id": "161",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.5872,
+            547.8912
+          ],
+          [
+            471.41279999999995,
+            547.8912
+          ],
+          [
+            471.41279999999995,
+            566.1432
+          ],
+          [
+            140.5872,
+            566.1432
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "6. Bae Bam and Atyu Rikampira Kham Bai Raab Settapattikha Oraphampham Pathom Paedibfa Yaphad;"
+        ],
+        "text_block_id": "162",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.9768,
+            569.6424
+          ],
+          [
+            538.7544,
+            552.5495999999999
+          ],
+          [
+            540.0576,
+            586.1880000000001
+          ],
+          [
+            98.28,
+            603.2808
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "7. Pat Samsibtiib with the Ram&#39;s stomach and It Kampi Kritkham. Baipham set up Patikat Worakram29]Tip;"
+        ],
+        "text_block_id": "163",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.4928,
+            608.1192
+          ],
+          [
+            537.5088,
+            608.1192
+          ],
+          [
+            537.5088,
+            626.3712
+          ],
+          [
+            139.4928,
+            626.3712
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "8. Satub and Laiwamram set up Patibad Araphabtam Pathom Padi Fa Arphad, used Phameklap, Phayakrom to make malad, and environment, Chen Mai, Tor Cha Thet Sabam. , Chao Mathob, Grandma, this is a burden year;"
+        ],
+        "text_block_id": "164",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.6376,
+            628.6032
+          ],
+          [
+            538.956,
+            628.1928
+          ],
+          [
+            538.9848,
+            663.9552
+          ],
+          [
+            95.6736,
+            664.3656
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "9. Come give Sod and Patibad Ma who is full. As has been done to twist Ai Bai Phikhkhai."
+        ],
+        "text_block_id": "165",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            138.3696,
+            666.1584
+          ],
+          [
+            430.1496,
+            665.7912
+          ],
+          [
+            430.1712,
+            682.2144
+          ],
+          [
+            138.3912,
+            682.5816
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Madata 35 Sod and Page 29 Narā2 Arāsita and Forest"
+        ],
+        "text_block_id": "166",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            74.12400000000001,
+            696.456
+          ],
+          [
+            323.91360000000003,
+            696.816
+          ],
+          [
+            323.892,
+            713.6063999999999
+          ],
+          [
+            74.10239999999999,
+            713.2464
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Rāraṣṭaṃ and forest mitid and slow at nutban:"
+        ],
+        "text_block_id": "167",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.9848,
+            713.9736
+          ],
+          [
+            353.10240000000005,
+            713.6063999999999
+          ],
+          [
+            353.13120000000004,
+            730.0368
+          ],
+          [
+            134.0136,
+            730.3968
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "1. Lem Sam Aornbhavambhamapathamaphaedibfaaaphadlaobaiorapham29]tip;"
+        ],
+        "text_block_id": "168",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.3736,
+            730.3968
+          ],
+          [
+            450.96479999999997,
+            730.3968
+          ],
+          [
+            450.96479999999997,
+            747.5544
+          ],
+          [
+            134.3736,
+            747.5544
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "2. Sipasa Lim if Ram makes and Phatchama Thoma Pub Wrong, Pub Sak and Rampami], Luk U and Send Tem Pham to Tek Bolodi at Pemmik and Si Add Lom, Pha Jasmine and forest can make a difference."
+        ],
+        "text_block_id": "169",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.2408,
+            748.9512000000001
+          ],
+          [
+            538.632,
+            749.6856
+          ],
+          [
+            538.5744,
+            785.1528
+          ],
+          [
+            94.1832,
+            784.4256
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "10"
+        ],
+        "text_block_id": "170",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            300.1608,
+            807.0552
+          ],
+          [
+            312.6456,
+            806.6880000000001
+          ],
+          [
+            312.9408,
+            816.5448
+          ],
+          [
+            300.4488,
+            816.912
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "(Water and sap Pham Pathom, Phrae Dip Fa Wakad Lom Hua Ram Sao Thong Lao Phum Ruam Use it without withdrawing the text. Pathom Pae Dib Fah Arphad, Pae Matip, Rap Sao Chab, Moo Kam Ma, Patu Nam, Duang Labai Nam;"
+        ],
+        "text_block_id": "171",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.71520000000001,
+            70.5312
+          ],
+          [
+            542.9016,
+            70.164
+          ],
+          [
+            542.9304,
+            105.61680000000001
+          ],
+          [
+            102.744,
+            105.984
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "3. Kumara and make the saru have Uttarased to insert, (with corner pipes, white cabbage pad Jaiyut Miyim that coconut milk is put on the graft will make the nails grow29] Wrong, Bhamlabad29 ]Sak Tu Wah, Tim Mai, Sad and Rama Pathom Pae]29] Dim;"
+        ],
+        "text_block_id": "172",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.00240000000001,
+            105.2496
+          ],
+          [
+            542.1744,
+            105.2496
+          ],
+          [
+            542.1744,
+            156.78000000000003
+          ],
+          [
+            102.00240000000001,
+            156.78000000000003
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "4. Do it very tight, Taramud, atrophy, Mahad Yai, smooth, correcting the problem. From the plain of Pathom Pae Pao Khamai, Ram made the land of Kasi&#39;s hairpin and the forest land to be dense. do;"
+        ],
+        "text_block_id": "173",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.4472,
+            158.31359999999998
+          ],
+          [
+            541.4112,
+            157.5072
+          ],
+          [
+            541.4976,
+            207.288
+          ],
+          [
+            100.5408,
+            208.0944
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "5. Sachmaral Mubphon Abhairam Pathom Paedip Fa Harachad that is attached to the Azabaramtib, using Rayong Chap, Payarom, Malad and Siwa Dod Lom;"
+        ],
+        "text_block_id": "174",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.7344,
+            208.74960000000002
+          ],
+          [
+            540.3384,
+            207.83520000000001
+          ],
+          [
+            540.4104,
+            242.4744
+          ],
+          [
+            99.80640000000001,
+            243.3888
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "6. Make your face full and fill it up. As has been done by Bai Phidkhai."
+        ],
+        "text_block_id": "175",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            137.0736,
+            243.3888
+          ],
+          [
+            426.64320000000004,
+            243.0288
+          ],
+          [
+            426.6648,
+            259.8336
+          ],
+          [
+            137.0952,
+            260.2008
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Maadta 36 Sid and Khama 2, Aka, two children, Sakhatha and Phamha"
+        ],
+        "text_block_id": "176",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.84639999999999,
+            274.4568
+          ],
+          [
+            348.408,
+            274.0896
+          ],
+          [
+            348.4296,
+            290.1672
+          ],
+          [
+            77.868,
+            290.5344
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Rāyūdasādaṃ and bhaṭha bilit and khaṭi nutmee:"
+        ],
+        "text_block_id": "177",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            136.2672,
+            291.99600000000004
+          ],
+          [
+            379.4832,
+            290.5344
+          ],
+          [
+            379.584,
+            306.61199999999997
+          ],
+          [
+            136.368,
+            308.07360000000006
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "1. Iam Sam Aornbhavam Rama Pathom changes Dib Fa Abhatha into Bai Ora Bhavam29]Tip;"
+        ],
+        "text_block_id": "178",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            137.0952,
+            308.4408
+          ],
+          [
+            451.13759999999996,
+            308.4408
+          ],
+          [
+            451.13759999999996,
+            324.5184
+          ],
+          [
+            137.0952,
+            324.5184
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "2. Sitsalim Tha A and Luk Yu encourage you to drive the toy often. Thu Lakot and Uda branch make Tek Mo. Low-cut, environmentally friendly look. In order to be worried about being sick with Dryriam, Sao Thong said that Pim asked Rudd Sa Cha, causing Mika to ask how often Ram Pathom Pa Dib Fa Arad;"
+        ],
+        "text_block_id": "179",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.04239999999999,
+            324.8208
+          ],
+          [
+            540.036,
+            325.62
+          ],
+          [
+            539.9496,
+            376.4448
+          ],
+          [
+            97.9488,
+            375.6456
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "3. Sachom Aat, Mum Kor Phai Pham Pathom Peru, Kim Fa Warad that is attached to Cha Sae Baram Tim, using Ranong, Chup Phaya Krom, making Malat and the environment;"
+        ],
+        "text_block_id": "180",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.3216,
+            376.272
+          ],
+          [
+            538.1351999999999,
+            373.752
+          ],
+          [
+            538.3367999999999,
+            408.25440000000003
+          ],
+          [
+            96.516,
+            410.7672
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "4. Bring it until it&#39;s cooked and stir until it&#39;s full. As he had done, the evil bastard."
+        ],
+        "text_block_id": "181",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.88479999999998,
+            410.40000000000003
+          ],
+          [
+            425.916,
+            410.04
+          ],
+          [
+            425.9376,
+            426.11760000000004
+          ],
+          [
+            134.9064,
+            426.4848
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Makta 37 Sid and Khama II Aradong Phaluwam and Phanra"
+        ],
+        "text_block_id": "182",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            74.9232,
+            440.0064
+          ],
+          [
+            327.204,
+            439.63919999999996
+          ],
+          [
+            327.22560000000004,
+            456.8112
+          ],
+          [
+            74.9448,
+            457.1784
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Rasua balangwam and banth mitid and nathan nutbi:"
+        ],
+        "text_block_id": "183",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.172,
+            458.27279999999996
+          ],
+          [
+            352.7928,
+            456.8112
+          ],
+          [
+            352.9008,
+            472.89599999999996
+          ],
+          [
+            134.28,
+            474.35760000000005
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "1. Decreasing the three forms of the first image and the sky Apha Lao Bai Oraphawam29]tip;"
+        ],
+        "text_block_id": "184",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.2664,
+            473.6232
+          ],
+          [
+            450.4104,
+            473.6232
+          ],
+          [
+            450.4104,
+            491.16959999999995
+          ],
+          [
+            135.2664,
+            491.16959999999995
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "2. Sidsālimthaa and Avumādattakhaṃ Bhampadakamathōlaaṃphimkhaṃpalangwam handle and baṭa are used to bide offerings to low Rampathompakimphāyarad. ;"
+        ],
+        "text_block_id": "185",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.88319999999999,
+            490.8024
+          ],
+          [
+            537.7823999999999,
+            490.8024
+          ],
+          [
+            537.7823999999999,
+            528.444
+          ],
+          [
+            96.88319999999999,
+            528.444
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "3. Padthama, Chuk who sends Sempham Pad Khamantu tha Palawam Thit Khaem and Rambamhai Tekbololithi. Environmentally friendly backpack to be atrophied, sick, lack of glass;"
+        ],
+        "text_block_id": "186",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.0544,
+            531.7344
+          ],
+          [
+            538.5168,
+            531.7344
+          ],
+          [
+            538.5168,
+            570.1032
+          ],
+          [
+            95.0544,
+            570.1032
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "4. Sachbra&#39;s Moob Phor and &quot;I&#39;m Ram Khum Thawa grilling and collecting water from the leaves and electric kim tik&quot; Follow this, Mubram. Pathom Pae Kim Fa Ya Rad The folding cutter with Chakhaem Ramatim Use Ka Au Chap Phaya to make malad and the environment;"
+        ],
+        "text_block_id": "187",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.6296,
+            568.6416
+          ],
+          [
+            537.0552,
+            567.9144
+          ],
+          [
+            537.1128,
+            601.5312
+          ],
+          [
+            94.68719999999999,
+            602.2656000000001
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "5. Make it delicious and fill it with food that is full. As was done by Bai Phikhkhai."
+        ],
+        "text_block_id": "188",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            132.3072,
+            602.6328
+          ],
+          [
+            423.71999999999997,
+            601.8984
+          ],
+          [
+            423.7632,
+            617.616
+          ],
+          [
+            132.3432,
+            618.3432
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Madata 38 Sok and Page 29 Naga 2 Ayothathiram and Chimthing"
+        ],
+        "text_block_id": "189",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            71.97840000000001,
+            632.9592
+          ],
+          [
+            343.65599999999995,
+            632.2320000000001
+          ],
+          [
+            343.6992,
+            648.3096
+          ],
+          [
+            72.02159999999999,
+            649.044
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Rahayotādiram and sip things, mitid and slow that nuts have:"
+        ],
+        "text_block_id": "190",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            131.5656,
+            649.7711999999999
+          ],
+          [
+            375.4152,
+            649.044
+          ],
+          [
+            375.4656,
+            665.1216
+          ],
+          [
+            131.616,
+            665.856
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "1. Iamsamarapavampampathamapraedibfahapadlekbaiorapham29]tim;"
+        ],
+        "text_block_id": "191",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            132.3432,
+            666.216
+          ],
+          [
+            448.9488,
+            666.216
+          ],
+          [
+            448.9488,
+            683.3952
+          ],
+          [
+            132.3432,
+            683.3952
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "2. Sidsālīm grabbed and Avmaṭṭa asked Bhāmapadchamaṭho, asking if Mayodādīram and Bhām had taken away things, let him not be disrespectful. ◌The day you spread out, let the tekbololit be low. Environment, Chao Bai Arapamayothiram, Chib Thing and Pham Pad Chamatot open. For all to suffer from atrophy Grandma Riam Thao;"
+        ],
+        "text_block_id": "192",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            92.1744,
+            683.3592
+          ],
+          [
+            537.4656,
+            683.7624000000001
+          ],
+          [
+            537.408,
+            750.9744
+          ],
+          [
+            92.11680000000001,
+            750.5712
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "3. Sacharas, Mum, Korpaipham, Pathom, Preak, Kimphayakad. that is attached to the Akhaemararam, often used in feuds Chap Phraya Krom made Malad and Shake Adom Lom;"
+        ],
+        "text_block_id": "193",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.6992,
+            751.0752
+          ],
+          [
+            535.9536,
+            750.2328
+          ],
+          [
+            536.0184,
+            784.152
+          ],
+          [
+            91.764,
+            784.9872
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "11"
+        ],
+        "text_block_id": "194",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            297.9576,
+            808.7472
+          ],
+          [
+            308.988,
+            808.3799999999999
+          ],
+          [
+            309.2904,
+            817.5168
+          ],
+          [
+            298.26,
+            817.884
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "4. Bring it to the sik and put it on the face that is full. As has been done by Bai Phidkhai."
+        ],
+        "text_block_id": "195",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            141.4872,
+            67.2408
+          ],
+          [
+            429.9336,
+            67.2408
+          ],
+          [
+            429.9336,
+            84.7872
+          ],
+          [
+            141.4872,
+            84.7872
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Madta 39 Sod and Page 29] Ka2 Athaengwam and Sachaadd Tamsangkim"
+        ],
+        "text_block_id": "196",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            82.3176,
+            97.5744
+          ],
+          [
+            393.0696,
+            98.6688
+          ],
+          [
+            393.012,
+            116.21520000000001
+          ],
+          [
+            82.26,
+            115.1136
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Rahāṇṭhāvam and sādaṭṭhāraṃ sangkim mīdīd and ṇā nutbai:"
+        ],
+        "text_block_id": "197",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.7528,
+            117.6768
+          ],
+          [
+            417.5064,
+            115.848
+          ],
+          [
+            417.61440000000005,
+            131.9256
+          ],
+          [
+            140.86079999999998,
+            133.7544
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "1. Surrounded by three Aornbhavam Ram Pathom Paedib Fa Apha Tao Bai Ornkrab29]Tip;"
+        ],
+        "text_block_id": "198",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            141.8472,
+            133.3872
+          ],
+          [
+            454.068,
+            133.3872
+          ],
+          [
+            454.068,
+            150.93359999999998
+          ],
+          [
+            141.8472,
+            150.93359999999998
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "2. White sash and low frame with bibtum corners. with Labibsmoom, Ao Sam, Phu Ro and Rampathom Praekim Fa Akat. 29] Ka of Chap Phraya Krom Tamlad and Lamwirom;"
+        ],
+        "text_block_id": "199",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.12559999999999,
+            150.5016
+          ],
+          [
+            542.9376,
+            151.2432
+          ],
+          [
+            542.88,
+            185.292
+          ],
+          [
+            103.068,
+            184.55040000000002
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "3. Exchange Pathommum 2 or Asam with Chakhaemaram, starting at a downward spiral;"
+        ],
+        "text_block_id": "200",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.0184,
+            185.2848
+          ],
+          [
+            394.1064,
+            185.2848
+          ],
+          [
+            394.1064,
+            201.7296
+          ],
+          [
+            140.0184,
+            201.7296
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "4. Make you feel full and feel full. As has been done by Bai Phod Khmai."
+        ],
+        "text_block_id": "201",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.0184,
+            201.7296
+          ],
+          [
+            427.7448,
+            201.7296
+          ],
+          [
+            427.7448,
+            218.1744
+          ],
+          [
+            140.0184,
+            218.1744
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Makta 40 Sid and I 29] Ka 2 Ajthayasad and Tekbolojam"
+        ],
+        "text_block_id": "202",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            80.06400000000001,
+            223.29360000000003
+          ],
+          [
+            370.3464,
+            223.29360000000003
+          ],
+          [
+            370.3464,
+            240.8328
+          ],
+          [
+            80.06400000000001,
+            240.8328
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Rayong Ithayasad and Tek Mololi Midid and Na Nua Mee:"
+        ],
+        "text_block_id": "203",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.2696,
+            240.8328
+          ],
+          [
+            400.6872,
+            240.4656
+          ],
+          [
+            400.7088,
+            257.2776
+          ],
+          [
+            139.2912,
+            257.6448
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "1. Surrounded by the three Aornbhavambhaam Pathom Paeng Dib Fa Apak Chao Bai Arukam29]Tim;"
+        ],
+        "text_block_id": "204",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.6584,
+            257.6448
+          ],
+          [
+            452.2536,
+            258.012
+          ],
+          [
+            452.23920000000004,
+            275.5512
+          ],
+          [
+            139.6368,
+            275.184
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "2. Sipasāliṃkaṃ, padthāmā, udyuṃ things of great beauty, rampadchāmāmaaddā redo,"
+        ],
+        "text_block_id": "205",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            139.2912,
+            275.91839999999996
+          ],
+          [
+            540.3456,
+            278.1072
+          ],
+          [
+            540.2376,
+            297.108
+          ],
+          [
+            139.1832,
+            294.9192
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Phalakamaaapai, Phalangwam chooses that are friendly to the environment. To speak of being depressed if you lack income. Really good;"
+        ],
+        "text_block_id": "206",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.5408,
+            298.2096
+          ],
+          [
+            542.5344,
+            298.2096
+          ],
+          [
+            542.5344,
+            334.7568
+          ],
+          [
+            100.5408,
+            334.7568
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "3. Sachabra points out that Mum Phu is waiting to receive Pham Pathom Pae Dib Fa Akad. that is attached to the fold with Lasebaram 29]Tip uses Ralong Chappayapharam to make malad and the environment;"
+        ],
+        "text_block_id": "207",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            98.93520000000001,
+            336.00239999999997
+          ],
+          [
+            539.9712,
+            334.2384
+          ],
+          [
+            540.108,
+            368.4384
+          ],
+          [
+            99.07199999999999,
+            370.2024
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "4. Let the jok and Pati Khad Khao be full. According to what has been done."
+        ],
+        "text_block_id": "208",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.9792,
+            369.468
+          ],
+          [
+            429.9336,
+            369.108
+          ],
+          [
+            429.9552,
+            385.1856
+          ],
+          [
+            136.0008,
+            385.5528
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Makta 41 Jad and I 29] Ka Song Tha Tae] Chaa Aadhamadham and Ya Tao"
+        ],
+        "text_block_id": "209",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.508,
+            400.536
+          ],
+          [
+            413.5032,
+            400.9032
+          ],
+          [
+            413.4816,
+            416.98080000000004
+          ],
+          [
+            77.4864,
+            416.61359999999996
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Raṭakaṭaṃchaa wattamathaṃ and thātro misid and duty nuts have:"
+        ],
+        "text_block_id": "210",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.9432,
+            417.70799999999997
+          ],
+          [
+            446.38559999999995,
+            416.61359999999996
+          ],
+          [
+            446.4432,
+            432.6912
+          ],
+          [
+            136.0008,
+            433.7928
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "1. Surrounded by three Ornbhavaram Ramapathomprae and Fa Apha. CoopbaiOrpawam29]Tim;"
+        ],
+        "text_block_id": "211",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            136.728,
+            434.15279999999996
+          ],
+          [
+            455.5296,
+            434.15279999999996
+          ],
+          [
+            455.5296,
+            450.23760000000004
+          ],
+          [
+            136.728,
+            450.23760000000004
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "2. Tia Phaen, Mum, La-A-Sam, Korphai Pham, Pathom Pae, Kim Fa Aphad. Through the sibsib chim by pa sib tiib and shahamaram that spun around;"
+        ],
+        "text_block_id": "212",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.912,
+            450.1656
+          ],
+          [
+            539.28,
+            450.96479999999997
+          ],
+          [
+            539.2152,
+            484.7688
+          ],
+          [
+            96.8544,
+            483.9696
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "3. Sachab 912, corner of Araphai Ram Pathom “Pa Dib Fa Arphad that is attached to the Ahamaram, using the feud, Chui, Phraya Krom Tamalad and the environment;"
+        ],
+        "text_block_id": "213",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.02640000000001,
+            484.3656
+          ],
+          [
+            538.1424,
+            482.72400000000005
+          ],
+          [
+            538.272,
+            516.9312
+          ],
+          [
+            96.1488,
+            518.5728
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "4. Treat Sik and treat it slowly when it begins. As has been done to twist Ai Bai Phod Khmai."
+        ],
+        "text_block_id": "214",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.8048,
+            518.2128
+          ],
+          [
+            425.5488,
+            518.2128
+          ],
+          [
+            425.5488,
+            534.2904
+          ],
+          [
+            133.8048,
+            534.2904
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Makta 42 Sod and Lad 29] Kadong Siksarat and Pil."
+        ],
+        "text_block_id": "215",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            74.5776,
+            548.1792
+          ],
+          [
+            339.2928,
+            548.5391999999999
+          ],
+          [
+            339.2712,
+            564.624
+          ],
+          [
+            74.55600000000001,
+            564.2568
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Raṣasirasādiram and bhala milit and duty nuts have:"
+        ],
+        "text_block_id": "216",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.7544,
+            566.0856
+          ],
+          [
+            370.3464,
+            565.3512000000001
+          ],
+          [
+            370.3968,
+            581.436
+          ],
+          [
+            133.8048,
+            582.1632
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "1. Iam Sam Onpharam Rama Pathom Pae and Fa Aphaad Chao Bai Orkwam29]Tim;"
+        ],
+        "text_block_id": "217",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            134.172,
+            582.5304
+          ],
+          [
+            454.4496,
+            582.8976
+          ],
+          [
+            454.428,
+            599.7024
+          ],
+          [
+            134.1504,
+            599.3424
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "2. Tom Tha A and Khao Hak Sud Ramsitsa Ka Rup Ram Pathom Pae Kim Fa Arphat By Pa Sam Sim Thib with Chachae Maram at Phu Roy91;"
+        ],
+        "text_block_id": "218",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.68719999999999,
+            599.3424
+          ],
+          [
+            537.0552,
+            599.3424
+          ],
+          [
+            537.0552,
+            632.5992
+          ],
+          [
+            94.68719999999999,
+            632.5992
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "3. Make your face feel fresh and polish your face. According to what has been done to Bai Phitchamai."
+        ],
+        "text_block_id": "219",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            131.976,
+            632.9592
+          ],
+          [
+            424.08720000000005,
+            632.9592
+          ],
+          [
+            424.08720000000005,
+            650.1384
+          ],
+          [
+            131.976,
+            650.1384
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Makta 43 Sit and Chaat 29 Waka two branches Lamasupa"
+        ],
+        "text_block_id": "220",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            72.756,
+            663.2928
+          ],
+          [
+            303.12719999999996,
+            664.0272
+          ],
+          [
+            303.0768,
+            680.472
+          ],
+          [
+            72.6984,
+            679.7375999999999
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Rahu Volunteer Talama Subha Midid and Thang Mi Duties:"
+        ],
+        "text_block_id": "221",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            131.49360000000001,
+            681.9336
+          ],
+          [
+            332.568,
+            680.472
+          ],
+          [
+            332.6904,
+            696.5496
+          ],
+          [
+            131.616,
+            698.0111999999999
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "1. Surrounded by Sam Onphawam Ram Pathom Paedib Fa Yaphad Chao Bai Onpawam29]Tip;"
+        ],
+        "text_block_id": "222",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            132.7104,
+            698.3784
+          ],
+          [
+            453.7008,
+            698.3784
+          ],
+          [
+            453.7008,
+            714.456
+          ],
+          [
+            132.7104,
+            714.456
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "2. Sitsalim Tha A, Pham Phla Labad 2 A Phayaad Tum Phum Dib At Mithaam, fragile, tee, danger, Ramapathom for a while."
+        ],
+        "text_block_id": "223",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            130.8816,
+            717.0192000000001
+          ],
+          [
+            535.9896,
+            717.7464
+          ],
+          [
+            535.9536,
+            734.1912000000001
+          ],
+          [
+            130.8528,
+            733.4639999999999
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "Dibfa Yaphad, Sajok Sambigphon and Sampuplat Ao Ram Pathom Praekim Fa Akhat and Suraphap;"
+        ],
+        "text_block_id": "224",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.764,
+            737.8488
+          ],
+          [
+            527.2272,
+            738.9431999999999
+          ],
+          [
+            527.184,
+            756.4824
+          ],
+          [
+            91.7208,
+            755.388
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "12"
+        ],
+        "text_block_id": "225",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            298.3248,
+            804.7224
+          ],
+          [
+            310.0248,
+            804.7224
+          ],
+          [
+            310.0248,
+            814.5936
+          ],
+          [
+            298.3248,
+            814.5936
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "3. View the work at Mumthabhaiphampathompadifaarphad that is attached to the fold of Chachae Maram 29] Tim, give ra, ask for arab Phraya around making malad and the environment;"
+        ],
+        "text_block_id": "226",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            102.4848,
+            67.6872
+          ],
+          [
+            549.0432000000001,
+            67.6872
+          ],
+          [
+            549.0432000000001,
+            101.71440000000001
+          ],
+          [
+            102.4848,
+            101.71440000000001
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "4. Treat Sikhs and polish your duties at the beginning. As has been done by Bai Phidkhai."
+        ],
+        "text_block_id": "227",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            140.1912,
+            101.71440000000001
+          ],
+          [
+            429.73920000000004,
+            102.0816
+          ],
+          [
+            429.7176,
+            118.9152
+          ],
+          [
+            140.1696,
+            118.548
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Madata 44 sit and page 29] Chasemararamrib and Itpampikritsa Thongthim"
+        ],
+        "text_block_id": "228",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            80.1576,
+            132.8184
+          ],
+          [
+            405.2088,
+            133.18560000000002
+          ],
+          [
+            405.1944,
+            149.2848
+          ],
+          [
+            80.1432,
+            148.9176
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Akhaemaramim and Ivarampikrathaitim Misit and duties of Bai Thampa thirty tibs and using Phamrommi and Cha Chaeb Chapphaya round to make Mahad and Si Aad Lom Bai Pham. Khumtha], follow Thodra and organize tickets to Patibad Orrampham Pathom Paedip Fa Yarad (Pattip Rampaitue joins Phampathom Paenggibfah in the region, Ram Sao Thong La The ground asked. Let Mid Atim follow the texts of the Pathama Padib Fah Yābhātha, Bham Sud Phrom is torn. Thiam is true. Follow the Pala twist. 29] Tim. that has twisted the bai tik khai."
+        ],
+        "text_block_id": "229",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            99.7632,
+            149.54399999999998
+          ],
+          [
+            545.7528,
+            150.732
+          ],
+          [
+            545.508,
+            240.8472
+          ],
+          [
+            99.51840000000001,
+            239.652
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Madta 45, when Bai Ram fries"
+        ],
+        "text_block_id": "230",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.9616,
+            253.1952
+          ],
+          [
+            214.1712,
+            253.55519999999999
+          ],
+          [
+            214.12800000000001,
+            269.6544
+          ],
+          [
+            77.9184,
+            269.2944
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Pham Thod Pha Arbhavam Rama Pathom Paew Dib Fa Arath Bi When Bai Nua Mee:"
+        ],
+        "text_block_id": "231",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            136.5048,
+            271.8504
+          ],
+          [
+            413.5896,
+            271.4832
+          ],
+          [
+            413.6112,
+            288.31680000000006
+          ],
+          [
+            136.5264,
+            288.684
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "1. Bhāmapatiyadmayobhai, Bhitchamai and Labaram Phutthaabhaiarabhavabrampathamapaevudimfa aphad;"
+        ],
+        "text_block_id": "232",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            97.2576,
+            291.2904
+          ],
+          [
+            541.4328,
+            274.5504
+          ],
+          [
+            542.6928,
+            308.052
+          ],
+          [
+            98.5248,
+            324.79200000000003
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "2. Phamnuang and Ramlueamkhao 2919 New Kama established Patibad Orararam Rama Pathom Paewakimfa Akad;"
+        ],
+        "text_block_id": "233",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.432,
+            328.5648
+          ],
+          [
+            540.36,
+            330.76079999999996
+          ],
+          [
+            540.2592,
+            349.7832
+          ],
+          [
+            135.32399999999998,
+            347.58720000000005
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "3. If you accept 29 baht of guilt, wrongdoing, and like &quot;I&#39;m sorry, I&#39;m sorry, I&#39;m sorry, I&#39;m sorry, I&#39;m sorry.&quot; Pathom Pae Kim Fa Ya Rad."
+        ],
+        "text_block_id": "234",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            96.1344,
+            351.75600000000003
+          ],
+          [
+            539.8848,
+            350.1648
+          ],
+          [
+            540.0144,
+            386.25120000000004
+          ],
+          [
+            96.264,
+            387.8352
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Madata 46 Thubraphap Thodara"
+        ],
+        "text_block_id": "235",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            75.0384,
+            402.10560000000004
+          ],
+          [
+            214.12800000000001,
+            402.10560000000004
+          ],
+          [
+            214.12800000000001,
+            417.4776
+          ],
+          [
+            75.0384,
+            417.4776
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Ramadodra aruphavampampathamaphaedibfaaapatha mesathupram nutban:"
+        ],
+        "text_block_id": "236",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            133.6032,
+            418.2048
+          ],
+          [
+            438.1344,
+            418.2048
+          ],
+          [
+            438.1344,
+            434.304
+          ],
+          [
+            133.6032,
+            434.304
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "1. Bham doddrā according to the pikrāti of the mother. Bhāma doddrā according to the plan of the Ram grilled on a regular basis and bidabid when accepting the mother;"
+        ],
+        "text_block_id": "237",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            95.9616,
+            434.5344
+          ],
+          [
+            538.8552,
+            436.13280000000003
+          ],
+          [
+            538.74,
+            468.79200000000003
+          ],
+          [
+            95.83919999999999,
+            467.1936
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "2. Pham Thodpha by Mipham let me know. Mother, Ram Thodpha Mok &quot;I When entering the house, it is necessary, by informing the target of the secretariat;"
+        ],
+        "text_block_id": "238",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.85999999999999,
+            468.9288
+          ],
+          [
+            538.1136,
+            470.5272
+          ],
+          [
+            537.9984,
+            503.064
+          ],
+          [
+            94.7448,
+            501.4656
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "3. Bham dodbha by Ratamthap, Maem, Bham dodbha by Thibodom. The rider informed the target, Tik Thodpa, of the horse&#39;s danger."
+        ],
+        "text_block_id": "239",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            93.70079999999999,
+            503.0928
+          ],
+          [
+            536.6016,
+            503.0928
+          ],
+          [
+            536.6016,
+            536.0255999999999
+          ],
+          [
+            93.70079999999999,
+            536.0255999999999
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Bhāma thodbhā uses black needles to imprison the three bhākras and bhāmapati kaddī chamyu sakhā that pāti interrupts."
+        ],
+        "text_block_id": "240",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            131.04,
+            537.4872
+          ],
+          [
+            527.4792,
+            538.2144
+          ],
+          [
+            527.4504000000001,
+            555.4152
+          ],
+          [
+            131.004,
+            554.6808
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Mist 10"
+        ],
+        "text_block_id": "241",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            278.1792,
+            568.9512
+          ],
+          [
+            328.6944,
+            568.9512
+          ],
+          [
+            328.6944,
+            582.4872
+          ],
+          [
+            278.1792,
+            582.4872
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "A low-ranking person who has ten qualities and a very low-ranking person who transgresses."
+        ],
+        "text_block_id": "242",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            193.9968,
+            584.6831999999999
+          ],
+          [
+            413.24399999999997,
+            584.6831999999999
+          ],
+          [
+            413.24399999999997,
+            601.5168
+          ],
+          [
+            193.9968,
+            601.5168
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Makta 47 low policy, poor person"
+        ],
+        "text_block_id": "243",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            71.6976,
+            614.3184
+          ],
+          [
+            219.9816,
+            613.9584
+          ],
+          [
+            220.0248,
+            630.7847999999999
+          ],
+          [
+            71.7408,
+            631.152
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "yuttim, mitibukjim and phamjatjak at misibvamdidam Bai Pham established Pati Khat Dam Lak Sababpi and will receive Ramayya, do Mayo Bairim according to Bhikkhu and Sabaram."
+        ],
+        "text_block_id": "244",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.89359999999999,
+            634.0392
+          ],
+          [
+            534.0527999999999,
+            634.4424
+          ],
+          [
+            534.0168,
+            671.1768
+          ],
+          [
+            91.8576,
+            670.7736
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "48 Insults of the Violator"
+        ],
+        "text_block_id": "245",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.6464,
+            683.8416
+          ],
+          [
+            218.1528,
+            683.4744
+          ],
+          [
+            218.196,
+            699.9408
+          ],
+          [
+            70.6824,
+            700.308
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Raidib, mitburim and ramsajad that violated the dam sabubbi, made the rababham that was waiting around will tick siksaraibhim, lijibai, pabjai, madta. Civil law department makes prescription drugs for sale. According to the Lamibed dance, doing the chang ga."
+        ],
+        "text_block_id": "246",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            89.30879999999999,
+            702.864
+          ],
+          [
+            532.2024,
+            702.864
+          ],
+          [
+            532.2024,
+            760.3128
+          ],
+          [
+            89.30879999999999,
+            760.3128
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "13"
+        ],
+        "text_block_id": "247",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.65279999999996,
+            806.7744
+          ],
+          [
+            306.7344,
+            806.7744
+          ],
+          [
+            306.7344,
+            816.6528
+          ],
+          [
+            294.65279999999996,
+            816.6528
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Modti 11 closed for the final drive."
+        ],
+        "text_block_id": "248",
+        "language": "en",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.6672,
+            82.9584
+          ],
+          [
+            372.1752,
+            82.9584
+          ],
+          [
+            372.1752,
+            115.4808
+          ],
+          [
+            294.6672,
+            115.4808
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Maadta 49 Kamasangpatpatikat"
+        ],
+        "text_block_id": "249",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            103.0032,
+            129.3696
+          ],
+          [
+            233.1576,
+            128.6424
+          ],
+          [
+            233.244,
+            145.0872
+          ],
+          [
+            103.0968,
+            145.81439999999998
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Give it to Rarong Chap Phraya Krom Mahad and Si Add Lom Pem Chao Pham Pub Cha Yaem and set up Pati Khad Dam Lat Sabab Mee. Use mipasikti for your hair."
+        ],
+        "text_block_id": "250",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            122.1336,
+            147.57119999999998
+          ],
+          [
+            564.5016,
+            148.37040000000002
+          ],
+          [
+            564.444,
+            181.728
+          ],
+          [
+            122.076,
+            180.92880000000002
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Rarong, Hurram, View Kamphatha Ra Thong Thum, Bukkim, Miti Burim and Pham Tang Tang Tang Pati Khaddam Lad Sababbie grilled Mvod."
+        ],
+        "text_block_id": "251",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            122.4864,
+            184.5216
+          ],
+          [
+            564.8544,
+            184.9176
+          ],
+          [
+            564.8184,
+            221.0112
+          ],
+          [
+            122.45760000000001,
+            220.608
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Maadta 50 baht"
+        ],
+        "text_block_id": "252",
+        "language": "en",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            101.21759999999999,
+            234.9864
+          ],
+          [
+            195.228,
+            234.6192
+          ],
+          [
+            195.2784,
+            248.50799999999998
+          ],
+          [
+            101.268,
+            248.8752
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Get rid of the scumbag. Milim Sak felt both had the letter M and had the letter from the shortcut Rama Sib Tha Ab.4."
+        ],
+        "text_block_id": "253",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            121.9392,
+            250.1352
+          ],
+          [
+            562.7376,
+            252.5256
+          ],
+          [
+            562.5216,
+            291.9312
+          ],
+          [
+            121.7232,
+            289.5408
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Tao Ma Lad Rue Baam Saea, Lao PDR, Mayit Lak Tha Miti"
+        ],
+        "text_block_id": "254",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            389.72159999999997,
+            300.7656
+          ],
+          [
+            535.6296,
+            301.13280000000003
+          ],
+          [
+            535.5504,
+            332.2872
+          ],
+          [
+            389.64239999999995,
+            331.9272
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "car patch"
+        ],
+        "text_block_id": "255",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            408.2616,
+            352.188
+          ],
+          [
+            427.7448,
+            342.0648
+          ],
+          [
+            433.6992,
+            353.4984
+          ],
+          [
+            414.216,
+            363.6216
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "President of Lao People&#39;s Democratic Republic"
+        ],
+        "text_block_id": "256",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            457.3512,
+            349.37280000000004
+          ],
+          [
+            466.12800000000004,
+            342.648
+          ],
+          [
+            495.0072,
+            380.28959999999995
+          ],
+          [
+            486.23760000000004,
+            387.0144
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Sauce"
+        ],
+        "text_block_id": "257",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            406.368,
+            425.9592
+          ],
+          [
+            412.02,
+            416.2464
+          ],
+          [
+            433.0296,
+            428.472
+          ],
+          [
+            427.37760000000003,
+            438.1776
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Shrimp pointed out"
+        ],
+        "text_block_id": "258",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            484.4088,
+            403.4592
+          ],
+          [
+            492.23519999999996,
+            412.57439999999997
+          ],
+          [
+            458.0856,
+            441.828
+          ],
+          [
+            450.25919999999996,
+            432.7128
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Thong Luab Si Sulit"
+        ],
+        "text_block_id": "259",
+        "language": "en",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            414.72720000000004,
+            471.4272
+          ],
+          [
+            499.176,
+            470.3328
+          ],
+          [
+            499.39919999999995,
+            487.14480000000003
+          ],
+          [
+            414.9432,
+            488.2464
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "-"
+        ],
+        "text_block_id": "260",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            173.6568,
+            759.4056
+          ],
+          [
+            179.1432,
+            759.4056
+          ],
+          [
+            179.1432,
+            767.4480000000001
+          ],
+          [
+            173.6568,
+            767.4480000000001
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "14"
+        ],
+        "text_block_id": "261",
+        "language": "en",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            316.2384,
+            818.6112
+          ],
+          [
+            327.62879999999996,
+            818.2439999999999
+          ],
+          [
+            327.9384,
+            827.7479999999999
+          ],
+          [
+            316.5408,
+            828.1152
+          ]
+        ],
+        "page_number": 13
+      }
+    ]
+  },
+  "pipeline_metadata": {
+    "parser_metadata": {
+      "azure_api_version": "2023-07-31",
+      "azure_model_id": "prebuilt-document",
+      "parsing_date": "2023-11-15T13:21:00.642190"
+    }
+  }
+}

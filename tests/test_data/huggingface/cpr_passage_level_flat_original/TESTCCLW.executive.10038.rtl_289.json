@@ -1,0 +1,6937 @@
+{
+  "document_id": "TESTCCLW.executive.10038.rtl_289",
+  "document_metadata": {
+    "name": "Green hydrogen roadmap",
+    "description": "This document aims at fostering the production and use of green hydrogen in Spain. The government announced that it will invest 1.5 billion euros by 2023 to foster the production of renewable-energy-sourced hydrogen in the country.",
+    "import_id": "TESTCCLW.executive.10038.rtl_289",
+    "slug": "hoja-de-ruta-del-hidrogeno-2b54",
+    "family_import_id": "TESTCCLW.family.10038.0",
+    "family_slug": "slug_TESTCCLW.family.10038.0",
+    "publication_ts": "2020-10-06T00:00:00Z",
+    "date": "06/10/2020",
+    "source_url": "https://sandbox-test-cdn.dev.climatepolicyradar.org/input/TESTCCLW.executive.10038.rtl_289.pdf",
+    "download_url": null,
+    "type": "Roadmap",
+    "source": "CCLW",
+    "category": "Executive",
+    "geography": "ESP",
+    "languages": [
+      "Spanish"
+    ],
+    "metadata": {
+      "hazards": [],
+      "frameworks": [],
+      "instruments": [],
+      "keywords": [],
+      "sectors": [],
+      "topics": []
+    }
+  },
+  "document_name": "Green hydrogen roadmap",
+  "document_description": "This document aims at fostering the production and use of green hydrogen in Spain. The government announced that it will invest 1.5 billion euros by 2023 to foster the production of renewable-energy-sourced hydrogen in the country.",
+  "document_source_url": "https://sandbox-test-cdn.dev.climatepolicyradar.org/input/TESTCCLW.executive.10038.rtl_289.pdf",
+  "document_cdn_object": "ESP/2020/green-hydrogen-roadmap_dad3287db6955b1c956176e7ba6b065b.pdf",
+  "document_content_type": "application/pdf",
+  "document_md5_sum": "dad3287db6955b1c956176e7ba6b065b",
+  "document_slug": "hoja-de-ruta-del-hidrogeno-2b54",
+  "languages": [
+    "es"
+  ],
+  "translated": false,
+  "html_data": null,
+  "pdf_data": {
+    "page_metadata": [
+      {
+        "page_number": 0,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 1,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 2,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 3,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 4,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 5,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 6,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 7,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 8,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 9,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 10,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 11,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 12,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 13,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      },
+      {
+        "page_number": 14,
+        "dimensions": [
+          595.0008,
+          841.0032
+        ]
+      }
+    ],
+    "md5sum": "dad3287db6955b1c956176e7ba6b065b",
+    "text_blocks": [
+      {
+        "text": [
+          "HOJA DE RUTA DEL HIDRÓGENO: UNA APUESTA POR EL HIDRÓGENO RENOVABLE"
+        ],
+        "text_block_id": "0",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            301.5144,
+            250.0344
+          ],
+          [
+            531.4824,
+            250.0344
+          ],
+          [
+            531.4824,
+            382.176
+          ],
+          [
+            301.5144,
+            382.176
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "GOBIERNO DE ESPAÑA"
+        ],
+        "text_block_id": "1",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            248.21999999999997,
+            723.4632
+          ],
+          [
+            274.14,
+            723.4632
+          ],
+          [
+            274.14,
+            733.6872
+          ],
+          [
+            248.21999999999997,
+            733.6872
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "VICEPRESIDENCIA CUARTA DEL GOBIERNO"
+        ],
+        "text_block_id": "2",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            287.28000000000003,
+            713.6063999999999
+          ],
+          [
+            340.2072,
+            713.6063999999999
+          ],
+          [
+            340.2072,
+            723.8304
+          ],
+          [
+            287.28000000000003,
+            723.8304
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "MINISTERIO PARA LA TRANSICIÓN ECOLÓGICA Y EL RETO DEMOGRÁFICO"
+        ],
+        "text_block_id": "3",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            286.9128,
+            729.3024
+          ],
+          [
+            357.73199999999997,
+            729.3024
+          ],
+          [
+            357.73199999999997,
+            744.2711999999999
+          ],
+          [
+            286.9128,
+            744.2711999999999
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "MARCO ESTRATÉGICO DE ENERGÍA Y CLIMA"
+        ],
+        "text_block_id": "4",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            104.01840000000001,
+            766.1736
+          ],
+          [
+            492.4296,
+            765.8064
+          ],
+          [
+            492.444,
+            783.6912000000001
+          ],
+          [
+            104.03280000000001,
+            784.0584
+          ]
+        ],
+        "page_number": 0
+      },
+      {
+        "text": [
+          "La Hoja de Ruta del hidrógeno es fruto de la participación de diversos agentes económicos, administraciones y ciudadanos que han aportado sus contribuciones, en especial mediante la propuesta de numerosos proyectos innovadores en las distintas etapas de la cadena de valor del hidrógeno renovable. Este vector energético será clave en la descarbonización de la economía española, así como en otros retos de carácter más transversal como la reactivación económica tras la crisis sanitaria de la COVID-19, la transición justa, el reto demográfico y la economía circular."
+        ],
+        "text_block_id": "5",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            126.02879999999999,
+            327.7872
+          ],
+          [
+            467.3088,
+            325.9008
+          ],
+          [
+            467.7912,
+            413.136
+          ],
+          [
+            126.5112,
+            415.0296
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Madrid octubre 2020 NIPO: Publicación pendiente de NIPO"
+        ],
+        "text_block_id": "6",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            126.3024,
+            566.5104
+          ],
+          [
+            246.0312,
+            566.5104
+          ],
+          [
+            246.0312,
+            587.3112
+          ],
+          [
+            126.3024,
+            587.3112
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Vicepresidencia Cuarta del Gobierno de España"
+        ],
+        "text_block_id": "7",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            126.3024,
+            602.6472000000001
+          ],
+          [
+            275.2344,
+            602.6472000000001
+          ],
+          [
+            275.2344,
+            611.7696000000001
+          ],
+          [
+            126.3024,
+            611.7696000000001
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Ministerio para la Transición Ecológica y el Reto Demográfico"
+        ],
+        "text_block_id": "8",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            126.6624,
+            614.6928
+          ],
+          [
+            315.036,
+            615.0528
+          ],
+          [
+            315.02160000000003,
+            623.8152
+          ],
+          [
+            126.648,
+            623.4480000000001
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Autor: Ministerio para la Transición Ecológica y el Reto Demográfico (MITERD)"
+        ],
+        "text_block_id": "9",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            127.0296,
+            626.3712
+          ],
+          [
+            369.7776,
+            626.3712
+          ],
+          [
+            369.7776,
+            636.228
+          ],
+          [
+            127.0296,
+            636.228
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "Edita: Ministerio para la Transición Ecológica y el Reto Demográfico (MITERD) Revisión de edición: IDAE Diseño y Maquetación: BABYDOG arte y comunicación, S.L."
+        ],
+        "text_block_id": "10",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            126.6624,
+            638.784
+          ],
+          [
+            367.22159999999997,
+            638.784
+          ],
+          [
+            367.22159999999997,
+            671.9975999999999
+          ],
+          [
+            126.6624,
+            671.9975999999999
+          ]
+        ],
+        "page_number": 1
+      },
+      {
+        "text": [
+          "CONTENIDO"
+        ],
+        "text_block_id": "11",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            407.26079999999996,
+            714.7080000000001
+          ],
+          [
+            524.8008,
+            713.9736
+          ],
+          [
+            524.9159999999999,
+            732.2256
+          ],
+          [
+            407.37600000000003,
+            732.9528
+          ]
+        ],
+        "page_number": 2
+      },
+      {
+        "text": [
+          "CONTENIDO"
+        ],
+        "text_block_id": "12",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            473.4432,
+            84.3192
+          ],
+          [
+            526.7376,
+            84.3192
+          ],
+          [
+            526.7376,
+            93.0816
+          ],
+          [
+            473.4432,
+            93.0816
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "RESUMEN EJECUTIVO"
+        ],
+        "text_block_id": "13",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            206.1504
+          ],
+          [
+            454.3488,
+            205.6752
+          ],
+          [
+            454.3488,
+            218.0016
+          ],
+          [
+            63.208800000000004,
+            218.47680000000003
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "03"
+        ],
+        "text_block_id": "14",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            205.6752
+          ],
+          [
+            525.9456,
+            205.6752
+          ],
+          [
+            525.9456,
+            225.5904
+          ],
+          [
+            454.3488,
+            225.5904
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          ">I. INTRODUCCIÓN"
+        ],
+        "text_block_id": "15",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            226.06560000000002
+          ],
+          [
+            454.3488,
+            225.5904
+          ],
+          [
+            454.3488,
+            237.9168
+          ],
+          [
+            63.208800000000004,
+            239.33520000000001
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "06"
+        ],
+        "text_block_id": "16",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            225.5904
+          ],
+          [
+            525.9456,
+            225.5904
+          ],
+          [
+            525.9456,
+            237.9168
+          ],
+          [
+            454.3488,
+            237.9168
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "I.I EL CONTEXTO DE LA UNIÓN EUROPEA"
+        ],
+        "text_block_id": "17",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            239.33520000000001
+          ],
+          [
+            454.3488,
+            237.9168
+          ],
+          [
+            454.3488,
+            261.1512
+          ],
+          [
+            63.208800000000004,
+            262.5696
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "07"
+        ],
+        "text_block_id": "18",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            237.9168
+          ],
+          [
+            525.9456,
+            237.9168
+          ],
+          [
+            526.4136,
+            260.2008
+          ],
+          [
+            454.3488,
+            261.1512
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "1.2 EL CONTEXTO NACIONAL"
+        ],
+        "text_block_id": "19",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            262.5696
+          ],
+          [
+            454.3488,
+            261.1512
+          ],
+          [
+            454.3488,
+            272.052
+          ],
+          [
+            63.208800000000004,
+            273.4776
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "08"
+        ],
+        "text_block_id": "20",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            261.1512
+          ],
+          [
+            526.4136,
+            260.2008
+          ],
+          [
+            526.4136,
+            271.584
+          ],
+          [
+            454.3488,
+            272.052
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "2. CADENA DE VALOR DEL HIDRÓGENO"
+        ],
+        "text_block_id": "21",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            273.4776
+          ],
+          [
+            454.3488,
+            272.052
+          ],
+          [
+            454.3488,
+            293.3928
+          ],
+          [
+            63.208800000000004,
+            294.336
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "10"
+        ],
+        "text_block_id": "22",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            272.052
+          ],
+          [
+            526.4136,
+            271.584
+          ],
+          [
+            526.4136,
+            292.9176
+          ],
+          [
+            454.3488,
+            293.3928
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "2.1 PRODUCCIÓN"
+        ],
+        "text_block_id": "23",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            294.336
+          ],
+          [
+            454.3488,
+            293.3928
+          ],
+          [
+            454.3488,
+            315.2016
+          ],
+          [
+            63.208800000000004,
+            316.62719999999996
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "12"
+        ],
+        "text_block_id": "24",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            293.3928
+          ],
+          [
+            526.4136,
+            292.9176
+          ],
+          [
+            526.4136,
+            315.2016
+          ],
+          [
+            454.3488,
+            315.2016
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "2.2 ALMACENAMIENTO Y TRANSPORTE"
+        ],
+        "text_block_id": "25",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            316.62719999999996
+          ],
+          [
+            454.3488,
+            315.2016
+          ],
+          [
+            454.3488,
+            327.528
+          ],
+          [
+            63.208800000000004,
+            328.0032
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "15"
+        ],
+        "text_block_id": "26",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            315.2016
+          ],
+          [
+            526.4136,
+            315.2016
+          ],
+          [
+            526.4136,
+            327.0528
+          ],
+          [
+            454.3488,
+            327.528
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "2.3 USOS FINALES"
+        ],
+        "text_block_id": "27",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            328.0032
+          ],
+          [
+            454.3488,
+            327.528
+          ],
+          [
+            454.3488,
+            342.7056
+          ],
+          [
+            63.208800000000004,
+            344.12399999999997
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "19"
+        ],
+        "text_block_id": "28",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            327.528
+          ],
+          [
+            526.4136,
+            327.0528
+          ],
+          [
+            526.4136,
+            342.7056
+          ],
+          [
+            454.3488,
+            342.7056
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          ">3. OPORTUNIDADES PARA ESPAÑA"
+        ],
+        "text_block_id": "29",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            344.12399999999997
+          ],
+          [
+            454.3488,
+            342.7056
+          ],
+          [
+            454.3488,
+            364.5144
+          ],
+          [
+            63.208800000000004,
+            365.46479999999997
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "23"
+        ],
+        "text_block_id": "30",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            342.7056
+          ],
+          [
+            526.4136,
+            342.7056
+          ],
+          [
+            526.4136,
+            364.5144
+          ],
+          [
+            454.3488,
+            364.5144
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4. LÍNEAS DE ACCIÓN"
+        ],
+        "text_block_id": "31",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            63.208800000000004,
+            365.46479999999997
+          ],
+          [
+            454.3488,
+            364.5144
+          ],
+          [
+            454.3488,
+            385.848
+          ],
+          [
+            62.733599999999996,
+            386.3232
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "25"
+        ],
+        "text_block_id": "32",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            364.5144
+          ],
+          [
+            526.4136,
+            364.5144
+          ],
+          [
+            526.4136,
+            384.9048
+          ],
+          [
+            454.3488,
+            385.848
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4.1 INSTRUMENTOS REGULATORIOS"
+        ],
+        "text_block_id": "33",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            386.3232
+          ],
+          [
+            454.3488,
+            385.848
+          ],
+          [
+            454.3488,
+            402.444
+          ],
+          [
+            62.733599999999996,
+            402.9192
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "26"
+        ],
+        "text_block_id": "34",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            385.848
+          ],
+          [
+            526.4136,
+            384.9048
+          ],
+          [
+            526.4136,
+            401.96880000000004
+          ],
+          [
+            454.3488,
+            402.444
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4.2 INSTRUMENTOS SECTORIALES"
+        ],
+        "text_block_id": "35",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            402.9192
+          ],
+          [
+            454.3488,
+            402.444
+          ],
+          [
+            454.3488,
+            419.5152
+          ],
+          [
+            62.733599999999996,
+            419.99039999999997
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "27"
+        ],
+        "text_block_id": "36",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            402.444
+          ],
+          [
+            526.4136,
+            401.96880000000004
+          ],
+          [
+            526.4136,
+            418.5648
+          ],
+          [
+            454.3488,
+            419.5152
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4.3 INSTRUMENTOS TRANSVERSALES"
+        ],
+        "text_block_id": "37",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            419.99039999999997
+          ],
+          [
+            454.3488,
+            419.5152
+          ],
+          [
+            454.3488,
+            434.6856
+          ],
+          [
+            62.733599999999996,
+            435.1608
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "34"
+        ],
+        "text_block_id": "38",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            419.5152
+          ],
+          [
+            526.4136,
+            418.5648
+          ],
+          [
+            526.4136,
+            434.6856
+          ],
+          [
+            454.3488,
+            434.6856
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "4.4 IMPULSO A LA I+D+i"
+        ],
+        "text_block_id": "39",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            435.1608
+          ],
+          [
+            454.3488,
+            434.6856
+          ],
+          [
+            454.3488,
+            452.23199999999997
+          ],
+          [
+            62.733599999999996,
+            452.7072
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "38"
+        ],
+        "text_block_id": "40",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            434.6856
+          ],
+          [
+            526.4136,
+            434.6856
+          ],
+          [
+            526.4136,
+            452.23199999999997
+          ],
+          [
+            454.3488,
+            452.23199999999997
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          ">5. VISION 2030 Y 2050"
+        ],
+        "text_block_id": "41",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            452.7072
+          ],
+          [
+            454.3488,
+            452.23199999999997
+          ],
+          [
+            454.3488,
+            472.1472
+          ],
+          [
+            62.733599999999996,
+            472.61519999999996
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "41"
+        ],
+        "text_block_id": "42",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            452.23199999999997
+          ],
+          [
+            526.4136,
+            452.23199999999997
+          ],
+          [
+            526.4136,
+            472.1472
+          ],
+          [
+            454.3488,
+            472.1472
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "5.1 VISIÓN 2030"
+        ],
+        "text_block_id": "43",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            472.61519999999996
+          ],
+          [
+            454.3488,
+            472.1472
+          ],
+          [
+            454.3488,
+            488.26800000000003
+          ],
+          [
+            62.733599999999996,
+            488.736
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "42"
+        ],
+        "text_block_id": "44",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            472.1472
+          ],
+          [
+            526.4136,
+            472.1472
+          ],
+          [
+            526.4136,
+            488.26800000000003
+          ],
+          [
+            454.3488,
+            488.26800000000003
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "5.2 VISIÓN 2050"
+        ],
+        "text_block_id": "45",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            488.736
+          ],
+          [
+            454.3488,
+            488.26800000000003
+          ],
+          [
+            454.3488,
+            505.33200000000005
+          ],
+          [
+            62.733599999999996,
+            505.8072
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "44"
+        ],
+        "text_block_id": "46",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            488.26800000000003
+          ],
+          [
+            526.4136,
+            488.26800000000003
+          ],
+          [
+            526.4136,
+            505.33200000000005
+          ],
+          [
+            454.3488,
+            505.33200000000005
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "ANEXO I. MECANISMOS DE FINANCIACIÓN"
+        ],
+        "text_block_id": "47",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            505.8072
+          ],
+          [
+            454.3488,
+            505.33200000000005
+          ],
+          [
+            454.3488,
+            526.1976
+          ],
+          [
+            62.733599999999996,
+            527.148
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "45"
+        ],
+        "text_block_id": "48",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            505.33200000000005
+          ],
+          [
+            526.4136,
+            505.33200000000005
+          ],
+          [
+            526.4136,
+            526.1976
+          ],
+          [
+            454.3488,
+            526.1976
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "ANEXO II. PROYECTOS EN MATERIA DE HIDRÓGENO RENOVABLE DESARROLLADOS EN ESPAÑA"
+        ],
+        "text_block_id": "49",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            527.148
+          ],
+          [
+            454.3488,
+            526.1976
+          ],
+          [
+            454.3488,
+            565.0776
+          ],
+          [
+            62.733599999999996,
+            566.028
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "54"
+        ],
+        "text_block_id": "50",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            526.1976
+          ],
+          [
+            526.4136,
+            526.1976
+          ],
+          [
+            526.4136,
+            565.0776
+          ],
+          [
+            454.3488,
+            565.0776
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "ANEXO III. CONTRIBUCIONES RECIBIDAS EN LA CONSULTA PÚBLICA DEL BORRADOR DE LA HOJA DE RUTA DE HIDRÓGENO."
+        ],
+        "text_block_id": "51",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            62.733599999999996,
+            566.028
+          ],
+          [
+            454.3488,
+            565.0776
+          ],
+          [
+            454.3488,
+            596.844
+          ],
+          [
+            62.2584,
+            597.7944
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "60"
+        ],
+        "text_block_id": "52",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            454.3488,
+            565.0776
+          ],
+          [
+            526.4136,
+            565.0776
+          ],
+          [
+            526.8888,
+            596.844
+          ],
+          [
+            454.3488,
+            596.844
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "2"
+        ],
+        "text_block_id": "53",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.5808,
+            744.6384
+          ],
+          [
+            300.42,
+            744.6384
+          ],
+          [
+            300.42,
+            752.2992
+          ],
+          [
+            294.5808,
+            752.2992
+          ]
+        ],
+        "page_number": 3
+      },
+      {
+        "text": [
+          "RESUMEN EJECUTIVO"
+        ],
+        "text_block_id": "54",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.6512,
+            663.9696
+          ],
+          [
+            525.6432,
+            663.9696
+          ],
+          [
+            525.6432,
+            686.5992
+          ],
+          [
+            337.6512,
+            686.5992
+          ]
+        ],
+        "page_number": 4
+      },
+      {
+        "text": [
+          "RESUMEN EJECUTIVO"
+        ],
+        "text_block_id": "55",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            442.0512,
+            81.036
+          ],
+          [
+            526.0104,
+            81.036
+          ],
+          [
+            526.0104,
+            92.3472
+          ],
+          [
+            442.0512,
+            92.3472
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "El hidrógeno renovable es una solución sostenible clave para la descarbonización de la economía. El hidrógeno renovable es parte de la solución para lograr la neutralidad climática en 2050 y desarrollar cadenas de valor industriales innovadoras en España y en la UE, así como una economía verde de alto valor añadido."
+        ],
+        "text_block_id": "56",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            129.57840000000002
+          ],
+          [
+            526.0104,
+            129.57840000000002
+          ],
+          [
+            526.0104,
+            166.0824
+          ],
+          [
+            67.896,
+            166.0824
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "El hidrógeno renovable está llamado a ser un valioso vector energético para usos finales donde sea la solución más eficiente en el proceso de su descarbonización, como la industria intensiva en hidrógeno y procesos de alta temperatura, transporte pesado de larga distancia, transporte marítimo, transporte ferroviario o aviación. Además, la cualidad de vector energético le otorga un gran potencial como instrumento para el almacenamiento energético y la integración sectorial."
+        ],
+        "text_block_id": "57",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.16879999999999,
+            173.016
+          ],
+          [
+            527.472,
+            173.016
+          ],
+          [
+            527.472,
+            233.9784
+          ],
+          [
+            67.16879999999999,
+            233.9784
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Se considera esencial la creación y el fomento de un entorno favorable para la oferta y demanda de hidrógeno renovable. Cualquier nuevo marco ha de priorizar, en la primera fase de despliegue, los proyectos de producción de hidrógeno renovable vinculados al uso final de la industria, así como los de movilidad sobre otras opciones. En este sentido, jugarán un papel muy importante la creación de \"valles o clústers de hidrógeno\", donde se concentre espacialmente la producción, transformación y consumo aprovechando la aplicación de economías de escala, así como el desarrollo de proyectos piloto vinculados, entre otros, a los sistemas energéticos aislados y al sector transporte."
+        ],
+        "text_block_id": "58",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            241.63920000000002
+          ],
+          [
+            526.7376,
+            241.63920000000002
+          ],
+          [
+            526.7376,
+            317.5632
+          ],
+          [
+            67.52879999999999,
+            317.5632
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "La industria que utiliza hidrógeno como materia prima (refino de petróleo, fertilizantes y productos químicos, entre otros) tiene un gran potencial para impulsar la producción de hidrógeno renovable a corto plazo:"
+        ],
+        "text_block_id": "59",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            324.1368
+          ],
+          [
+            526.3776,
+            324.1368
+          ],
+          [
+            526.3776,
+            347.86080000000004
+          ],
+          [
+            67.52879999999999,
+            347.86080000000004
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Unos objetivos ambiciosos pero comunes a nivel de la UE para los usos industriales del hidrógeno renovable pueden ser una palanca clave para garantizar la competencia industrial en igualdad de condiciones en el ámbito comunitario."
+        ],
+        "text_block_id": "60",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.75280000000001,
+            361.73519999999996
+          ],
+          [
+            526.0104,
+            361.73519999999996
+          ],
+          [
+            526.0104,
+            385.8264
+          ],
+          [
+            77.75280000000001,
+            385.8264
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Los proyectos dedicados para descarbonizar parte de la industria intensiva en hidrógeno pueden acelerar la madurez tecnológica y facilitar el despliegue de otros usos finales."
+        ],
+        "text_block_id": "61",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.4728,
+            392.76
+          ],
+          [
+            526.7376,
+            392.3928
+          ],
+          [
+            526.7592,
+            415.7568
+          ],
+          [
+            78.4944,
+            416.12399999999997
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Deben fomentarse otros usos finales para el hidrógeno en aquellas áreas en las que la electrificación no sea la solución más eficiente o no sea técnicamente posible en el medio plazo, como el transporte público, servicios urbanos o usos diversos en nodos de transporte intermodal como puertos, aeropuertos o plataformas logísticas. El apoyo temprano de este perfil de proyectos permitirá desarrollar su competitividad, en la misma línea que están desarrollando otros países de nuestro entorno."
+        ],
+        "text_block_id": "62",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            66.8448,
+            435.83040000000005
+          ],
+          [
+            526.7592,
+            436.1976
+          ],
+          [
+            526.7088,
+            497.52
+          ],
+          [
+            66.7944,
+            497.15279999999996
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Asimismo, dada su alta versatilidad como vector, se ha de evaluar y priorizar el potencial del hidrógeno renovable para almacenar energía y/o descarbonizar el sector del calor tanto en la industria como en los hogares en los casos en los que la electrificación no sea la solución más competitiva. En el largo plazo, el hidrógeno puede jugar un papel esencial para almacenar energía procedente de un sistema eléctrico 100% renovable, objetivo que se prevé alcanzar en 2050."
+        ],
+        "text_block_id": "63",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.428,
+            504.45360000000005
+          ],
+          [
+            526.5864,
+            500.2848
+          ],
+          [
+            527.1336,
+            560.88
+          ],
+          [
+            67.9824,
+            565.0488
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Por último, las soluciones basadas en hidrógeno renovable para islas y sistemas energéticos aislados, que dependen en gran medida del transporte aéreo y marítimo, han de potenciarse para que dichas regiones puedan alcanzar la neutralidad climática garantizando su sostenibilidad como destinos turísticos."
+        ],
+        "text_block_id": "64",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            573.0767999999999
+          ],
+          [
+            526.3776,
+            573.0767999999999
+          ],
+          [
+            526.3776,
+            610.308
+          ],
+          [
+            67.52879999999999,
+            610.308
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "Cualquier nuevo marco regulatorio ha de reconocer el potencial del hidrógeno renovable. Establecer un mercado de hidrógeno a nivel de la UE puede ser prematuro en esta etapa y distorsionar la competencia a corto plazo, dado que el hidrógeno no renovable desplazaría al hidrógeno renovable si no se internaliza adecuadamente su impacto medioambiental."
+        ],
+        "text_block_id": "65",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            618.3359999999999
+          ],
+          [
+            526.3776,
+            618.3359999999999
+          ],
+          [
+            526.3776,
+            654.1128
+          ],
+          [
+            67.896,
+            654.1128
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "El hidrógeno renovable debería disponer de normas comunes en la UE (objetivos, etiquetado, garantías de origen), puesto que podrían facilitar su despliegue y garantizar la igualdad de condiciones. Por otro lado, los impuestos y el mercado de emisiones de CO2 pueden contribuir a proporcionar las señales correctas a las partes interesadas y a los consumidores para valorar correctamente la etiqueta renovable."
+        ],
+        "text_block_id": "66",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            660.6792
+          ],
+          [
+            526.7376,
+            660.6792
+          ],
+          [
+            526.7376,
+            709.956
+          ],
+          [
+            67.896,
+            709.956
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "4"
+        ],
+        "text_block_id": "67",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.948,
+            744.6384
+          ],
+          [
+            300.0528,
+            744.6384
+          ],
+          [
+            300.0528,
+            752.2992
+          ],
+          [
+            294.948,
+            752.2992
+          ]
+        ],
+        "page_number": 5
+      },
+      {
+        "text": [
+          "RESUMEN EJECUTIVO"
+        ],
+        "text_block_id": "68",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            442.0512,
+            81.036
+          ],
+          [
+            526.0104,
+            81.036
+          ],
+          [
+            526.0104,
+            92.3472
+          ],
+          [
+            442.0512,
+            92.3472
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Esta Hoja de Ruta del Hidrógeno tiene como objeto identificar los retos y oportunidades para el pleno desarrollo del hidrógeno renovable en España, proporcionando una serie de medidas destinadas a impulsar la acción inversora, aprovechando el consenso europeo sobre el papel que debe desempeñar este vector energético en el contexto de la recuperación verde. Este documento se alinea, por tanto, con la Estrategia Anual de Crecimiento Sostenible de 2021 publicada por la Comisión Europea, que identifica el futuro Mecanismo de Recuperación y Resiliencia como una oportunidad de crear ámbitos emblemáticos de actuación a nivel europeo, haciendo dos de dichos ámbitos de actuación (Power up y Recharge and Refuel) mención expresa al desarrollo del hidrógeno renovable en la Unión Europea. España tiene la oportunidad de posicionase como referente tecnológico en la producción y aprovechamiento del hidrógeno renovable, liderando un proyecto país hacia una economía descarbonizada, a través del impulso de la cadena de valor del hidrógeno mediante la creación de clústers tecnológicos y proyectos piloto a escala regional, el fomento de la innovación industrial, el apoyo a las zonas de transición justa y la disponibilidad de energía renovable a precios competitivos."
+        ],
+        "text_block_id": "69",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            129.57840000000002
+          ],
+          [
+            527.1048,
+            129.57840000000002
+          ],
+          [
+            527.1048,
+            272.304
+          ],
+          [
+            67.52879999999999,
+            272.304
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Como resultado de este ejercicio, esta Hoja de Ruta ofrece una Visión 2030 y 2050, estableciendo unos ambiciosos objetivos país en 2030 cuya consecución asegurará el posicionamiento industrial y tecnológico de nuestra economía en el contexto comunitario, la descarbonización de un volumen relevante del hidrógeno consumido actualmente y la plena introducción del hidrógeno en la movilidad sostenible. Todo ello con el objetivo último de contribuir a la consecución de los objetivos fijados en el Plan Nacional Integrado de Energía y Clima. En particular, la Visión 2030 prevé una capacidad instalada de electrolizadores de 4 GW y una serie de hitos en el sector industrial, la movilidad y el sector eléctrico, para los cuales será preciso movilizar inversiones estimadas en 8.900 millones de euros durante el periodo 2020-2030. No obstante, como hito intermedio hasta alcanzar el objetivo de 4GW, se estima que para el año 2024 sería posible contar con una potencia instalada de electrolizadores de entre 300 y 600 MW."
+        ],
+        "text_block_id": "70",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            81.036,
+            300.41279999999995
+          ],
+          [
+            508.8528,
+            300.41279999999995
+          ],
+          [
+            508.8528,
+            437.29200000000003
+          ],
+          [
+            81.036,
+            437.29200000000003
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "La actualización cada tres años de esta Hoja de Ruta, basada en la evaluación de los progresos hacia la consecución de los objetivos de la Visión 2030, el grado de implantación de las medidas y la cuantificación de su impacto, permitirá su adaptación permanente al desarrollo tecnológico y a la evolución del mercado."
+        ],
+        "text_block_id": "71",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.5504,
+            466.12800000000004
+          ],
+          [
+            526.7448,
+            466.4952
+          ],
+          [
+            526.716,
+            502.99199999999996
+          ],
+          [
+            67.52159999999999,
+            502.632
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "Por último, esta Hoja de Ruta del Hidrógeno Renovable es fruto de la participación de diversos agentes económicos, administraciones y ciudadanos que han aportado sus contribuciones durante el proceso de consulta pública previa, en especial mediante la propuesta de numerosos proyectos innovadores en las distintas etapas de la cadena de valor del hidrógeno renovable. Se trata de la mejor garantía de que este vector energético desempeñará un papel relevante en retos transversales tales como la reactivación económica tras la crisis sanitaria del COVID-19, la transición justa, el reto demográfico y la economía circular."
+        ],
+        "text_block_id": "72",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            509.5656
+          ],
+          [
+            526.7376,
+            509.5656
+          ],
+          [
+            526.7376,
+            583.6608000000001
+          ],
+          [
+            67.52879999999999,
+            583.6608000000001
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "5"
+        ],
+        "text_block_id": "73",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            295.6752,
+            744.2711999999999
+          ],
+          [
+            301.1472,
+            744.2711999999999
+          ],
+          [
+            301.1472,
+            752.6664
+          ],
+          [
+            295.6752,
+            752.6664
+          ]
+        ],
+        "page_number": 6
+      },
+      {
+        "text": [
+          "I"
+        ],
+        "text_block_id": "74",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.452,
+            83.952
+          ],
+          [
+            76.2912,
+            83.952
+          ],
+          [
+            76.2912,
+            100.7424
+          ],
+          [
+            70.452,
+            100.7424
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "INTRODUCCIÓN"
+        ],
+        "text_block_id": "75",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            330.3,
+            662.1408
+          ],
+          [
+            481.4208,
+            661.7736
+          ],
+          [
+            481.47839999999997,
+            683.316
+          ],
+          [
+            330.3504,
+            683.6759999999999
+          ]
+        ],
+        "page_number": 7
+      },
+      {
+        "text": [
+          "INTRODUCCIÓN"
+        ],
+        "text_block_id": "76",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            455.81759999999997,
+            81.7632
+          ],
+          [
+            526.3776,
+            81.036
+          ],
+          [
+            526.4784,
+            90.8856
+          ],
+          [
+            455.92560000000003,
+            91.62
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "I.I. INTRODUCCIÓN"
+        ],
+        "text_block_id": "77",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.3296,
+            128.1168
+          ],
+          [
+            219.26160000000002,
+            127.0224
+          ],
+          [
+            219.38400000000001,
+            143.4528
+          ],
+          [
+            70.452,
+            144.5472
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "El hidrógeno renovable se posiciona como uno de los principales vectores energéticos en el largo plazo debido a que su producción y consumo es neutral climáticamente y no genera emisiones contaminantes. A diferencia de otros vectores energéticos renovables, el hidrógeno tiene la capacidad de ser almacenado, como gas a presión o en estado líquido, lo que permite un mayor grado de gestionabilidad."
+        ],
+        "text_block_id": "78",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            154.764
+          ],
+          [
+            526.7376,
+            154.764
+          ],
+          [
+            526.7376,
+            203.31359999999998
+          ],
+          [
+            67.52879999999999,
+            203.31359999999998
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Esta Hoja de Ruta tiene por objeto ser el eje tractor que guíe y fomente el despliegue y desarrollo del hidrógeno renovable en España, debido al significativo papel que está llamado a desempeñar el hidrógeno renovable en la transición energética hacia la descarbonización de la economía en 2050, dado que, como vector energético y flexible, permite integrar la electricidad renovable excedentaria, por tanto, una mayor penetración de renovables en el sistema eléctrico. Además, permite desplazar el uso de materias primas industriales o fuentes de energía de origen fósil por materia prima renovable, abriendo una nueva ruta tecnológica para la electrificación del transporte y la movilidad sostenible."
+        ],
+        "text_block_id": "79",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            210.24720000000002
+          ],
+          [
+            526.7376,
+            210.24720000000002
+          ],
+          [
+            526.7376,
+            283.9824
+          ],
+          [
+            67.52879999999999,
+            283.9824
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "I.I. EL CONTEXTO DE LA UNIÓN EUROPEA"
+        ],
+        "text_block_id": "80",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.6888,
+            306.61199999999997
+          ],
+          [
+            384.37919999999997,
+            305.88480000000004
+          ],
+          [
+            384.4152,
+            320.8536
+          ],
+          [
+            69.7176,
+            321.5808
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Las políticas y objetivos están alineados con las acciones previstas en el contexto europeo. De entre estas acciones, destaca la inclusión del hidrógeno renovable en la Directiva 2018/2001, de II de diciembre de 2018, relativa al fomento del uso de energía procedente de fuentes renovables, y la Iniciativa del Hidrógeno, lanzada en Linz en 2018, consistente en una declaración en la que los Estados miembros de la Unión Europea, la Comisión Europea, y otros países y organizaciones, destacan el poder de las tecnologías de hidrógeno sostenible para la descarbonización de múltiples sectores de la economía, la seguridad de suministro en el largo plazo y la competitividad económica europea."
+        ],
+        "text_block_id": "81",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            335.448
+          ],
+          [
+            527.1048,
+            335.448
+          ],
+          [
+            527.1048,
+            409.5504
+          ],
+          [
+            67.896,
+            409.5504
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Asimismo, el Pacto Verde Europeo (European Green Deal) incluye en su previsión de desarrollo la aprobación de varias estrategias y mecanismos de financiación para la promoción y el desarrollo de la cadena de valor del hidrógeno renovable."
+        ],
+        "text_block_id": "82",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            416.48400000000004
+          ],
+          [
+            526.3776,
+            416.48400000000004
+          ],
+          [
+            526.3776,
+            440.20799999999997
+          ],
+          [
+            67.52879999999999,
+            440.20799999999997
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Dentro de las políticas a desarrollar en el marco del Pacto Verde Europeo, la Estrategia Europea del Hidrógeno (EU Hydrogen Strategy), tiene por objeto establecer las pautas necesarias para desarrollar el papel del hidrógeno limpio en la reducción de emisiones de la economía de la UE de una manera eficiente. Para ello, la estrategia aborda los principales campos de actuación a considerar, en concreto inversiones, marco regulatorio, nuevo liderazgo de mercados, I+D en tecnologías y mercados, red de infraestructuras y la cooperación con terceros países."
+        ],
+        "text_block_id": "83",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.16879999999999,
+            447.1488
+          ],
+          [
+            527.1048,
+            447.1488
+          ],
+          [
+            527.1048,
+            508.4712
+          ],
+          [
+            67.16879999999999,
+            508.4712
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "La Estrategia Europea del Hidrógeno erige el hidrógeno como elemento esencial para respaldar el compromiso de la UE de alcanzar la neutralidad de carbono en 2050 y para respaldar el esfuerzo global para implementar el Acuerdo de París."
+        ],
+        "text_block_id": "84",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            515.772
+          ],
+          [
+            526.7376,
+            515.772
+          ],
+          [
+            526.7376,
+            539.496
+          ],
+          [
+            67.896,
+            539.496
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Asimismo, indica que el ecosistema del hidrógeno en Europa es probable que se desarrolle a través de una trayectoria gradual, a diferentes velocidades en los diferentes sectores y posiblemente en las distintas regiones, requiriendo, por tanto, múltiples soluciones políticas."
+        ],
+        "text_block_id": "85",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            546.7968000000001
+          ],
+          [
+            526.3776,
+            546.7968000000001
+          ],
+          [
+            526.3776,
+            582.9336
+          ],
+          [
+            67.52879999999999,
+            582.9336
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Para garantizar el avance de las tecnologías del hidrógeno renovable, la Estrategia establece tres horizontes temporales (2024, 2030 y 2050) para los que determina una sucesión de hitos a alcanzar:"
+        ],
+        "text_block_id": "86",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            589.8672
+          ],
+          [
+            526.3776,
+            589.8672
+          ],
+          [
+            526.3776,
+            613.5912
+          ],
+          [
+            67.896,
+            613.5912
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Primera fase 2020-2024: Instalación de al menos 6 GW de electrolizadores en la UE y la producción de hasta I millón de toneladas de hidrógeno renovable, para descarbonizar la producción de hidrógeno existente, por ejemplo, en el sector químico. Se facilitará el consumo del hidrógeno renovable en nuevas aplicaciones de uso final, como por ejemplo en procesos industriales y en el transporte pesado."
+        ],
+        "text_block_id": "87",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.75280000000001,
+            634.3992
+          ],
+          [
+            526.4064000000001,
+            634.7664
+          ],
+          [
+            526.3632,
+            684.0360000000001
+          ],
+          [
+            77.7096,
+            683.6688
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "Los electrolizadores principalmente se instalarán junto a los centros de demanda existentes en refinerías, plantas de acero y complejos químicos. Lo ideal sería que se alimentaran directamente de fuentes locales de electricidad"
+        ],
+        "text_block_id": "88",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.87519999999999,
+            690.6096
+          ],
+          [
+            526.3776,
+            690.6096
+          ],
+          [
+            526.3776,
+            714.7008
+          ],
+          [
+            86.87519999999999,
+            714.7008
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "7"
+        ],
+        "text_block_id": "89",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            296.0424,
+            744.2711999999999
+          ],
+          [
+            300.7872,
+            744.2711999999999
+          ],
+          [
+            300.7872,
+            752.6664
+          ],
+          [
+            296.0424,
+            752.6664
+          ]
+        ],
+        "page_number": 8
+      },
+      {
+        "text": [
+          "INTRODUCCIÓN"
+        ],
+        "text_block_id": "90",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            457.38,
+            81.036
+          ],
+          [
+            526.3776,
+            81.036
+          ],
+          [
+            526.3776,
+            91.25280000000001
+          ],
+          [
+            457.38,
+            91.25280000000001
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "renovable. Adicionalmente, se necesitarán hidrogeneras para el repostaje de los autobuses eléctricos de pilas de combustible alimentadas con hidrógeno y en una etapa posterior de camiones eléctricos de pila de combustible. Por lo tanto, también se necesitarán electrolizadores para suministrar localmente un número creciente de estaciones de repostaje de hidrógeno."
+        ],
+        "text_block_id": "91",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.87519999999999,
+            129.94559999999998
+          ],
+          [
+            526.7376,
+            129.94559999999998
+          ],
+          [
+            526.7376,
+            178.49519999999998
+          ],
+          [
+            86.87519999999999,
+            178.49519999999998
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Segunda fase 2025-2030: El hidrógeno debe convertirse en una parte intrínseca de un sistema energético integrado con el objetivo estratégico de instalar al menos 40 GW de electrolizadores para 2030 y la producción de hasta 10 millones de toneladas de hidrógeno renovable en la UE."
+        ],
+        "text_block_id": "92",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.75280000000001,
+            185.796
+          ],
+          [
+            526.392,
+            186.156
+          ],
+          [
+            526.3632,
+            222.6528
+          ],
+          [
+            77.72399999999999,
+            222.2856
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Se espera que el hidrógeno renovable sea gradualmente competitivo en precio con otras formas de producción de hidrógeno, pero se necesitarán políticas específicas de la demanda para que la demanda industrial incluya gradualmente nuevas aplicaciones, incluidas la fabricación de acero, camiones, ferrocarriles y algunas aplicaciones de transporte marítimo, y otros modos de transporte El hidrógeno renovable comenzará a desempeñar un papel en el equilibrio y en la flexibilización de un sistema eléctrico basado en energías renovables al transformar la electricidad en hidrógeno cuando la electricidad renovable es abundante y barata. El hidrógeno también se utilizará para el almacenamiento diario o estacional, como respaldo y \"buffer\", mejorando la seguridad del suministro a medio plazo."
+        ],
+        "text_block_id": "93",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.5152,
+            229.23360000000002
+          ],
+          [
+            526.3776,
+            229.23360000000002
+          ],
+          [
+            526.3776,
+            316.10159999999996
+          ],
+          [
+            86.5152,
+            316.10159999999996
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Tercera fase 2030-2050: Las tecnologías de hidrógeno renovable deberían alcanzar la madurez y desplegarse a gran escala para llegar a todos los sectores difíciles de descarbonizar donde otras alternativas podrían no ser factibles o tener mayores costes."
+        ],
+        "text_block_id": "94",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.3856,
+            323.0424
+          ],
+          [
+            526.7592,
+            323.40959999999995
+          ],
+          [
+            526.7303999999999,
+            359.4168
+          ],
+          [
+            77.3568,
+            359.0496
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "En esta fase, la producción de electricidad renovable necesita aumentar masivamente, ya que alrededor de una cuarta parte de la electricidad renovable podría usarse para la producción de hidrógeno renovable en 2050."
+        ],
+        "text_block_id": "95",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            87.2424,
+            366.48
+          ],
+          [
+            526.7376,
+            366.48
+          ],
+          [
+            526.7376,
+            390.204
+          ],
+          [
+            87.2424,
+            390.204
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Adicionalmente, el hidrógeno y los combustibles sintéticos derivados del hidrógeno renovable podrían penetrar en gran medida en una gama más amplia de sectores de la economía, desde la aviación y el transporte marítimo hasta el sector industrial y de la edificación difíciles de descarbonizar. El biogás sostenible también puede desempeñar un papel en la sustitución del gas natural en las instalaciones de producción de hidrógeno con captura y almacenamiento de carbono para crear emisiones negativas, con la condición de que se evite la fuga de metano y solo de acuerdo con los objetivos y principios de biodiversidad establecidos en la Estrategia de Biodiversidad de la UE 2030."
+        ],
+        "text_block_id": "96",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            86.87519999999999,
+            397.5048
+          ],
+          [
+            527.1048,
+            397.5048
+          ],
+          [
+            527.1048,
+            471.59999999999997
+          ],
+          [
+            86.87519999999999,
+            471.59999999999997
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "1.2. EL CONTEXTO NACIONAL"
+        ],
+        "text_block_id": "97",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            70.0848,
+            511.75440000000003
+          ],
+          [
+            290.9304,
+            511.75440000000003
+          ],
+          [
+            290.9304,
+            525.2616
+          ],
+          [
+            70.0848,
+            525.2616
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "En el ámbito nacional, el Plan Nacional Integrado de Energía y Clima 2021-2030 (PNIEC) destina su medida 1.8 al fomento de los gases renovables. En ella se hace referencia a la existencia de diferentes tipos de gases renovables como, principalmente pero no exclusivamente, el biogás, el biometano y el hidrógeno de origen renovable (tanto por el recurso utilizado como por la energía empleada en el proceso de obtención). La medida establece que se fomentará, mediante la aprobación de planes específicos, la penetración del gas renovable, incluyendo el biogás, el biometano, el hidrógeno renovable y otros. Adicionalmente, se menciona el papel del hidrógeno en la gestión de los vertidos renovables del sistema eléctrico, medida 1.2 Gestión de demanda, almacenamiento y flexibilidad. Asimismo, la medida 2.4 de impulso al vehículo eléctrico, incluye en esta categoría el fomento al vehículo de pila de combustible."
+        ],
+        "text_block_id": "98",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            540.9576
+          ],
+          [
+            527.1048,
+            540.9576
+          ],
+          [
+            527.1048,
+            640.2384000000001
+          ],
+          [
+            67.52879999999999,
+            640.2384000000001
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "Asimismo, el proyecto de Ley de Cambio Climático y Transición Energética, remitido por el Consejo de Ministros a las Cortes el 19 de mayo de 2020, dispone que el Gobierno fomentará, mediante la aprobación de planes específicos, la penetración de los gases renovables, incluyendo el biogás, el biometano y el hidrógeno renovable entre otros."
+        ],
+        "text_block_id": "99",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.8744,
+            647.9064
+          ],
+          [
+            527.0976,
+            647.5392
+          ],
+          [
+            527.1264,
+            684.0432000000001
+          ],
+          [
+            67.9032,
+            684.4104
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "8"
+        ],
+        "text_block_id": "100",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.948,
+            744.2711999999999
+          ],
+          [
+            300.0528,
+            744.2711999999999
+          ],
+          [
+            300.0528,
+            752.2992
+          ],
+          [
+            294.948,
+            752.2992
+          ]
+        ],
+        "page_number": 9
+      },
+      {
+        "text": [
+          "INTRODUCCIÓN"
+        ],
+        "text_block_id": "101",
+        "language": "es",
+        "type": "pageHeader",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            457.38,
+            81.396
+          ],
+          [
+            526.0104,
+            81.396
+          ],
+          [
+            526.0104,
+            91.25280000000001
+          ],
+          [
+            457.38,
+            91.25280000000001
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Mientras que el PNIEC establece objetivos para el periodo 2021-2030, la Estrategia a Largo Plazo para una Economía Española Moderna, Competitiva y Climáticamente Neutra en 2050, traza el camino para alcanzar el objetivo de neutralidad climática en el año 2050, mediante el incremento de las absorciones por sumideros que permitirán reducir las emisiones de gases de efecto invernadero, al menos, un 90% en 2050 respecto al año de referencia 1990. Para ello, serán necesarias transformaciones profundas de la estructura del sistema energético, entre las cuales destacan el almacenamiento de energía eléctrica y la integración sectorial inteligente."
+        ],
+        "text_block_id": "102",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.5792,
+            147.1032
+          ],
+          [
+            527.1264,
+            147.4704
+          ],
+          [
+            527.0616,
+            221.9328
+          ],
+          [
+            67.52159999999999,
+            221.56560000000002
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "Como consecuencia de todo lo anterior, se presenta esta Hoja de Ruta con objeto de identificar las prioridades y recursos necesarios, así como los principales retos en el desarrollo del hidrógeno renovable y las posibles medidas para superarlos, permitiendo el despliegue de este vector energético en España y posicionar a nuestro país como un referente tecnológico a futuro, teniendo en especial consideración su potencial para desempeñar un papel relevante en el almacenamiento de energía y la descarbonización de distintos sectores de la economía, particularmente aquellos que presentan las mayores dificultades para una descarbonización plena por otras vías. Asimismo, es reseñable la contribución de la Hoja de Ruta al desarrollo de la Estrategia Nacional frente al Reto Demográfico, impulsando la aparición de nuevos núcleos de producción energética que contribuyan a evitar la despoblación rural y a conseguir los objetivos frente al reto demográfico."
+        ],
+        "text_block_id": "103",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.16879999999999,
+            228.8664
+          ],
+          [
+            526.3776,
+            228.8664
+          ],
+          [
+            526.3776,
+            328.1472
+          ],
+          [
+            67.16879999999999,
+            328.1472
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "9"
+        ],
+        "text_block_id": "104",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            295.308,
+            744.6384
+          ],
+          [
+            301.1472,
+            744.6384
+          ],
+          [
+            301.1472,
+            751.9392
+          ],
+          [
+            295.308,
+            751.9392
+          ]
+        ],
+        "page_number": 10
+      },
+      {
+        "text": [
+          "2"
+        ],
+        "text_block_id": "105",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.16879999999999,
+            84.68639999999999
+          ],
+          [
+            80.30879999999999,
+            84.68639999999999
+          ],
+          [
+            80.30879999999999,
+            100.7424
+          ],
+          [
+            67.16879999999999,
+            100.7424
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "CADENA DE VALOR DEL HIDRÓGENO"
+        ],
+        "text_block_id": "106",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            329.25600000000003,
+            665.4240000000001
+          ],
+          [
+            447.1632,
+            665.4240000000001
+          ],
+          [
+            447.1632,
+            729.3024
+          ],
+          [
+            329.25600000000003,
+            729.3024
+          ]
+        ],
+        "page_number": 11
+      },
+      {
+        "text": [
+          "CADENA DE VALOR DEL HIDRÓGENO"
+        ],
+        "text_block_id": "107",
+        "language": "es",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            374.88960000000003,
+            81.036
+          ],
+          [
+            526.0104,
+            81.036
+          ],
+          [
+            526.0104,
+            91.62
+          ],
+          [
+            374.88960000000003,
+            91.62
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "El hidrógeno no es una fuente de energía primaria sino un vector energético, esto es, un producto que requiere de una aportación de energía para ser obtenido y que cuenta con la particularidad de ser capaz de almacenar energía para, posteriormente, ser liberada de forma gradual cuando sea requerida."
+        ],
+        "text_block_id": "108",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            129.2184
+          ],
+          [
+            526.3776,
+            129.2184
+          ],
+          [
+            526.3776,
+            165.35520000000002
+          ],
+          [
+            67.896,
+            165.35520000000002
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Atendiendo a la materia prima necesaria y a las emisiones de CO, generadas para su obtención, el hidrógeno es generalmente clasificado en los siguientes tipos !:"
+        ],
+        "text_block_id": "109",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            172.656
+          ],
+          [
+            526.7376,
+            172.656
+          ],
+          [
+            526.7376,
+            196.38
+          ],
+          [
+            67.896,
+            196.38
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Hidrógeno renovable o hidrógeno verde: hidrógeno generado a partir de electricidad renovable, utilizando como materia prima el agua, mediante un proceso de electrólisis. Así mismo, el hidrógeno obtenido mediante el reformado del biogás o la conversión bioquímica de la biomasa, siempre que se cumplan los requisitos de sostenibilidad establecidos, tendrá carácter renovable."
+        ],
+        "text_block_id": "110",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.3784,
+            203.6808
+          ],
+          [
+            527.8104000000001,
+            203.31359999999998
+          ],
+          [
+            527.8536,
+            251.2584
+          ],
+          [
+            77.4144,
+            251.62560000000002
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Hidrógeno azul: hidrógeno obtenido de forma similar al hidrógeno gris, pero al que se le aplican técnicas de captura, uso y almacenamiento de carbono (CCUS: Carbon Capture, Utilization and Storage) lo que permite reducir hasta en un 95% las emisiones de CO, generadas durante el proceso."
+        ],
+        "text_block_id": "111",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.12,
+            259.524
+          ],
+          [
+            526.7592,
+            259.89119999999997
+          ],
+          [
+            526.7303999999999,
+            296.2152
+          ],
+          [
+            78.084,
+            295.848
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Hidrógeno gris: hidrógeno producido a partir de gas natural u otros hidrocarburos ligeros como metano o gases licuados de petróleo mediante procesos de reformado. Actualmente, el 99% del hidrógeno consumido en España es de este tipo."
+        ],
+        "text_block_id": "112",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.12,
+            302.9616
+          ],
+          [
+            526.7376,
+            302.9616
+          ],
+          [
+            526.7376,
+            339.09839999999997
+          ],
+          [
+            78.12,
+            339.09839999999997
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Además de los anteriores, existen otros tipos con un impacto medioambiental muy diverso, como el hidrógeno negro o marrón cuya materia prima es el carbón, la energía nuclear o la electricidad de la red, no estando incluidos en la clasificación anterior por ser difícil cuantificar el impacto ambiental de su producción y consumo."
+        ],
+        "text_block_id": "113",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            346.0392
+          ],
+          [
+            526.752,
+            346.572
+          ],
+          [
+            526.7088,
+            382.34159999999997
+          ],
+          [
+            67.4856,
+            381.8088
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "La presente Hoja de Ruta se centra en el desarrollo del hidrógeno renovable, con miras a posicionar a España como referente tecnológico en producción y aprovechamiento del hidrógeno renovable, y crear cadenas de valor innovadoras, que contribuyendo además a los siguientes objetivos:"
+        ],
+        "text_block_id": "114",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            81.4032,
+            405.1728
+          ],
+          [
+            508.4856,
+            405.1728
+          ],
+          [
+            508.4856,
+            440.9424
+          ],
+          [
+            81.4032,
+            440.9424
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Reducir las emisiones contaminantes locales y los gases de efecto invernadero generados durante el ciclo de producción;"
+        ],
+        "text_block_id": "115",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.26,
+            448.6032
+          ],
+          [
+            508.12559999999996,
+            448.6032
+          ],
+          [
+            508.12559999999996,
+            471.96720000000005
+          ],
+          [
+            91.26,
+            471.96720000000005
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Aprovechar la energía renovable excedentaria generada en las horas de menor consumo eléctrico al permitir la gestionabilidad y la continuidad en el suministro renovable mediante su capacidad para el almacenamiento de energía;"
+        ],
+        "text_block_id": "116",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            91.26,
+            479.26800000000003
+          ],
+          [
+            508.4856,
+            479.26800000000003
+          ],
+          [
+            508.4856,
+            515.4048
+          ],
+          [
+            91.26,
+            515.4048
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Ampliar la descarbonización y la energía renovable a sectores donde la electrificación no es viable o rentable."
+        ],
+        "text_block_id": "117",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            90.8928,
+            522.7056
+          ],
+          [
+            508.12559999999996,
+            522.7056
+          ],
+          [
+            508.12559999999996,
+            544.968
+          ],
+          [
+            90.8928,
+            544.968
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "Actualmente, el consumo de hidrógeno en España se sitúa en torno a las 500.000 t/año, mayoritariamente hidrógeno gris, utilizado como materia prima principalmente en refinerías (en torno al 70%) y en fabricantes de productos químicos (25%), correspondiendo el consumo residual restante a sectores como el metalúrgico. En muchos casos, la producción se realiza directamente en la propia planta de consumo a través de instalaciones de reformado con vapor de gas natural."
+        ],
+        "text_block_id": "118",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            571.9824
+          ],
+          [
+            527.1048,
+            571.9824
+          ],
+          [
+            527.1048,
+            620.892
+          ],
+          [
+            67.896,
+            620.892
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "1 Informe de la Agencia Internacional de la Energía. The Future of Hydrogen. Junio 2019"
+        ],
+        "text_block_id": "119",
+        "language": "es",
+        "type": "footnote",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            68.6232,
+            719.4528
+          ],
+          [
+            334.74240000000003,
+            719.8128
+          ],
+          [
+            334.73519999999996,
+            728.9424
+          ],
+          [
+            68.616,
+            728.5752
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "="
+        ],
+        "text_block_id": "120",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.2136,
+            745.3656
+          ],
+          [
+            301.5144,
+            745.3656
+          ],
+          [
+            301.5144,
+            753.3936000000001
+          ],
+          [
+            294.2136,
+            753.3936000000001
+          ]
+        ],
+        "page_number": 12
+      },
+      {
+        "text": [
+          "CADENA DE VALOR DEL HIDRÓGENO"
+        ],
+        "text_block_id": "121",
+        "language": "es",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            376.3224,
+            81.396
+          ],
+          [
+            527.1048,
+            81.036
+          ],
+          [
+            527.1264,
+            91.25280000000001
+          ],
+          [
+            376.34400000000005,
+            91.62
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "En cuanto a las etapas de la cadena de valor del hidrógeno, se resumen en el esquema de la Figura I, cuyos aspectos se detallan en los apartados de la presente sección:"
+        ],
+        "text_block_id": "122",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.52879999999999,
+            147.8304
+          ],
+          [
+            526.0104,
+            147.8304
+          ],
+          [
+            526.0104,
+            171.1944
+          ],
+          [
+            67.52879999999999,
+            171.1944
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Figura 1. Etapas de la cadena de valor del hidrógeno."
+        ],
+        "text_block_id": "123",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.16879999999999,
+            204.048
+          ],
+          [
+            254.0592,
+            204.048
+          ],
+          [
+            254.0592,
+            213.53760000000003
+          ],
+          [
+            67.16879999999999,
+            213.53760000000003
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "PRODUCCIÓN"
+        ],
+        "text_block_id": "124",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            94.4856,
+            238.7232
+          ],
+          [
+            150.0264,
+            238.35600000000002
+          ],
+          [
+            150.09120000000001,
+            247.4784
+          ],
+          [
+            94.5432,
+            247.8456
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "ALMACENAMIENTO/TRANSPORTE"
+        ],
+        "text_block_id": "125",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            239.4576,
+            239.4504
+          ],
+          [
+            369.4104,
+            239.4504
+          ],
+          [
+            369.4104,
+            247.4784
+          ],
+          [
+            239.4576,
+            247.4784
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "H2O"
+        ],
+        "text_block_id": "126",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.792,
+            298.2168
+          ],
+          [
+            148.932,
+            298.2168
+          ],
+          [
+            148.932,
+            306.61199999999997
+          ],
+          [
+            135.792,
+            306.61199999999997
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "ENERGÍA ELECTRICA RENOVABLE"
+        ],
+        "text_block_id": "127",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            77.3856,
+            310.62960000000004
+          ],
+          [
+            124.1136,
+            310.62960000000004
+          ],
+          [
+            124.1136,
+            333.9936
+          ],
+          [
+            77.3856,
+            333.9936
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "COMBUSTIBLES CON CARBONO"
+        ],
+        "text_block_id": "128",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            71.17920000000001,
+            388.3752
+          ],
+          [
+            130.68,
+            388.3752
+          ],
+          [
+            130.68,
+            412.1064
+          ],
+          [
+            71.17920000000001,
+            412.1064
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "CO2"
+        ],
+        "text_block_id": "129",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            135.0648,
+            433.27439999999996
+          ],
+          [
+            147.24,
+            434.0376
+          ],
+          [
+            146.7432,
+            442.0368
+          ],
+          [
+            134.5608,
+            441.2736
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Amoníaco y líquidos orgánicos portadores d H2"
+        ],
+        "text_block_id": "130",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            196.38719999999998,
+            285.444
+          ],
+          [
+            249.6816,
+            285.444
+          ],
+          [
+            249.6816,
+            309.16799999999995
+          ],
+          [
+            196.38719999999998,
+            309.16799999999995
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "H2"
+        ],
+        "text_block_id": "131",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            159.516,
+            340.56000000000006
+          ],
+          [
+            169.0128,
+            340.56000000000006
+          ],
+          [
+            169.0128,
+            350.4168
+          ],
+          [
+            159.516,
+            350.4168
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "H2 y H2 licuado"
+        ],
+        "text_block_id": "132",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            199.9728,
+            347.1264
+          ],
+          [
+            244.50480000000002,
+            346.76640000000003
+          ],
+          [
+            244.56959999999998,
+            354.7944
+          ],
+          [
+            200.03760000000003,
+            355.1616
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Gas natural sintético (Power-to-gas)"
+        ],
+        "text_block_id": "133",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            200.93040000000002,
+            394.99199999999996
+          ],
+          [
+            242.60399999999998,
+            394.6248
+          ],
+          [
+            242.81279999999998,
+            417.9456
+          ],
+          [
+            201.132,
+            418.3128
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Combustibles líquidos sintéticos (Power-to-liquid): diésel, gasolina, metanol, queroseno, ...."
+        ],
+        "text_block_id": "134",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            195.66,
+            437.29200000000003
+          ],
+          [
+            248.5872,
+            437.29200000000003
+          ],
+          [
+            248.5872,
+            484.0128
+          ],
+          [
+            195.66,
+            484.0128
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "2.1. PRODUCCIÓN"
+        ],
+        "text_block_id": "135",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            68.2128,
+            510.2928
+          ],
+          [
+            201.44879999999998,
+            509.92560000000003
+          ],
+          [
+            201.4992,
+            526.7232
+          ],
+          [
+            68.2632,
+            527.0832
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "ALMACENAMIENTO"
+        ],
+        "text_block_id": "136",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            311.7384,
+            279.2376
+          ],
+          [
+            386.9352,
+            279.2376
+          ],
+          [
+            386.9352,
+            286.9056
+          ],
+          [
+            311.7384,
+            286.9056
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "PERIODOS CORTOS Y VOLÚMENES PEQUEÑOS"
+        ],
+        "text_block_id": "137",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            278.5176,
+            295.6608
+          ],
+          [
+            329.99039999999997,
+            295.6608
+          ],
+          [
+            329.99039999999997,
+            319.0248
+          ],
+          [
+            278.5176,
+            319.0248
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "· Depósitos · Materiales sólidos"
+        ],
+        "text_block_id": "138",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            279.612,
+            323.54639999999995
+          ],
+          [
+            332.28000000000003,
+            323.91360000000003
+          ],
+          [
+            332.1792,
+            338.37120000000004
+          ],
+          [
+            279.5112,
+            338.00399999999996
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "PERIODOS LARGOS Y VOLÚMENES GRANDES"
+        ],
+        "text_block_id": "139",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            348.9696,
+            295.6608
+          ],
+          [
+            400.4352,
+            295.6608
+          ],
+          [
+            400.4352,
+            318.2976
+          ],
+          [
+            348.9696,
+            318.2976
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "· Almacenamiento geológico natural"
+        ],
+        "text_block_id": "140",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            349.3368,
+            323.7696
+          ],
+          [
+            400.4352,
+            323.7696
+          ],
+          [
+            400.4352,
+            338.37120000000004
+          ],
+          [
+            349.3368,
+            338.37120000000004
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "TRANSPORTE"
+        ],
+        "text_block_id": "141",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            275.2344,
+            370.1304
+          ],
+          [
+            419.4216,
+            369.39599999999996
+          ],
+          [
+            419.4216,
+            381.8088
+          ],
+          [
+            275.2344,
+            381.8088
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "DISTANCIAS"
+        ],
+        "text_block_id": "142",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            275.2344,
+            381.8088
+          ],
+          [
+            346.41360000000003,
+            381.8088
+          ],
+          [
+            346.41360000000003,
+            392.3928
+          ],
+          [
+            275.2344,
+            392.3928
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "DISTANCIAS LARGAS Y"
+        ],
+        "text_block_id": "143",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            346.41360000000003,
+            381.8088
+          ],
+          [
+            419.4216,
+            381.8088
+          ],
+          [
+            419.4216,
+            392.3928
+          ],
+          [
+            346.41360000000003,
+            392.3928
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "CORTAS Y CAUDALES"
+        ],
+        "text_block_id": "144",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            275.2344,
+            392.3928
+          ],
+          [
+            346.41360000000003,
+            392.3928
+          ],
+          [
+            346.41360000000003,
+            400.0608
+          ],
+          [
+            275.2344,
+            400.0608
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "CAUDALES GRANDES"
+        ],
+        "text_block_id": "145",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            346.41360000000003,
+            392.3928
+          ],
+          [
+            419.4216,
+            392.3928
+          ],
+          [
+            419.4216,
+            400.0608
+          ],
+          [
+            346.41360000000003,
+            400.0608
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "PEQUEÑOS · Gasoductos (mezclado con gas natural o puro) · Camiones"
+        ],
+        "text_block_id": "146",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            275.2344,
+            400.0608
+          ],
+          [
+            346.41360000000003,
+            400.0608
+          ],
+          [
+            346.41360000000003,
+            444.5928
+          ],
+          [
+            275.60159999999996,
+            444.9528
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "· Gasoductos (puro o mezclado GN) · Tren, barco, camiones"
+        ],
+        "text_block_id": "147",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            346.41360000000003,
+            400.0608
+          ],
+          [
+            419.4216,
+            400.0608
+          ],
+          [
+            419.4216,
+            444.5928
+          ],
+          [
+            346.41360000000003,
+            444.5928
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Infraestructuras de transporte y almacenamiento de productos petrolíferos"
+        ],
+        "text_block_id": "148",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            281.0736,
+            466.12800000000004
+          ],
+          [
+            414.3096,
+            466.12800000000004
+          ],
+          [
+            414.3096,
+            481.824
+          ],
+          [
+            281.0736,
+            481.824
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "USOS FINALES"
+        ],
+        "text_block_id": "149",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            451.1232,
+            239.4504
+          ],
+          [
+            507.3912,
+            239.0832
+          ],
+          [
+            507.4416,
+            247.1184
+          ],
+          [
+            451.1808,
+            247.4784
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Industria"
+        ],
+        "text_block_id": "150",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            477.4608,
+            293.472
+          ],
+          [
+            509.9472,
+            293.472
+          ],
+          [
+            509.9472,
+            300.77279999999996
+          ],
+          [
+            477.4608,
+            300.77279999999996
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Integración sectorial"
+        ],
+        "text_block_id": "151",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            478.41119999999995,
+            343.4832
+          ],
+          [
+            517.6152,
+            343.11600000000004
+          ],
+          [
+            517.7592,
+            358.4448
+          ],
+          [
+            478.5552,
+            358.812
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Movilidad"
+        ],
+        "text_block_id": "152",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            477.828,
+            402.97679999999997
+          ],
+          [
+            511.4088,
+            402.97679999999997
+          ],
+          [
+            511.4088,
+            410.2776
+          ],
+          [
+            477.828,
+            410.2776
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Otros"
+        ],
+        "text_block_id": "153",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            478.5552,
+            458.09999999999997
+          ],
+          [
+            500.09040000000005,
+            458.46
+          ],
+          [
+            499.9752,
+            465.4008
+          ],
+          [
+            478.43999999999994,
+            465.0336
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Considerando la clasificación anterior, se pueden distinguir varias tecnologías de obtención de hidrógeno en función de la materia prima utilizada:"
+        ],
+        "text_block_id": "154",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            539.8632
+          ],
+          [
+            526.7376,
+            539.8632
+          ],
+          [
+            526.7376,
+            563.5872
+          ],
+          [
+            67.896,
+            563.5872
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "Hidrógeno a partir de electricidad renovable"
+        ],
+        "text_block_id": "155",
+        "language": "es",
+        "type": "sectionHeading",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            78.48,
+            571.6152
+          ],
+          [
+            276.696,
+            571.6152
+          ],
+          [
+            276.696,
+            582.1992
+          ],
+          [
+            78.48,
+            582.1992
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "> Electrólisis: La tecnología de electrólisis consiste en la disociación de la molécula de agua en oxígeno e hidrógeno en estado gaseoso por medio de una corriente eléctrica continua, suministrada por una fuente de alimentación conectada a dos electrodos, en cuya superficie se produce la ruptura de la molécula del agua. Para la aplicación de esta tecnología, existen varios tipos de electrolizadores, entre los que destacan los siguientes:"
+        ],
+        "text_block_id": "156",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            100.7496,
+            589.5
+          ],
+          [
+            526.7376,
+            589.5
+          ],
+          [
+            526.7376,
+            638.0496
+          ],
+          [
+            100.7496,
+            638.0496
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "- Electrolizadores alcalinos: El electrolito donde se produce la conducción de los iones es una disolución alcalina, generalmente de hidróxido de potasio (KOH). Son los más comunes en la actualidad, al ser los de mayor rentabilidad económica y madurez tecnológica. Es una tecnología con una baja densidad de corriente, lo que implica menor cantidad de hidrógeno por volumen de equipo; o que la producción de hidrógeno está limitada a un rango de operación del 20-100% del funcionamiento nominal, debido a que los gases generados en ánodo y cátodo pueden sufrir difusión a través del diafragma."
+        ],
+        "text_block_id": "157",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            127.764,
+            648.2736
+          ],
+          [
+            526.7376,
+            648.2736
+          ],
+          [
+            526.7376,
+            722.736
+          ],
+          [
+            127.764,
+            722.736
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "12"
+        ],
+        "text_block_id": "158",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.2136,
+            744.9696
+          ],
+          [
+            301.5144,
+            744.6384
+          ],
+          [
+            301.8816,
+            752.6664
+          ],
+          [
+            294.5808,
+            752.9975999999999
+          ]
+        ],
+        "page_number": 13
+      },
+      {
+        "text": [
+          "CADENA DE VALOR DEL HIDRÓGENO"
+        ],
+        "text_block_id": "159",
+        "language": "es",
+        "type": "title",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.2496,
+            81.036
+          ],
+          [
+            526.3776,
+            81.036
+          ],
+          [
+            526.3776,
+            91.62
+          ],
+          [
+            375.2496,
+            91.62
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "- Electrolizadores de Proton Exchange Membrane (PEM): En este caso, el electrolito es un polímero sólido conductor de protones, reduciendo los problemas de corrosión del anterior a nivel de sistema, aunque deben hacerse frente a otros problemas de corrosión, que afectan a los componentes individuales del electrolizador. Además, se requiere el uso de metales preciosos, lo que implica costes superiores, aunque pueden trabajar a mayores densidades de corriente y permiten acoplarse fácilmente a sistemas fluctuantes, como las energías renovables."
+        ],
+        "text_block_id": "160",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            127.39680000000001,
+            129.2184
+          ],
+          [
+            526.4208,
+            129.57840000000002
+          ],
+          [
+            526.3488,
+            203.8968
+          ],
+          [
+            127.3248,
+            203.5296
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "- Electrolizadores de Anion Exchange Membrane (AEM): Este tipo de electrolizadores es una variante de los electrolizadores alcalinos, pero utilizando como electrolito una membrana de intercambio aniónico (equivalencia con PEM) de tipo aniónico. Este tipo de tecnología es más económica que los electrolizadores PEM, ya que sobre la membrana no se requiere de metales preciosos como catalizadores de metales no nobles, siendo la electrólisis AEM de bajo coste y altamente estable para la producción de hidrógeno. No obstante, esta tecnología se encuentra en fase de investigación."
+        ],
+        "text_block_id": "161",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            128.124,
+            213.8976
+          ],
+          [
+            526.7376,
+            213.8976
+          ],
+          [
+            526.7376,
+            288.0
+          ],
+          [
+            128.124,
+            288.0
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "- Electrolizadores de óxido sólido (SOEC): Es la tecnología menos desarrollada. El electrolito está elaborado con materiales cerámicos, lo que permite la reducción en sus costes de fabricación, y cuentan con un alto grado de eficiencia energética, aunque debe aportarse para ello temperaturas superiores a los 700℃. A diferencia de los anteriores, permiten convertir el hidrógeno generado en electricidad nuevamente si se emplean dispositivos reversibles, aportando servicios de equilibrio a la red."
+        ],
+        "text_block_id": "162",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            128.124,
+            297.85679999999996
+          ],
+          [
+            527.472,
+            297.85679999999996
+          ],
+          [
+            527.472,
+            359.5392
+          ],
+          [
+            128.124,
+            359.5392
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "La comparativa de las características técnicas y costes entre los principales tipos de electrolizadores, permite identificar la alternativa de uso más adecuada en función del fin al que se dirigen."
+        ],
+        "text_block_id": "163",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            373.7808
+          ],
+          [
+            526.7376,
+            373.7808
+          ],
+          [
+            526.7376,
+            397.5048
+          ],
+          [
+            67.896,
+            397.5048
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Figura 2. Características tecnoeconómicas de diferentes tecnologías de electrolizadores. Fuente: The International Energy Agency. The Future of Hydrogen, June 2019"
+        ],
+        "text_block_id": "164",
+        "language": "es",
+        "type": "Text",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            67.896,
+            418.6728
+          ],
+          [
+            525.276,
+            418.6728
+          ],
+          [
+            525.276,
+            436.92479999999995
+          ],
+          [
+            67.896,
+            436.92479999999995
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Electrolizador alcalino"
+        ],
+        "text_block_id": "165",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            461.196
+          ],
+          [
+            299.36879999999996,
+            461.196
+          ],
+          [
+            299.36879999999996,
+            476.7552
+          ],
+          [
+            185.2416,
+            476.7552
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Electrolizador PEM"
+        ],
+        "text_block_id": "166",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            461.196
+          ],
+          [
+            413.028,
+            461.196
+          ],
+          [
+            413.028,
+            476.7552
+          ],
+          [
+            299.36879999999996,
+            476.7552
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Electrolizador SOEC"
+        ],
+        "text_block_id": "167",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            461.196
+          ],
+          [
+            526.2192,
+            461.196
+          ],
+          [
+            526.2192,
+            476.7552
+          ],
+          [
+            413.028,
+            476.7552
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Hoy"
+        ],
+        "text_block_id": "168",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            476.7552
+          ],
+          [
+            222.9696,
+            476.7552
+          ],
+          [
+            222.9696,
+            497.02320000000003
+          ],
+          [
+            185.2416,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "2030"
+        ],
+        "text_block_id": "169",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            476.7552
+          ],
+          [
+            261.1728,
+            476.7552
+          ],
+          [
+            261.1728,
+            497.02320000000003
+          ],
+          [
+            222.9696,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Largo plazo"
+        ],
+        "text_block_id": "170",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            476.7552
+          ],
+          [
+            299.36879999999996,
+            476.7552
+          ],
+          [
+            299.36879999999996,
+            497.02320000000003
+          ],
+          [
+            261.1728,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Hoy"
+        ],
+        "text_block_id": "171",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            476.7552
+          ],
+          [
+            336.62879999999996,
+            476.7552
+          ],
+          [
+            337.10400000000004,
+            497.02320000000003
+          ],
+          [
+            299.36879999999996,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "2030"
+        ],
+        "text_block_id": "172",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            336.62879999999996,
+            476.7552
+          ],
+          [
+            375.3,
+            476.7552
+          ],
+          [
+            375.3,
+            497.02320000000003
+          ],
+          [
+            337.10400000000004,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Largo plazo"
+        ],
+        "text_block_id": "173",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            476.7552
+          ],
+          [
+            413.028,
+            476.7552
+          ],
+          [
+            413.028,
+            497.02320000000003
+          ],
+          [
+            375.3,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Hoy"
+        ],
+        "text_block_id": "174",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            476.7552
+          ],
+          [
+            450.28799999999995,
+            476.7552
+          ],
+          [
+            450.28799999999995,
+            497.02320000000003
+          ],
+          [
+            413.028,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "2030"
+        ],
+        "text_block_id": "175",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.28799999999995,
+            476.7552
+          ],
+          [
+            488.4912,
+            476.7552
+          ],
+          [
+            488.9592,
+            497.4912
+          ],
+          [
+            450.28799999999995,
+            497.02320000000003
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Largo plazo"
+        ],
+        "text_block_id": "176",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.4912,
+            476.7552
+          ],
+          [
+            526.2192,
+            476.7552
+          ],
+          [
+            526.2192,
+            497.4912
+          ],
+          [
+            488.9592,
+            497.4912
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Eficiencia eléctrica (% PCI)"
+        ],
+        "text_block_id": "177",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            497.02320000000003
+          ],
+          [
+            185.2416,
+            497.02320000000003
+          ],
+          [
+            185.2416,
+            522.0072
+          ],
+          [
+            69.696,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "63-70"
+        ],
+        "text_block_id": "178",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            497.02320000000003
+          ],
+          [
+            222.9696,
+            497.02320000000003
+          ],
+          [
+            222.9696,
+            522.0072
+          ],
+          [
+            185.2416,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "65-71"
+        ],
+        "text_block_id": "179",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            497.02320000000003
+          ],
+          [
+            261.1728,
+            497.02320000000003
+          ],
+          [
+            261.1728,
+            522.0072
+          ],
+          [
+            222.9696,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "70-80"
+        ],
+        "text_block_id": "180",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            497.02320000000003
+          ],
+          [
+            299.36879999999996,
+            497.02320000000003
+          ],
+          [
+            299.36879999999996,
+            522.0072
+          ],
+          [
+            261.1728,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "56-60"
+        ],
+        "text_block_id": "181",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            497.02320000000003
+          ],
+          [
+            337.10400000000004,
+            497.02320000000003
+          ],
+          [
+            337.10400000000004,
+            522.0072
+          ],
+          [
+            299.36879999999996,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "63-68"
+        ],
+        "text_block_id": "182",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.10400000000004,
+            497.02320000000003
+          ],
+          [
+            375.3,
+            497.02320000000003
+          ],
+          [
+            375.3,
+            522.0072
+          ],
+          [
+            337.10400000000004,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "67-74"
+        ],
+        "text_block_id": "183",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            497.02320000000003
+          ],
+          [
+            413.028,
+            497.02320000000003
+          ],
+          [
+            413.028,
+            522.0072
+          ],
+          [
+            375.3,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "74-81"
+        ],
+        "text_block_id": "184",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            497.02320000000003
+          ],
+          [
+            450.28799999999995,
+            497.02320000000003
+          ],
+          [
+            450.7632,
+            522.0072
+          ],
+          [
+            413.028,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "77-84"
+        ],
+        "text_block_id": "185",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.28799999999995,
+            497.02320000000003
+          ],
+          [
+            488.9592,
+            497.4912
+          ],
+          [
+            488.9592,
+            522.0072
+          ],
+          [
+            450.7632,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "77-90"
+        ],
+        "text_block_id": "186",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.9592,
+            497.4912
+          ],
+          [
+            526.2192,
+            497.4912
+          ],
+          [
+            526.6944,
+            522.0072
+          ],
+          [
+            488.9592,
+            522.0072
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Presión de operación (bar)"
+        ],
+        "text_block_id": "187",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            522.0072
+          ],
+          [
+            185.2416,
+            522.0072
+          ],
+          [
+            185.2416,
+            540.8639999999999
+          ],
+          [
+            69.696,
+            540.8639999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1-30"
+        ],
+        "text_block_id": "188",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            522.0072
+          ],
+          [
+            222.9696,
+            522.0072
+          ],
+          [
+            222.9696,
+            540.8639999999999
+          ],
+          [
+            185.2416,
+            540.8639999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "30-80"
+        ],
+        "text_block_id": "189",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            522.0072
+          ],
+          [
+            337.10400000000004,
+            522.0072
+          ],
+          [
+            337.10400000000004,
+            540.8639999999999
+          ],
+          [
+            299.36879999999996,
+            540.8639999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1"
+        ],
+        "text_block_id": "190",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            522.0072
+          ],
+          [
+            450.7632,
+            522.0072
+          ],
+          [
+            450.7632,
+            540.8639999999999
+          ],
+          [
+            413.028,
+            540.8639999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Temperatura de operación (°℃)"
+        ],
+        "text_block_id": "191",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            540.8639999999999
+          ],
+          [
+            185.2416,
+            540.8639999999999
+          ],
+          [
+            185.2416,
+            573.8616
+          ],
+          [
+            69.696,
+            573.8616
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "60-80"
+        ],
+        "text_block_id": "192",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            540.8639999999999
+          ],
+          [
+            222.9696,
+            540.8639999999999
+          ],
+          [
+            222.9696,
+            573.8616
+          ],
+          [
+            185.2416,
+            573.8616
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "50-80"
+        ],
+        "text_block_id": "193",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            540.8639999999999
+          ],
+          [
+            337.10400000000004,
+            540.8639999999999
+          ],
+          [
+            337.10400000000004,
+            573.8616
+          ],
+          [
+            299.36879999999996,
+            573.8616
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "650 1 000"
+        ],
+        "text_block_id": "194",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            540.8639999999999
+          ],
+          [
+            450.7632,
+            540.8639999999999
+          ],
+          [
+            450.7632,
+            573.8616
+          ],
+          [
+            413.028,
+            573.8616
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Vida media del stack (horas de"
+        ],
+        "text_block_id": "195",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            573.8616
+          ],
+          [
+            185.2416,
+            573.8616
+          ],
+          [
+            185.2416,
+            590.832
+          ],
+          [
+            69.696,
+            590.832
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "60 000"
+        ],
+        "text_block_id": "196",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            573.8616
+          ],
+          [
+            222.9696,
+            573.8616
+          ],
+          [
+            222.9696,
+            590.3568
+          ],
+          [
+            185.2416,
+            590.832
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "90 000"
+        ],
+        "text_block_id": "197",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            573.8616
+          ],
+          [
+            261.1728,
+            573.8616
+          ],
+          [
+            261.1728,
+            590.3568
+          ],
+          [
+            222.9696,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "100 000"
+        ],
+        "text_block_id": "198",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            573.8616
+          ],
+          [
+            299.36879999999996,
+            573.8616
+          ],
+          [
+            299.36879999999996,
+            590.3568
+          ],
+          [
+            261.1728,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "30 000"
+        ],
+        "text_block_id": "199",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            573.8616
+          ],
+          [
+            337.10400000000004,
+            573.8616
+          ],
+          [
+            337.10400000000004,
+            590.3568
+          ],
+          [
+            299.36879999999996,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "60 000"
+        ],
+        "text_block_id": "200",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.10400000000004,
+            573.8616
+          ],
+          [
+            375.3,
+            573.8616
+          ],
+          [
+            375.3,
+            590.3568
+          ],
+          [
+            337.10400000000004,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "100 000"
+        ],
+        "text_block_id": "201",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            573.8616
+          ],
+          [
+            413.028,
+            573.8616
+          ],
+          [
+            413.028,
+            590.3568
+          ],
+          [
+            375.3,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "10 000"
+        ],
+        "text_block_id": "202",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            573.8616
+          ],
+          [
+            450.7632,
+            573.8616
+          ],
+          [
+            450.7632,
+            590.3568
+          ],
+          [
+            413.028,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "40 000"
+        ],
+        "text_block_id": "203",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.7632,
+            573.8616
+          ],
+          [
+            488.9592,
+            573.8616
+          ],
+          [
+            488.9592,
+            590.3568
+          ],
+          [
+            450.7632,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "75 000"
+        ],
+        "text_block_id": "204",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.9592,
+            573.8616
+          ],
+          [
+            526.6944,
+            573.8616
+          ],
+          [
+            526.6944,
+            590.3568
+          ],
+          [
+            488.9592,
+            590.3568
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "funcionamiento)"
+        ],
+        "text_block_id": "205",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            590.832
+          ],
+          [
+            185.2416,
+            590.832
+          ],
+          [
+            185.2416,
+            605.9159999999999
+          ],
+          [
+            69.696,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "90 000"
+        ],
+        "text_block_id": "206",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            590.832
+          ],
+          [
+            222.9696,
+            590.3568
+          ],
+          [
+            222.9696,
+            605.9159999999999
+          ],
+          [
+            185.2416,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "100 000"
+        ],
+        "text_block_id": "207",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            590.3568
+          ],
+          [
+            261.1728,
+            590.3568
+          ],
+          [
+            261.1728,
+            605.9159999999999
+          ],
+          [
+            222.9696,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "150 000"
+        ],
+        "text_block_id": "208",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            590.3568
+          ],
+          [
+            299.36879999999996,
+            590.3568
+          ],
+          [
+            299.36879999999996,
+            605.9159999999999
+          ],
+          [
+            261.1728,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "90 000"
+        ],
+        "text_block_id": "209",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            590.3568
+          ],
+          [
+            337.10400000000004,
+            590.3568
+          ],
+          [
+            337.10400000000004,
+            605.9159999999999
+          ],
+          [
+            299.36879999999996,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "90 000"
+        ],
+        "text_block_id": "210",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.10400000000004,
+            590.3568
+          ],
+          [
+            375.3,
+            590.3568
+          ],
+          [
+            375.3,
+            605.9159999999999
+          ],
+          [
+            337.10400000000004,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "150 000"
+        ],
+        "text_block_id": "211",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            590.3568
+          ],
+          [
+            413.028,
+            590.3568
+          ],
+          [
+            413.028,
+            605.9159999999999
+          ],
+          [
+            375.3,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "30 000"
+        ],
+        "text_block_id": "212",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            590.3568
+          ],
+          [
+            450.7632,
+            590.3568
+          ],
+          [
+            450.7632,
+            605.9159999999999
+          ],
+          [
+            413.028,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "60 000"
+        ],
+        "text_block_id": "213",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.7632,
+            590.3568
+          ],
+          [
+            488.9592,
+            590.3568
+          ],
+          [
+            488.9592,
+            605.9159999999999
+          ],
+          [
+            450.7632,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "100 00"
+        ],
+        "text_block_id": "214",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.9592,
+            590.3568
+          ],
+          [
+            526.6944,
+            590.3568
+          ],
+          [
+            526.6944,
+            605.9159999999999
+          ],
+          [
+            488.9592,
+            605.9159999999999
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Rango de carga (% relativo a carga nominal)"
+        ],
+        "text_block_id": "215",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            605.9159999999999
+          ],
+          [
+            185.2416,
+            605.9159999999999
+          ],
+          [
+            185.2416,
+            624.7728000000001
+          ],
+          [
+            69.696,
+            624.7728000000001
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "10 -110"
+        ],
+        "text_block_id": "216",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            605.9159999999999
+          ],
+          [
+            222.9696,
+            605.9159999999999
+          ],
+          [
+            222.9696,
+            624.7728000000001
+          ],
+          [
+            185.2416,
+            624.7728000000001
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "0-160"
+        ],
+        "text_block_id": "217",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            605.9159999999999
+          ],
+          [
+            337.10400000000004,
+            605.9159999999999
+          ],
+          [
+            337.10400000000004,
+            624.7728000000001
+          ],
+          [
+            299.36879999999996,
+            624.7728000000001
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "20-100"
+        ],
+        "text_block_id": "218",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.028,
+            605.9159999999999
+          ],
+          [
+            450.7632,
+            605.9159999999999
+          ],
+          [
+            450.7632,
+            624.7728000000001
+          ],
+          [
+            413.028,
+            624.7728000000001
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "Superficie ocupada (m2/kW)"
+        ],
+        "text_block_id": "219",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            624.7728000000001
+          ],
+          [
+            185.2416,
+            624.7728000000001
+          ],
+          [
+            184.76639999999998,
+            654.9408
+          ],
+          [
+            69.696,
+            654.9408
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "0.095"
+        ],
+        "text_block_id": "220",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            185.2416,
+            624.7728000000001
+          ],
+          [
+            222.9696,
+            624.7728000000001
+          ],
+          [
+            222.9696,
+            654.9408
+          ],
+          [
+            184.76639999999998,
+            654.9408
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "0.048"
+        ],
+        "text_block_id": "221",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            624.7728000000001
+          ],
+          [
+            337.10400000000004,
+            624.7728000000001
+          ],
+          [
+            337.10400000000004,
+            654.9408
+          ],
+          [
+            299.36879999999996,
+            654.9408
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "CAPEX ($/KW)"
+        ],
+        "text_block_id": "222",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            69.696,
+            654.9408
+          ],
+          [
+            184.76639999999998,
+            654.9408
+          ],
+          [
+            184.76639999999998,
+            671.9112
+          ],
+          [
+            69.696,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "500"
+        ],
+        "text_block_id": "223",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            184.76639999999998,
+            654.9408
+          ],
+          [
+            222.9696,
+            654.9408
+          ],
+          [
+            222.9696,
+            671.9112
+          ],
+          [
+            184.76639999999998,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "400"
+        ],
+        "text_block_id": "224",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            654.9408
+          ],
+          [
+            261.1728,
+            654.9408
+          ],
+          [
+            261.1728,
+            671.9112
+          ],
+          [
+            222.9696,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "200"
+        ],
+        "text_block_id": "225",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            654.9408
+          ],
+          [
+            299.36879999999996,
+            654.9408
+          ],
+          [
+            299.36879999999996,
+            671.9112
+          ],
+          [
+            261.1728,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1 100"
+        ],
+        "text_block_id": "226",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            654.9408
+          ],
+          [
+            337.10400000000004,
+            654.9408
+          ],
+          [
+            337.10400000000004,
+            671.9112
+          ],
+          [
+            299.36879999999996,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "650"
+        ],
+        "text_block_id": "227",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.10400000000004,
+            654.9408
+          ],
+          [
+            375.3,
+            654.9408
+          ],
+          [
+            375.3,
+            671.9112
+          ],
+          [
+            337.10400000000004,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "200"
+        ],
+        "text_block_id": "228",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            654.9408
+          ],
+          [
+            413.5032,
+            654.9408
+          ],
+          [
+            413.5032,
+            671.9112
+          ],
+          [
+            375.3,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "2 800"
+        ],
+        "text_block_id": "229",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.5032,
+            654.9408
+          ],
+          [
+            450.7632,
+            654.9408
+          ],
+          [
+            450.7632,
+            671.9112
+          ],
+          [
+            413.5032,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "800"
+        ],
+        "text_block_id": "230",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.7632,
+            654.9408
+          ],
+          [
+            488.9592,
+            654.9408
+          ],
+          [
+            488.9592,
+            671.9112
+          ],
+          [
+            450.7632,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "500"
+        ],
+        "text_block_id": "231",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.9592,
+            654.9408
+          ],
+          [
+            527.1623999999999,
+            654.9408
+          ],
+          [
+            527.1623999999999,
+            671.9112
+          ],
+          [
+            488.9592,
+            671.9112
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1400"
+        ],
+        "text_block_id": "232",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            184.76639999999998,
+            671.9112
+          ],
+          [
+            222.9696,
+            671.9112
+          ],
+          [
+            222.9696,
+            693.1224
+          ],
+          [
+            184.76639999999998,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "850"
+        ],
+        "text_block_id": "233",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            222.9696,
+            671.9112
+          ],
+          [
+            261.1728,
+            671.9112
+          ],
+          [
+            261.1728,
+            693.1224
+          ],
+          [
+            222.9696,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "700"
+        ],
+        "text_block_id": "234",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            261.1728,
+            671.9112
+          ],
+          [
+            299.36879999999996,
+            671.9112
+          ],
+          [
+            299.36879999999996,
+            693.1224
+          ],
+          [
+            261.1728,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1 800"
+        ],
+        "text_block_id": "235",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            299.36879999999996,
+            671.9112
+          ],
+          [
+            337.10400000000004,
+            671.9112
+          ],
+          [
+            337.10400000000004,
+            693.1224
+          ],
+          [
+            299.36879999999996,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1 500"
+        ],
+        "text_block_id": "236",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            337.10400000000004,
+            671.9112
+          ],
+          [
+            375.3,
+            671.9112
+          ],
+          [
+            375.3,
+            693.1224
+          ],
+          [
+            337.10400000000004,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "900"
+        ],
+        "text_block_id": "237",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            375.3,
+            671.9112
+          ],
+          [
+            413.5032,
+            671.9112
+          ],
+          [
+            413.5032,
+            693.1224
+          ],
+          [
+            375.3,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "5 600"
+        ],
+        "text_block_id": "238",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            413.5032,
+            671.9112
+          ],
+          [
+            450.7632,
+            671.9112
+          ],
+          [
+            450.7632,
+            693.1224
+          ],
+          [
+            413.5032,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "2 800"
+        ],
+        "text_block_id": "239",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            450.7632,
+            671.9112
+          ],
+          [
+            488.9592,
+            671.9112
+          ],
+          [
+            488.9592,
+            693.5976
+          ],
+          [
+            450.7632,
+            693.1224
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "1 000"
+        ],
+        "text_block_id": "240",
+        "language": "es",
+        "type": "TableCell",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            488.9592,
+            671.9112
+          ],
+          [
+            527.1623999999999,
+            671.9112
+          ],
+          [
+            527.1623999999999,
+            693.5976
+          ],
+          [
+            488.9592,
+            693.5976
+          ]
+        ],
+        "page_number": 14
+      },
+      {
+        "text": [
+          "13"
+        ],
+        "text_block_id": "241",
+        "language": "es",
+        "type": "pageNumber",
+        "type_confidence": 1.0,
+        "coords": [
+          [
+            294.24240000000003,
+            744.9839999999999
+          ],
+          [
+            302.24879999999996,
+            744.6384
+          ],
+          [
+            302.6088,
+            753.0336
+          ],
+          [
+            294.6096,
+            753.3792
+          ]
+        ],
+        "page_number": 14
+      }
+    ]
+  },
+  "pipeline_metadata": {
+    "parser_metadata": {
+      "azure_api_version": "2023-07-31",
+      "azure_model_id": "prebuilt-document",
+      "parsing_date": "2023-11-15T13:20:40.627630"
+    }
+  }
+}

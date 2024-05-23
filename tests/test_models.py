@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Iterable
 import os
+import json
 
 import pandas as pd
 import pytest
@@ -101,6 +102,23 @@ def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
     df_all = pd.concat(dfs)
 
     return HuggingFaceDataset.from_pandas(df_all)
+
+
+@pytest.fixture
+def test_huggingface_dataset_cpr_passage_level_flat_parser_outputs() -> (
+    list[ParserOutput]
+):
+    """The original parser outputs relating to the passage level flat parquet data."""
+    dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat_original"
+    dataset_files = os.listdir(dataset_dir)
+    dataset_file_paths = [os.path.join(dataset_dir, f) for f in dataset_files]
+
+    dataset_data = []
+    for f in dataset_file_paths:
+        with open(f, "r") as file:
+            dataset_data.append(ParserOutput.model_validate(json.loads(file.read())))
+
+    return dataset_data
 
 
 def test_dataset_metadata_df(test_dataset):
@@ -467,6 +485,7 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
 @pytest.mark.new_hf_format
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
+    test_huggingface_dataset_cpr_passage_level_flat_parser_outputs,
 ):
     # TODO - A typing fix is required in the datasets class if we want to keep using it.
     # Type hints here as the Dataset class types document model as being a subclass of
@@ -480,6 +499,17 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
 
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, ParserOutput) for doc in dataset.documents)
+
+    for (
+        original_parser_output
+    ) in test_huggingface_dataset_cpr_passage_level_flat_parser_outputs:
+        for doc in dataset.documents:
+            if (
+                doc.document_id == original_parser_output.document_id
+                and doc.languages == original_parser_output.languages
+                and doc.translated == original_parser_output.translated
+            ):
+                assert doc == original_parser_output
 
     dataset = Dataset(document_model=BaseParserOutput)._from_huggingface_parquet_new(
         test_huggingface_dataset_cpr_passage_level_flat,
