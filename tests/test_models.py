@@ -15,7 +15,6 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.parser_models import ParserOutput, BaseParserOutput
 from datasets import Dataset as HuggingFaceDataset
 
 
