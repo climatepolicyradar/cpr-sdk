@@ -53,7 +53,6 @@ from pydantic import (
     StringConstraints,
     model_validator,
 )
-
 from tqdm.auto import tqdm
 
 LOGGER = logging.getLogger(__name__)
@@ -61,8 +60,12 @@ LOGGER = logging.getLogger(__name__)
 AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 
 
-def passage_level_df_to_parser_output(df: pd.DataFrame) -> ParserOutput:
+def passage_level_df_to_document_model(
+    df: pd.DataFrame, document_model: Union[ParserOutput, BaseParserOutput]
+) -> Union[ParserOutput, BaseParserOutput]:
     """A function to group the passage level data and convert to a parser output."""
+    if document_model.__name__ not in ["ParserOutput", "BaseParserOutput"]:
+        raise ValueError("document_model must be an instance of ParserOutput!")
     pdf_data = None
     html_data = None
 
@@ -133,7 +136,7 @@ def passage_level_df_to_parser_output(df: pd.DataFrame) -> ParserOutput:
     document_dict["document_metadata"]["languages"] = document_dict[
         "document_metadata"
     ]["languages"].tolist()
-    return ParserOutput.model_validate(document_dict)
+    return document_model.model_validate(document_dict)
 
 
 def _load_and_validate_metadata_csv(
@@ -1403,8 +1406,9 @@ class Dataset:
 
                 # TODO Remove flag as out of scope
                 if from_passage_level:
-                    # TODO integrate the self.document_model attribute here
-                    parser_output = passage_level_df_to_parser_output(document_lang_df)
+                    parser_output = passage_level_df_to_document_model(
+                        df=document_lang_df, document_model=self.document_model
+                    )
                     documents.append(parser_output)
 
         self.documents = documents

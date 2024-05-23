@@ -15,7 +15,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.parser_models import ParserOutput
+from cpr_sdk.parser_models import ParserOutput, BaseParserOutput
 from datasets import Dataset as HuggingFaceDataset
 
 
@@ -469,6 +469,10 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
 ):
+    # TODO - A typing fix is required in the datasets class if we want to keep using it.
+    # Type hints here as the Dataset class types document model as being a subclass of
+    # BaseDocument. Whereas parser outputs etc. are subclasses of pydantics BaseModel.
+
     dataset = Dataset(document_model=ParserOutput)._from_huggingface_parquet_new(
         test_huggingface_dataset_cpr_passage_level_flat,
         unflatten=True,
@@ -477,6 +481,15 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
 
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, ParserOutput) for doc in dataset.documents)
+
+    dataset = Dataset(document_model=BaseParserOutput)._from_huggingface_parquet_new(
+        test_huggingface_dataset_cpr_passage_level_flat,
+        unflatten=True,
+        from_passage_level=True,
+    )
+
+    assert isinstance(dataset, Dataset)
+    assert all(isinstance(doc, BaseParserOutput) for doc in dataset.documents)
 
 
 def test_dataset_indexable(test_dataset):
