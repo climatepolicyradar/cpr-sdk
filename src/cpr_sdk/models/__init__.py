@@ -63,7 +63,7 @@ AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 
 
 def passage_level_df_to_document_model(
-    df: pd.DataFrame, document_model: AnyDocument
+    df: pd.DataFrame, document_model: type[AnyDocument]
 ) -> AnyDocument:
     """A function to group the passage level data and convert to a parser output."""
     pdf_data = None
