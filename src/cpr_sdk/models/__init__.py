@@ -105,7 +105,7 @@ def passage_level_df_to_document_model(
         for _, row in df.iterrows():
             text_blocks.append(
                 HTMLTextBlock(
-                    text=row["text"],
+                    text=[row["text"]],
                     text_block_id=row["text_block_id"],
                     language=row["language"],
                     type=row["type"],
@@ -114,9 +114,9 @@ def passage_level_df_to_document_model(
             )
 
         html_data = HTMLData(
-            detected_title=df["html_data"]["detected_title"].iloc[0],
-            detected_date=df["html_data"]["detected_date"].iloc[0],
-            has_valid_text=df["html_data"]["has_valid_text"].iloc[0],
+            detected_title=df["html_data"].iloc[0]["detected_title"],
+            detected_date=df["html_data"].iloc[0]["detected_date"],
+            has_valid_text=df["html_data"].iloc[0]["has_valid_text"],
             text_blocks=text_blocks,
         )
     else:
