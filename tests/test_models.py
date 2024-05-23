@@ -467,10 +467,6 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
 ):
-    # TODO - A typing fix is required in the datasets class if we want to keep using it.
-    # Type hints here as the Dataset class types document model as being a subclass of
-    # BaseDocument. Whereas parser outputs etc. are subclasses of pydantics BaseModel.
-
     dataset = Dataset(
         document_model=BaseDocument
     )._from_huggingface_passage_level_flat_parquet(
