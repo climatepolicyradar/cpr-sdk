@@ -15,6 +15,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
+from cpr_sdk.parser_models import ParserOutput
 from datasets import Dataset as HuggingFaceDataset
 
 
@@ -468,14 +469,14 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
 ):
-    dataset = Dataset(document_model=CPRDocument)._from_huggingface_parquet_new(
+    dataset = Dataset(document_model=ParserOutput)._from_huggingface_parquet_new(
         test_huggingface_dataset_cpr_passage_level_flat,
         unflatten=True,
         from_passage_level=True,
     )
 
     assert isinstance(dataset, Dataset)
-    assert all(isinstance(doc, CPRDocument) for doc in dataset.documents)
+    assert all(isinstance(doc, ParserOutput) for doc in dataset.documents)
 
 
 def test_dataset_indexable(test_dataset):

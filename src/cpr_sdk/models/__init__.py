@@ -1388,6 +1388,7 @@ class Dataset:
                 df_unflattened.loc[indx] = pd.Series(unflattened_row)
             hf_dataframe: pd.DataFrame = df_unflattened
 
+        documents = []
         document_ids = hf_dataframe["document_id"].unique()
         for document_id in document_ids:
             document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
@@ -1402,8 +1403,11 @@ class Dataset:
 
                 # TODO Remove flag as out of scope
                 if from_passage_level:
+                    # TODO integrate the self.document_model attribute here
                     parser_output = passage_level_df_to_parser_output(document_lang_df)
-                    print(parser_output)
+                    documents.append(parser_output)
+
+        self.documents = documents
 
         return self
 
