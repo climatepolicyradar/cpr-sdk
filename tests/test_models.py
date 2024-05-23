@@ -92,7 +92,6 @@ def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
     """Test HuggingFace dataset with flattened passage level schema."""
     dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat"
     dataset_files = os.listdir(dataset_dir)
-    # TODO read in each file to a df, fill missing columns with None, and concatenate
 
     dfs = []
     for f in [os.path.join(dataset_dir, f) for f in dataset_files]:
