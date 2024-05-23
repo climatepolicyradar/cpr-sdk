@@ -76,12 +76,12 @@ def passage_level_df_to_document_model(
         text_blocks = []
 
         for _, row in df.iterrows():
-            page_metadata.append(
-                PDFPageMetadata(
-                    page_number=row[PDF_PAGE_METADATA_KEY]["page_number"],
-                    dimensions=row[PDF_PAGE_METADATA_KEY]["dimensions"],
-                )
+            text_block_page_metadata = PDFPageMetadata(
+                page_number=row[PDF_PAGE_METADATA_KEY]["page_number"],
+                dimensions=row[PDF_PAGE_METADATA_KEY]["dimensions"],
             )
+            if text_block_page_metadata not in page_metadata:
+                page_metadata.append(text_block_page_metadata)
 
             text_blocks.append(
                 PDFTextBlock(
