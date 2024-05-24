@@ -1,6 +1,8 @@
 import pydantic
 import pytest
 from cpr_sdk.parser_models import (
+    HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
+    PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
     HTMLData,
     HTMLTextBlock,
     ParserInput,
@@ -170,12 +172,16 @@ def test_to_passage_level_json_method(
         + list(ParserOutput.model_fields.keys())
         + ["block_index", PDF_PAGE_METADATA_KEY]
     )
-    expected_document_metadata_fields = set(list(BackendDocument.model_fields.keys()))
-    expected_html_data_fields = set(list(HTMLData.model_fields.keys()))
-    expected_html_data_fields.remove("text_blocks")
-    expected_pdf_data_fields = set(list(PDFData.model_fields.keys()))
-    expected_pdf_data_fields.remove("text_blocks")
-    expected_pdf_data_fields.remove("page_metadata")
+
+    expected_document_metadata_fields = set(BackendDocument.model_fields.keys())
+
+    expected_html_data_fields = set(HTMLData.model_fields.keys())
+    for field in HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS:
+        expected_html_data_fields.remove(field)
+
+    expected_pdf_data_fields = set(PDFData.model_fields.keys())
+    for field in PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS:
+        expected_pdf_data_fields.remove(field)
 
     parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
     passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
@@ -189,8 +195,8 @@ def test_to_passage_level_json_method(
     for passage_level_array in [passage_level_array_pdf, passage_level_array_html]:
         first_doc_keys = set(passage_level_array[0].keys())
         for passage in passage_level_array:
-            assert set(passage.keys()) == first_doc_keys
             assert isinstance(passage, dict)
+            assert set(passage.keys()) == first_doc_keys
             assert set(passage.keys()) == expected_top_level_fields
             assert (
                 set(passage["document_metadata"].keys())
