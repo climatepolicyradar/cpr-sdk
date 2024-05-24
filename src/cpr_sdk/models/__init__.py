@@ -42,7 +42,6 @@ from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_PDF,
     Json,
 )
-from cpr_sdk.utils import df_first_row_as_dict
 from datasets import Dataset as HFDataset
 from datasets import DatasetInfo, load_dataset
 from flatten_dict import unflatten as unflatten_dict
@@ -129,7 +128,7 @@ def passage_level_df_to_document_model(
     else:
         raise ValueError("The content type is not supported")
 
-    document_dict = df_first_row_as_dict(df=df)
+    document_dict = df.iloc[0].to_dict()
 
     document_dict["pdf_data"] = pdf_data.model_dump() if pdf_data else None
     document_dict["html_data"] = html_data.model_dump() if html_data else None

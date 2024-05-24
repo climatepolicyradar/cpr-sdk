@@ -2,7 +2,6 @@ import csv
 import re
 from pathlib import Path
 from typing import Any, Union
-import pandas as pd
 
 
 def is_sensitive_query(text: str, sensitive_terms: set) -> bool:
@@ -116,11 +115,3 @@ def remove_key_if_all_nested_vals_none(data: dict, key: str) -> dict:
         if all(value is None for value in data[key].values()):
             data.pop(key)
     return data
-
-
-def df_first_row_as_dict(df: pd.DataFrame) -> dict:
-    """Take the first row of a pandas dataframe and convert to a dictionary."""
-    if df.empty:
-        raise ValueError("The DataFrame is empty!")
-
-    return df.iloc[0].to_dict()
