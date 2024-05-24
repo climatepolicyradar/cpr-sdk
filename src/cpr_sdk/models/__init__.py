@@ -1378,7 +1378,8 @@ class Dataset:
     ) -> "Dataset":
         """Create a dataset from a huggingface dataset."""
         hf_dataframe = huggingface_dataset.to_pandas()  # type: ignore
-        assert isinstance(hf_dataframe, pd.DataFrame)
+        if not isinstance(hf_dataframe, pd.DataFrame):
+            raise ValueError("Expected a DataFrame from the huggingface dataset.")
 
         unflattened_columns = unflatten_dict(
             {k: None for k in hf_dataframe.columns}, splitter="dot"
@@ -1397,10 +1398,8 @@ class Dataset:
             document_languages = np.unique(document_df["languages"])
 
             for document_language in document_languages:
-                document_language: list = list(document_language)
-                assert len(document_language) in [0, 1]
                 document_lang_df = document_df[
-                    document_df["languages"] == document_language[0]
+                    document_df["languages"] == document_language
                 ]
 
                 parser_output = passage_level_df_to_document_model(
