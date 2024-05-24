@@ -452,18 +452,18 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
 
     assert isinstance(dataset, Dataset)
     assert all(isinstance(doc, GSTDocument) for doc in dataset.documents)
+
     assert any(doc.languages is not None for doc in dataset.documents)
 
-    unique_document_ids = set(d["document_id"] for d in test_huggingface_dataset_gst)
-    assert len(dataset) == len(unique_document_ids)
+    # Check hugingface dataset has the same number of documents as the dataset
+    assert len(dataset) == len({d["document_id"] for d in test_huggingface_dataset_gst})
 
-    dataset_text_blocks_number = sum(
-        len(doc.text_blocks or []) for doc in dataset.documents
+    # Check huggingface dataset has the same number of text blocks as the dataset
+    assert sum(len(doc.text_blocks or []) for doc in dataset.documents) == len(
+        test_huggingface_dataset_gst
     )
-    assert dataset_text_blocks_number == len(test_huggingface_dataset_gst)
 
 
-@pytest.mark.new_hf_format
 def test_dataset_from_huggingface_cpr_passage_level_flat(
     test_huggingface_dataset_cpr_passage_level_flat,
 ):

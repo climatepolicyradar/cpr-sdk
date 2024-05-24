@@ -42,6 +42,7 @@ from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_PDF,
     Json,
 )
+from cpr_sdk.utils import df_first_row_as_dict
 from datasets import Dataset as HFDataset
 from datasets import DatasetInfo, load_dataset
 from flatten_dict import unflatten as unflatten_dict
@@ -65,7 +66,13 @@ AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
 def passage_level_df_to_document_model(
     df: pd.DataFrame, document_model: type[AnyDocument]
 ) -> AnyDocument:
-    """A function to group the passage level data and convert to a parser output."""
+    """
+    A function to group the passage level data and convert to a document model.
+
+    The document model must be of a type that is either a BaseDocument or inherist from
+    that type. To create this we create an intermediate model called ParserOutput before
+    using the from_parser_output method on the BaseDocument class.
+    """
     pdf_data = None
     html_data = None
 
@@ -122,12 +129,7 @@ def passage_level_df_to_document_model(
     else:
         raise ValueError("The content type is not supported")
 
-    df = df.iloc[[0]]
-
-    assert df.shape[0] == 1
-    document_dict_array = df.to_dict(orient="records")
-    assert len(document_dict_array) == 1
-    document_dict = document_dict_array[0]
+    document_dict = df_first_row_as_dict(df=df)
 
     document_dict["pdf_data"] = pdf_data.model_dump() if pdf_data else None
     document_dict["html_data"] = html_data.model_dump() if html_data else None
@@ -141,6 +143,7 @@ def passage_level_df_to_document_model(
     document_dict["pipeline_metadata"] = (
         document_dict["pipeline_metadata"] if document_dict["pipeline_metadata"] else {}
     )
+
     parser_output = ParserOutput.model_validate(document_dict)
 
     return document_model.from_parser_output(parser_output)
