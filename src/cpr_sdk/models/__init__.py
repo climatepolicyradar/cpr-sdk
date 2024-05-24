@@ -1384,8 +1384,8 @@ class Dataset:
         unflattened_columns = unflatten_dict(
             {k: None for k in hf_dataframe.columns}, splitter="dot"
         )
-
         df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+
         for indx, row in hf_dataframe.iterrows():
             unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
             df_unflattened.loc[indx] = pd.Series(unflattened_row)
@@ -1398,8 +1398,9 @@ class Dataset:
             document_languages = np.unique(document_df["languages"])
 
             for document_language in document_languages:
+                document_language: list = list(document_language)
                 document_lang_df = document_df[
-                    document_df["languages"] == document_language
+                    document_df["languages"] == document_language[0]
                 ]
 
                 parser_output = passage_level_df_to_document_model(

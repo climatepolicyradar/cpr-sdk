@@ -474,6 +474,7 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
     )
 
     assert isinstance(dataset, Dataset)
+    assert len(dataset.documents) > 0
     assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
 
 
