@@ -23,6 +23,8 @@ AZURE_API_VERSION_KEY: Final = "azure_api_version"
 AZURE_MODEL_ID_KEY: Final = "azure_model_id"
 PARSING_DATE_KEY: Final = "parsing_date"
 PDF_PAGE_METADATA_KEY: Final = "pdf_data_page_metadata"
+PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS: Final = {"text_blocks", "page_metadata"}
+HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS: Final = {"text_blocks"}
 
 
 class VerticalFlipError(Exception):
@@ -396,34 +398,30 @@ class ParserOutput(BaseParserOutput):
         if self.text_blocks is None:
             return []
 
-        common_fields_dict = json.loads(
+        fixed_fields_dict = json.loads(
             self.model_dump_json(
                 exclude={
-                    "pdf_data": {"text_blocks", "page_metadata"},
-                    "html_data": {"text_blocks"},
+                    "pdf_data": PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
+                    "html_data": HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
                 }
             )
         )
 
         passages_array = [
-            common_fields_dict
+            fixed_fields_dict
             | json.loads(block.model_dump_json(exclude={"text"}))
             | {"text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
 
-        passages_array_with_pdf_page_metadata = []
         for passage in passages_array:
-            if "page_number" in passage.keys():
-                page_metadata = self.get_page_metadata_by_page_number(
-                    passage["page_number"]
+            page_number = passage.get("page_number")
+            if page_number is not None:
+                passage[PDF_PAGE_METADATA_KEY] = self.get_page_metadata_by_page_number(
+                    page_number
                 )
-                passage[PDF_PAGE_METADATA_KEY] = page_metadata
             else:
                 passage[PDF_PAGE_METADATA_KEY] = None
-            passages_array_with_pdf_page_metadata.append(passage)
-
-        passages_array = passages_array_with_pdf_page_metadata
 
         empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
         empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
