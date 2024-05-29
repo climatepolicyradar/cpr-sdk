@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Iterable
 
@@ -83,6 +84,22 @@ def test_huggingface_dataset_gst() -> HuggingFaceDataset:
     return HuggingFaceDataset.from_parquet(
         "tests/test_data/GST_huggingface_data_sample.parquet"
     )
+
+
+@pytest.fixture
+def test_huggingface_dataset_cpr_passage_level_flat() -> HuggingFaceDataset:
+    """Test HuggingFace dataset with flattened passage level schema."""
+    dataset_dir = "tests/test_data/huggingface/cpr_passage_level_flat"
+    dataset_files = os.listdir(dataset_dir)
+
+    dfs = []
+    for f in [os.path.join(dataset_dir, f) for f in dataset_files]:
+        df = pd.read_parquet(f)
+        dfs.append(df)
+
+    df_all = pd.concat(dfs)
+
+    return HuggingFaceDataset.from_pandas(df_all)
 
 
 def test_dataset_metadata_df(test_dataset):
@@ -445,6 +462,33 @@ def test_dataset_from_huggingface_gst(test_huggingface_dataset_gst):
     assert sum(len(doc.text_blocks or []) for doc in dataset.documents) == len(
         test_huggingface_dataset_gst
     )
+
+
+def test_dataset_from_huggingface_cpr_passage_level_flat(
+    test_huggingface_dataset_cpr_passage_level_flat,
+):
+    dataset = Dataset(
+        document_model=BaseDocument
+    )._from_huggingface_passage_level_flat_parquet(
+        test_huggingface_dataset_cpr_passage_level_flat
+    )
+
+    assert isinstance(dataset, Dataset)
+    assert len(dataset.documents) > 0
+    assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
+
+    dataset = Dataset(
+        document_model=BaseDocument
+    )._from_huggingface_passage_level_flat_parquet(
+        huggingface_dataset=test_huggingface_dataset_cpr_passage_level_flat, limit=1
+    )
+
+    assert isinstance(dataset, Dataset)
+    assert len(dataset.documents) > 0
+    assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
+
+    dataset_document_ids = {doc.document_id for doc in dataset.documents}
+    assert len(dataset_document_ids) == 1
 
 
 def test_dataset_indexable(test_dataset):

@@ -25,6 +25,17 @@ dataset = Dataset(GSTDocument).from_huggingface(
 )
 ```
 
+The following flag is used for the passage level and flat dataset.
+
+```py
+dataset = Dataset(
+    document_model=BaseDocument
+).from_huggingface(
+    dataset_name="ClimatePolicyRadar/passage-level-flat-dataset",
+    passage_level_and_flat=True
+)
+```
+
 ### Loading from local storage or s3
 
 ```py

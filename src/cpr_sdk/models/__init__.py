@@ -1,53 +1,151 @@
 """Data models for data access."""
 
-import itertools
-from typing import (
-    Iterable,
-    Sequence,
-    Optional,
-    List,
-    Dict,
-    Tuple,
-    Any,
-    Union,
-    TypeVar,
-    Literal,
-    Annotated,
-)
-from pathlib import Path
 import datetime
 import hashlib
+import itertools
 import logging
-from functools import cached_property
 import os
-
-import pandas as pd
-from pydantic import (
-    AnyHttpUrl,
-    BaseModel,
-    Field,
-    StringConstraints,
-    NonNegativeInt,
-    PrivateAttr,
-    model_validator,
-    ConfigDict,
-)
-from tqdm.auto import tqdm
-import numpy as np
 import random
+from functools import cached_property
+from pathlib import Path
+from typing import (
+    Annotated,
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Literal,
+    Optional,
+    Sequence,
+    Tuple,
+    TypeVar,
+    Union,
+)
 
-from datasets import Dataset as HFDataset, DatasetInfo, load_dataset
 import cpr_sdk.data_adaptors as adaptors
-from cpr_sdk.parser_models import BlockType, BaseParserOutput
+import numpy as np
+import pandas as pd
+from cpr_sdk.parser_models import (
+    PDF_PAGE_METADATA_KEY,
+    BackendDocument,
+    BaseParserOutput,
+    BlockType,
+    HTMLData,
+    HTMLTextBlock,
+    ParserOutput,
+    PDFData,
+    PDFPageMetadata,
+    PDFTextBlock,
+)
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
     CONTENT_TYPE_PDF,
     Json,
 )
+from datasets import Dataset as HFDataset
+from datasets import DatasetInfo, load_dataset
+from flatten_dict import unflatten as unflatten_dict
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    ConfigDict,
+    Field,
+    NonNegativeInt,
+    PrivateAttr,
+    StringConstraints,
+    model_validator,
+)
+from tqdm.auto import tqdm
 
 LOGGER = logging.getLogger(__name__)
 
 AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")
+
+
+def passage_level_df_to_document_model(
+    df: pd.DataFrame, document_model: type[AnyDocument]
+) -> AnyDocument:
+    """
+    A function to group the passage level data and convert to a document model.
+
+    The document model must be of a type that is either a BaseDocument or inherist from
+    that type. To create this we create an intermediate model called ParserOutput before
+    using the from_parser_output method on the BaseDocument class.
+    """
+    pdf_data = None
+    html_data = None
+
+    if df["document_content_type"].iloc[0] == CONTENT_TYPE_PDF:
+        page_metadata = []
+        md5sum = df["document_md5_sum"].iloc[0]
+        text_blocks = []
+
+        for _, row in df.iterrows():
+            text_block_page_metadata = PDFPageMetadata(
+                page_number=row[PDF_PAGE_METADATA_KEY]["page_number"],
+                dimensions=row[PDF_PAGE_METADATA_KEY]["dimensions"],
+            )
+            if text_block_page_metadata not in page_metadata:
+                page_metadata.append(text_block_page_metadata)
+
+            text_blocks.append(
+                PDFTextBlock(
+                    text=[row["text"]],
+                    text_block_id=row["text_block_id"],
+                    language=row["language"],
+                    type=row["type"],
+                    type_confidence=row["type_confidence"],
+                    page_number=row["page_number"],
+                    coords=row["coords"],
+                )
+            )
+
+        pdf_data = PDFData(
+            page_metadata=page_metadata,
+            text_blocks=text_blocks,
+            md5sum=md5sum,
+        )
+
+    elif df["document_content_type"].iloc[0] == CONTENT_TYPE_HTML:
+        text_blocks = []
+        for _, row in df.iterrows():
+            text_blocks.append(
+                HTMLTextBlock(
+                    text=[row["text"]],
+                    text_block_id=row["text_block_id"],
+                    language=row["language"],
+                    type=row["type"],
+                    type_confidence=row["type_confidence"],
+                )
+            )
+
+        html_data = HTMLData(
+            detected_title=df["html_data"].iloc[0]["detected_title"],
+            detected_date=df["html_data"].iloc[0]["detected_date"],
+            has_valid_text=df["html_data"].iloc[0]["has_valid_text"],
+            text_blocks=text_blocks,
+        )
+    else:
+        raise ValueError("The content type is not supported")
+
+    document_dict = df.iloc[0].to_dict()
+
+    document_dict["pdf_data"] = pdf_data.model_dump() if pdf_data else None
+    document_dict["html_data"] = html_data.model_dump() if html_data else None
+    document_dict["languages"] = document_dict["languages"].tolist()
+    document_dict["document_metadata"]["languages"] = document_dict[
+        "document_metadata"
+    ]["languages"].tolist()
+    document_dict["document_metadata"] = (
+        document_dict["document_metadata"] if document_dict["document_metadata"] else {}
+    )
+    document_dict["pipeline_metadata"] = (
+        document_dict["pipeline_metadata"] if document_dict["pipeline_metadata"] else {}
+    )
+
+    parser_output = ParserOutput.model_validate(document_dict)
+
+    return document_model.from_parser_output(parser_output)
 
 
 def _load_and_validate_metadata_csv(
@@ -397,7 +495,7 @@ class BaseDocument(BaseModel):
     page_metadata: Optional[
         Sequence[PageMetadata]
     ] = None  # Properties such as page numbers and dimensions for paged documents
-    document_metadata: BaseMetadata
+    document_metadata: Union[BaseMetadata, BackendDocument]
     # The current fields are set in the document parser:
     # https://github.com/climatepolicyradar/navigator-document-parser/blob/5a2872389a85e9f81cdde148b388383d7490807e/cli/parse_pdfs.py#L435
     # These are azure_api_version, azure_model_id and parsing_date
@@ -1275,6 +1373,52 @@ class Dataset:
 
         return huggingface_dataset
 
+    def _from_huggingface_passage_level_flat_parquet(
+        self,
+        huggingface_dataset: HFDataset,
+        limit: Optional[int] = None,
+    ) -> "Dataset":
+        """Create a dataset from a huggingface dataset."""
+        hf_dataframe = huggingface_dataset.to_pandas()  # type: ignore
+        if not isinstance(hf_dataframe, pd.DataFrame):
+            raise ValueError("Expected a DataFrame from the huggingface dataset.")
+
+        unflattened_columns = unflatten_dict(
+            {k: None for k in hf_dataframe.columns}, splitter="dot"
+        )
+        df_unflattened = pd.DataFrame({}, columns=unflattened_columns)
+
+        for indx, row in hf_dataframe.iterrows():
+            unflattened_row = unflatten_dict(row.to_dict(), splitter="dot")
+            df_unflattened.loc[indx] = pd.Series(unflattened_row)
+        hf_dataframe: pd.DataFrame = df_unflattened
+
+        documents = []
+        document_ids = hf_dataframe["document_id"].unique()
+
+        if limit is not None:
+            document_ids = document_ids[:limit]
+            hf_dataframe = hf_dataframe[hf_dataframe["document_id"].isin(document_ids)]
+
+        for document_id in document_ids:
+            document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
+            document_languages = np.unique(document_df["languages"])
+
+            for document_language in document_languages:
+                document_language: list = list(document_language)
+                document_lang_df = document_df[
+                    document_df["languages"] == document_language[0]
+                ]
+
+                parser_output = passage_level_df_to_document_model(
+                    df=document_lang_df, document_model=self.document_model
+                )
+                documents.append(parser_output)
+
+        self.documents = documents
+
+        return self
+
     def _from_huggingface_parquet(
         self,
         huggingface_dataset: HFDataset,
@@ -1356,6 +1500,7 @@ class Dataset:
         dataset_name: Optional[str] = None,
         dataset_version: Optional[str] = None,
         limit: Optional[int] = None,
+        passage_level_and_flat: bool = False,
         **kwargs,
     ) -> "Dataset":
         """
@@ -1389,4 +1534,7 @@ class Dataset:
         )
 
         # TODO: validate the result coming from the below method
-        return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
+        if passage_level_and_flat:
+            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset, limit)  # type: ignore
+        else:
+            return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
