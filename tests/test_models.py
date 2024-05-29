@@ -477,6 +477,19 @@ def test_dataset_from_huggingface_cpr_passage_level_flat(
     assert len(dataset.documents) > 0
     assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
 
+    dataset = Dataset(
+        document_model=BaseDocument
+    )._from_huggingface_passage_level_flat_parquet(
+        huggingface_dataset=test_huggingface_dataset_cpr_passage_level_flat, limit=1
+    )
+
+    assert isinstance(dataset, Dataset)
+    assert len(dataset.documents) > 0
+    assert all(isinstance(doc, BaseDocument) for doc in dataset.documents)
+
+    dataset_document_ids = {doc.document_id for doc in dataset.documents}
+    assert len(dataset_document_ids) == 1
+
 
 def test_dataset_indexable(test_dataset):
     """Tests that the dataset can be indexed to get documents"""
