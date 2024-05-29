@@ -416,12 +416,11 @@ class ParserOutput(BaseParserOutput):
 
         for passage in passages_array:
             page_number = passage.get("page_number")
-            if page_number is not None:
-                passage[PDF_PAGE_METADATA_KEY] = self.get_page_metadata_by_page_number(
-                    page_number
-                )
-            else:
-                passage[PDF_PAGE_METADATA_KEY] = None
+            passage[PDF_PAGE_METADATA_KEY] = (
+                self.get_page_metadata_by_page_number(page_number)
+                if page_number
+                else None
+            )
 
         empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
         empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
@@ -441,6 +440,11 @@ class ParserOutput(BaseParserOutput):
     def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
         """
         Retrieve the first element of PDF page metadata where the page number matches the given page number.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
 
         :param pdf_data: PDFData object containing the metadata.
         :param page_number: The page number to match.
