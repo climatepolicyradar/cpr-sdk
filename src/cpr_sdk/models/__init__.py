@@ -1374,7 +1374,9 @@ class Dataset:
         return huggingface_dataset
 
     def _from_huggingface_passage_level_flat_parquet(
-        self, huggingface_dataset: HFDataset
+        self,
+        huggingface_dataset: HFDataset,
+        limit: Optional[int] = None,
     ) -> "Dataset":
         """Create a dataset from a huggingface dataset."""
         hf_dataframe = huggingface_dataset.to_pandas()  # type: ignore
@@ -1393,6 +1395,11 @@ class Dataset:
 
         documents = []
         document_ids = hf_dataframe["document_id"].unique()
+
+        if limit is not None:
+            document_ids = document_ids[:limit]
+            hf_dataframe = hf_dataframe[hf_dataframe["document_id"].isin(document_ids)]
+
         for document_id in document_ids:
             document_df = hf_dataframe[hf_dataframe["document_id"] == document_id]
             document_languages = np.unique(document_df["languages"])
@@ -1528,6 +1535,6 @@ class Dataset:
 
         # TODO: validate the result coming from the below method
         if passage_level_and_flat:
-            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset)  # type: ignore
+            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset, limit)  # type: ignore
         else:
             return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
