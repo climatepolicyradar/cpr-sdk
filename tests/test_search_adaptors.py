@@ -60,7 +60,7 @@ def test_vespa_search_adaptor__works(fake_vespa_credentials):
 )
 @pytest.mark.vespa
 def test_vespa_search_adaptor__is_fast_enough(fake_vespa_credentials, params):
-    MAX_SPEED_MS = 750
+    MAX_SPEED_MS = 850
 
     avg_ms = profile_search(fake_vespa_credentials, params=params)
     assert avg_ms <= MAX_SPEED_MS

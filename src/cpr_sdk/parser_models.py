@@ -1,10 +1,10 @@
+import json
 import logging
 import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
-import json
-from typing import List, Optional, Sequence, Tuple, TypeVar, Union, Any
+from typing import Any, Final, List, Optional, Sequence, Tuple, TypeVar, Union
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -18,10 +18,13 @@ from pydantic import AnyHttpUrl, BaseModel, Field, model_validator
 
 _LOGGER = logging.getLogger(__name__)
 
-PARSER_METADATA_KEY = "parser_metadata"
-AZURE_API_VERSION_KEY = "azure_api_version"
-AZURE_MODEL_ID_KEY = "azure_model_id"
-PARSING_DATE_KEY = "parsing_date"
+PARSER_METADATA_KEY: Final = "parser_metadata"
+AZURE_API_VERSION_KEY: Final = "azure_api_version"
+AZURE_MODEL_ID_KEY: Final = "azure_model_id"
+PARSING_DATE_KEY: Final = "parsing_date"
+PDF_PAGE_METADATA_KEY: Final = "pdf_data_page_metadata"
+PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS: Final = {"text_blocks", "page_metadata"}
+HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS: Final = {"text_blocks"}
 
 
 class VerticalFlipError(Exception):
@@ -395,21 +398,29 @@ class ParserOutput(BaseParserOutput):
         if self.text_blocks is None:
             return []
 
-        common_fields_dict = json.loads(
+        fixed_fields_dict = json.loads(
             self.model_dump_json(
                 exclude={
-                    "pdf_data": {"text_blocks", "page_metadata"},
-                    "html_data": {"text_blocks"},
+                    "pdf_data": PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
+                    "html_data": HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
                 }
             )
         )
 
         passages_array = [
-            common_fields_dict
+            fixed_fields_dict
             | json.loads(block.model_dump_json(exclude={"text"}))
             | {"text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
+
+        for passage in passages_array:
+            page_number = passage.get("page_number")
+            passage[PDF_PAGE_METADATA_KEY] = (
+                self.get_page_metadata_by_page_number(page_number)
+                if page_number
+                else None
+            )
 
         empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
         empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
@@ -425,3 +436,22 @@ class ParserOutput(BaseParserOutput):
             passages_array_filled.append(passage)
 
         return passages_array_filled
+
+    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
+        """
+        Retrieve the first element of PDF page metadata where the page number matches the given page number.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
+
+        :param pdf_data: PDFData object containing the metadata.
+        :param page_number: The page number to match.
+        :return: The first matching PDFPageMetadata object, or None if no match is found.
+        """
+        if self.pdf_data and self.pdf_data.page_metadata:
+            for metadata in self.pdf_data.page_metadata:
+                if metadata.page_number == page_number:
+                    return json.loads(metadata.model_dump_json())
+        return None
