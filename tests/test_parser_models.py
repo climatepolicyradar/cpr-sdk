@@ -204,6 +204,7 @@ def test_to_passage_level_json_method(
             )
 
             if passage["document_content_type"] == CONTENT_TYPE_PDF:
+                assert passage[PDF_PAGE_METADATA_KEY] is not None
                 assert set(passage["pdf_data"].keys()) == expected_pdf_data_fields
             elif passage["document_content_type"] == CONTENT_TYPE_HTML:
                 assert set(passage["html_data"].keys()) == expected_html_data_fields

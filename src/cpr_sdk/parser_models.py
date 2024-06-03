@@ -415,10 +415,10 @@ class ParserOutput(BaseParserOutput):
         ]
 
         for passage in passages_array:
-            page_number = passage.get("page_number")
+            page_number = passage.get("page_number", None)
             passage[PDF_PAGE_METADATA_KEY] = (
                 self.get_page_metadata_by_page_number(page_number)
-                if page_number
+                if page_number is not None
                 else None
             )
 
