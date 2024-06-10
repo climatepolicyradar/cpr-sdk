@@ -27,7 +27,7 @@ Changelog = "https://github.com/climatepolicyradar/cpr-sdk/blob/main/CHANGELOG.m
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pydantic = "^2.4.0"
+pydantic = "^2.7.3"
 boto3 = "^1.26.16"
 tqdm = "^4.64.1"
 aws-error-utils = "^2.7.0"
