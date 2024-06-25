@@ -6,18 +6,26 @@ import pytest
 import boto3
 from moto import mock_aws
 
+from cpr_sdk.search_adaptors import VespaSearchAdapter
+
 
 VESPA_TEST_SEARCH_URL = "http://localhost:8080"
 
 
 @pytest.fixture()
-def fake_vespa_credentials():
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with open(Path(tmpdir) / "cert.pem", "w"):
+def test_vespa():
+    """Vespa adapter pointing to test url and using empty cert files"""
+    with tempfile.TemporaryDirectory() as tmpdir_cert_dir:
+        with open(Path(tmpdir_cert_dir) / "cert.pem", "w"):
             pass
-        with open(Path(tmpdir) / "key.pem", "w"):
+        with open(Path(tmpdir_cert_dir) / "key.pem", "w"):
             pass
-        yield tmpdir
+        adaptor = VespaSearchAdapter(
+            instance_url=VESPA_TEST_SEARCH_URL, cert_directory=tmpdir_cert_dir
+        )
+    
+        yield adaptor
+
 
 
 @pytest.fixture()

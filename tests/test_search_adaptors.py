@@ -1,24 +1,23 @@
-from unittest.mock import patch
 from timeit import timeit
 from typing import Mapping
+from unittest.mock import patch
 
 import pytest
-from conftest import VESPA_TEST_SEARCH_URL
+
 from cpr_sdk.models.search import (
+    Document,
+    Passage,
     SearchParameters,
     SearchResponse,
     sort_fields,
-    Document,
-    Passage,
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 
 
-def vespa_search(cert_directory: str, request: SearchParameters) -> SearchResponse:
+def vespa_search(
+    adaptor: VespaSearchAdapter, request: SearchParameters
+) -> SearchResponse:
     try:
-        adaptor = VespaSearchAdapter(
-            instance_url=VESPA_TEST_SEARCH_URL, cert_directory=cert_directory
-        )
         response = adaptor.search(request)
     except Exception as e:
         pytest.fail(f"Vespa query failed. {e.__class__.__name__}: {e}")
@@ -26,10 +25,10 @@ def vespa_search(cert_directory: str, request: SearchParameters) -> SearchRespon
 
 
 def profile_search(
-    fake_vespa_credentials, params: Mapping[str, str], n: int = 25
+    test_vespa: VespaSearchAdapter, params: Mapping[str, str], n: int = 25
 ) -> float:
     t = timeit(
-        lambda: vespa_search(fake_vespa_credentials, SearchParameters(**params)),
+        lambda: vespa_search(test_vespa, SearchParameters(**params)),
         number=n,
     )
     avg_ms = (t / n) * 1000
@@ -37,9 +36,9 @@ def profile_search(
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__works(fake_vespa_credentials):
+def test_vespa_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
 
     assert len(response.families) == response.total_family_hits == 3
     assert response.query_time_ms < response.total_time_ms
@@ -59,10 +58,10 @@ def test_vespa_search_adaptor__works(fake_vespa_credentials):
     ),
 )
 @pytest.mark.vespa
-def test_vespa_search_adaptor__is_fast_enough(fake_vespa_credentials, params):
+def test_vespa_search_adaptor__is_fast_enough(test_vespa, params):
     MAX_SPEED_MS = 850
 
-    avg_ms = profile_search(fake_vespa_credentials, params=params)
+    avg_ms = profile_search(test_vespa, params=params)
     assert avg_ms <= MAX_SPEED_MS
 
 
@@ -76,9 +75,9 @@ def test_vespa_search_adaptor__is_fast_enough(fake_vespa_credentials, params):
         ["CCLW.family.4934.0"],
     ],
 )
-def test_vespa_search_adaptor__family_ids(fake_vespa_credentials, family_ids):
+def test_vespa_search_adaptor__family_ids(test_vespa, family_ids):
     request = SearchParameters(query_string="the", family_ids=family_ids)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     got_family_ids = [f.id for f in response.families]
     assert sorted(got_family_ids) == sorted(family_ids)
 
@@ -93,9 +92,9 @@ def test_vespa_search_adaptor__family_ids(fake_vespa_credentials, family_ids):
         ["CCLW.executive.4934.1571"],
     ],
 )
-def test_vespa_search_adaptor__document_ids(fake_vespa_credentials, document_ids):
+def test_vespa_search_adaptor__document_ids(test_vespa, document_ids):
     request = SearchParameters(query_string="the", document_ids=document_ids)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
 
     # As passages are returned we need to collect and deduplicate them to get id list
     got_document_ids = []
@@ -108,20 +107,20 @@ def test_vespa_search_adaptor__document_ids(fake_vespa_credentials, document_ids
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__bad_query_string_still_works(fake_vespa_credentials):
+def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
     family_name = ' Bad " query/    '
     request = SearchParameters(query_string=family_name)
     try:
-        vespa_search(fake_vespa_credentials, request)
+        vespa_search(test_vespa, request)
     except Exception as e:
         assert False, f"failed with: {e}"
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__hybrid(fake_vespa_credentials):
+def test_vespa_search_adaptor__hybrid(test_vespa):
     family_name = "Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
     request = SearchParameters(query_string=family_name)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
 
     # Was the family searched for in the results.
     # Note that this is a fairly loose test
@@ -133,9 +132,9 @@ def test_vespa_search_adaptor__hybrid(fake_vespa_credentials):
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__all(fake_vespa_credentials):
+def test_vespa_search_adaptor__all(test_vespa):
     request = SearchParameters(query_string="", all_results=True)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     assert len(response.families) == response.total_family_hits
 
     # Filtering should still work
@@ -143,16 +142,16 @@ def test_vespa_search_adaptor__all(fake_vespa_credentials):
     request = SearchParameters(
         query_string="", all_results=True, family_ids=[family_id]
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     assert len(response.families) == 1
     assert response.families[0].id == family_id
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__exact(fake_vespa_credentials):
+def test_vespa_search_adaptor__exact(test_vespa):
     query_string = "Environmental Strategy for 2014-2023"
     request = SearchParameters(query_string=query_string, exact_match=True)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     got_family_names = []
     for fam in response.families:
         for doc in fam.hits:
@@ -165,15 +164,15 @@ def test_vespa_search_adaptor__exact(fake_vespa_credentials):
     # Conversely we'd expect nothing if the query string isnt present
     query_string = "no such string as this can be found in the test documents"
     request = SearchParameters(query_string=query_string, exact_match=True)
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     assert len(response.families) == 0
 
 
 @pytest.mark.vespa
 @patch("cpr_sdk.vespa.SENSITIVE_QUERY_TERMS", {"Government"})
-def test_vespa_search_adaptor__sensitive(fake_vespa_credentials):
+def test_vespa_search_adaptor__sensitive(test_vespa):
     request = SearchParameters(query_string="Government")
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
 
     # Without being too prescriptive, we'd expect something back for this
     assert len(response.families) > 0
@@ -190,16 +189,14 @@ def test_vespa_search_adaptor__sensitive(fake_vespa_credentials):
     ],
 )
 @pytest.mark.vespa
-def test_vespa_search_adaptor__limits(
-    fake_vespa_credentials, family_limit, max_hits_per_family
-):
+def test_vespa_search_adaptor__limits(test_vespa, family_limit, max_hits_per_family):
     request = SearchParameters(
         query_string="the",
         family_ids=[],
         limit=family_limit,
         max_hits_per_family=max_hits_per_family,
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
 
     assert len(response.families) == family_limit
     for fam in response.families:
@@ -207,7 +204,7 @@ def test_vespa_search_adaptor__limits(
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__continuation_tokens__families(fake_vespa_credentials):
+def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
     query_string = "the"
     limit = 2
     max_hits_per_family = 3
@@ -218,7 +215,7 @@ def test_vespa_search_adaptor__continuation_tokens__families(fake_vespa_credenti
         limit=limit,
         max_hits_per_family=max_hits_per_family,
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     first_family_ids = [f.id for f in response.families]
     family_continuation = response.continuation_token
     assert len(response.families) == 2
@@ -231,7 +228,7 @@ def test_vespa_search_adaptor__continuation_tokens__families(fake_vespa_credenti
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[family_continuation],
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     prev_family_continuation = response.prev_continuation_token
     assert len(response.families) == 1
     assert response.total_family_hits == 3
@@ -249,13 +246,13 @@ def test_vespa_search_adaptor__continuation_tokens__families(fake_vespa_credenti
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[prev_family_continuation],
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     prev_family_ids = [f.id for f in response.families]
     assert prev_family_ids == first_family_ids
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__continuation_tokens__passages(fake_vespa_credentials):
+def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
     query_string = "the"
     limit = 1
     max_hits_per_family = 10
@@ -266,7 +263,7 @@ def test_vespa_search_adaptor__continuation_tokens__passages(fake_vespa_credenti
         limit=limit,
         max_hits_per_family=max_hits_per_family,
     )
-    initial_response = vespa_search(fake_vespa_credentials, request)
+    initial_response = vespa_search(test_vespa, request)
 
     # Collect family & hits for comparison later
     initial_family_id = initial_response.families[0].id
@@ -282,7 +279,7 @@ def test_vespa_search_adaptor__continuation_tokens__passages(fake_vespa_credenti
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[this_continuation, passage_continuation],
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     prev_passage_continuation = response.families[0].prev_continuation_token
 
     # Family should not have changed
@@ -299,7 +296,7 @@ def test_vespa_search_adaptor__continuation_tokens__passages(fake_vespa_credenti
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[this_continuation, prev_passage_continuation],
     )
-    response = vespa_search(fake_vespa_credentials, request)
+    response = vespa_search(test_vespa, request)
     assert response.families[0].id == initial_family_id
     prev_passages = sorted([h.text_block_id for h in response.families[0].hits])
     assert sorted(prev_passages) != sorted(new_passages)
@@ -308,7 +305,7 @@ def test_vespa_search_adaptor__continuation_tokens__passages(fake_vespa_credenti
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
-    fake_vespa_credentials,
+    test_vespa,
 ):
     query_string = "the"
     limit = 1
@@ -320,7 +317,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
         limit=limit,
         max_hits_per_family=max_hits_per_family,
     )
-    response_one = vespa_search(fake_vespa_credentials, request_one)
+    response_one = vespa_search(test_vespa, request_one)
 
     # Increment Families
     request_two = SearchParameters(
@@ -329,7 +326,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[response_one.continuation_token],
     )
-    response_two = vespa_search(fake_vespa_credentials, request_two)
+    response_two = vespa_search(test_vespa, request_two)
 
     # Then Increment Passages Twice
 
@@ -342,7 +339,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
             response_two.families[0].continuation_token,
         ],
     )
-    response_three = vespa_search(fake_vespa_credentials, request_three)
+    response_three = vespa_search(test_vespa, request_three)
 
     request_four = SearchParameters(
         query_string=query_string,
@@ -353,7 +350,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
             response_three.families[0].continuation_token,
         ],
     )
-    response_four = vespa_search(fake_vespa_credentials, request_four)
+    response_four = vespa_search(test_vespa, request_four)
 
     # All of these should have different passages from each other
     assert (
@@ -366,13 +363,13 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
 
 @pytest.mark.parametrize("sort_by", sort_fields.keys())
 @pytest.mark.vespa
-def test_vespa_search_adapter_sorting(fake_vespa_credentials, sort_by):
+def test_vespa_search_adapter_sorting(test_vespa, sort_by):
     ascend = vespa_search(
-        fake_vespa_credentials,
+        test_vespa,
         SearchParameters(query_string="the", sort_by=sort_by, sort_order="ascending"),
     )
     descend = vespa_search(
-        fake_vespa_credentials,
+        test_vespa,
         SearchParameters(query_string="the", sort_by=sort_by, sort_order="descending"),
     )
 
@@ -380,9 +377,9 @@ def test_vespa_search_adapter_sorting(fake_vespa_credentials, sort_by):
 
 
 @pytest.mark.vespa
-def test_vespa_search_no_passages_search(fake_vespa_credentials):
+def test_vespa_search_no_passages_search(test_vespa):
     no_passages = vespa_search(
-        fake_vespa_credentials,
+        test_vespa,
         SearchParameters(all_results=True, documents_only=True),
     )
     for family in no_passages.families:
@@ -390,7 +387,7 @@ def test_vespa_search_no_passages_search(fake_vespa_credentials):
             assert isinstance(hit, Document)
 
     with_passages = vespa_search(
-        fake_vespa_credentials,
+        test_vespa,
         SearchParameters(all_results=True),
     )
     found_a_passage = False
