@@ -3,7 +3,6 @@ import re
 
 import pytest
 from cpr_sdk.embedding import Embedder
-from cpr_sdk.exceptions import QueryError
 from cpr_sdk.models.search import (
     Filters,
     SearchParameters,
@@ -57,9 +56,8 @@ def test_whether_an_empty_query_string_does_all_result_search():
 
 def test_wether_documents_only_without_all_results_raises_error():
     q = "Search"
-    with pytest.raises(QueryError) as excinfo:
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string=q, documents_only=True)
-    assert "Failed to build query" in str(excinfo.value)
     assert "`documents_only` requires `all_results`" in str(excinfo.value)
 
     # They should be fine otherwise:
@@ -71,9 +69,8 @@ def test_wether_documents_only_without_all_results_raises_error():
 
 def test_wether_combining_all_results_and_exact_match_raises_error():
     q = "Search"
-    with pytest.raises(QueryError) as excinfo:
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string=q, exact_match=True, all_results=True)
-    assert "Failed to build query" in str(excinfo.value)
     assert "`exact_match` and `all_results`" in str(excinfo.value)
 
     # They should be fine independently:
@@ -102,8 +99,8 @@ def test_whether_valid_year_ranges_are_accepted(year_range):
     assert isinstance(params, SearchParameters)
 
 
-def test_whether_an_invalid_year_range_ranges_raises_a_queryerror():
-    with pytest.raises(QueryError) as excinfo:
+def test_whether_an_invalid_year_range_ranges_raises_a_validation_error():
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string="test", year_range=(2023, 2000))
     assert (
         "The first supplied year must be less than or equal to the second supplied year"
@@ -129,8 +126,8 @@ def test_whether_valid_family_ids_are_accepted():
         "UNFCCC.family.i00000003.n000.11",
     ],
 )
-def test_whether_an_invalid_family_id_raises_a_queryerror(bad_id):
-    with pytest.raises(QueryError) as excinfo:
+def test_whether_an_invalid_family_id_raises_a_validation_error(bad_id):
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(
             query_string="test",
             family_ids=("CCLW.family.i00000003.n0000", bad_id),
@@ -157,8 +154,8 @@ def test_whether_valid_document_ids_are_accepted():
         "UNFCCC.doc.i00000003",
     ],
 )
-def test_whether_an_invalid_document_id_raises_a_queryerror(bad_id):
-    with pytest.raises(QueryError) as excinfo:
+def test_whether_an_invalid_document_id_raises_a_validation_error(bad_id):
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(
             query_string="test",
             document_ids=(bad_id, "CCLW.document.i00000004.n0000"),
@@ -174,8 +171,8 @@ def test_whether_valid_sort_fields_are_accepted(field):
     assert isinstance(params, SearchParameters)
 
 
-def test_whether_an_invalid_sort_field_raises_a_queryerror():
-    with pytest.raises(QueryError) as excinfo:
+def test_whether_an_invalid_sort_field_raises_a_validation_error():
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string="test", sort_by="invalid_field")
     assert "sort_by must be one of" in str(excinfo.value)
 
@@ -186,8 +183,8 @@ def test_whether_valid_sort_orders_are_accepted(order):
     assert isinstance(params, SearchParameters)
 
 
-def test_whether_an_invalid_sort_order_raises_a_queryerror():
-    with pytest.raises(QueryError) as excinfo:
+def test_whether_an_invalid_sort_order_raises_a_validation_error():
+    with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string="test", sort_order="invalid_order")
     assert "sort_order must be one of" in str(excinfo.value)
 
@@ -249,10 +246,10 @@ def test_whether_an_invalid_filter_fields_value_fixes_it_silently(
     (
         (["", None], ValidationError),
         ([123], ValidationError),
-        (["123"], QueryError),
-        (["!@$"], QueryError),
-        (["lower"], QueryError),
-        (["", "lower"], QueryError),
+        (["123"], ValidationError),
+        (["!@$"], ValidationError),
+        (["lower"], ValidationError),
+        (["", "lower"], ValidationError),
     ),
 )
 def test_continuation_tokens__bad(tokens, error):

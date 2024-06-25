@@ -13,8 +13,6 @@ from pydantic import (
 )
 
 
-from cpr_sdk.exceptions import QueryError
-
 # Value Lookup Tables
 sort_orders = {
     "asc": "+",
@@ -74,13 +72,13 @@ class SearchParameters(BaseModel):
     A string representation of the search to be performed.
     For example: 'Adaptation strategy'"
     """
-    
+
     exact_match: bool = False
     """
     Indicate if the `query_string` should be treated as an exact match when 
     the search is performed.
     """
-    
+
     all_results: bool = False
     """
     Return all results rather than searching or ranking
@@ -96,12 +94,12 @@ class SearchParameters(BaseModel):
     Refers to the maximum number of results to return from the "
     query result.
     """
-    
+
     max_hits_per_family: int = Field(
         validation_alias=AliasChoices("max_passages_per_doc", "max_hits_per_family"),
         default=10,
         ge=0,
-        le=500
+        le=500,
     )
     """
     The maximum number of matched passages to be returned for a "
@@ -110,7 +108,7 @@ class SearchParameters(BaseModel):
 
     family_ids: Optional[Sequence[str]] = None
     """Optionally limit a search to a specific set of family ids."""
-    
+
     document_ids: Optional[Sequence[str]] = None
     """Optionally limit a search to a specific set of document ids."""
 
@@ -124,7 +122,7 @@ class SearchParameters(BaseModel):
     search between. These are inclusive and can be null. Example:
     [null, 2010] will return all documents return in or before 2010.
     """
-    
+
     sort_by: Optional[str] = Field(
         validation_alias=AliasChoices("sort_field", "sort_by"), default=None
     )
@@ -148,9 +146,9 @@ class SearchParameters(BaseModel):
     def validate(self):
         """Validate against mutually exclusive fields"""
         if self.exact_match and self.all_results:
-            raise QueryError("`exact_match` and `all_results` are mutually exclusive")
+            raise ValueError("`exact_match` and `all_results` are mutually exclusive")
         if self.documents_only and not self.all_results:
-            raise QueryError(
+            raise ValueError(
                 "`documents_only` requires `all_results`, other queries are not supported"
             )
         return self
@@ -165,9 +163,9 @@ class SearchParameters(BaseModel):
             if token == "":
                 continue
             if not token.isalpha():
-                raise QueryError(f"Expected continuation tokens to be letters: {token}")
+                raise ValueError(f"Expected continuation tokens to be letters: {token}")
             if not token.isupper():
-                raise QueryError(
+                raise ValueError(
                     f"Expected continuation tokens to be uppercase: {token}"
                 )
         return continuation_tokens
@@ -193,7 +191,7 @@ class SearchParameters(BaseModel):
         if ids:
             for _id in ids:
                 if not re.fullmatch(ID_PATTERN, _id):
-                    raise QueryError(f"id seems invalid: {_id}")
+                    raise ValueError(f"id seems invalid: {_id}")
         return ids
 
     @field_validator("year_range")
@@ -202,7 +200,7 @@ class SearchParameters(BaseModel):
         if year_range is not None:
             if year_range[0] is not None and year_range[1] is not None:
                 if year_range[0] > year_range[1]:
-                    raise QueryError(
+                    raise ValueError(
                         "The first supplied year must be less than or equal to the "
                         f"second supplied year. Received: {year_range}"
                     )
@@ -213,7 +211,7 @@ class SearchParameters(BaseModel):
         """Validate that the sort field is valid."""
         if sort_by is not None:
             if sort_by not in sort_fields:
-                raise QueryError(
+                raise ValueError(
                     f"Invalid sort field: {sort_by}. sort_by must be one of: "
                     f"{list(sort_fields.keys())}"
                 )
@@ -223,7 +221,7 @@ class SearchParameters(BaseModel):
     def sort_order_must_be_valid(cls, sort_order):
         """Validate that the sort order is valid."""
         if sort_order not in sort_orders:
-            raise QueryError(
+            raise ValueError(
                 f"Invalid sort order: {sort_order}. sort_order must be one of: "
                 f"{sort_orders}"
             )
