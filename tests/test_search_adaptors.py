@@ -185,7 +185,7 @@ def test_vespa_search_adaptor__sensitive(test_vespa):
         (1, 100),
         (2, 1),
         (2, 5),
-        (3, 1000),
+        (3, 500),
     ],
 )
 @pytest.mark.vespa
@@ -201,6 +201,24 @@ def test_vespa_search_adaptor__limits(test_vespa, family_limit, max_hits_per_fam
     assert len(response.families) == family_limit
     for fam in response.families:
         assert len(fam.hits) <= max_hits_per_family
+
+
+@pytest.mark.parametrize(
+    "family_limit, max_hits_per_family",
+    [
+        (501, 5),
+        (3, 501),
+    ],
+)
+@pytest.mark.vespa
+def test_vespa_search_adaptor__limits__errors(family_limit, max_hits_per_family):
+    with pytest.raises(ValueError):
+        SearchParameters(
+            query_string="the",
+            family_ids=[],
+            limit=family_limit,
+            max_hits_per_family=max_hits_per_family,
+        )
 
 
 @pytest.mark.vespa

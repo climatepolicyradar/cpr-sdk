@@ -23,9 +23,8 @@ def test_vespa():
         adaptor = VespaSearchAdapter(
             instance_url=VESPA_TEST_SEARCH_URL, cert_directory=tmpdir_cert_dir
         )
-    
-        yield adaptor
 
+        yield adaptor
 
 
 @pytest.fixture()
