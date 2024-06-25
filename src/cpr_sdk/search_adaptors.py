@@ -1,4 +1,5 @@
 """Adaptors for searching CPR data"""
+
 import time
 from abc import ABC
 from pathlib import Path

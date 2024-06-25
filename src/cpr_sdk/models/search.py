@@ -70,29 +70,79 @@ class SearchParameters(BaseModel):
     """Parameters for a search request"""
 
     query_string: Optional[str] = ""
+    """
+    A string representation of the search to be performed.
+    For example: 'Adaptation strategy'"
+    """
+    
     exact_match: bool = False
+    """
+    Indicate if the `query_string` should be treated as an exact match when 
+    the search is performed.
+    """
+    
     all_results: bool = False
+    """
+    Return all results rather than searching or ranking
+    
+    Filters can still be applied
+    """
+
     documents_only: bool = False
+    """Ignores passages in search when true."""
+
     limit: int = Field(ge=0, default=100, le=500)
+    """
+    Refers to the maximum number of results to return from the "
+    query result.
+    """
+    
     max_hits_per_family: int = Field(
         validation_alias=AliasChoices("max_passages_per_doc", "max_hits_per_family"),
         default=10,
         ge=0,
         le=500
     )
+    """
+    The maximum number of matched passages to be returned for a "
+    single document.
+    """
 
     family_ids: Optional[Sequence[str]] = None
+    """Optionally limit a search to a specific set of family ids."""
+    
     document_ids: Optional[Sequence[str]] = None
+    """Optionally limit a search to a specific set of document ids."""
 
     filters: Optional[Filters] = None
-    year_range: Optional[tuple[Optional[int], Optional[int]]] = None
+    """Filter results to matching filter items."""
 
+    year_range: Optional[tuple[Optional[int], Optional[int]]] = None
+    """
+    The years to search between. Containing exactly two values,
+    which can be null or an integer representing the years to
+    search between. These are inclusive and can be null. Example:
+    [null, 2010] will return all documents return in or before 2010.
+    """
+    
     sort_by: Optional[str] = Field(
         validation_alias=AliasChoices("sort_field", "sort_by"), default=None
     )
+    """The field to sort by can be chosen from `date` or `title`."""
+
     sort_order: str = "descending"
+    """
+    The order of the results according to the `sort_field`, can be chosen from
+    ascending (use “asc”) or descending (use “desc”).
+    """
 
     continuation_tokens: Optional[Sequence[str]] = None
+    """
+    Use to return the next page of results from a specific search, the next token
+    can be found on the response object. It's also possible to get the next page
+    of passages by including the family level continuation token first in the 
+    array followed by the passage level one.
+    """
 
     @model_validator(mode="after")
     def validate(self):
