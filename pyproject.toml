@@ -1,4 +1,4 @@
-[build-system]
+[b  uild-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
@@ -17,7 +17,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
-license = "LICENSE"
+license = "LICENSE.md"
 
 [project.urls]
 Homepage = "https://github.com/climatepolicyradar/cpr-sdk"
