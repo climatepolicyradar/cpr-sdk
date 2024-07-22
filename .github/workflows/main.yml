@@ -49,7 +49,6 @@ jobs:
       [
         precommit-checks,
         fixme-checks,
-        package-version-checks,
         placeholder-version-checks,
       ]
     steps:
