@@ -88,5 +88,8 @@ jobs:
           poetry build
 
       - name: Publish
-        run: |
-          poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}
+        run: poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}
+        # Allow for slow uploads [1]
+        # [1] https://python-poetry.org/docs/faq#my-requests-are-timing-out
+        env:
+          POETRY_REQUESTS_TIMEOUT: 120 # Seconds
