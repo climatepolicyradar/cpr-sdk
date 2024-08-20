@@ -1,6 +1,6 @@
 _MAJOR = "1"
 _MINOR = "1"
-_PATCH = "9"
+_PATCH = "10"
 _SUFFIX = ""
 
 VERSION_SHORT = "{0}.{1}".format(_MAJOR, _MINOR)
