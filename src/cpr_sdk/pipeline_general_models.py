@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Mapping, Any, List, Optional, Sequence, Union
 
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, field_validator, model_validator
 
 Json = dict[str, Any]
 
@@ -58,6 +58,21 @@ class BackendDocument(BaseModel):
         self.date = self.publication_ts.strftime("%d/%m/%Y")
 
         return self
+
+    @field_validator("type", mode="before")
+    @classmethod
+    def none_to_empty_string(cls, value):
+        """If the value is None, will convert to an empty string"""
+        return "" if value is None else value
+
+    def to_json(self) -> Mapping[str, Any]:
+        """Provide a serialisable version of the model"""
+
+        json_dict = self.model_dump()
+        json_dict["publication_ts"] = (
+            self.publication_ts.isoformat() if self.publication_ts is not None else None
+        )
+        return json_dict
 
 
 class InputData(BaseModel):
