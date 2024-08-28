@@ -29,7 +29,7 @@ class BackendDocument(BaseModel):
     family_import_id: str
     family_slug: str
     publication_ts: datetime
-    date: Optional[str] = None
+    date: Optional[str] = None  # Deprecated
     source_url: Optional[str] = None
     download_url: Optional[str] = None
     corpus_import_id: Optional[str] = None
