@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Mapping, Any, List, Optional, Sequence, Union
 
-from pydantic import BaseModel, field_validator, model_validator
+from pydantic import BaseModel, field_validator
 
 Json = dict[str, Any]
 
@@ -29,7 +29,7 @@ class BackendDocument(BaseModel):
     family_import_id: str
     family_slug: str
     publication_ts: datetime
-    date: Optional[str] = None  # Set on import by a validator
+    date: Optional[str] = None  # Deprecated
     source_url: Optional[str] = None
     download_url: Optional[str] = None
     corpus_import_id: Optional[str] = None
@@ -44,20 +44,6 @@ class BackendDocument(BaseModel):
     languages: Sequence[str]
 
     metadata: Json
-
-    @model_validator(mode="after")
-    def convert_publication_ts_to_date(self):
-        """
-        Convert publication_ts to a datetime string.
-
-        This is necessary as OpenSearch expects a date object.
-
-        TODO: remove when no longer using Opensearch
-        """
-
-        self.date = self.publication_ts.strftime("%d/%m/%Y")
-
-        return self
 
     @field_validator("type", mode="before")
     @classmethod
