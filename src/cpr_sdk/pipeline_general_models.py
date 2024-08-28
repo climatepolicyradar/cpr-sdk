@@ -22,6 +22,7 @@ class BackendDocument(BaseModel):
     """
 
     name: str
+    document_title: Optional[str] = None
     description: str
     import_id: str
     slug: str
@@ -31,11 +32,15 @@ class BackendDocument(BaseModel):
     date: Optional[str] = None  # Set on import by a validator
     source_url: Optional[str] = None
     download_url: Optional[str] = None
-
+    corpus_import_id: Optional[str] = None
+    corpus_type_name: Optional[str] = None
+    collection_title: Optional[str] = None
+    collection_summary: Optional[str] = None
     type: str
     source: str
     category: str
     geography: str
+    geographies: Optional[list[str]] = None
     languages: Sequence[str]
 
     metadata: Json
