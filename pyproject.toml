@@ -35,7 +35,7 @@ pandas = "^2.2.2"
 datasets = "^2.19.1"
 langdetect = "^1.0.9"
 deprecation = "^2.1.0"
-numpy = ">=1.23.5"
+numpy = "^1.26.4"
 
 pyvespa = { version = "^0.45.0", optional = true }
 pyyaml = { version = "^6.0.2", optional = true }
