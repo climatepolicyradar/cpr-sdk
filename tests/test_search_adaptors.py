@@ -414,3 +414,20 @@ def test_vespa_search_no_passages_search(test_vespa):
             if isinstance(hit, Passage):
                 found_a_passage = True
     assert found_a_passage
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__corpus_type_name(
+    test_vespa,
+):
+    query_string = "the"
+
+    request_one = SearchParameters(
+        query_string=query_string,
+        corpus_type_name="UNFCCC Submissions",
+    )
+    response = vespa_search(test_vespa, request_one)
+
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.corpus_type_name == "UNFCCC Submissions"

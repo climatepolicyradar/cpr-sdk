@@ -75,14 +75,14 @@ class SearchParameters(BaseModel):
 
     exact_match: bool = False
     """
-    Indicate if the `query_string` should be treated as an exact match when 
+    Indicate if the `query_string` should be treated as an exact match when
     the search is performed.
     """
 
     all_results: bool = False
     """
     Return all results rather than searching or ranking
-    
+
     Filters can still be applied
     """
 
@@ -140,6 +140,11 @@ class SearchParameters(BaseModel):
     can be found on the response object. It's also possible to get the next page
     of passages by including the family level continuation token first in the 
     array followed by the passage level one.
+    """
+
+    corpus_type_name: Optional[str] = None
+    """
+    The name of the corpus that a document belongs to.
     """
 
     @model_validator(mode="after")
@@ -258,6 +263,7 @@ class Hit(BaseModel):
     document_content_type: Optional[str] = None
     document_cdn_object: Optional[str] = None
     document_source_url: Optional[str] = None
+    corpus_type_name: Optional[str] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
