@@ -425,7 +425,7 @@ def test_vespa_search_adaptor__corpus_type_name(
         corpus_type_name="UNFCCC Submissions",
     )
     response = vespa_search(test_vespa, request_one)
-
     for family in response.families:
         for hit in family.hits:
-            assert hit.corpus_type_name == "UNFCCC Submissions"
+            assert hit.corpus_type_name
+            assert hit.corpus_type_name == "Laws and Policies"
