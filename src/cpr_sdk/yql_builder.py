@@ -142,6 +142,7 @@ class YQLBuilder:
             filters.append(self._inclusive_filters(f, "family_source"))
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
+
         return " and ".join([f for f in filters if f])  # Remove empty
 
     def build_continuation(self) -> str:
