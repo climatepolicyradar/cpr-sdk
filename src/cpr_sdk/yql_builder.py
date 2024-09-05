@@ -11,7 +11,7 @@ class YQLBuilder:
         """
         select * from sources $SOURCES
             where $WHERE_CLAUSE
-        limit 0 
+        limit 0
         |
             $CONTINUATION
         all(
@@ -133,7 +133,7 @@ class YQLBuilder:
             filters.append(self._inclusive_filters(f, "family_category"))
             filters.append(self._inclusive_filters(f, "document_languages"))
             filters.append(self._inclusive_filters(f, "family_source"))
-            # TODO: Believe we add the corpus_type_name here.
+            filters.append(self._inclusive_filters(f, "corpus_type_name"))
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
         return " and ".join([f for f in filters if f])  # Remove empty

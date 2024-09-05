@@ -420,10 +420,11 @@ def test_vespa_search_no_passages_search(test_vespa):
 def test_vespa_search_adaptor__corpus_type_name(
     test_vespa,
 ):
-    request_one = SearchParameters(
-        all_results=True,
-        corpus_type_name="UNFCCC Submissions",
-    )
+    params = {
+        "query_string": "the",
+        "filters": {"corpus_type_name": "Laws and Policies"},
+    }
+    request_one = SearchParameters(**params)
     response = vespa_search(test_vespa, request_one)
     for family in response.families:
         for hit in family.hits:

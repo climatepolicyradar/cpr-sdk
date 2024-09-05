@@ -45,6 +45,7 @@ class Filters(BaseModel):
     family_category: Sequence[str] = []
     document_languages: Sequence[str] = []
     family_source: Sequence[str] = []
+    corpus_type_name: Optional[str] = None
 
     model_config: ConfigDict = {
         "extra": "forbid",
