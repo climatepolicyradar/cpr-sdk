@@ -11,7 +11,7 @@ class YQLBuilder:
         """
         select * from sources $SOURCES
             where $WHERE_CLAUSE
-        limit 0 
+        limit 0
         |
             $CONTINUATION
         all(
@@ -84,6 +84,12 @@ class YQLBuilder:
                 )
             """
 
+    def build_corpus_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific corpora"""
+        if self.params.corpus_type_names:
+            corpora = ", ".join([f"'{c}'" for c in self.params.corpus_type_names])
+            return f"(corpus_type_name in({corpora}))"
+
     def build_family_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific families"""
         if self.params.family_ids:
@@ -128,6 +134,7 @@ class YQLBuilder:
         filters.append(self.build_search_term())
         filters.append(self.build_family_filter())
         filters.append(self.build_document_filter())
+        filters.append(self.build_corpus_filter())
         if f := self.params.filters:
             filters.append(self._inclusive_filters(f, "family_geography"))
             filters.append(self._inclusive_filters(f, "family_category"))

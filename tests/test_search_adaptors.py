@@ -422,10 +422,10 @@ def test_vespa_search_adaptor__corpus_type_name(
 ):
     request_one = SearchParameters(
         query_string="the",
-        corpus_type_name="Laws and Policies",
+        corpus_type_names=["Laws and Policies"],
     )
     response = vespa_search(test_vespa, request_one)
     for family in response.families:
         for hit in family.hits:
-            assert hit.corpus_type_name
+            assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name == "Laws and Policies"

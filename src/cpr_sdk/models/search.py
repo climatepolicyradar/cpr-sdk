@@ -138,11 +138,11 @@ class SearchParameters(BaseModel):
     """
     Use to return the next page of results from a specific search, the next token
     can be found on the response object. It's also possible to get the next page
-    of passages by including the family level continuation token first in the 
+    of passages by including the family level continuation token first in the
     array followed by the passage level one.
     """
 
-    corpus_type_name: Optional[str] = None
+    corpus_type_names: Optional[Sequence[str]] = None
     """
     The name of the corpus that a document belongs to.
     """
