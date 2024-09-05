@@ -12,7 +12,6 @@ from cpr_sdk.models.search import (
     sort_fields,
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
-from regex import R
 
 
 def vespa_search(
@@ -439,5 +438,7 @@ def test_vespa_search_adaptor__corpus_type_name(
     for family in response_two.families:
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name in ["Climate Change Laws of the World", "Laws and Policies"]
-
+            assert hit.corpus_type_name in [
+                "Climate Change Laws of the World",
+                "Laws and Policies",
+            ]
