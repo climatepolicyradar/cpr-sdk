@@ -420,10 +420,8 @@ def test_vespa_search_no_passages_search(test_vespa):
 def test_vespa_search_adaptor__corpus_type_name(
     test_vespa,
 ):
-    query_string = "the"
-
     request_one = SearchParameters(
-        query_string=query_string,
+        all_results=True,
         corpus_type_name="UNFCCC Submissions",
     )
     response = vespa_search(test_vespa, request_one)
