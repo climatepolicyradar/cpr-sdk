@@ -420,11 +420,10 @@ def test_vespa_search_no_passages_search(test_vespa):
 def test_vespa_search_adaptor__corpus_type_name(
     test_vespa,
 ):
-    params = {
-        "query_string": "the",
-        "filters": {"corpus_type_name": "Laws and Policies"},
-    }
-    request_one = SearchParameters(**params)
+    request_one = SearchParameters(
+        query_string="the",
+        corpus_type_name="Laws and Policies",
+    )
     response = vespa_search(test_vespa, request_one)
     for family in response.families:
         for hit in family.hits:
