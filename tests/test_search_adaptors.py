@@ -420,11 +420,13 @@ def test_vespa_search_no_passages_search(test_vespa):
 def test_vespa_search_adaptor__corpus_type_name(
     test_vespa,
 ):
+    """Test that the corpus type name filter works"""
     request_one = SearchParameters(
         query_string="the",
         corpus_type_names=["Laws and Policies"],
     )
     response_one = vespa_search(test_vespa, request_one)
+    assert response_one.total_family_hits > 0
     for family in response_one.families:
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
@@ -435,6 +437,7 @@ def test_vespa_search_adaptor__corpus_type_name(
         corpus_type_names=["Climate Change Laws of the World", "Laws and Policies"],
     )
     response_two = vespa_search(test_vespa, request_two)
+    assert response_two.total_family_hits > 0
     for family in response_two.families:
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
@@ -442,3 +445,25 @@ def test_vespa_search_adaptor__corpus_type_name(
                 "Climate Change Laws of the World",
                 "Laws and Policies",
             ]
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__metadata(
+    test_vespa,
+):
+    """Test that the metadata filter works"""
+    # TODO our data in prod vespa looks different to the test data.
+    #   This name is family.sector in prod
+    request_one = SearchParameters(
+        query_string="the",
+        metadata=[{"name": "sector", "value": "Price"}],
+    )
+    response_one = vespa_search(test_vespa, request_one)
+    assert response_one.total_family_hits > 0
+    for family in response_one.families:
+        for hit in family.hits:
+            assert hit.metadata not in [None, []]
+            assert (
+                hit.metadata is not None
+                and {"name": "sector", "value": "Price"} in hit.metadata
+            )

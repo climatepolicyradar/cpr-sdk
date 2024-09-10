@@ -147,6 +147,15 @@ class SearchParameters(BaseModel):
     The name of the corpus that a document belongs to.
     """
 
+    # TODO: Confirm that values are always strings?
+    # TODO unless we pass in as "family.sector" have to prefix with family or document, add a method to the class to process
+    metadata: Optional[Sequence[dict[str, str]]] = None
+    """
+    A field and item mapping to search in the metadata field of the documents.
+
+    E.g. [{"name": "family.sector", "value": "Price"}]
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""
@@ -264,6 +273,7 @@ class Hit(BaseModel):
     document_cdn_object: Optional[str] = None
     document_source_url: Optional[str] = None
     corpus_type_name: Optional[str] = None
+    metadata: Optional[Sequence[dict[str, str]]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -324,6 +334,7 @@ class Document(Hit):
             document_cdn_object=fields.get("document_cdn_object"),
             document_source_url=fields.get("document_source_url"),
             corpus_type_name=fields.get("corpus_type_name"),
+            metadata=fields.get("metadata"),
         )
 
 

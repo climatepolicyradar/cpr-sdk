@@ -84,6 +84,15 @@ class YQLBuilder:
                 )
             """
 
+    def build_metadata_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific metadata"""
+        metadata_filters = []
+        if self.params.metadata:
+            [metadata_filters.append(
+                f"(metadata contains sameElement(name contains '{metadata['name']}', value contains '{metadata['value']}'))"
+            ) for metadata in self.params.metadata]
+        return f"({' and '.join(metadata_filters)})"
+
     def build_corpus_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific corpora"""
         if self.params.corpus_type_names:
@@ -135,6 +144,7 @@ class YQLBuilder:
         filters.append(self.build_family_filter())
         filters.append(self.build_document_filter())
         filters.append(self.build_corpus_filter())
+        filters.append(self.build_metadata_filter())
         if f := self.params.filters:
             filters.append(self._inclusive_filters(f, "family_geography"))
             filters.append(self._inclusive_filters(f, "family_category"))

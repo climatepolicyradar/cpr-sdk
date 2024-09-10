@@ -115,7 +115,6 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
     root = vespa_response.json["root"]
 
     response_families = dig(root, "children", 0, "children", 0, "children", default=[])
-
     for family in response_families:
         total_passage_hits = dig(family, "fields", "count()")
         family_hits: List[Hit] = []
