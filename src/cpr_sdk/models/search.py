@@ -37,6 +37,13 @@ _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
 
 
+class MetadataFilter(BaseModel):
+    """A filter for metadata fields"""
+
+    name: str
+    value: str
+
+
 class Filters(BaseModel):
     """Filterable fields in a search request"""
 
@@ -146,7 +153,7 @@ class SearchParameters(BaseModel):
     The name of the corpus that a document belongs to.
     """
 
-    metadata: Optional[Sequence[dict[str, str]]] = None
+    metadata: Optional[Sequence[MetadataFilter]] = None
     """
     A field and item mapping to search in the metadata field of the documents.
 

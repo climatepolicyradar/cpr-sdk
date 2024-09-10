@@ -93,8 +93,8 @@ class YQLBuilder:
                     f"""
                     (
                         metadata contains sameElement(
-                            name contains '{metadata['name']}',
-                            value contains '{metadata['value']}'
+                            name contains '{metadata.name}',
+                            value contains '{metadata.value}'
                         )
                     )
                     """

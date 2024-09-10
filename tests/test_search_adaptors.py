@@ -6,6 +6,7 @@ import pytest
 
 from cpr_sdk.models.search import (
     Document,
+    MetadataFilter,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -467,7 +468,10 @@ def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filte
     """Test that the metadata filter works"""
     request = SearchParameters(
         query_string=query_string,
-        metadata=metadata_filters,
+        metadata=[
+            MetadataFilter.model_validate(metadata_filter)
+            for metadata_filter in metadata_filters
+        ],
     )
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
