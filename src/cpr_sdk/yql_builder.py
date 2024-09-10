@@ -90,7 +90,14 @@ class YQLBuilder:
         if self.params.metadata:
             [
                 metadata_filters.append(
-                    f"(metadata contains sameElement(name contains '{metadata['name']}', value contains '{metadata['value']}'))"
+                    f"""
+                    (
+                        metadata contains sameElement(
+                            name contains '{metadata['name']}',
+                            value contains '{metadata['value']}'
+                        )
+                    )
+                    """
                 )
                 for metadata in self.params.metadata
             ]

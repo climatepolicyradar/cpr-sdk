@@ -417,69 +417,62 @@ def test_vespa_search_no_passages_search(test_vespa):
 
 
 @pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, corpus_type_names",
+    [
+        (
+            "the",
+            ["UNFCCC Submissions"],
+        ),
+        (
+            "the",
+            ["UNFCCC Submissions", "Climate Change Laws of the World"],
+        ),
+    ],
+)
 def test_vespa_search_adaptor__corpus_type_name(
-    test_vespa,
+    test_vespa, query_string, corpus_type_names
 ):
     """Test that the corpus type name filter works"""
-    request_one = SearchParameters(
-        query_string="the",
-        corpus_type_names=["UNFCCC Submissions"],
+    request = SearchParameters(
+        query_string=query_string,
+        corpus_type_names=corpus_type_names,
     )
-    response_one = vespa_search(test_vespa, request_one)
-    assert response_one.total_family_hits > 0
-    for family in response_one.families:
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name == "UNFCCC Submissions"
-
-    request_two = SearchParameters(
-        query_string="the",
-        corpus_type_names=["UNFCCC Submissions", "Climate Change Laws of the World"],
-    )
-    response_two = vespa_search(test_vespa, request_two)
-    assert response_two.total_family_hits > 0
-    for family in response_two.families:
-        for hit in family.hits:
-            assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name in [
-                "UNFCCC Submissions",
-                "Climate Change Laws of the World",
-            ]
+            assert hit.corpus_type_name in corpus_type_names
 
 
 @pytest.mark.vespa
-def test_vespa_search_adaptor__metadata(
-    test_vespa,
-):
+@pytest.mark.parametrize(
+    "query_string, metadata_filters",
+    [
+        (
+            "the",
+            [{"name": "family.sector", "value": "Price"}],
+        ),
+        (
+            "the",
+            [
+                {"name": "family.sector", "value": "Price"},
+                {"name": "family.topic", "value": "Mitigation"},
+            ],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filters):
     """Test that the metadata filter works"""
-    request_one = SearchParameters(
-        query_string="the",
-        metadata=[{"name": "family.sector", "value": "Price"}],
+    request = SearchParameters(
+        query_string=query_string,
+        metadata=metadata_filters,
     )
-    response_one = vespa_search(test_vespa, request_one)
-    assert response_one.total_family_hits > 0
-    for family in response_one.families:
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
         for hit in family.hits:
             assert hit.metadata not in [None, []]
-            assert (
-                hit.metadata is not None
-                and {"name": "family.sector", "value": "Price"} in hit.metadata
-            )
-
-    request_two = SearchParameters(
-        query_string="the",
-        metadata=[
-            {"name": "family.sector", "value": "Price"},
-            {"name": "family.topic", "value": "Mitigation"},
-        ],
-    )
-    response_two = vespa_search(test_vespa, request_two)
-    assert response_two.total_family_hits > 0
-    for family in response_two.families:
-        for hit in family.hits:
-            assert hit.metadata not in [None, []]
-            assert (
-                hit.metadata is not None
-                and {"name": "family.sector", "value": "Price"} in hit.metadata
-                and {"name": "family.topic", "value": "Mitigation"} in hit.metadata
-            )
+            for metadata_filter in metadata_filters:
+                assert metadata_filter in hit.metadata
