@@ -486,33 +486,25 @@ def test_vespa_search_adaptor__metadata(
 
 
 @pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, geographies, expected_geographies",
+    [
+        ("the", ["BIH"], ["BIH"]),
+        ("the", ["BIH", "NOR"], ["BIH", "NOR"]),
+    ],
+)
 def test_vespa_search_adaptor__geographies(
-    test_vespa,
+    test_vespa, query_string, geographies, expected_geographies
 ):
     """Test that the geographies filter works"""
-    request_one = SearchParameters(
-        query_string="the",
-        filters=Filters(family_geographies=["BIH"]),
+    request = SearchParameters(
+        query_string=query_string,
+        filters=Filters(family_geographies=geographies),
     )
-    response_one = vespa_search(test_vespa, request_one)
-    assert response_one.total_family_hits > 0
-    for family in response_one.families:
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
         for hit in family.hits:
-            assert (
-                hit.family_geographies not in [[], None]
-                and "BIH" in hit.family_geographies
-            )
-
-    request_one = SearchParameters(
-        query_string="the",
-        filters=Filters(family_geographies=["BIH", "NOR"]),
-    )
-    response_one = vespa_search(test_vespa, request_one)
-    assert response_one.total_family_hits > 0
-    for family in response_one.families:
-        for hit in family.hits:
-            assert (
-                hit.family_geographies not in [[], None]
-                and "BIH" in hit.family_geographies
-                and "NOR" in hit.family_geographies
+            assert hit.family_geographies not in [[], None] and all(
+                geo in hit.family_geographies for geo in expected_geographies
             )
