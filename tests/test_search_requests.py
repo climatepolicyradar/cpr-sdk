@@ -200,7 +200,7 @@ def test_computed_vespa_sort_fields(sort_by, sort_order):
 
 @pytest.mark.parametrize(
     "field",
-    ["family_geography", "family_category", "document_languages", "family_source"],
+    ["family_geographies", "family_geography", "family_category", "document_languages", "family_source"],
 )
 def test_whether_valid_filter_fields_are_accepted(field):
     filters = Filters(**{field: ["value"]})
