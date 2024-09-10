@@ -153,6 +153,11 @@ class SearchParameters(BaseModel):
     The name of the corpus that a document belongs to.
     """
 
+    corpus_import_ids: Optional[Sequence[str]] = None
+    """
+    The import id of the corpus that a document belongs to.
+    """
+
     metadata: Optional[Sequence[MetadataFilter]] = None
     """
     A field and item mapping to search in the metadata field of the documents.
@@ -277,6 +282,7 @@ class Hit(BaseModel):
     document_cdn_object: Optional[str] = None
     document_source_url: Optional[str] = None
     corpus_type_name: Optional[str] = None
+    corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
 
     @classmethod
@@ -338,6 +344,7 @@ class Document(Hit):
             document_cdn_object=fields.get("document_cdn_object"),
             document_source_url=fields.get("document_source_url"),
             corpus_type_name=fields.get("corpus_type_name"),
+            corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
         )
 

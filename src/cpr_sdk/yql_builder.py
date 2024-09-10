@@ -104,11 +104,17 @@ class YQLBuilder:
             return f"({' and '.join(metadata_filters)})"
         return None
 
-    def build_corpus_filter(self) -> Optional[str]:
+    def build_corpus_type_name_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific corpora"""
         if self.params.corpus_type_names:
             corpora = ", ".join([f"'{c}'" for c in self.params.corpus_type_names])
             return f"(corpus_type_name in({corpora}))"
+
+    def build_corpus_import_ids_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific corpora import id"""
+        if self.params.corpus_import_ids:
+            corpora = ", ".join([f"'{c}'" for c in self.params.corpus_import_ids])
+            return f"(corpus_import_id in({corpora}))"
 
     def build_family_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific families"""
@@ -154,7 +160,8 @@ class YQLBuilder:
         filters.append(self.build_search_term())
         filters.append(self.build_family_filter())
         filters.append(self.build_document_filter())
-        filters.append(self.build_corpus_filter())
+        filters.append(self.build_corpus_type_name_filter())
+        filters.append(self.build_corpus_import_ids_filter())
         filters.append(self.build_metadata_filter())
         if f := self.params.filters:
             filters.append(self._inclusive_filters(f, "family_geography"))
