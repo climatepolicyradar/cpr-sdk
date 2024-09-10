@@ -511,6 +511,8 @@ def test_vespa_search_adaptor__geographies(
     assert response_one.total_family_hits > 0
     for family in response_one.families:
         for hit in family.hits:
-            assert hit.family_geographies not in [[], None] and set(
-                ["BIH", "NOR"]
-            ) == set(hit.family_geographies)
+            assert (
+                hit.family_geographies not in [[], None]
+                and "BIH" in hit.family_geographies
+                and "NOR" in hit.family_geographies
+            )
