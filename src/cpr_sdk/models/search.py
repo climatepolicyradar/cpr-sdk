@@ -147,8 +147,6 @@ class SearchParameters(BaseModel):
     The name of the corpus that a document belongs to.
     """
 
-    # TODO: Confirm that values are always strings?
-    # TODO unless we pass in as "family.sector" have to prefix with family or document, add a method to the class to process
     metadata: Optional[Sequence[dict[str, str]]] = None
     """
     A field and item mapping to search in the metadata field of the documents.

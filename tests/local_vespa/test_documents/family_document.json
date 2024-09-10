@@ -802,11 +802,11 @@
             "collection_summary": null,
             "metadata": [
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Price"
                 },
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Government"
                 }
             ]
@@ -1617,19 +1617,19 @@
             "collection_summary": "Sample collection used for tests",
             "metadata": [
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Price"
                 },
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Government"
                 },
                 {
-                    "name": "topic",
+                    "name": "family.topic",
                     "value": "Mitigation"
                 },
                 {
-                    "name": "instrument",
+                    "name": "family.instrument",
                     "value": "Capacity building"
                 }
             ]
@@ -2440,31 +2440,31 @@
             "collection_summary": "Sample collection used for tests",
             "metadata": [
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Price"
                 },
                 {
-                    "name": "sector",
+                    "name": "family.sector",
                     "value": "Government"
                 },
                 {
-                    "name": "topic",
+                    "name": "family.topic",
                     "value": "Mitigation"
                 },
                 {
-                    "name": "keyword",
+                    "name": "family.keyword",
                     "value": "Institutions"
                 },
                 {
-                    "name": "topic",
+                    "name": "family.topic",
                     "value": "Misc"
                 },
                 {
-                    "name": "keyword",
+                    "name": "family.keyword",
                     "value": "Disaster Risk Management"
                 },
                 {
-                    "name": "instrument",
+                    "name": "family.instrument",
                     "value": "Capacity building"
                 }
             ]

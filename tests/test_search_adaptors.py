@@ -452,11 +452,9 @@ def test_vespa_search_adaptor__metadata(
     test_vespa,
 ):
     """Test that the metadata filter works"""
-    # TODO our data in prod vespa looks different to the test data.
-    #   This name is family.sector in prod
     request_one = SearchParameters(
         query_string="the",
-        metadata=[{"name": "sector", "value": "Price"}],
+        metadata=[{"name": "family.sector", "value": "Price"}],
     )
     response_one = vespa_search(test_vespa, request_one)
     assert response_one.total_family_hits > 0
@@ -465,5 +463,23 @@ def test_vespa_search_adaptor__metadata(
             assert hit.metadata not in [None, []]
             assert (
                 hit.metadata is not None
-                and {"name": "sector", "value": "Price"} in hit.metadata
+                and {"name": "family.sector", "value": "Price"} in hit.metadata
+            )
+
+    request_two = SearchParameters(
+        query_string="the",
+        metadata=[
+            {"name": "family.sector", "value": "Price"},
+            {"name": "family.topic", "value": "Mitigation"}
+        ],
+    )
+    response_two = vespa_search(test_vespa, request_two)
+    assert response_two.total_family_hits > 0
+    for family in response_two.families:
+        for hit in family.hits:
+            assert hit.metadata not in [None, []]
+            assert (
+                hit.metadata is not None
+                and {"name": "family.sector", "value": "Price"} in hit.metadata
+                and {"name": "family.topic", "value": "Mitigation"} in hit.metadata
             )
