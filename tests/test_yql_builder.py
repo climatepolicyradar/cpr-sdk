@@ -1,13 +1,9 @@
 import pytest
-from cpr_sdk.models.search import (
-    Filters,
-    SearchParameters,
-    sort_fields,
-    sort_orders,
-)
+from vespa.exceptions import VespaError
+
+from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_orders
 from cpr_sdk.vespa import VespaErrorDetails
 from cpr_sdk.yql_builder import YQLBuilder
-from vespa.exceptions import VespaError
 
 
 def test_whether_document_only_search_ignores_passages_in_yql():
