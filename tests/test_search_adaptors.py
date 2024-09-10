@@ -423,18 +423,18 @@ def test_vespa_search_adaptor__corpus_type_name(
     """Test that the corpus type name filter works"""
     request_one = SearchParameters(
         query_string="the",
-        corpus_type_names=["Laws and Policies"],
+        corpus_type_names=["UNFCCC Submissions"],
     )
     response_one = vespa_search(test_vespa, request_one)
     assert response_one.total_family_hits > 0
     for family in response_one.families:
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name == "Laws and Policies"
+            assert hit.corpus_type_name == "UNFCCC Submissions"
 
     request_two = SearchParameters(
         query_string="the",
-        corpus_type_names=["Climate Change Laws of the World", "Laws and Policies"],
+        corpus_type_names=["UNFCCC Submissions", "Climate Change Laws of the World"],
     )
     response_two = vespa_search(test_vespa, request_two)
     assert response_two.total_family_hits > 0
@@ -442,8 +442,8 @@ def test_vespa_search_adaptor__corpus_type_name(
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name in [
+                "UNFCCC Submissions",
                 "Climate Change Laws of the World",
-                "Laws and Policies",
             ]
 
 
