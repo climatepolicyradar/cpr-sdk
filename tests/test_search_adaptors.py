@@ -6,6 +6,7 @@ import pytest
 
 from cpr_sdk.models.search import (
     Document,
+    Filters,
     MetadataFilter,
     Passage,
     SearchParameters,
@@ -510,3 +511,33 @@ def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filte
             assert hit.metadata not in [None, []]
             for metadata_filter in metadata_filters:
                 assert metadata_filter in hit.metadata
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, filters",
+    [
+        (
+            "the",
+            {"family_geographies": ["BIH"]},
+        ),
+        (
+            "the",
+            {"family_geographies": ["BIH", "NOR"]},
+        ),
+    ],
+)
+def test_vespa_search_adaptor__filters(test_vespa, query_string, filters):
+    """Test that the search filters work"""
+    request = SearchParameters(
+        query_string=query_string,
+        filters=Filters.model_validate(filters),
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            for filter_name, filter_values in filters.items():
+                attribute_value_from_hit = getattr(hit, filter_name)
+                assert attribute_value_from_hit not in [None, []]
+                assert all([val in attribute_value_from_hit for val in filter_values])
