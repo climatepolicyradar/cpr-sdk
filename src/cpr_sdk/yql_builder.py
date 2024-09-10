@@ -94,7 +94,8 @@ class YQLBuilder:
                 )
                 for metadata in self.params.metadata
             ]
-        return f"({' and '.join(metadata_filters)})"
+            return f"({' and '.join(metadata_filters)})"
+        return None
 
     def build_corpus_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific corpora"""
