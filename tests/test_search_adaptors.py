@@ -470,7 +470,7 @@ def test_vespa_search_adaptor__metadata(
         query_string="the",
         metadata=[
             {"name": "family.sector", "value": "Price"},
-            {"name": "family.topic", "value": "Mitigation"}
+            {"name": "family.topic", "value": "Mitigation"},
         ],
     )
     response_two = vespa_search(test_vespa, request_two)

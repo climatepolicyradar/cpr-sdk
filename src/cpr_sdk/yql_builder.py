@@ -88,9 +88,12 @@ class YQLBuilder:
         """Create the part of the query that limits to specific metadata"""
         metadata_filters = []
         if self.params.metadata:
-            [metadata_filters.append(
-                f"(metadata contains sameElement(name contains '{metadata['name']}', value contains '{metadata['value']}'))"
-            ) for metadata in self.params.metadata]
+            [
+                metadata_filters.append(
+                    f"(metadata contains sameElement(name contains '{metadata['name']}', value contains '{metadata['value']}'))"
+                )
+                for metadata in self.params.metadata
+            ]
         return f"({' and '.join(metadata_filters)})"
 
     def build_corpus_filter(self) -> Optional[str]:
