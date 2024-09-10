@@ -6,6 +6,7 @@ import pytest
 
 from cpr_sdk.models.search import (
     Document,
+    Filters,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -429,8 +430,10 @@ def test_vespa_search_adaptor__corpus_type_name(
     assert response_one.total_family_hits > 0
     for family in response_one.families:
         for hit in family.hits:
-            assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name == "UNFCCC Submissions"
+            assert (
+                hit.corpus_type_name not in [None, []]
+                and hit.corpus_type_name == "UNFCCC Submissions"
+            )
 
     request_two = SearchParameters(
         query_string="the",
@@ -440,8 +443,7 @@ def test_vespa_search_adaptor__corpus_type_name(
     assert response_two.total_family_hits > 0
     for family in response_two.families:
         for hit in family.hits:
-            assert hit.corpus_type_name not in [None, []]
-            assert hit.corpus_type_name in [
+            assert hit.corpus_type_name not in [None, []] and hit.corpus_type_name in [
                 "UNFCCC Submissions",
                 "Climate Change Laws of the World",
             ]
@@ -460,9 +462,8 @@ def test_vespa_search_adaptor__metadata(
     assert response_one.total_family_hits > 0
     for family in response_one.families:
         for hit in family.hits:
-            assert hit.metadata not in [None, []]
             assert (
-                hit.metadata is not None
+                hit.metadata not in [[], None]
                 and {"name": "family.sector", "value": "Price"} in hit.metadata
             )
 
@@ -477,9 +478,39 @@ def test_vespa_search_adaptor__metadata(
     assert response_two.total_family_hits > 0
     for family in response_two.families:
         for hit in family.hits:
-            assert hit.metadata not in [None, []]
             assert (
-                hit.metadata is not None
+                hit.metadata not in [[], None]
                 and {"name": "family.sector", "value": "Price"} in hit.metadata
                 and {"name": "family.topic", "value": "Mitigation"} in hit.metadata
             )
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__geographies(
+    test_vespa,
+):
+    """Test that the geographies filter works"""
+    request_one = SearchParameters(
+        query_string="the",
+        filters=Filters(family_geographies=["BIH"]),
+    )
+    response_one = vespa_search(test_vespa, request_one)
+    assert response_one.total_family_hits > 0
+    for family in response_one.families:
+        for hit in family.hits:
+            assert (
+                hit.family_geographies not in [[], None]
+                and "BIH" in hit.family_geographies
+            )
+
+    request_one = SearchParameters(
+        query_string="the",
+        filters=Filters(family_geographies=["BIH", "NOR"]),
+    )
+    response_one = vespa_search(test_vespa, request_one)
+    assert response_one.total_family_hits > 0
+    for family in response_one.families:
+        for hit in family.hits:
+            assert hit.family_geographies not in [[], None] and set(
+                ["BIH", "NOR"]
+            ) == set(hit.family_geographies)
