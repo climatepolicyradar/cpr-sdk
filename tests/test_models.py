@@ -4,6 +4,9 @@ from typing import Iterable
 
 import pandas as pd
 import pytest
+from datasets import Dataset as HuggingFaceDataset
+from pydantic import ValidationError
+
 from cpr_sdk.models import (
     BaseDocument,
     BlockType,
@@ -15,7 +18,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from datasets import Dataset as HuggingFaceDataset
+from cpr_sdk.models.search import MetadataFilter
 
 
 @pytest.fixture
@@ -590,3 +593,14 @@ def test_document_to_markdown(test_document):
         show_debug_elements=False, debug_only_types={BlockType.TEXT}
     )
     assert len(md_debug) < len(md)
+
+
+def test_metadatafilters() -> None:
+    """Validate that the metadata filters are correctly built."""
+    MetadataFilter(name="test", value="test")
+
+    with pytest.raises(ValidationError):
+        MetadataFilter.model_validate({"name": "test"})
+
+    with pytest.raises(ValidationError):
+        MetadataFilter.model_validate({"value": "test"})
