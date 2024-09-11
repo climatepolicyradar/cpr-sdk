@@ -48,6 +48,7 @@ class Filters(BaseModel):
     """Filterable fields in a search request"""
 
     family_geography: Sequence[str] = []
+    family_geographies: Sequence[str] = []
     family_category: Sequence[str] = []
     document_languages: Sequence[str] = []
     family_source: Sequence[str] = []
@@ -57,7 +58,11 @@ class Filters(BaseModel):
     }
 
     @field_validator(
-        "family_geography", "family_category", "document_languages", "family_source"
+        "family_geographies",
+        "family_geography",
+        "family_category",
+        "document_languages",
+        "family_source",
     )
     def sanitise_filter_inputs(cls, field):
         """Remove problematic characters from filter values"""
@@ -275,6 +280,7 @@ class Hit(BaseModel):
     family_category: Optional[str] = None
     family_publication_ts: Optional[datetime] = None
     family_geography: Optional[str] = None
+    family_geographies: Optional[List[str]] = None
     document_import_id: Optional[str] = None
     document_slug: Optional[str] = None
     document_languages: Optional[List[str]] = None
@@ -337,6 +343,7 @@ class Document(Hit):
             family_category=fields.get("family_category"),
             family_publication_ts=family_publication_ts,
             family_geography=fields.get("family_geography"),
+            family_geographies=fields.get("family_geographies", []),
             document_import_id=fields.get("document_import_id"),
             document_slug=fields.get("document_slug"),
             document_languages=fields.get("document_languages", []),

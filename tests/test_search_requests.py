@@ -1,16 +1,12 @@
-from unittest.mock import patch
 import re
+from unittest.mock import patch
 
 import pytest
-from cpr_sdk.embedding import Embedder
-from cpr_sdk.models.search import (
-    Filters,
-    SearchParameters,
-    sort_fields,
-    sort_orders,
-)
-from cpr_sdk.vespa import build_vespa_request_body
 from pydantic import ValidationError
+
+from cpr_sdk.embedding import Embedder
+from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_orders
+from cpr_sdk.vespa import build_vespa_request_body
 
 
 @patch(
@@ -200,7 +196,13 @@ def test_computed_vespa_sort_fields(sort_by, sort_order):
 
 @pytest.mark.parametrize(
     "field",
-    ["family_geography", "family_category", "document_languages", "family_source"],
+    [
+        "family_geographies",
+        "family_geography",
+        "family_category",
+        "document_languages",
+        "family_source",
+    ],
 )
 def test_whether_valid_filter_fields_are_accepted(field):
     filters = Filters(**{field: ["value"]})

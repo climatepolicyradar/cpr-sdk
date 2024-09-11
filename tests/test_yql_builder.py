@@ -1,13 +1,9 @@
 import pytest
-from cpr_sdk.models.search import (
-    Filters,
-    SearchParameters,
-    sort_fields,
-    sort_orders,
-)
+from vespa.exceptions import VespaError
+
+from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_orders
 from cpr_sdk.vespa import VespaErrorDetails
 from cpr_sdk.yql_builder import YQLBuilder
-from vespa.exceptions import VespaError
 
 
 def test_whether_document_only_search_ignores_passages_in_yql():
@@ -22,6 +18,7 @@ def test_whether_document_only_search_ignores_passages_in_yql():
 
 def test_whether_single_filter_values_and_lists_of_filter_values_appear_in_yql():
     filters = {
+        "family_geographies": ["SWE", "USA"],
         "family_geography": ["SWE"],
         "family_category": ["Executive"],
         "document_languages": ["English", "Swedish"],

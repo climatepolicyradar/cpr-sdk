@@ -130,7 +130,7 @@ class YQLBuilder:
             return f"(document_import_id in({documents}))"
         return None
 
-    def _inclusive_filters(self, filters: Filters, field_name: str):
+    def _inclusive_filters(self, filters: Filters, field_name: str) -> Optional[str]:
         values = getattr(filters, field_name)
         query_filters = []
         for value in values:
@@ -164,13 +164,13 @@ class YQLBuilder:
         filters.append(self.build_corpus_import_ids_filter())
         filters.append(self.build_metadata_filter())
         if f := self.params.filters:
+            filters.append(self._inclusive_filters(f, "family_geographies"))
             filters.append(self._inclusive_filters(f, "family_geography"))
             filters.append(self._inclusive_filters(f, "family_category"))
             filters.append(self._inclusive_filters(f, "document_languages"))
             filters.append(self._inclusive_filters(f, "family_source"))
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
-
         return " and ".join([f for f in filters if f])  # Remove empty
 
     def build_continuation(self) -> str:
