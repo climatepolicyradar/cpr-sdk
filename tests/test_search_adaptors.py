@@ -6,6 +6,8 @@ import pytest
 
 from cpr_sdk.models.search import (
     Document,
+    Filters,
+    MetadataFilter,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -414,3 +416,128 @@ def test_vespa_search_no_passages_search(test_vespa):
             if isinstance(hit, Passage):
                 found_a_passage = True
     assert found_a_passage
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, corpus_type_names",
+    [
+        (
+            "the",
+            ["UNFCCC Submissions"],
+        ),
+        (
+            "the",
+            ["UNFCCC Submissions", "Climate Change Laws of the World"],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__corpus_type_name(
+    test_vespa, query_string, corpus_type_names
+):
+    """Test that the corpus type name filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        corpus_type_names=corpus_type_names,
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.corpus_type_name not in [None, []]
+            assert hit.corpus_type_name in corpus_type_names
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, corpus_import_ids",
+    [
+        (
+            "the",
+            ["CCLW.corpus.i00000003.n0001"],
+        ),
+        (
+            "the",
+            ["CCLW.corpus.i00000003.n0001", "CCLW.corpus.i00000003.n0002"],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__corpus_import_ids(
+    test_vespa, query_string, corpus_import_ids
+):
+    """Test that the corpus import ids filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        corpus_import_ids=corpus_import_ids,
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.corpus_import_id not in [None, []]
+            assert hit.corpus_import_id in corpus_import_ids
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, metadata_filters",
+    [
+        (
+            "the",
+            [{"name": "family.sector", "value": "Price"}],
+        ),
+        (
+            "the",
+            [
+                {"name": "family.sector", "value": "Price"},
+                {"name": "family.topic", "value": "Mitigation"},
+            ],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filters):
+    """Test that the metadata filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        metadata=[
+            MetadataFilter.model_validate(metadata_filter)
+            for metadata_filter in metadata_filters
+        ],
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.metadata not in [None, []]
+            for metadata_filter in metadata_filters:
+                assert metadata_filter in hit.metadata
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, filters",
+    [
+        (
+            "the",
+            {"family_geographies": ["BIH"]},
+        ),
+        (
+            "the",
+            {"family_geographies": ["BIH", "NOR"]},
+        ),
+    ],
+)
+def test_vespa_search_adaptor__filters(test_vespa, query_string, filters):
+    """Test that the search filters work"""
+    request = SearchParameters(
+        query_string=query_string,
+        filters=Filters.model_validate(filters),
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            for filter_name, filter_values in filters.items():
+                attribute_value_from_hit = getattr(hit, filter_name)
+                assert attribute_value_from_hit not in [None, []]
+                assert all([val in attribute_value_from_hit for val in filter_values])

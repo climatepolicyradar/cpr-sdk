@@ -11,7 +11,7 @@ class YQLBuilder:
         """
         select * from sources $SOURCES
             where $WHERE_CLAUSE
-        limit 0 
+        limit 0
         |
             $CONTINUATION
         all(
@@ -84,6 +84,38 @@ class YQLBuilder:
                 )
             """
 
+    def build_metadata_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific metadata"""
+        metadata_filters = []
+        if self.params.metadata:
+            [
+                metadata_filters.append(
+                    f"""
+                    (
+                        metadata contains sameElement(
+                            name contains '{metadata.name}',
+                            value contains '{metadata.value}'
+                        )
+                    )
+                    """
+                )
+                for metadata in self.params.metadata
+            ]
+            return f"({' and '.join(metadata_filters)})"
+        return None
+
+    def build_corpus_type_name_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific corpora"""
+        if self.params.corpus_type_names:
+            corpora = ", ".join([f"'{c}'" for c in self.params.corpus_type_names])
+            return f"(corpus_type_name in({corpora}))"
+
+    def build_corpus_import_ids_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific corpora import id"""
+        if self.params.corpus_import_ids:
+            corpora = ", ".join([f"'{c}'" for c in self.params.corpus_import_ids])
+            return f"(corpus_import_id in({corpora}))"
+
     def build_family_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific families"""
         if self.params.family_ids:
@@ -98,7 +130,7 @@ class YQLBuilder:
             return f"(document_import_id in({documents}))"
         return None
 
-    def _inclusive_filters(self, filters: Filters, field_name: str):
+    def _inclusive_filters(self, filters: Filters, field_name: str) -> Optional[str]:
         values = getattr(filters, field_name)
         query_filters = []
         for value in values:
@@ -128,14 +160,17 @@ class YQLBuilder:
         filters.append(self.build_search_term())
         filters.append(self.build_family_filter())
         filters.append(self.build_document_filter())
+        filters.append(self.build_corpus_type_name_filter())
+        filters.append(self.build_corpus_import_ids_filter())
+        filters.append(self.build_metadata_filter())
         if f := self.params.filters:
+            filters.append(self._inclusive_filters(f, "family_geographies"))
             filters.append(self._inclusive_filters(f, "family_geography"))
             filters.append(self._inclusive_filters(f, "family_category"))
             filters.append(self._inclusive_filters(f, "document_languages"))
             filters.append(self._inclusive_filters(f, "family_source"))
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
-
         return " and ".join([f for f in filters if f])  # Remove empty
 
     def build_continuation(self) -> str:

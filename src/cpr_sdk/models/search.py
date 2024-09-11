@@ -1,17 +1,16 @@
-from datetime import datetime
 import re
+from datetime import datetime
 from typing import List, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
     BaseModel,
-    computed_field,
     ConfigDict,
     Field,
+    computed_field,
     field_validator,
     model_validator,
 )
-
 
 # Value Lookup Tables
 sort_orders = {
@@ -38,10 +37,18 @@ _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
 
 
+class MetadataFilter(BaseModel):
+    """A filter for metadata fields"""
+
+    name: str
+    value: str
+
+
 class Filters(BaseModel):
     """Filterable fields in a search request"""
 
     family_geography: Sequence[str] = []
+    family_geographies: Sequence[str] = []
     family_category: Sequence[str] = []
     document_languages: Sequence[str] = []
     family_source: Sequence[str] = []
@@ -51,7 +58,11 @@ class Filters(BaseModel):
     }
 
     @field_validator(
-        "family_geography", "family_category", "document_languages", "family_source"
+        "family_geographies",
+        "family_geography",
+        "family_category",
+        "document_languages",
+        "family_source",
     )
     def sanitise_filter_inputs(cls, field):
         """Remove problematic characters from filter values"""
@@ -75,14 +86,14 @@ class SearchParameters(BaseModel):
 
     exact_match: bool = False
     """
-    Indicate if the `query_string` should be treated as an exact match when 
+    Indicate if the `query_string` should be treated as an exact match when
     the search is performed.
     """
 
     all_results: bool = False
     """
     Return all results rather than searching or ranking
-    
+
     Filters can still be applied
     """
 
@@ -138,8 +149,25 @@ class SearchParameters(BaseModel):
     """
     Use to return the next page of results from a specific search, the next token
     can be found on the response object. It's also possible to get the next page
-    of passages by including the family level continuation token first in the 
+    of passages by including the family level continuation token first in the
     array followed by the passage level one.
+    """
+
+    corpus_type_names: Optional[Sequence[str]] = None
+    """
+    The name of the corpus that a document belongs to.
+    """
+
+    corpus_import_ids: Optional[Sequence[str]] = None
+    """
+    The import id of the corpus that a document belongs to.
+    """
+
+    metadata: Optional[Sequence[MetadataFilter]] = None
+    """
+    A field and item mapping to search in the metadata field of the documents.
+
+    E.g. [{"name": "family.sector", "value": "Price"}]
     """
 
     @model_validator(mode="after")
@@ -252,12 +280,16 @@ class Hit(BaseModel):
     family_category: Optional[str] = None
     family_publication_ts: Optional[datetime] = None
     family_geography: Optional[str] = None
+    family_geographies: Optional[List[str]] = None
     document_import_id: Optional[str] = None
     document_slug: Optional[str] = None
     document_languages: Optional[List[str]] = None
     document_content_type: Optional[str] = None
     document_cdn_object: Optional[str] = None
     document_source_url: Optional[str] = None
+    corpus_type_name: Optional[str] = None
+    corpus_import_id: Optional[str] = None
+    metadata: Optional[Sequence[dict[str, str]]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -311,12 +343,16 @@ class Document(Hit):
             family_category=fields.get("family_category"),
             family_publication_ts=family_publication_ts,
             family_geography=fields.get("family_geography"),
+            family_geographies=fields.get("family_geographies", []),
             document_import_id=fields.get("document_import_id"),
             document_slug=fields.get("document_slug"),
             document_languages=fields.get("document_languages", []),
             document_content_type=fields.get("document_content_type"),
             document_cdn_object=fields.get("document_cdn_object"),
             document_source_url=fields.get("document_source_url"),
+            corpus_type_name=fields.get("corpus_type_name"),
+            corpus_import_id=fields.get("corpus_import_id"),
+            metadata=fields.get("metadata"),
         )
 
 

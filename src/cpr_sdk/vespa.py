@@ -2,20 +2,14 @@ from pathlib import Path
 from typing import Any, List
 
 import yaml
-from vespa.io import VespaResponse
 from vespa.exceptions import VespaError
+from vespa.io import VespaResponse
 
-from cpr_sdk.models.search import (
-    Family,
-    Hit,
-    SearchParameters,
-    SearchResponse,
-)
 from cpr_sdk.embedding import Embedder
 from cpr_sdk.exceptions import FetchError
+from cpr_sdk.models.search import Family, Hit, SearchParameters, SearchResponse
 from cpr_sdk.utils import dig, is_sensitive_query, load_sensitive_query_terms
 from cpr_sdk.yql_builder import YQLBuilder
-
 
 SENSITIVE_QUERY_TERMS = load_sensitive_query_terms()
 
@@ -115,7 +109,6 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
     root = vespa_response.json["root"]
 
     response_families = dig(root, "children", 0, "children", 0, "children", default=[])
-
     for family in response_families:
         total_passage_hits = dig(family, "fields", "count()")
         family_hits: List[Hit] = []
