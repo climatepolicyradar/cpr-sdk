@@ -28,6 +28,7 @@ sort_fields = {
 
 filter_fields = {
     "geography": "family_geography",
+    "geographies": "family_geographies",
     "category": "family_category",
     "language": "document_languages",
     "source": "family_source",
