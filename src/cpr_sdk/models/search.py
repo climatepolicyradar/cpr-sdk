@@ -390,6 +390,7 @@ class Passage(Hit):
             family_category=fields.get("family_category"),
             family_publication_ts=family_publication_ts,
             family_geography=fields.get("family_geography"),
+            family_geographies=fields.get("family_geographies", []),
             document_import_id=fields.get("document_import_id"),
             document_slug=fields.get("document_slug"),
             document_languages=fields.get("document_languages", []),
