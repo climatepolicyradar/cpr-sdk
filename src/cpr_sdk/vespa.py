@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Any, List, Optional
 
 import yaml
 from vespa.exceptions import VespaError
