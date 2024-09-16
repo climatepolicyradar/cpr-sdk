@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, List
+from typing import Any, List, Optional
 
 import yaml
 from vespa.exceptions import VespaError
@@ -36,7 +36,7 @@ def split_document_id(document_id: str) -> tuple[str, str, str]:
     return namespace, schema, data_id
 
 
-def find_vespa_cert_paths() -> tuple[Path, Path]:
+def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     """
     Automatically find the certificate and key files for the vespa instance
 
@@ -54,11 +54,21 @@ def find_vespa_cert_paths() -> tuple[Path, Path]:
     # read the config.yaml file to find the application name
     with open(vespa_directory / "config.yaml", "r", encoding="utf-8") as yaml_file:
         data = yaml.safe_load(yaml_file)
+        if "application" not in data:
+            return None, None
         application_name = data["application"]
 
     cert_directory = vespa_directory / application_name
-    cert_path = list(cert_directory.glob("*cert.pem"))[0]
-    key_path = list(cert_directory.glob("*key.pem"))[0]
+
+    cert_directory_certs = list(cert_directory.glob("*cert.pem"))
+    cert_path = (
+        str(list(cert_directory.glob("*cert.pem"))[0]) if cert_directory_certs else None
+    )
+    cert_directory_keys = list(cert_directory.glob("*key.pem"))
+    key_path = (
+        str(list(cert_directory.glob("*key.pem"))[0]) if cert_directory_keys else None
+    )
+
     return cert_path, key_path
 
 

@@ -37,6 +37,18 @@ def profile_search(
     return avg_ms
 
 
+@pytest.mark.parametrize(
+    "search_adaptor_params",
+    [
+        {"instance_url": "http://localhost:8080", "cert_directory": "/tmp"},
+        {"instance_url": "http://localhost:8080"},
+    ],
+)
+@pytest.mark.vespa
+def test_vespa_search_adaptor_instantiation(search_adaptor_params: dict) -> None:
+    VespaSearchAdapter(**search_adaptor_params)
+
+
 @pytest.mark.vespa
 def test_vespa_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")

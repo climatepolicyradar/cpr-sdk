@@ -1,24 +1,25 @@
 """Adaptors for searching CPR data"""
 
+import logging
 import time
 from abc import ABC
 from pathlib import Path
 from typing import Optional
-import logging
+
+from requests.exceptions import HTTPError
+from vespa.application import Vespa
+from vespa.exceptions import VespaError
 
 from cpr_sdk.embedding import Embedder
 from cpr_sdk.exceptions import DocumentNotFoundError, FetchError, QueryError
 from cpr_sdk.models.search import Hit, SearchParameters, SearchResponse
 from cpr_sdk.vespa import (
+    VespaErrorDetails,
     build_vespa_request_body,
     find_vespa_cert_paths,
     parse_vespa_response,
     split_document_id,
-    VespaErrorDetails,
 )
-from requests.exceptions import HTTPError
-from vespa.application import Vespa
-from vespa.exceptions import VespaError
 
 LOGGER = logging.getLogger(__name__)
 
@@ -67,10 +68,10 @@ class VespaSearchAdapter(SearchAdapter):
         if cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
         else:
-            cert_path = Path(cert_directory) / "cert.pem"
-            key_path = Path(cert_directory) / "key.pem"
+            cert_path = (Path(cert_directory) / "cert.pem").__str__()
+            key_path = (Path(cert_directory) / "key.pem").__str__()
 
-        self.client = Vespa(url=instance_url, cert=str(cert_path), key=str(key_path))
+        self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
         self.embedder = embedder or Embedder()
 
     def search(self, parameters: SearchParameters) -> SearchResponse:
