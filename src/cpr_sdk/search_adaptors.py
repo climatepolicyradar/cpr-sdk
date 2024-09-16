@@ -66,7 +66,7 @@ class VespaSearchAdapter(SearchAdapter):
         find_vespa_certs: bool = True,
     ):
         self.instance_url = instance_url
-        if cert_directory is None:
+        if find_vespa_certs and cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
         else:
             cert_path = (Path(cert_directory) / "cert.pem").__str__()
