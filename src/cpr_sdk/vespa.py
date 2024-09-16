@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -12,6 +13,7 @@ from cpr_sdk.utils import dig, is_sensitive_query, load_sensitive_query_terms
 from cpr_sdk.yql_builder import YQLBuilder
 
 SENSITIVE_QUERY_TERMS = load_sensitive_query_terms()
+_LOGGER = logging.getLogger(__name__)
 
 
 def split_document_id(document_id: str) -> tuple[str, str, str]:
@@ -46,15 +48,22 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     """
     vespa_directory = Path.home() / ".vespa/"
     if not vespa_directory.exists():
-        raise FileNotFoundError(
-            "Could not find .vespa directory in home directory. "
-            "Please specify a cert_directory."
+        _LOGGER.warning(
+            "Could not find .vespa directory in home directory when looking for certs."
         )
+        return None, None
+
+    vespa_config = vespa_directory / "config.yaml"
+    if not vespa_config.exists():
+        _LOGGER.warning(
+            "Could not find config.yaml file in .vespa directory when looking for certs."
+        )
+        return None, None
 
     # read the config.yaml file to find the application name
     with open(vespa_directory / "config.yaml", "r", encoding="utf-8") as yaml_file:
         data = yaml.safe_load(yaml_file)
-        if "application" not in data:
+        if not data or "application" not in data:
             return None, None
         application_name = data["application"]
 
