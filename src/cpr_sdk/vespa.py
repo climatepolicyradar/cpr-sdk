@@ -45,11 +45,10 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     :return tuple[Path, Path]: The paths to the certificate and key files, respectively
     """
     vespa_directory = Path.home() / ".vespa/"
-    if not vespa_directory.exists():
-        raise FileNotFoundError(
-            "Could not find .vespa directory in home directory. "
-            "Please specify a cert_directory."
-        )
+    vespa_config = vespa_directory / "config.yaml"
+
+    if not vespa_directory.exists() or not vespa_config.exists():
+        return None, None
 
     # read the config.yaml file to find the application name
     with open(vespa_directory / "config.yaml", "r", encoding="utf-8") as yaml_file:

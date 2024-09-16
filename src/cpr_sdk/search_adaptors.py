@@ -63,17 +63,13 @@ class VespaSearchAdapter(SearchAdapter):
         instance_url: str,
         cert_directory: Optional[str] = None,
         embedder: Optional[Embedder] = None,
-        find_vespa_certs: bool = True,
     ):
         self.instance_url = instance_url
-        if find_vespa_certs and cert_directory is None:
+        if cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
-        elif cert_directory:
+        else:
             cert_path = (Path(cert_directory) / "cert.pem").__str__()
             key_path = (Path(cert_directory) / "key.pem").__str__()
-        else:
-            cert_path = None
-            key_path = None
 
         self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
         self.embedder = embedder or Embedder()
