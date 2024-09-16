@@ -36,7 +36,7 @@ def split_document_id(document_id: str) -> tuple[str, str, str]:
     return namespace, schema, data_id
 
 
-def find_vespa_cert_paths() -> tuple[Union[str, None], Union[str, None]]:
+def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     """
     Automatically find the certificate and key files for the vespa instance
 
