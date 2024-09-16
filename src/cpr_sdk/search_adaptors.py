@@ -63,6 +63,7 @@ class VespaSearchAdapter(SearchAdapter):
         instance_url: str,
         cert_directory: Optional[str] = None,
         embedder: Optional[Embedder] = None,
+        find_vespa_certs: bool = True,
     ):
         self.instance_url = instance_url
         if cert_directory is None:
