@@ -54,6 +54,8 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     # read the config.yaml file to find the application name
     with open(vespa_directory / "config.yaml", "r", encoding="utf-8") as yaml_file:
         data = yaml.safe_load(yaml_file)
+        if "application" not in data:
+            return None, None
         application_name = data["application"]
 
     cert_directory = vespa_directory / application_name
