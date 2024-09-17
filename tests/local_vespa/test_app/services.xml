@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright Yahoo. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root. -->
 <services version="1.0" xmlns:deploy="vespa" xmlns:preprocess="properties">
+    <component id="msmarco-distilbert-dot-v5" type="hugging-face-embedder">
+        <transformer-model url="https://huggingface.co/onnx-models/msmarco-distilbert-dot-v5-onnx/resolve/main/model.onnx"/>
+        <tokenizer-model url="https://huggingface.co/onnx-models/msmarco-distilbert-dot-v5-onnx/resolve/main/tokenizer.json"/>
+    </component>
 
     <container id="default" version="1.0">
         <document-api/>
