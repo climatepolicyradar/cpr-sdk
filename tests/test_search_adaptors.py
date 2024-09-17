@@ -146,6 +146,34 @@ def test_vespa_search_adaptor__hybrid(test_vespa):
 
 
 @pytest.mark.vespa
+def test_vespa_search_adaptor__hybrid_encoding_on_vespa(test_vespa):
+    family_name = "Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
+    requests = {
+        "encode_in_sdk": SearchParameters(query_string=family_name),
+        "encode_on_vespa": SearchParameters(
+            query_string=family_name, experimental_encode_on_vespa=True
+        ),
+    }
+    responses = dict()
+
+    for request_name, request in requests.items():
+        responses[request_name] = vespa_search(test_vespa, request)
+
+        # Was the family searched for in the results.
+        # Note that this is a fairly loose test
+        got_family_names = []
+        for fam in responses[request_name].families:
+            for doc in fam.hits:
+                got_family_names.append(doc.family_name)
+        assert family_name in got_family_names
+
+    assert (
+        responses["encode_in_sdk"].total_hits == responses["encode_on_vespa"].total_hits
+    )
+    assert responses["encode_in_sdk"].families == responses["encode_on_vespa"].families
+
+
+@pytest.mark.vespa
 def test_vespa_search_adaptor__all(test_vespa):
     request = SearchParameters(query_string="", all_results=True)
     response = vespa_search(test_vespa, request)

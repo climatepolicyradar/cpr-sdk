@@ -91,6 +91,12 @@ class SearchParameters(BaseModel):
     the search is performed.
     """
 
+    experimental_encode_on_vespa: bool = False
+    """
+    Backend change to encode the query string on the Vespa side rather than through
+    the SDK.
+    """
+
     all_results: bool = False
     """
     Return all results rather than searching or ranking
