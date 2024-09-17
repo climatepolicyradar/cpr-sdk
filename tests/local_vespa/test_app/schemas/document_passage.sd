@@ -29,6 +29,7 @@ schema document_passage {
         field text_block type string {
             indexing: attribute | index | summary
             index: enable-bm25
+            summary: dynamic
         }
 
         field text_embedding type tensor<float>(x[768]) {
