@@ -103,9 +103,9 @@ def build_vespa_request_body(
         vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
     else:
         vespa_request_body["ranking.profile"] = "hybrid"
-        vespa_request_body["input.query(query_embedding)"] = embedder.embed(
-            parameters.query_string, normalize=False, show_progress_bar=False
-        )
+        vespa_request_body[
+            "input.query(query_embedding)"
+        ] = "embed(msmarco-distilbert-dot-v5, @query_string)"
     return vespa_request_body
 
 
