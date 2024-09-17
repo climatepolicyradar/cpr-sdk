@@ -6,7 +6,6 @@ import yaml
 from vespa.exceptions import VespaError
 from vespa.io import VespaResponse
 
-from cpr_sdk.embedding import Embedder
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import Family, Hit, SearchParameters, SearchResponse
 from cpr_sdk.utils import dig, is_sensitive_query, load_sensitive_query_terms
@@ -81,9 +80,7 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
     return cert_path, key_path
 
 
-def build_vespa_request_body(
-    parameters: SearchParameters, embedder: Embedder
-) -> dict[str, str]:
+def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
     """Constructs the payload for a vespa query"""
     sensitive = is_sensitive_query(parameters.query_string, SENSITIVE_QUERY_TERMS)
 
@@ -103,14 +100,9 @@ def build_vespa_request_body(
         vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
     else:
         vespa_request_body["ranking.profile"] = "hybrid"
-        if parameters.experimental_encode_on_vespa:
-            vespa_request_body[
-                "input.query(query_embedding)"
-            ] = "embed(msmarco-distilbert-dot-v5, @query_string)"
-        else:
-            vespa_request_body["input.query(query_embedding)"] = embedder.embed(
-                parameters.query_string, normalize=False, show_progress_bar=False
-            )
+        vespa_request_body[
+            "input.query(query_embedding)"
+        ] = "embed(msmarco-distilbert-dot-v5, @query_string)"
 
     return vespa_request_body
 

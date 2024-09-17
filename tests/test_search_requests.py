@@ -4,7 +4,6 @@ from unittest.mock import patch
 import pytest
 from pydantic import ValidationError
 
-from cpr_sdk.embedding import Embedder
 from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_orders
 from cpr_sdk.vespa import build_vespa_request_body
 
@@ -22,8 +21,7 @@ from cpr_sdk.vespa import build_vespa_request_body
     ],
 )
 def test_build_vespa_request_body(query_type, params):
-    embedder = Embedder()
-    body = build_vespa_request_body(parameters=params, embedder=embedder)
+    body = build_vespa_request_body(parameters=params)
     assert body["ranking.profile"] == query_type
     for key, value in body.items():
         assert (
@@ -33,8 +31,7 @@ def test_build_vespa_request_body(query_type, params):
 
 def test_build_vespa_request_body__all():
     params = SearchParameters(query_string="", all_results=True)
-    embedder = Embedder()
-    body = build_vespa_request_body(parameters=params, embedder=embedder)
+    body = build_vespa_request_body(parameters=params)
 
     assert not body.get("ranking.profile")
 

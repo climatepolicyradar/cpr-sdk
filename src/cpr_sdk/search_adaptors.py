@@ -10,7 +10,6 @@ from requests.exceptions import HTTPError
 from vespa.application import Vespa
 from vespa.exceptions import VespaError
 
-from cpr_sdk.embedding import Embedder
 from cpr_sdk.exceptions import DocumentNotFoundError, FetchError, QueryError
 from cpr_sdk.models.search import Hit, SearchParameters, SearchResponse
 from cpr_sdk.vespa import (
@@ -54,15 +53,12 @@ class VespaSearchAdapter(SearchAdapter):
     :param str instance_url: url of the vespa instance
     :param Optional[str] cert_directory: path to the directory containing the
         cert and key files for the given instance
-    :param Embedder embedder: a configured embedder to use for embedding queries.
-        This should match the embedding model used to embed text in the vespa index.
     """
 
     def __init__(
         self,
         instance_url: str,
         cert_directory: Optional[str] = None,
-        embedder: Optional[Embedder] = None,
     ):
         self.instance_url = instance_url
         if cert_directory is None:
@@ -72,7 +68,6 @@ class VespaSearchAdapter(SearchAdapter):
             key_path = (Path(cert_directory) / "key.pem").__str__()
 
         self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
-        self.embedder = embedder or Embedder()
 
     def search(self, parameters: SearchParameters) -> SearchResponse:
         """
@@ -82,7 +77,7 @@ class VespaSearchAdapter(SearchAdapter):
         :return SearchResponse: a list of families, with response metadata
         """
         total_time_start = time.time()
-        vespa_request_body = build_vespa_request_body(parameters, self.embedder)
+        vespa_request_body = build_vespa_request_body(parameters)
         query_time_start = time.time()
         try:
             vespa_response = self.client.query(body=vespa_request_body)
