@@ -27,7 +27,6 @@ import numpy as np
 import pandas as pd
 from cpr_sdk.parser_models import (
     PDF_PAGE_METADATA_KEY,
-    BackendDocument,
     BaseParserOutput,
     BlockType,
     HTMLData,
@@ -40,6 +39,7 @@ from cpr_sdk.parser_models import (
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
     CONTENT_TYPE_PDF,
+    BackendDocument,
     Json,
 )
 from datasets import Dataset as HFDataset
