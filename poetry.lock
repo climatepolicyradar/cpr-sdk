@@ -4707,4 +4707,4 @@ vespa = ["pyvespa", "pyyaml", "sentence-transformers", "torch"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4865844ac4bddb76b66d4068f477a17119d2f886f3e0df9accb9bb3d3db6dac7"
+content-hash = "4858af3797ee77908bc209a09a317c000300ed612e87d7113b0953b0a96d563f"
