@@ -309,7 +309,7 @@
       "family_slug": "environmental-strategy-for-2014-2023_9f8e",
       "document_source_url": "https://wedocs.unep.org/bitstream/handle/20.500.11822/9507/-Environmental_Strategy_for_the_years_2014-2023-2014Moldova_EnvironmentalStrategy_2014-202.pdf?sequence=3&isAllowed=y",
       "family_geography": "MDA",
-      "family_geographies": null,
+      "family_geographies": ["MDA"],
       "family_category": "Executive",
       "document_md5_sum": "bea7a05dae73fbbd629e687a71a15b95",
       "family_name_index": "Environmental Strategy for 2014-2023",

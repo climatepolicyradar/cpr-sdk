@@ -7,6 +7,7 @@ import pytest
 from cpr_sdk.models.search import (
     Document,
     Filters,
+    Hit,
     MetadataFilter,
     Passage,
     SearchParameters,
@@ -14,6 +15,8 @@ from cpr_sdk.models.search import (
     sort_fields,
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
+from cpr_sdk.utils import dig
+from cpr_sdk.vespa import build_vespa_request_body
 
 
 def vespa_search(
@@ -455,6 +458,7 @@ def test_vespa_search_adaptor__corpus_type_name(
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
     for family in response.families:
+        assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name in corpus_type_names
@@ -519,6 +523,7 @@ def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filte
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
     for family in response.families:
+        assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.metadata not in [None, []]
             for metadata_filter in metadata_filters:
@@ -553,3 +558,39 @@ def test_vespa_search_adaptor__filters(test_vespa, query_string, filters):
                 attribute_value_from_hit = getattr(hit, filter_name)
                 assert attribute_value_from_hit not in [None, []]
                 assert all([val in attribute_value_from_hit for val in filter_values])
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize("query_string", ["e"])
+@pytest.mark.parametrize("exact_match", [True, False])
+@pytest.mark.parametrize(
+    "metadata_filters", [None, [{"name": "family.sector", "value": "Price"}]]
+)
+@pytest.mark.parametrize("geographies", [None, {"family_geographies": ["BIH"]}])
+def test_vespa_search_response__geographies(
+    test_vespa, query_string, exact_match, metadata_filters, geographies
+) -> None:
+    """Test that the search response includes geographies"""
+    parameters = SearchParameters(
+        query_string=query_string,
+        exact_match=exact_match,
+        filters=Filters.model_validate(geographies) if geographies else None,
+        metadata=(
+            [
+                MetadataFilter.model_validate(metadata_filter)
+                for metadata_filter in metadata_filters
+            ]
+            if metadata_filters
+            else None
+        ),
+    )
+
+    vespa_response = test_vespa.client.query(body=build_vespa_request_body(parameters))
+
+    root = vespa_response.json["root"]
+    response_families = dig(root, "children", 0, "children", 0, "children", default=[])
+    for family in response_families:
+        for hit in dig(family, "children", 0, "children", default=[]):
+            hit = Hit.from_vespa_response(response_hit=hit)
+            assert hit.family_geography not in [None, []]
+            assert hit.family_geographies not in [None, []]
