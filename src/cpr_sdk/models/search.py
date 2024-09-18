@@ -397,6 +397,8 @@ class Passage(Hit):
             document_content_type=fields.get("document_content_type"),
             document_cdn_object=fields.get("document_cdn_object"),
             document_source_url=fields.get("document_source_url"),
+            corpus_type_name=fields.get("corpus_type_name"),
+            corpus_import_id=fields.get("corpus_import_id"),
             text_block=fields["text_block"],
             text_block_id=fields["text_block_id"],
             text_block_type=fields["text_block_type"],
