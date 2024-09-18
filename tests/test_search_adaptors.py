@@ -523,6 +523,7 @@ def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filte
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
     for family in response.families:
+        assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.metadata not in [None, []]
             for metadata_filter in metadata_filters:

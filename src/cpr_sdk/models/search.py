@@ -404,6 +404,7 @@ class Passage(Hit):
             text_block_type=fields["text_block_type"],
             text_block_page=fields.get("text_block_page"),
             text_block_coords=fields.get("text_block_coords"),
+            metadata=fields.get("metadata"),
         )
 
 

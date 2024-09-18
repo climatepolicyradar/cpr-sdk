@@ -64,6 +64,7 @@ schema document_passage {
     import field family_document_ref.document_source_url as document_source_url {}
     import field family_document_ref.corpus_import_id as corpus_import_id {}
     import field family_document_ref.corpus_type_name as corpus_type_name {}
+    import field family_document_ref.metadata as metadata {}
     import field search_weights_ref.passage_weight as passage_weight {}
 
     fieldset default {
@@ -88,6 +89,7 @@ schema document_passage {
         summary document_source_url {}
         summary corpus_import_id {}
         summary corpus_type_name {}
+        summary metadata {}
         summary text_block {}
         summary text_block_id {}
         summary text_block_type {}
