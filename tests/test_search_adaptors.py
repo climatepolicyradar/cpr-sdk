@@ -455,6 +455,7 @@ def test_vespa_search_adaptor__corpus_type_name(
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
     for family in response.families:
+        assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name in corpus_type_names
