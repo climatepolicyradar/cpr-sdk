@@ -3784,9 +3784,9 @@ type = ["pytest-mypy"]
 
 [extras]
 spacy = ["spacy"]
-vespa = ["pyvespa", "pyyaml", "sentence-transformers"]
+vespa = ["pyvespa", "pyyaml"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4858af3797ee77908bc209a09a317c000300ed612e87d7113b0953b0a96d563f"
+content-hash = "edfe8501ab3ed88c1da822c9a043db85f94476a21352feb7df9225533a6909de"
