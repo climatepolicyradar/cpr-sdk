@@ -19,6 +19,9 @@ classifiers = [
 
 license = "LICENSE"
 
+[tool.poetry.scripts]
+cpr = "src.cpr_sdk.cli.run_search_query:app"
+
 [project.urls]
 Homepage = "https://github.com/climatepolicyradar/cpr-sdk"
 Repository = "https://github.com/climatepolicyradar/cpr-sdk"
@@ -44,7 +47,7 @@ poetry = "^1.8.3"
 flatten-dict = "^0.4.2"
 
 [tool.poetry.extras]
-vespa = ["pyvespa", "pyyaml", "sentence-transformers", "torch"]
+vespa = ["pyvespa", "pyyaml"]
 spacy = ["spacy"]
 
 [tool.poetry.group.dev]
@@ -115,3 +118,7 @@ line-length = 88
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
 "tests/*" = ["E501"]
+
+[tool.pyright]
+stubPath = ""
+reportMissingImports = false
