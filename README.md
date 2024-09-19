@@ -211,6 +211,15 @@ adaptor.get_by_id(document_id="id:YOUR_NAMESPACE:YOUR_SCHEMA_NAME::SOME_DOCUMENT
 
 All of the above search functionality assumes that a valid set of vespa credentials is available in `~/.vespa`, or in a directory supplied to the `VespaSearchAdapter` constructor directly. See [the docs](docs/vespa-auth.md) for more information on how vespa expects credentials.
 
+# CLI
+
+There is a simple CLI provided.
+
+```bash
+poetry poetry install --extras "vespa"
+poetry run cpr
+```
+
 # Test setup
 
 Some tests rely on a local running instance of vespa.

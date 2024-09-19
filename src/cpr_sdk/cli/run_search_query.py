@@ -8,7 +8,10 @@ from src.cpr_sdk.search_adaptors import VespaSearchAdapter
 from src.cpr_sdk.models.search import SearchParameters
 from tests.conftest import VESPA_TEST_SEARCH_URL
 
+app = typer.Typer()
 
+
+@app.callback()
 def main(
     instance_url: str = VESPA_TEST_SEARCH_URL,
     exact_match: bool = False,
@@ -77,4 +80,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
