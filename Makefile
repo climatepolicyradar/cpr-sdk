@@ -3,7 +3,7 @@ include ./Makefile-vespa.defs
 .PHONY: test
 
 test:
-	poetry run python -m pytest -vvv
+	poetry run pytest -vvv
 
 test_not_vespa:
-	poetry run python -m pytest -vvv -m "not vespa"
+	poetry run pytest -vvv -m "not vespa"
