@@ -1,13 +1,12 @@
 import json
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
-import pytest
 import boto3
+import pytest
 from moto import mock_aws
 
 from cpr_sdk.search_adaptors import VespaSearchAdapter
-
 
 VESPA_TEST_SEARCH_URL = "http://localhost:8080"
 
