@@ -160,11 +160,21 @@ def test_parser_output_object(
     parser_output = ParserOutput.from_flat_json(parser_output_json_flat)
 
 
+@pytest.mark.parametrize("null_text_blocks", [True, False])
+@pytest.mark.parametrize("include_empty_text_blocks", [True, False])
 def test_to_passage_level_json_method(
     parser_output_json_pdf: dict,
     parser_output_json_html: dict,
+    null_text_blocks: bool,
+    include_empty_text_blocks: bool,
 ) -> None:
-    """Test that we can successfully create a passage level array from the text blocks."""
+    """
+    Test that we can successfully create a passage level array from the text blocks.
+
+    :param null_text_blocks: Whether to set the text blocks to None in the parser output
+    :param include_empty_text_blocks: The setting for the `include_empty_text_blocks`
+    kwarg in the `to_passage_level_json` method
+    """
     expected_top_level_fields = set(
         list(TextBlock.model_fields.keys())
         + list(HTMLTextBlock.model_fields.keys())
@@ -184,13 +194,34 @@ def test_to_passage_level_json_method(
         expected_pdf_data_fields.remove(field)
 
     parser_output_pdf = ParserOutput.model_validate(parser_output_json_pdf)
-    passage_level_array_pdf = parser_output_pdf.to_passage_level_json()
-
+    assert parser_output_pdf.pdf_data is not None
     parser_output_html = ParserOutput.model_validate(parser_output_json_html)
-    passage_level_array_html = parser_output_html.to_passage_level_json()
+    assert parser_output_html.html_data is not None
 
-    assert len(passage_level_array_pdf) == len(parser_output_pdf.text_blocks)
-    assert len(passage_level_array_html) == len(parser_output_html.text_blocks)
+    if null_text_blocks:
+        parser_output_pdf.pdf_data.text_blocks = []
+        parser_output_html.html_data.text_blocks = []
+
+    passage_level_array_pdf = parser_output_pdf.to_passage_level_json(
+        include_empty=include_empty_text_blocks
+    )
+    passage_level_array_html = parser_output_html.to_passage_level_json(
+        include_empty=include_empty_text_blocks
+    )
+
+    if null_text_blocks:
+        if include_empty_text_blocks:
+            assert len(passage_level_array_pdf) == 1
+            assert len(passage_level_array_html) == 1
+        else:
+            assert len(passage_level_array_pdf) == 0
+            assert len(passage_level_array_html) == 0
+
+            # the resulting output is [] so we can stop the test here
+            return
+    else:
+        assert len(passage_level_array_pdf) == len(parser_output_pdf.text_blocks)
+        assert len(passage_level_array_html) == len(parser_output_html.text_blocks)
 
     for passage_level_array in [passage_level_array_pdf, passage_level_array_html]:
         first_doc_keys = set(passage_level_array[0].keys())
@@ -204,7 +235,8 @@ def test_to_passage_level_json_method(
             )
 
             if passage["document_content_type"] == CONTENT_TYPE_PDF:
-                assert passage[PDF_PAGE_METADATA_KEY] is not None
+                if not (null_text_blocks and include_empty_text_blocks):
+                    assert passage[PDF_PAGE_METADATA_KEY] is not None
                 assert set(passage["pdf_data"].keys()) == expected_pdf_data_fields
             elif passage["document_content_type"] == CONTENT_TYPE_HTML:
                 assert set(passage["html_data"].keys()) == expected_html_data_fields
