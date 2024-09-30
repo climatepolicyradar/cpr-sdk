@@ -378,7 +378,7 @@ class ParserOutput(BaseParserOutput):
 
         return ParserOutput.model_validate(unflattened)
 
-    def to_passage_level_json(self) -> list[dict[str, Any]]:
+    def to_passage_level_json(self, include_empty: bool = True) -> list[dict[str, Any]]:
         """
         Convert the parser output to a passage-level JSON format.
 
@@ -394,8 +394,13 @@ class ParserOutput(BaseParserOutput):
         model_dump_json method and then reloading with json.load is as objects like
         Enums and child pydantic objects persist when using the model_dump method.
         We don't want these when we push to huggingface.
+
+        :param include_empty: Whether to output the document metadata if there are no
+        text blocks in the ParserOutput. If True, outputs a single dict with None values
+        for each text block related field. If False, returns an empty list.
         """
-        if self.text_blocks is None:
+
+        if not self.text_blocks and not include_empty:
             return []
 
         fixed_fields_dict = json.loads(
@@ -406,6 +411,19 @@ class ParserOutput(BaseParserOutput):
                 }
             )
         )
+
+        empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
+        empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
+
+        if not self.text_blocks:
+            passages_array_filled = [
+                {key: None for key in empty_html_text_block_keys}
+                | {key: None for key in empty_pdf_text_block_keys}
+                | fixed_fields_dict
+                | {"block_index": 0, PDF_PAGE_METADATA_KEY: None}
+            ]
+
+            return passages_array_filled
 
         passages_array = [
             fixed_fields_dict
@@ -421,9 +439,6 @@ class ParserOutput(BaseParserOutput):
                 if page_number is not None
                 else None
             )
-
-        empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
-        empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
 
         passages_array_filled = []
         for passage in passages_array:
