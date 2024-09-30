@@ -1,6 +1,8 @@
+import pytest
 from vespa.io import VespaQueryResponse
 
 
+@pytest.mark.vespa
 def test_concepts(test_vespa) -> None:
     """Test that we can retrieve concepts from a document."""
     response: VespaQueryResponse = test_vespa.client.query(
