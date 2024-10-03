@@ -434,7 +434,7 @@ class ParserOutput(BaseParserOutput):
                 {key: None for key in empty_html_text_block_keys}
                 | {key: None for key in empty_pdf_text_block_keys}
                 | fixed_fields_dict
-                | {"block_index": 0, PDF_PAGE_METADATA_KEY: None}
+                | {"text_block.index": 0, PDF_PAGE_METADATA_KEY: None}
             ]
 
             return passages_array_filled
@@ -444,7 +444,7 @@ class ParserOutput(BaseParserOutput):
             | self._rename_text_block_keys(
                 json.loads(block.model_dump_json(exclude={"text"}))
             )
-            | {"text_block.text": block.to_string(), "block_index": idx}
+            | {"text_block.text": block.to_string(), "text_block.index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
 
