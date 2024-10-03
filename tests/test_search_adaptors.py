@@ -9,6 +9,7 @@ from cpr_sdk.models.search import (
     Filters,
     Hit,
     MetadataFilter,
+    ConceptFilter,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -462,6 +463,38 @@ def test_vespa_search_adaptor__corpus_type_name(
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name in corpus_type_names
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, concept_filters",
+    [
+        (
+            "the",
+            [{"name": "name", "value": "environment"}],
+        ),
+        (
+            "the",
+            [{"name": "model", "value": "sectors_model"}, {"name": "id", "value": "id_100"}],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_filter(
+    test_vespa, query_string, concept_filters
+):
+    """Test that the concept filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        concept_filters=[
+            ConceptFilter.model_validate(concept_filter)
+            for concept_filter in concept_filters
+        ],
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.concepts not in [None, []]
 
 
 @pytest.mark.vespa

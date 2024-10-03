@@ -11,6 +11,7 @@ from pydantic import (
     field_validator,
     model_validator,
 )
+from typing import Literal
 
 # Value Lookup Tables
 sort_orders = {
@@ -42,6 +43,13 @@ class MetadataFilter(BaseModel):
     """A filter for metadata fields"""
 
     name: str
+    value: str
+
+
+class ConceptFilter(BaseModel):
+    """A filter for concept fields"""
+
+    name: Literal["name", "id", "model", "timestamp", "parent_concept_ids_flat"]
     value: str
 
 
@@ -169,6 +177,11 @@ class SearchParameters(BaseModel):
     A field and item mapping to search in the metadata field of the documents.
 
     E.g. [{"name": "family.sector", "value": "Price"}]
+    """
+
+    concept_filters: Optional[Sequence[ConceptFilter]] = None
+    """
+    A field and item mapping to search in the concepts field of the document passages.
     """
 
     @model_validator(mode="after")
