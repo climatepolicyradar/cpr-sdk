@@ -378,6 +378,20 @@ class ParserOutput(BaseParserOutput):
 
         return ParserOutput.model_validate(unflattened)
 
+    @staticmethod
+    def _rename_text_block_keys(
+        keys: Union[list[str], dict[str, Any]]
+    ) -> Union[list[str], dict[str, Any]]:
+        """Prepend text_block. to the keys in the dictionary or list."""
+
+        if isinstance(keys, list):
+            return [f"text_block.{key}" for key in keys]
+
+        if isinstance(keys, dict):
+            return {f"text_block.{key}": value for key, value in keys.items()}
+
+        raise ValueError("keys must be a list or a dictionary")
+
     def to_passage_level_json(self, include_empty: bool = True) -> list[dict[str, Any]]:
         """
         Convert the parser output to a passage-level JSON format.
@@ -412,8 +426,8 @@ class ParserOutput(BaseParserOutput):
             )
         )
 
-        empty_html_text_block_keys: list[str] = list(HTMLTextBlock.model_fields.keys())
-        empty_pdf_text_block_keys: list[str] = list(PDFTextBlock.model_fields.keys())
+        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(list(HTMLTextBlock.model_fields.keys()))  # type: ignore
+        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(list(PDFTextBlock.model_fields.keys()))  # type: ignore
 
         if not self.text_blocks:
             passages_array_filled = [
@@ -427,13 +441,16 @@ class ParserOutput(BaseParserOutput):
 
         passages_array = [
             fixed_fields_dict
-            | json.loads(block.model_dump_json(exclude={"text"}))
-            | {"text": block.to_string(), "block_index": idx}
+            | self._rename_text_block_keys(
+                json.loads(block.model_dump_json(exclude={"text"}))
+            )
+            | {"text_block.text": block.to_string(), "block_index": idx}
             for idx, block in enumerate(self.text_blocks)
         ]
 
+        # TODO: do we need this code?
         for passage in passages_array:
-            page_number = passage.get("page_number", None)
+            page_number = passage.get("text_block.page_number", None)
             passage[PDF_PAGE_METADATA_KEY] = (
                 self.get_page_metadata_by_page_number(page_number)
                 if page_number is not None
