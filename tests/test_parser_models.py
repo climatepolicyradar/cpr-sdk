@@ -176,11 +176,11 @@ def test_to_passage_level_json_method(
     kwarg in the `to_passage_level_json` method
     """
     expected_top_level_fields = set(
-        list(TextBlock.model_fields.keys())
-        + list(HTMLTextBlock.model_fields.keys())
-        + list(PDFTextBlock.model_fields.keys())
+        [f"text_block.{k}" for k in list(TextBlock.model_fields.keys())]
+        + [f"text_block.{k}" for k in list(HTMLTextBlock.model_fields.keys())]
+        + [f"text_block.{k}" for k in list(PDFTextBlock.model_fields.keys())]
         + list(ParserOutput.model_fields.keys())
-        + ["block_index", PDF_PAGE_METADATA_KEY]
+        + ["text_block.index", PDF_PAGE_METADATA_KEY]
     )
 
     expected_document_metadata_fields = set(BackendDocument.model_fields.keys())
