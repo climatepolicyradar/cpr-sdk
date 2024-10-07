@@ -8,6 +8,7 @@ from cpr_sdk.models.search import (
     Document,
     Filters,
     Hit,
+    ConceptHit,
     MetadataFilter,
     ConceptFilter,
     Passage,
@@ -477,7 +478,27 @@ def test_vespa_search_adaptor__corpus_type_name(
             "the",
             [
                 {"name": "model", "value": "sectors_model"},
-                {"name": "id", "value": "id_100"},
+                {"name": "id", "value": "concept_0_0"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0"},
+                {"name": "parent_concept_ids_flat", "value": "Q1"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0,"},
+                {"name": "id", "value": "concept_0_0"},
             ],
         ),
     ],
@@ -497,7 +518,31 @@ def test_vespa_search_adaptor__concept_filter(
     assert response.total_family_hits > 0
     for family in response.families:
         for hit in family.hits:
-            assert hit.concepts not in [None, []]
+            assert hit.concepts and hit.concepts != []
+            assert all(
+                [isinstance(concept_hit, ConceptHit) for concept_hit in hit.concepts]
+            )
+
+            for concept_filter in concept_filters:
+                hit_concept_filter_vals = [
+                    concept.__getattribute__(concept_filter["name"])
+                    for concept in hit.concepts
+                ]
+
+                if concept_filter["name"] == "parent_concept_ids_flat":
+                    assert any(
+                        [
+                            concept_filter["value"] in hit_concept_filter_val
+                            for hit_concept_filter_val in hit_concept_filter_vals
+                        ]
+                    )
+                else:
+                    assert any(
+                        [
+                            hit_concept_filter_val == concept_filter["value"]
+                            for hit_concept_filter_val in hit_concept_filter_vals
+                        ]
+                    )
 
 
 @pytest.mark.vespa

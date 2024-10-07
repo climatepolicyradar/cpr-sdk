@@ -104,6 +104,18 @@ class YQLBuilder:
             return f"({' and '.join(metadata_filters)})"
         return None
 
+    def build_concepts_filter(self) -> Optional[str]:
+        """Create the part of the query that limits to specific concepts"""
+        if self.params.concept_filters:
+            concepts_query = []
+            for concept in self.params.concept_filters:
+                if concept.name == "parent_concept_ids_flat":
+                    concepts_query.append(f"{concept.name} matches '{concept.value}'")
+                else:
+                    concepts_query.append(f"{concept.name} contains '{concept.value}'")
+            return f"(concepts contains sameElement({', '.join(concepts_query)}))"
+        return None
+
     def build_corpus_type_name_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific corpora"""
         if self.params.corpus_type_names:
@@ -163,6 +175,7 @@ class YQLBuilder:
         filters.append(self.build_corpus_type_name_filter())
         filters.append(self.build_corpus_import_ids_filter())
         filters.append(self.build_metadata_filter())
+        filters.append(self.build_concepts_filter())
         if f := self.params.filters:
             filters.append(self._inclusive_filters(f, "family_geographies"))
             filters.append(self._inclusive_filters(f, "family_geography"))

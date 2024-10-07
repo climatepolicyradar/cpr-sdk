@@ -52,6 +52,35 @@ class ConceptFilter(BaseModel):
     name: Literal["name", "id", "model", "timestamp", "parent_concept_ids_flat"]
     value: str
 
+    @model_validator(mode="after")
+    def validate_parent_concept_ids_flat(self) -> "ConceptFilter":
+        """
+        Validate parent_concept_ids_flat field.
+
+        If the schema we comma separate values in the parent_concept_ids_flat field.
+        This means we must ensure that the last character is a comma to avoid the
+        situation below.
+
+        E.g. parent_concept_ids_flat: "Q1" should be parent_concept_ids_flat: "Q1,"
+        but you will also return "Q12, Q123," which is invalid.
+        """
+        if self.name == "parent_concept_ids_flat" and self.value[-1] != ",":
+            self.value = self.value + ","
+        return self
+
+
+class ConceptHit(BaseModel):
+    """A concept hit from a document passage"""
+
+    id: str
+    name: str
+    parent_concepts: List[dict[str, str]]
+    parent_concept_ids_flat: str
+    model: str
+    end: int
+    start: int
+    timestamp: datetime
+
 
 class Filters(BaseModel):
     """Filterable fields in a search request"""
@@ -304,6 +333,7 @@ class Hit(BaseModel):
     corpus_type_name: Optional[str] = None
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
+    concepts: Optional[Sequence[ConceptHit]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -367,6 +397,7 @@ class Document(Hit):
             corpus_type_name=fields.get("corpus_type_name"),
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
+            concepts=fields.get("concepts"),
         )
 
 
@@ -394,6 +425,7 @@ class Passage(Hit):
             if family_publication_ts
             else None
         )
+
         return cls(
             family_name=fields.get("family_name"),
             family_description=fields.get("family_description"),
@@ -418,6 +450,7 @@ class Passage(Hit):
             text_block_page=fields.get("text_block_page"),
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
+            concepts=fields.get("concepts"),
         )
 
 
