@@ -97,7 +97,6 @@ class Concept(BaseModel):
             ",".join(
                 [parent_concept["name"] for parent_concept in self.parent_concepts]
             )
-            + ","
         )
 
         if parent_concept_ids_flattened[-1] != ",":
