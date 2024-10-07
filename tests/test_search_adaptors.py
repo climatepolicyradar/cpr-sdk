@@ -5,12 +5,12 @@ from unittest.mock import patch
 import pytest
 
 from cpr_sdk.models.search import (
+    Concept,
+    ConceptFilter,
     Document,
     Filters,
     Hit,
-    ConceptHit,
     MetadataFilter,
-    ConceptFilter,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -132,7 +132,7 @@ def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
     try:
         vespa_search(test_vespa, request)
     except Exception as e:
-        assert False, f"failed with: {e}"
+        raise AssertionError(f"failed with: {e}")
 
 
 @pytest.mark.vespa
@@ -520,7 +520,7 @@ def test_vespa_search_adaptor__concept_filter(
         for hit in family.hits:
             assert hit.concepts and hit.concepts != []
             assert all(
-                [isinstance(concept_hit, ConceptHit) for concept_hit in hit.concepts]
+                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
             )
 
             for concept_filter in concept_filters:

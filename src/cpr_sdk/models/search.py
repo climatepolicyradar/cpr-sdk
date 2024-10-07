@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import List, Optional, Sequence
+from typing import List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
@@ -11,7 +11,6 @@ from pydantic import (
     field_validator,
     model_validator,
 )
-from typing import Literal
 
 # Value Lookup Tables
 sort_orders = {
@@ -69,8 +68,14 @@ class ConceptFilter(BaseModel):
         return self
 
 
-class ConceptHit(BaseModel):
-    """A concept hit from a document passage"""
+class Concept(BaseModel):
+    """
+    A concept extracted from a passage of text.
+
+    This refers to a span of text within passage that holds a concept.
+    E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
+    ending at index 17.
+    """
 
     id: str
     name: str
@@ -80,6 +85,30 @@ class ConceptHit(BaseModel):
     end: int
     start: int
     timestamp: datetime
+
+    @model_validator(mode="after")
+    def validate_parent_concept_ids_flat(self) -> "Concept":
+        """
+        Validate parent_concept_ids_flat field.
+
+        This field should hold the same concepts as the parent_concepts field.
+        """
+        parent_concept_ids_flattened = (
+            ",".join(
+                [parent_concept["name"] for parent_concept in self.parent_concepts]
+            )
+            + ","
+        )
+
+        if parent_concept_ids_flattened[-1] != ",":
+            parent_concept_ids_flattened += ","
+
+        if not self.parent_concept_ids_flat == parent_concept_ids_flattened:
+            raise ValueError(
+                "parent_concept_ids_flat must be a comma separated list of parent "
+                f"concept names. Received: {self.parent_concept_ids_flat}"
+            )
+        return self
 
 
 class Filters(BaseModel):
@@ -333,7 +362,7 @@ class Hit(BaseModel):
     corpus_type_name: Optional[str] = None
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
-    concepts: Optional[Sequence[ConceptHit]] = None
+    concepts: Optional[Sequence[Concept]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
