@@ -475,7 +475,10 @@ def test_vespa_search_adaptor__corpus_type_name(
         ),
         (
             "the",
-            [{"name": "model", "value": "sectors_model"}, {"name": "id", "value": "id_100"}],
+            [
+                {"name": "model", "value": "sectors_model"},
+                {"name": "id", "value": "id_100"},
+            ],
         ),
     ],
 )
