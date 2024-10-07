@@ -5,6 +5,8 @@ from unittest.mock import patch
 import pytest
 
 from cpr_sdk.models.search import (
+    Concept,
+    ConceptFilter,
     Document,
     Filters,
     Hit,
@@ -130,7 +132,7 @@ def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
     try:
         vespa_search(test_vespa, request)
     except Exception as e:
-        assert False, f"failed with: {e}"
+        raise AssertionError(f"failed with: {e}")
 
 
 @pytest.mark.vespa
@@ -462,6 +464,85 @@ def test_vespa_search_adaptor__corpus_type_name(
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
             assert hit.corpus_type_name in corpus_type_names
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, concept_filters",
+    [
+        (
+            "the",
+            [{"name": "name", "value": "environment"}],
+        ),
+        (
+            "the",
+            [
+                {"name": "model", "value": "sectors_model"},
+                {"name": "id", "value": "concept_0_0"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0"},
+                {"name": "parent_concept_ids_flat", "value": "Q1"},
+            ],
+        ),
+        (
+            "the",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0,"},
+                {"name": "id", "value": "concept_0_0"},
+            ],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_filter(
+    test_vespa, query_string: str, concept_filters: list[dict]
+):
+    """Test that the concept filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        concept_filters=[
+            ConceptFilter.model_validate(concept_filter)
+            for concept_filter in concept_filters
+        ],
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.concepts and hit.concepts != []
+            assert all(
+                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
+            )
+
+            for concept_filter in concept_filters:
+                hit_concept_filter_vals = [
+                    concept.__getattribute__(concept_filter["name"])
+                    for concept in hit.concepts
+                ]
+
+                if concept_filter["name"] == "parent_concept_ids_flat":
+                    assert any(
+                        [
+                            concept_filter["value"] in hit_concept_filter_val
+                            for hit_concept_filter_val in hit_concept_filter_vals
+                        ]
+                    )
+                else:
+                    assert any(
+                        [
+                            hit_concept_filter_val == concept_filter["value"]
+                            for hit_concept_filter_val in hit_concept_filter_vals
+                        ]
+                    )
 
 
 @pytest.mark.vespa

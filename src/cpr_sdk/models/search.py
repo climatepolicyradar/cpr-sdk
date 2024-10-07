@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import List, Optional, Sequence
+from typing import List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
@@ -43,6 +43,75 @@ class MetadataFilter(BaseModel):
 
     name: str
     value: str
+
+
+class ConceptFilter(BaseModel):
+    """A filter for concept fields"""
+
+    name: Literal["name", "id", "model", "timestamp", "parent_concept_ids_flat"]
+    value: str
+
+    @model_validator(mode="after")
+    def validate_parent_concept_ids_flat(self) -> "ConceptFilter":
+        """
+        Validate parent_concept_ids_flat field.
+
+        In the schema we comma separate values in the parent_concept_ids_flat field.
+        This means we must ensure that the last character is a comma to avoid the
+        situation below:
+
+        E.g. querying parent_concept_ids_flat on "Q1" should only return "Q1" but you
+        will also return "Q12, Q123" which is invalid.
+
+        To get around this we query on "Q1," instead using the comma suffix to separate
+        values.
+        """
+        if self.name == "parent_concept_ids_flat" and self.value[-1] != ",":
+            self.value = self.value + ","
+        return self
+
+
+class Concept(BaseModel):
+    """
+    A concept extracted from a passage of text.
+
+    This refers to a span of text within passage that holds a concept.
+    E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
+    ending at index 17, classified by model "environment_model_1" on the 12th Jan at
+    12:00.
+    """
+
+    id: str
+    name: str
+    parent_concepts: List[dict[str, str]]
+    parent_concept_ids_flat: str
+    model: str
+    end: int
+    start: int
+    timestamp: datetime
+
+    @model_validator(mode="after")
+    def validate_parent_concept_ids_flat(self) -> "Concept":
+        """
+        Validate parent_concept_ids_flat field.
+
+        This field should hold the same concepts as the parent_concepts field.
+        """
+        parent_concept_ids_flattened = ",".join(
+            [parent_concept["name"] for parent_concept in self.parent_concepts]
+        )
+
+        if parent_concept_ids_flattened[-1] != ",":
+            parent_concept_ids_flattened += ","
+
+        if not self.parent_concept_ids_flat == parent_concept_ids_flattened:
+            raise ValueError(
+                "parent_concept_ids_flat must be a comma separated list of parent "
+                "concept names. "
+                f"Received parent_concept_ids_flat data: {self.parent_concept_ids_flat},"
+                f"received parent_concept names: {parent_concept_ids_flattened}"
+            )
+        return self
 
 
 class Filters(BaseModel):
@@ -171,6 +240,11 @@ class SearchParameters(BaseModel):
     E.g. [{"name": "family.sector", "value": "Price"}]
     """
 
+    concept_filters: Optional[Sequence[ConceptFilter]] = None
+    """
+    A field and item mapping to search in the concepts field of the document passages.
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""
@@ -291,6 +365,7 @@ class Hit(BaseModel):
     corpus_type_name: Optional[str] = None
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
+    concepts: Optional[Sequence[Concept]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -354,6 +429,7 @@ class Document(Hit):
             corpus_type_name=fields.get("corpus_type_name"),
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
+            concepts=fields.get("concepts"),
         )
 
 
@@ -381,6 +457,7 @@ class Passage(Hit):
             if family_publication_ts
             else None
         )
+
         return cls(
             family_name=fields.get("family_name"),
             family_description=fields.get("family_description"),
@@ -405,6 +482,7 @@ class Passage(Hit):
             text_block_page=fields.get("text_block_page"),
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
+            concepts=fields.get("concepts"),
         )
 
 
