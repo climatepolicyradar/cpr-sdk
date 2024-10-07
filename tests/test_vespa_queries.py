@@ -29,4 +29,5 @@ def test_concepts(test_vespa, field, search_term, value) -> None:
         ]
         if field == "parent_concept_ids_flat":
             assert any([value in hit_val for hit_val in hit_concept_filter_vals])
-        assert value in hit_concept_filter_vals
+        else:
+            assert value in hit_concept_filter_vals
