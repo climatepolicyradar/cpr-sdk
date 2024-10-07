@@ -93,10 +93,8 @@ class Concept(BaseModel):
 
         This field should hold the same concepts as the parent_concepts field.
         """
-        parent_concept_ids_flattened = (
-            ",".join(
-                [parent_concept["name"] for parent_concept in self.parent_concepts]
-            )
+        parent_concept_ids_flattened = ",".join(
+            [parent_concept["name"] for parent_concept in self.parent_concepts]
         )
 
         if parent_concept_ids_flattened[-1] != ",":
