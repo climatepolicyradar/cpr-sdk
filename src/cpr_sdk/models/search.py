@@ -56,12 +56,15 @@ class ConceptFilter(BaseModel):
         """
         Validate parent_concept_ids_flat field.
 
-        If the schema we comma separate values in the parent_concept_ids_flat field.
+        In the schema we comma separate values in the parent_concept_ids_flat field.
         This means we must ensure that the last character is a comma to avoid the
-        situation below.
+        situation below:
 
-        E.g. parent_concept_ids_flat: "Q1" should be parent_concept_ids_flat: "Q1,"
-        but you will also return "Q12, Q123," which is invalid.
+        E.g. querying parent_concept_ids_flat on "Q1" should only return "Q1" but you
+        will also return "Q12, Q123" which is invalid.
+
+        To get around this we query on "Q1," instead using the comma suffix to separate
+        values.
         """
         if self.name == "parent_concept_ids_flat" and self.value[-1] != ",":
             self.value = self.value + ","
@@ -74,7 +77,8 @@ class Concept(BaseModel):
 
     This refers to a span of text within passage that holds a concept.
     E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
-    ending at index 17.
+    ending at index 17, classified by model "environment_model_1" on the 12th Jan at
+    12:00.
     """
 
     id: str
@@ -103,7 +107,9 @@ class Concept(BaseModel):
         if not self.parent_concept_ids_flat == parent_concept_ids_flattened:
             raise ValueError(
                 "parent_concept_ids_flat must be a comma separated list of parent "
-                f"concept names. Received: {self.parent_concept_ids_flat}"
+                "concept names. "
+                f"Received parent_concept_ids_flat data: {self.parent_concept_ids_flat},"
+                f"received parent_concept names: {parent_concept_ids_flattened}"
             )
         return self
 
