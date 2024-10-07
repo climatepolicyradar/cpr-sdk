@@ -504,7 +504,7 @@ def test_vespa_search_adaptor__corpus_type_name(
     ],
 )
 def test_vespa_search_adaptor__concept_filter(
-    test_vespa, query_string, concept_filters
+    test_vespa, query_string: str, concept_filters: list[dict]
 ):
     """Test that the concept filter works"""
     request = SearchParameters(
