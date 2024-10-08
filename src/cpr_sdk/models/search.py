@@ -245,6 +245,15 @@ class SearchParameters(BaseModel):
     A field and item mapping to search in the concepts field of the document passages.
     """
 
+    @field_validator("concept_filters", "documents_only")
+    def concept_filters_not_set_if_documents_only(cls, concept_filters, documents_only):
+        """Ensure concept_filters are not set if browse mode (documents_only) is set."""
+        if concept_filters and documents_only:
+            raise ValueError(
+                "Cannot set concept_filters when browse_mode is set. This is as concept_filters are only applicable to passages."
+            )
+        return concept_filters
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""
