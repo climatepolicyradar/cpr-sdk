@@ -248,7 +248,7 @@ class SearchParameters(BaseModel):
     @field_validator("concept_filters", "documents_only")
     def concept_filters_not_set_if_documents_only(cls, concept_filters, documents_only):
         """Ensure concept_filters are not set if browse mode (documents_only) is set."""
-        if concept_filters and documents_only:
+        if concept_filters is not None and documents_only is True:
             raise ValueError(
                 "Cannot set concept_filters when browse_mode is set. This is as concept_filters are only applicable to passages."
             )

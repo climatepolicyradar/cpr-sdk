@@ -501,6 +501,13 @@ def test_vespa_search_adaptor__corpus_type_name(
                 {"name": "id", "value": "concept_0_0"},
             ],
         ),
+        (
+            "",
+            [
+                {"name": "parent_concept_ids_flat", "value": "Q0,"},
+                {"name": "id", "value": "concept_0_0"},
+            ],
+        ),
     ],
 )
 def test_vespa_search_adaptor__concept_filter(
@@ -513,6 +520,7 @@ def test_vespa_search_adaptor__concept_filter(
             ConceptFilter.model_validate(concept_filter)
             for concept_filter in concept_filters
         ],
+        documents_only=False,
     )
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits > 0
