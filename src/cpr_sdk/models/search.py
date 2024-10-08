@@ -256,6 +256,15 @@ class SearchParameters(BaseModel):
             )
         return self
 
+    @model_validator(mode="after")
+    def concept_filters_not_set_if_documents_only(self) -> "SearchParameters":
+        """Ensure concept_filters are not set if browse mode (documents_only) is set."""
+        if self.concept_filters is not None and self.documents_only is True:
+            raise ValueError(
+                "Cannot set concept_filters when only searching documents. This is as concept_filters are only applicable to passages."
+            )
+        return self
+
     @field_validator("continuation_tokens")
     def continuation_tokens_must_be_upper_strings(cls, continuation_tokens):
         """Validate continuation_tokens match the expected format"""
