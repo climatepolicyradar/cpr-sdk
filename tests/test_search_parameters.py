@@ -9,21 +9,26 @@ from cpr_sdk.models.search import SearchParameters
 @pytest.mark.parametrize(
     "params,expect_error,error_message",
     [
-        (
-            {"query_string": "the", "exact_match": False, "all_results": True},
-            False,
-            None,
-        ),
-        ({"query_string": "", "exact_match": False, "all_results": True}, False, None),
+        ({"query_string": "the"}, False, None),
+        ({"query_string": ""}, False, None),
         (
             {
                 "query_string": "",
-                "exact_match": False,
+                "documents_only": True,
                 "all_results": True,
                 "concept_filters": [{"name": "name", "value": "environment"}],
             },
             True,
             "Cannot set concept_filters when browse_mode is set.",
+        ),
+        (
+            {
+                "query_string": "",
+                "documents_only": False,
+                "concept_filters": [{"name": "name", "value": "environment"}],
+            },
+            False,
+            None,
         ),
     ],
 )
