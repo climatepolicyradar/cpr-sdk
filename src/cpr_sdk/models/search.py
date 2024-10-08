@@ -261,7 +261,7 @@ class SearchParameters(BaseModel):
         """Ensure concept_filters are not set if browse mode (documents_only) is set."""
         if self.concept_filters is not None and self.documents_only is True:
             raise ValueError(
-                "Cannot set concept_filters when browse_mode is set. This is as concept_filters are only applicable to passages."
+                "Cannot set concept_filters when only searching documents. This is as concept_filters are only applicable to passages."
             )
         return self
 
