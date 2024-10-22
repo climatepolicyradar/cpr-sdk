@@ -69,7 +69,9 @@ class VespaSearchAdapter(SearchAdapter):
 
         self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
 
-    def search(self, parameters: SearchParameters) -> SearchResponse:
+    def search(
+        self, parameters: SearchParameters, debug: bool = False
+    ) -> SearchResponse:
         """
         Search a vespa instance
 
@@ -77,7 +79,7 @@ class VespaSearchAdapter(SearchAdapter):
         :return SearchResponse: a list of families, with response metadata
         """
         total_time_start = time.time()
-        vespa_request_body = build_vespa_request_body(parameters)
+        vespa_request_body = build_vespa_request_body(parameters, debug=debug)
         query_time_start = time.time()
         try:
             vespa_response = self.client.query(body=vespa_request_body)
