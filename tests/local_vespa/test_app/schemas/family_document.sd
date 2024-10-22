@@ -274,5 +274,6 @@ schema family_document {
             source: family_description_index
             tokens
         }
+        from-disk
     }
 }
