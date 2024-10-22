@@ -24,7 +24,7 @@ class YQLBuilder:
                 max($MAX_HITS_PER_FAMILY)
                 each(
                     output(
-                        summary($SUMMARY),
+                        summary($SUMMARY)
                     )
                 )
             )
