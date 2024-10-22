@@ -24,7 +24,7 @@ class YQLBuilder:
                 max($MAX_HITS_PER_FAMILY)
                 each(
                     output(
-                        summary(search_summary)
+                        summary($SUMMARY),
                     )
                 )
             )
@@ -32,9 +32,17 @@ class YQLBuilder:
     """
     )
 
-    def __init__(self, params: SearchParameters, sensitive: bool = False) -> None:
+    def __init__(
+        self, params: SearchParameters, sensitive: bool = False, debug: bool = False
+    ) -> None:
         self.params = params
         self.sensitive = sensitive
+        self.debug = debug
+
+    def build_summary(self) -> str:
+        """Creates the part of the query that determines which fields to return"""
+
+        return "search_summary_with_tokens" if self.debug else "search_summary"
 
     def build_sources(self) -> str:
         """Creates the part of the query that determines which sources to search"""
@@ -220,6 +228,7 @@ class YQLBuilder:
             LIMIT=self.build_limit(),
             SORT=self.build_sort(),
             MAX_HITS_PER_FAMILY=self.build_max_hits_per_family(),
+            SUMMARY=self.build_summary(),
         )
         return " ".join(yql.split())
 
