@@ -375,6 +375,7 @@ class Hit(BaseModel):
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
     concepts: Optional[Sequence[Concept]] = None
+    debug_info: Optional[dict] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -419,6 +420,8 @@ class Document(Hit):
             if family_publication_ts
             else None
         )
+        debug_info = {k: v for k, v in fields.items() if "token" in k}
+
         return cls(
             family_name=fields.get("family_name"),
             family_description=fields.get("family_description"),
@@ -439,6 +442,7 @@ class Document(Hit):
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            debug_info=debug_info,
         )
 
 
@@ -467,6 +471,8 @@ class Passage(Hit):
             else None
         )
 
+        debug_info = {k: v for k, v in fields.items() if "token" in k}
+
         return cls(
             family_name=fields.get("family_name"),
             family_description=fields.get("family_description"),
@@ -492,6 +498,7 @@ class Passage(Hit):
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            debug_info=debug_info,
         )
 
 
