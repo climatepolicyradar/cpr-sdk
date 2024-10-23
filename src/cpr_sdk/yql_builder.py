@@ -58,29 +58,19 @@ class YQLBuilder:
         elif self.sensitive:
             return """
                 (
-                    {"targetHits": 1000} weakAnd(
-                        family_name contains(@query_string),
-                        family_description contains(@query_string),
-                        text_block contains(@query_string)
-                    )
+                    userInput(@query_string)
                 )
             """
         else:
             return """
                 (
                     (
-                    {"targetHits": 1000} weakAnd(
-                        family_name contains(@query_string),
-                        family_description contains(@query_string),
-                        text_block contains(@query_string)
-                    )
-                    ) or (
-                        [{"targetNumHits": 1000}]
-                        nearestNeighbor(family_description_embedding,query_embedding)
-                    ) or (
-                        [{"targetNumHits": 1000}]
-                        nearestNeighbor(text_embedding,query_embedding)
-                    )
+                        userInput(@query_string)
+                    ) 
+                    or (
+                            [{"targetNumHits": 1000}]
+                            nearestNeighbor(text_embedding,query_embedding)
+                        )
                 )
             """
 
