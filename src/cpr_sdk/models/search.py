@@ -95,21 +95,22 @@ class Concept(BaseModel):
         """
         Validate parent_concept_ids_flat field.
 
-        This field should hold the same concepts as the parent_concepts field.
+        This field should hold the same ids as concepts in the parent_concepts field.
         """
         parent_concept_ids_flattened = ",".join(
-            [parent_concept["name"] for parent_concept in self.parent_concepts]
+            [parent_concept["id"] for parent_concept in self.parent_concepts]
         )
 
-        if parent_concept_ids_flattened[-1] != ",":
-            parent_concept_ids_flattened += ","
-
-        if not self.parent_concept_ids_flat == parent_concept_ids_flattened:
+        if not (
+            self.parent_concept_ids_flat == parent_concept_ids_flattened
+            or self.parent_concept_ids_flat == parent_concept_ids_flattened + ","
+        ):
             raise ValueError(
                 "parent_concept_ids_flat must be a comma separated list of parent "
-                "concept names. "
-                f"Received parent_concept_ids_flat data: {self.parent_concept_ids_flat},"
-                f"received parent_concept names: {parent_concept_ids_flattened}"
+                "concept ids held in the parent concepts field. "
+                f"Received parent_concept_ids_flat: {self.parent_concept_ids_flat}\n"
+                "Received ids in the parent_concept objects: "
+                f"{parent_concept_ids_flattened}"
             )
         return self
 
