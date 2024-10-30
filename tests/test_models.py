@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable
+import json
 
 import pandas as pd
 import pytest
@@ -640,3 +641,21 @@ def test_vespa_concept_instantiation() -> None:
             model="test_model_2",
             timestamp=datetime.now(),
         )
+
+
+def test_vespa_concept_json_conversion() -> None:
+    """Test that the Vespa concept can be converted to json correctly."""
+    json.dumps(
+        Concept(
+            name="test_concept_name_1",
+            id="test_concept_id_1.1",
+            parent_concepts=[
+                {"id": "test_parent_concept_id_1", "name": "test_parent_concept_name_1"}
+            ],
+            parent_concept_ids_flat="test_parent_concept_id_1",
+            start=1,
+            end=10,
+            model="test_model_1",
+            timestamp=datetime.now(),
+        ).model_dump(mode="json")
+    )
