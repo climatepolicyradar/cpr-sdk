@@ -90,6 +90,11 @@ class Concept(BaseModel):
     start: int
     timestamp: datetime
 
+    model_config = ConfigDict(
+        use_enum_values=True,
+        json_encoders={datetime: lambda dt: dt.isoformat()},
+    )
+
     @model_validator(mode="after")
     def validate_parent_concept_ids_flat(self) -> "Concept":
         """
