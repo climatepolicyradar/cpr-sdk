@@ -1,3 +1,4 @@
+import os
 import json
 import tempfile
 from pathlib import Path
@@ -5,6 +6,7 @@ from pathlib import Path
 import boto3
 import pytest
 from moto import mock_aws
+from typing import Generator
 
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 
@@ -97,3 +99,49 @@ def backend_document_json() -> dict:
         "languages": ["test_language"],
         "metadata": {"test_metadata": "test_value"},
     }
+
+
+@pytest.fixture(scope="function")
+def mock_aws_creds():
+    """Mocked AWS Credentials for moto."""
+    os.environ["AWS_ACCESS_KEY_ID"] = "test"
+    os.environ["AWS_SECRET_ACCESS_KEY"] = "test"
+    os.environ["AWS_SECURITY_TOKEN"] = "test"
+    os.environ["AWS_SESSION_TOKEN"] = "test"
+
+
+@pytest.fixture(scope="function")
+def mock_ssm_client(mock_aws_creds) -> Generator:
+    with mock_aws():
+        yield boto3.client("ssm", region_name="eu-west-1")
+
+
+@pytest.fixture()
+def mock_vespa_credentials() -> dict[str, str]:
+    return {
+        "VESPA_INSTANCE_URL": "http://localhost:8080",
+        "VESPA_PUBLIC_CERT": "Cert Content",
+        "VESPA_PRIVATE_KEY": "Key Content",
+    }
+
+
+@pytest.fixture
+def create_vespa_params(mock_ssm_client, mock_vespa_credentials):
+    mock_ssm_client.put_parameter(
+        Name="VESPA_INSTANCE_URL",
+        Description="A test parameter for the vespa instance.",
+        Value=mock_vespa_credentials["VESPA_INSTANCE_URL"],
+        Type="SecureString",
+    )
+    mock_ssm_client.put_parameter(
+        Name="VESPA_PUBLIC_CERT",
+        Description="A test parameter for a vespa public cert",
+        Value=mock_vespa_credentials["VESPA_PUBLIC_CERT"],
+        Type="SecureString",
+    )
+    mock_ssm_client.put_parameter(
+        Name="VESPA_PRIVATE_KEY",
+        Description="A test parameter for a vespa private key",
+        Value=mock_vespa_credentials["VESPA_PRIVATE_KEY"],
+        Type="SecureString",
+    )
