@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from pathlib import Path
 from typing import Iterable
 
@@ -18,7 +19,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.models.search import MetadataFilter
+from cpr_sdk.models.search import Concept, MetadataFilter
 
 
 @pytest.fixture
@@ -604,3 +605,38 @@ def test_metadatafilters() -> None:
 
     with pytest.raises(ValidationError):
         MetadataFilter.model_validate({"value": "test"})
+
+
+def test_vespa_concept_instantiation() -> None:
+    """
+    Test that the Vespa concept can be instantiated correctly.
+
+    There is a relationship to enforce between the parent_concepts objects and the
+    parent_concept_ids_flat fields.
+    """
+    Concept(
+        name="test_concept_name_1",
+        id="test_concept_id_1.1",
+        parent_concepts=[
+            {"id": "test_parent_concept_id_1", "name": "test_parent_concept_name_1"}
+        ],
+        parent_concept_ids_flat="test_parent_concept_id_1",
+        start=1,
+        end=10,
+        model="test_model_1",
+        timestamp=datetime.now(),
+    )
+
+    with pytest.raises(ValidationError):
+        Concept(
+            name="test_concept_name_2",
+            id="test_concept_id_2.1",
+            parent_concepts=[
+                {"id": "test_parent_concept_id_2", "name": "test_parent_concept_name_2"}
+            ],
+            parent_concept_ids_flat="test_parent_concept_id_1",
+            start=1,
+            end=10,
+            model="test_model_2",
+            timestamp=datetime.now(),
+        )
