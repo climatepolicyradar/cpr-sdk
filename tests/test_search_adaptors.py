@@ -65,6 +65,20 @@ def test_vespa_search_adaptor__works(test_vespa):
     assert total_passage_count == response.total_hits
 
 
+@pytest.mark.vespa
+def test_vespa_search_adaptor__exact_search(test_vespa):
+    """Test that exact search works"""
+
+    request = SearchParameters(query_string="biodiversity", exact_match=True)
+    response = vespa_search(test_vespa, request)
+
+    assert response.total_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            if isinstance(hit, Passage):
+                assert "biodiversity" in hit.text_block.lower()
+
+
 @pytest.mark.parametrize(
     "params",
     (
