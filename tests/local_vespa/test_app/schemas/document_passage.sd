@@ -141,7 +141,7 @@ schema document_passage {
 
     rank-profile exact inherits default {
         function text_score() {
-            expression: attribute(passage_weight) * fieldMatch(text_block)
+            expression: attribute(passage_weight) * fieldMatch(text_block_not_stemmed)
         }
         first-phase {
             expression: text_score()

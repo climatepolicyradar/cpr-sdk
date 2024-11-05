@@ -170,10 +170,10 @@ schema family_document {
 
     rank-profile exact inherits default {
         function name_score() {
-            expression: attribute(name_weight) * fieldMatch(family_name_index)
+            expression: attribute(name_weight) * fieldMatch(family_name_not_stemmed)
         }
         function description_score() {
-            expression: attribute(description_weight) * fieldMatch(family_description_index)
+            expression: attribute(description_weight) * fieldMatch(family_description_not_stemmed)
         }
         first-phase {
             expression: name_score() + description_score()
