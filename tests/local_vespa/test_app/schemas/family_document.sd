@@ -1,5 +1,15 @@
 schema family_document {
 
+    field family_name_not_stemmed type string {
+        indexing: input family_name_index | index
+        stemming: none
+    }
+
+    field family_description_not_stemmed type string {
+        indexing: input family_description_index | index
+        stemming: none
+    }
+
     document family_document {
 
         field search_weights_ref type reference<search_weights> {
