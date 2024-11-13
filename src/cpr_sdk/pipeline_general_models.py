@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Mapping, Any, List, Optional, Sequence, Union
+from typing import Any, List, Mapping, Optional, Sequence, Union
 
 from pydantic import BaseModel, field_validator
 
@@ -39,7 +39,6 @@ class BackendDocument(BaseModel):
     type: str
     source: str
     category: str
-    geography: str
     geographies: Optional[list[str]] = None
     languages: Sequence[str]
 
