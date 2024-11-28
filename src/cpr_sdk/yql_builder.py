@@ -50,9 +50,9 @@ class YQLBuilder:
         if self.params.exact_match:
             return """
                 (
-                    (family_name contains({stem: false}@query_string)) or
-                    (family_description contains({stem: false}@query_string)) or
-                    (text_block contains ({stem: false}@query_string))
+                    (family_name_not_stemmed contains({stem: false}@query_string)) or
+                    (family_description_not_stemmed contains({stem: false}@query_string)) or
+                    (text_block_not_stemmed contains ({stem: false}@query_string))
                 )
             """
         elif self.sensitive:
