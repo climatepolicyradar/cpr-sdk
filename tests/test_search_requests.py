@@ -22,7 +22,11 @@ from cpr_sdk.vespa import build_vespa_request_body
 )
 def test_build_vespa_request_body(query_type, params):
     body = build_vespa_request_body(parameters=params)
-    assert body["ranking.profile"] == query_type
+    assert (
+        body["ranking.profile"] == query_type
+        if query_type != "exact"
+        else "exact_not_stemmed"
+    )
     for key, value in body.items():
         assert (
             len(value) > 0

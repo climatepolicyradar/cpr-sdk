@@ -95,7 +95,7 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
     if parameters.all_results:
         pass
     elif parameters.exact_match:
-        vespa_request_body["ranking.profile"] = "exact"
+        vespa_request_body["ranking.profile"] = "exact_not_stemmed"
     elif sensitive:
         vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
     else:
