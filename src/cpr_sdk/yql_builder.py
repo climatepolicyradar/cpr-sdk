@@ -1,6 +1,7 @@
 from string import Template
 from typing import Optional
 
+from rich import print as rprint
 from cpr_sdk.models.search import Filters, SearchParameters
 
 
@@ -231,7 +232,9 @@ if __name__ == "__main__":
         exact_match=False,
         limit=10,
         max_hits_per_family=10,
-        filters=Filters(**{"document_languages": "value", "family_source": "value"}),
+        filters=Filters(
+            **{"document_languages": ["value"], "family_source": ["value"]}
+        ),
         year_range=(2000, 2020),
         continuation_tokens=None,
     )
@@ -240,3 +243,5 @@ if __name__ == "__main__":
         params=params,
         sensitive=False,
     ).to_str()
+
+    rprint(yql_new)
