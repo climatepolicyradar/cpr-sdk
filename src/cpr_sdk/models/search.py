@@ -382,6 +382,7 @@ class Hit(BaseModel):
     metadata: Optional[Sequence[dict[str, str]]] = None
     concepts: Optional[Sequence[Concept]] = None
     relevance: Optional[float] = None
+    rank_features: Optional[dict[str, float]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -447,6 +448,7 @@ class Document(Hit):
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
             relevance=response_hit.get("relevance"),
+            rank_features=fields.get("summaryfeatures"),
         )
 
 
@@ -501,6 +503,7 @@ class Passage(Hit):
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
             relevance=response_hit.get("relevance"),
+            rank_features=fields.get("summaryfeatures"),
         )
 
 
