@@ -84,6 +84,7 @@ class UpdateTypes(str, Enum):
     # DOCUMENT_STATUS = "document_status"
     METADATA = "metadata"
     REPARSE = "reparse"
+    REPROCESS = "reprocess"
 
 
 class Update(BaseModel):
