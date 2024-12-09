@@ -512,6 +512,7 @@ class Family(BaseModel):
     total_passage_hits: int = 0
     continuation_token: Optional[str] = None
     prev_continuation_token: Optional[str] = None
+    relevance: Optional[float] = None
 
 
 class SearchResponse(BaseModel):

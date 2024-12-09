@@ -71,7 +71,7 @@ def test_vespa_search_adaptor_relevance_scoring(test_vespa):
     response = vespa_search(test_vespa, request)
 
     for family in response.families:
-        # assert isinstance(family.relevance, float)
+        assert isinstance(family.relevance, float)
         for hit in family.hits:
             assert isinstance(hit.relevance, float)
 
