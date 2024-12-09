@@ -66,6 +66,17 @@ def test_vespa_search_adaptor__works(test_vespa):
 
 
 @pytest.mark.vespa
+def test_vespa_search_adaptor_relevance_scoring(test_vespa):
+    request = SearchParameters(query_string="the")
+    response = vespa_search(test_vespa, request)
+
+    for family in response.families:
+        # assert isinstance(family.relevance, float)
+        for hit in family.hits:
+            assert isinstance(hit.relevance, float)
+
+
+@pytest.mark.vespa
 def test_vespa_search_adaptor__exact_search(test_vespa):
     """Test that exact search works"""
 

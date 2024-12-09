@@ -381,6 +381,7 @@ class Hit(BaseModel):
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
     concepts: Optional[Sequence[Concept]] = None
+    relevance: Optional[float] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -445,6 +446,7 @@ class Document(Hit):
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            relevance=response_hit.get("relevance"),
         )
 
 
@@ -498,6 +500,7 @@ class Passage(Hit):
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            relevance=response_hit.get("relevance"),
         )
 
 
