@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Mapping, Any, List, Optional, Sequence, Union
+from typing import Any, List, Mapping, Optional, Sequence, Union
 
 from pydantic import BaseModel, field_validator
 
@@ -110,3 +110,13 @@ class ExecutionData(BaseModel):
     """Data unique to a step functions execution that is required at later stages."""
 
     input_dir_path: str
+
+
+class DocUpdateConfig(BaseModel):
+    """
+    Config for updates not defined as part of IdentifyUpdates.
+
+    reprocess_updates: list of document ids to reprocess.
+    """
+
+    reprocess_updates: list[str]
