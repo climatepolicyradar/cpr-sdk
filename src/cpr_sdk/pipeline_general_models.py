@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Mapping, Any, List, Optional, Sequence, Union
+from typing import Any, List, Mapping, Optional, Sequence, Union
 
 from pydantic import BaseModel, field_validator
 
@@ -68,22 +68,39 @@ class InputData(BaseModel):
 
 
 class UpdateTypes(str, Enum):
-    """Document types supported by the backend API."""
+    """
+    UpdateTypes that are recognised and have resulting actions in the pipeline.
+
+    A mapping of the update type to the action can be found in the ingest repo:
+    https://github.com/climatepolicyradar/navigator-data-ingest/blob/main/src/
+    navigator_data_ingest/base/updated_document_actions.py#L490
+
+    Attributes:
+        NAME (str): Represents the name of the document, causes embeddings generation to
+            be re-triggered for a document.
+        DESCRIPTION (str): Represents the description of the document, causes embeddings
+            generation to be re-triggered for a document.
+        SLUG (str): Represents the slug (a URL-friendly version of the name) of the
+            document, triggers an update of the field in the relating s3 objects such
+            that the new data is reflected in vespa.
+        SOURCE_URL (str): Represents the source URL of the document and triggers full
+            reprocessing and download from source of the document.
+        METADATA (str): Represents the metadata associated with the document and
+            indicates that the metadata of the objects in s3 relating to the document
+            should be updated.
+        REPARSE (str): Indicates that the document should be reparsed, including full
+            reprocessing but not redownload from source.
+        REPROCESS (str): Indicates that the document should be reprocessed, including
+            redownload from source and reparse.
+    """
 
     NAME = "name"
     DESCRIPTION = "description"
-    # IMPORT_ID = "import_id"
     SLUG = "slug"
-    # PUBLICATION_TS = "publication_ts"
     SOURCE_URL = "source_url"
-    # TYPE = "type"
-    # SOURCE = "source"
-    # CATEGORY = "category"
-    # GEOGRAPHY = "geography"
-    # LANGUAGES = "languages"
-    # DOCUMENT_STATUS = "document_status"
     METADATA = "metadata"
     REPARSE = "reparse"
+    REPROCESS = "reprocess"
 
 
 class Update(BaseModel):
@@ -109,3 +126,13 @@ class ExecutionData(BaseModel):
     """Data unique to a step functions execution that is required at later stages."""
 
     input_dir_path: str
+
+
+class DocUpdateConfig(BaseModel):
+    """
+    Config for updates not defined as part of IdentifyUpdates.
+
+    reprocess_updates: list of document ids to reprocess.
+    """
+
+    reprocess_updates: list[str]
