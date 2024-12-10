@@ -381,6 +381,8 @@ class Hit(BaseModel):
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
     concepts: Optional[Sequence[Concept]] = None
+    relevance: Optional[float] = None
+    rank_features: Optional[dict[str, float]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -445,6 +447,8 @@ class Document(Hit):
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            relevance=response_hit.get("relevance"),
+            rank_features=fields.get("summaryfeatures"),
         )
 
 
@@ -498,6 +502,8 @@ class Passage(Hit):
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            relevance=response_hit.get("relevance"),
+            rank_features=fields.get("summaryfeatures"),
         )
 
 
@@ -509,6 +515,7 @@ class Family(BaseModel):
     total_passage_hits: int = 0
     continuation_token: Optional[str] = None
     prev_continuation_token: Optional[str] = None
+    relevance: Optional[float] = None
 
 
 class SearchResponse(BaseModel):

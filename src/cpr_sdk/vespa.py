@@ -131,6 +131,7 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
         family_hits: List[Hit] = []
         passages_continuation = dig(family, "children", 0, "continuation", "next")
         prev_passages_continuation = dig(family, "children", 0, "continuation", "prev")
+        family_relevance = family.get("relevance")
         for hit in dig(family, "children", 0, "children", default=[]):
             family_hits.append(Hit.from_vespa_response(response_hit=hit))
         families.append(
@@ -140,6 +141,7 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
                 total_passage_hits=total_passage_hits,
                 continuation_token=passages_continuation,
                 prev_continuation_token=prev_passages_continuation,
+                relevance=family_relevance,
             )
         )
 
