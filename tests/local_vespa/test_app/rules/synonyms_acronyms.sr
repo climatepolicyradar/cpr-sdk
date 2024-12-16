@@ -1,0 +1,16 @@
+@default
+
+[ndc] +> [ndc];
+[ndc] :- national determined contribution;
+
+[IEA] +> [IEA];
+[IEA] :- International Energy Agency;
+
+[FCA] +> [FCA];
+[FCA] :- Financial Conduct Authority;
+
+[TCFD] +> [TCFD];
+[TCFD] :- Task Force on Climate related Financial Disclosures;
+
+[GHG] +> [GHG];
+[GHG] :- Greenhouse Gas;
