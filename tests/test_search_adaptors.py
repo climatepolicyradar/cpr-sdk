@@ -339,7 +339,11 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
 
     # Collect family & hits for comparison later
     initial_family_id = initial_response.families[0].id
-    initial_passages = [h.text_block_id for h in initial_response.families[0].hits]
+    initial_passages = [
+        h.text_block_id
+        for h in initial_response.families[0].hits
+        if isinstance(h, Passage)
+    ]
 
     this_continuation = initial_response.this_continuation_token
     passage_continuation = initial_response.families[0].continuation_token
@@ -358,7 +362,9 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
     assert response.families[0].id == initial_family_id
 
     # But Passages SHOULD have changed
-    new_passages = sorted([h.text_block_id for h in response.families[0].hits])
+    new_passages = sorted(
+        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+    )
     assert sorted(new_passages) != sorted(initial_passages)
 
     # Previous passage continuation gives initial results
@@ -370,7 +376,9 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
     )
     response = vespa_search(test_vespa, request)
     assert response.families[0].id == initial_family_id
-    prev_passages = sorted([h.text_block_id for h in response.families[0].hits])
+    prev_passages = sorted(
+        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+    )
     assert sorted(prev_passages) != sorted(new_passages)
     assert sorted(prev_passages) == sorted(initial_passages)
 
@@ -426,10 +434,34 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
 
     # All of these should have different passages from each other
     assert (
-        sorted([h.text_block_id for h in response_one.families[0].hits])
-        != sorted([h.text_block_id for h in response_two.families[0].hits])
-        != sorted([h.text_block_id for h in response_three.families[0].hits])
-        != sorted([h.text_block_id for h in response_four.families[0].hits])
+        sorted(
+            [
+                h.text_block_id
+                for h in response_one.families[0].hits
+                if isinstance(h, Passage)
+            ]
+        )
+        != sorted(
+            [
+                h.text_block_id
+                for h in response_two.families[0].hits
+                if isinstance(h, Passage)
+            ]
+        )
+        != sorted(
+            [
+                h.text_block_id
+                for h in response_three.families[0].hits
+                if isinstance(h, Passage)
+            ]
+        )
+        != sorted(
+            [
+                h.text_block_id
+                for h in response_four.families[0].hits
+                if isinstance(h, Passage)
+            ]
+        )
     )
 
 

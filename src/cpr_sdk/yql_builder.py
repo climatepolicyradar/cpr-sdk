@@ -60,8 +60,8 @@ class YQLBuilder:
             return """
                 (
                     {"targetHits": 1000} weakAnd(
-                        family_name contains(@query_string),
-                        family_description contains(@query_string),
+                        family_name_index contains(@query_string),
+                        family_description_index contains(@query_string),
                         text_block contains(@query_string)
                     )
                 )
@@ -71,8 +71,8 @@ class YQLBuilder:
                 (
                     (
                     {"targetHits": 1000} weakAnd(
-                        family_name contains(@query_string),
-                        family_description contains(@query_string),
+                        family_name_index contains(@query_string),
+                        family_description_index contains(@query_string),
                         text_block contains(@query_string)
                     )
                     ) or (
