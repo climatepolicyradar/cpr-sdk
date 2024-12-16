@@ -3802,4 +3802,4 @@ vespa = ["pyvespa", "pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "90b1740ed04edf7f44fbe5f32b7f33a4d9fc946d0c010c2593a79f31be599057"
+content-hash = "8631aa2284279f678861741b62d9eef4ecd0e962b9cecc53026a31e74682b256"
