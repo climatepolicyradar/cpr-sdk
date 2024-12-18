@@ -202,6 +202,24 @@ schema family_document {
         }
         summary-features: name_score() description_score() bm25(family_name_index) bm25(family_description_index) closeness(family_description_embedding)
     }
+    
+    rank-profile hybrid_nativerank inherits default {
+        inputs {
+            query(query_embedding) tensor<float>(x[768])
+            query(description_nativerank_weight) double: 1.0
+            query(description_closeness_weight) double: 1.0
+        }
+        function name_score() {
+            expression: nativeRank(family_name_index)
+        }
+        function description_score() {
+            expression: query(description_nativerank_weight) * nativeRank(family_description_index) + query(descriptione_closeness_weight) * closeness(family_description_embedding)
+        }
+        first-phase {
+            expression: (attribute(name_weight) * name_score()) + (attribute(description_weight) * description_score())
+        }
+        summary-features: name_score() description_score() nativeRank(family_name_index) nativeRank(family_description_index) closeness(family_description_embedding)
+    }
 
     rank-profile hybrid_no_closeness inherits hybrid {
         inputs {
