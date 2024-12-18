@@ -4,7 +4,7 @@
     "fields": {
       "family_source": "CCLW",
       "search_weights_ref": "id:doc_search:search_weights::default_weights",
-      "family_name": "Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
+      "family_name": "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
       "document_title": null,
       "document_content_type": "text/html",
       "family_slug": "climate-change-adaptation-and-low-emissions-growth-strategy-by-2035_75e3",
@@ -12,7 +12,7 @@
       "family_geography": "BIH",
       "family_geographies": ["BIH", "NOR"],
       "family_category": "Executive",
-      "family_name_index": "Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
+      "family_name_index": "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
       "document_languages": ["English"],
       "document_slug": "climate-change-adaptation-and-low-emissions-growth-strategy-by-2035_6c4c",
       "family_description_embedding": {
