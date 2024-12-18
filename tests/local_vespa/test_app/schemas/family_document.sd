@@ -10,6 +10,16 @@ schema family_document {
         stemming: none
     }
 
+    field family_name_bolding type string {
+        indexing: input family_name_index | index
+        bolding: true
+    }
+
+    field family_description_bolding type string {
+        indexing: input family_description_index | index
+        bolding: true
+    }
+
     field language type string {
         indexing: "en" | set_language
     }
