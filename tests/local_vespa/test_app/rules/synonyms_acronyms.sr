@@ -1,7 +1,6 @@
 @default
 
-[ndc] +> [ndc];
-[ndc] :- national determined contribution;
+ndc +> ="national determined contribution";
 
 [IEA] +> [IEA];
 [IEA] :- International Energy Agency;
