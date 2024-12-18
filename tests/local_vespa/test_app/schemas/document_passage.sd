@@ -5,6 +5,10 @@ schema document_passage {
         stemming: none
     }
 
+    field language type string {
+        indexing: "en" | set_language
+    }
+
     document document_passage {
 
         field search_weights_ref type reference<search_weights> {

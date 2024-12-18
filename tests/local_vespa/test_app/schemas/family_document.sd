@@ -10,6 +10,10 @@ schema family_document {
         stemming: none
     }
 
+    field language type string {
+        indexing: "en" | set_language
+    }
+
     document family_document {
 
         field search_weights_ref type reference<search_weights> {
