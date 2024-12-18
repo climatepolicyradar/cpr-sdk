@@ -172,19 +172,6 @@ schema family_document {
         fields: family_name_index, family_description_index
     }
 
-    rank-profile exact inherits default {
-        function name_score() {
-            expression: attribute(name_weight) * fieldMatch(family_name_index)
-        }
-        function description_score() {
-            expression: attribute(description_weight) * fieldMatch(family_description_index)
-        }
-        first-phase {
-            expression: name_score() + description_score()
-        }
-        summary-features: name_score() description_score()
-    }
-    
     rank-profile exact_not_stemmed inherits default {
         function name_score() {
             expression: attribute(name_weight) * fieldMatch(family_name_not_stemmed)
