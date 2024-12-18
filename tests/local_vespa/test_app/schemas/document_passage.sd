@@ -152,12 +152,12 @@ schema document_passage {
     
     rank-profile exact_not_stemmed inherits default {
         function text_score() {
-            expression: attribute(passage_weight) * fieldMatch(text_block_not_stemmed)
+            expression: fieldMatch(text_block_not_stemmed)
         }
         first-phase {
-            expression: text_score()
+            expression: attribute(passage_weight) * text_score()
         }
-        summary-features: text_score() fieldMatch(text_block)
+        summary-features: attribute(passage_weight) text_score()
     }
 
     rank-profile hybrid inherits default {
@@ -167,12 +167,12 @@ schema document_passage {
             query(passage_closeness_weight) double: 1.0
         }
         function text_score() {
-            expression: attribute(passage_weight) * (query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(text_embedding))
+            expression: query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(text_embedding)
         }
         first-phase {
-            expression: text_score()
+            expression: attribute(passage_weight) * text_score()
         }
-        summary-features: text_score() bm25(text_block) closeness(text_embedding)
+        summary-features: text_score() bm25(text_block) closeness(text_embedding) attribute(passage_weight)
     }
 
     rank-profile hybrid_no_closeness inherits hybrid {

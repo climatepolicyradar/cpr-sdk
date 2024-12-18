@@ -174,15 +174,15 @@ schema family_document {
 
     rank-profile exact_not_stemmed inherits default {
         function name_score() {
-            expression: attribute(name_weight) * fieldMatch(family_name_not_stemmed)
+            expression: fieldMatch(family_name_not_stemmed)
         }
         function description_score() {
-            expression: attribute(description_weight) * fieldMatch(family_description_not_stemmed)
+            expression: fieldMatch(family_description_not_stemmed)
         }
         first-phase {
-            expression: name_score() + description_score()
+            expression: attribute(name_weight) * name_score() + attribute(description_weight) * description_score()
         }
-        summary-features: name_score() description_score()
+        summary-features: name_score() description_score() attribute(name_weight) attribute(description_weight)
     }
 
     rank-profile hybrid inherits default {
@@ -200,7 +200,7 @@ schema family_document {
         first-phase {
             expression: (attribute(name_weight) * name_score()) + (attribute(description_weight) * description_score())
         }
-        summary-features: name_score() description_score()
+        summary-features: name_score() description_score() bm25(family_name_index) bm25(family_description_index) closeness(family_description_embedding)
     }
 
     rank-profile hybrid_no_closeness inherits hybrid {
