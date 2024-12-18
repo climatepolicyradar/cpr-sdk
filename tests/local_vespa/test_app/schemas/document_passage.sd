@@ -197,27 +197,19 @@ schema document_passage {
     rank-profile hybrid inherits default {
         inputs {
             query(query_embedding) tensor<float>(x[768])
+            query(passage_bm25_weight) double: 1.0
+            query(passage_closeness_weight) double: 1.0
         }
         function text_score() {
-            expression: attribute(passage_weight) * (bm25(text_block) + closeness(text_embedding))
+            expression: attribute(passage_weight) * (query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(text_embedding))
         }
         first-phase {
             expression: text_score()
         }
         summary-features: text_score() bm25(text_block) closeness(text_embedding)
+    }
+
+    rank-profile hybrid_no_embedding inherits hybrid {
     }
     
-    rank-profile hybrid_custom_weight inherits default {
-        inputs {
-            query(query_embedding) tensor<float>(x[768])
-            query(bm25_weight) double
-        }
-        function text_score() {
-            expression: attribute(passage_weight) * (query(bm25_weight) * bm25(text_block) + closeness(text_embedding))
-        }
-        first-phase {
-            expression: text_score()
-        }
-        summary-features: text_score() bm25(text_block) closeness(text_embedding)
-    }
 }
