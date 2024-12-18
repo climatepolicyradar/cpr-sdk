@@ -11,12 +11,12 @@ schema family_document {
     }
 
     field family_name_bolding type string {
-        indexing: input family_name_index | index
+        indexing: input family_name_index | summary | index
         bolding: true
     }
 
     field family_description_bolding type string {
-        indexing: input family_description_index | index
+        indexing: input family_description_index | summary | index
         bolding: true
     }
 
