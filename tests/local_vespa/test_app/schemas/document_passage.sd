@@ -204,8 +204,5 @@ schema document_passage {
             query(passage_closeness_weight) double: 0.0
         }
     }
-
-    rank-profile hybrid_no_description_embedding inherits hybrid {
-    }
     
 }

@@ -209,12 +209,6 @@ schema family_document {
         }
     }
     
-    rank-profile hybrid_no_description_embedding inherits hybrid {
-        inputs {
-            query(description_closeness_weight) double: 0.0
-        }
-    }
-
     document-summary search_summary {
         summary family_name {}
         summary family_description {}
