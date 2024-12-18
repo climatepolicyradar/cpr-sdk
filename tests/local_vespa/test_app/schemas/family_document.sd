@@ -185,19 +185,6 @@ schema family_document {
         summary-features: name_score() description_score()
     }
 
-    rank-profile hybrid_no_closeness inherits default {
-        function name_score() {
-            expression: attribute(name_weight) * bm25(family_name_index)
-        }
-        function description_score() {
-            expression: attribute(description_weight) * bm25(family_description_index)
-        }
-        first-phase {
-            expression: name_score() + description_score()
-        }
-        summary-features: name_score() description_score()
-    }
-
     rank-profile hybrid inherits default {
         inputs {
             query(query_embedding) tensor<float>(x[768])
@@ -214,6 +201,12 @@ schema family_document {
             expression: (attribute(name_weight) * name_score()) + (attribute(description_weight) * description_score())
         }
         summary-features: name_score() description_score()
+    }
+
+    rank-profile hybrid_no_closeness inherits hybrid {
+        inputs {
+            query(description_closeness_weight) double: 0.0
+        }
     }
     
     rank-profile hybrid_no_description_embedding inherits hybrid {

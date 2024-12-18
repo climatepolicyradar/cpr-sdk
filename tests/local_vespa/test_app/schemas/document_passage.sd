@@ -184,16 +184,6 @@ schema document_passage {
         summary-features: text_score() fieldMatch(text_block)
     }
 
-    rank-profile hybrid_no_closeness inherits default {
-        function text_score() {
-            expression: attribute(passage_weight) * bm25(text_block)
-        }
-        first-phase {
-            expression: text_score()
-        }
-        summary-features: text_score() bm25(text_block)
-    }
-
     rank-profile hybrid inherits default {
         inputs {
             query(query_embedding) tensor<float>(x[768])
@@ -209,7 +199,13 @@ schema document_passage {
         summary-features: text_score() bm25(text_block) closeness(text_embedding)
     }
 
-    rank-profile hybrid_no_embedding inherits hybrid {
+    rank-profile hybrid_no_closeness inherits hybrid {
+        inputs {
+            query(passage_closeness_weight) double: 0.0
+        }
+    }
+
+    rank-profile hybrid_no_description_embedding inherits hybrid {
     }
     
 }
