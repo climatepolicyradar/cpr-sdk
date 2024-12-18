@@ -65,6 +65,12 @@ optional = true
 typer = "^0.12.5"
 rich = "^13.8.1"
 
+[tool.poetry.group.jupyter]
+optional = true
+
+[tool.poetry.group.jupyter.dependencies]
+ipykernel = "^6.29.5"
+
 [tool.pytest.ini_options]
 addopts = "-p no:cacheprovider"
 env_files = """
