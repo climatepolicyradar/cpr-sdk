@@ -1,5 +1,9 @@
 schema family_document {
 
+    field language type string {
+        indexing: "en" | set_language
+    }
+
     field family_name_not_stemmed type string {
         indexing: input family_name_index | index
         stemming: none
@@ -18,10 +22,6 @@ schema family_document {
     field family_description_bolding type string {
         indexing: input family_description_index | summary | index
         bolding: true
-    }
-
-    field language type string {
-        indexing: "en" | set_language
     }
 
     document family_document {

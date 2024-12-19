@@ -1,12 +1,12 @@
 schema document_passage {
 
+    field language type string {
+        indexing: "en" | set_language
+    }
+
     field text_block_not_stemmed type string {
         indexing: input text_block | summary | index
         stemming: none
-    }
-
-    field language type string {
-        indexing: "en" | set_language
     }
 
     field text_block_bolding type string {
