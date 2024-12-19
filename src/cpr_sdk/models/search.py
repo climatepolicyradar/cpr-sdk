@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import List, Literal, Optional, Sequence
+from typing import List, Literal, Optional, Sequence, Any
 
 from pydantic import (
     AliasChoices,
@@ -251,6 +251,12 @@ class SearchParameters(BaseModel):
     A field and item mapping to search in the concepts field of the document passages.
     """
 
+    custom_vespa_request_body: Optional[dict[str, Any]] = None
+    """
+    Extra fields to be added to the vespa request body. Overrides any existing fields,
+    so can also be used to override YQL or ranking profiles.
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""
@@ -408,6 +414,21 @@ class Hit(BaseModel):
             raise ValueError(f"Unknown response type: {response_type}")
         return hit
 
+    def __eq__(self, other):
+        """
+        Check if two hits are equal.
+
+        Ignores relevance and rank_features as these are dependent on non-deterministic query routing.
+        """
+        if not isinstance(other, self.__class__):
+            return False
+
+        fields_to_compare = [
+            f for f in self.__dict__.keys() if f not in ("relevance", "rank_features")
+        ]
+
+        return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
 
 class Document(Hit):
     """A document search result hit."""
@@ -517,6 +538,20 @@ class Family(BaseModel):
     prev_continuation_token: Optional[str] = None
     relevance: Optional[float] = None
 
+    def __eq__(self, other):
+        """
+        Check if two Families are equal.
+
+        Ignores relevance as it's dependent on non-deterministic query routing.
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+
+        fields_to_compare = [f for f in self.__dict__.keys() if f not in ("relevance")]
+
+        return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
 
 class SearchResponse(BaseModel):
     """Relevant results, and search response metadata"""
@@ -529,3 +564,21 @@ class SearchResponse(BaseModel):
     continuation_token: Optional[str] = None
     this_continuation_token: Optional[str] = None
     prev_continuation_token: Optional[str] = None
+
+    def __eq__(self, other):
+        """
+        Check if two hits are equal.
+
+        Ignores query time fields as they are non-deterministic.
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+
+        fields_to_compare = [
+            f
+            for f in self.__dict__.keys()
+            if f not in ("query_time_ms", "total_time_ms")
+        ]
+
+        return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)

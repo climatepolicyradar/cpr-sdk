@@ -750,3 +750,27 @@ def test_vespa_search_response__geographies(
             hit = Hit.from_vespa_response(response_hit=hit)
             assert hit.family_geography not in [None, []]
             assert hit.family_geographies not in [None, []]
+
+
+@pytest.mark.vespa
+def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
+    query_string = "the"
+
+    request_no_closeness = SearchParameters(
+        query_string=query_string,
+        custom_vespa_request_body={"ranking.profile": "hybrid_no_closeness"},
+    )
+    response_no_closeness = vespa_search(test_vespa, request_no_closeness)
+
+    request_null_closeness_weights = SearchParameters(
+        query_string=query_string,
+        custom_vespa_request_body={
+            "input.query(description_closeness_weight)": 0,
+            "input.query(passage_closeness_weight)": 0,
+        },
+    )
+    response_null_closeness_weights = vespa_search(
+        test_vespa, request_null_closeness_weights
+    )
+
+    assert response_no_closeness == response_null_closeness_weights
