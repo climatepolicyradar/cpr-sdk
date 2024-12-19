@@ -9,11 +9,6 @@ schema document_passage {
         stemming: none
     }
 
-    field text_block_bolding type string {
-        indexing: input text_block | summary | index
-        bolding: true
-    }
-
     document document_passage {
 
         field search_weights_ref type reference<search_weights> {

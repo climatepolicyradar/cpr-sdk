@@ -14,16 +14,6 @@ schema family_document {
         stemming: none
     }
 
-    field family_name_bolding type string {
-        indexing: input family_name_index | summary | index
-        bolding: true
-    }
-
-    field family_description_bolding type string {
-        indexing: input family_description_index | summary | index
-        bolding: true
-    }
-
     document family_document {
 
         field search_weights_ref type reference<search_weights> {
