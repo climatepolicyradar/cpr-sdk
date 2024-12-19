@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import List, Literal, Optional, Sequence
+from typing import List, Literal, Optional, Sequence, Any
 
 from pydantic import (
     AliasChoices,
@@ -249,6 +249,12 @@ class SearchParameters(BaseModel):
     concept_filters: Optional[Sequence[ConceptFilter]] = None
     """
     A field and item mapping to search in the concepts field of the document passages.
+    """
+
+    custom_vespa_request_body: Optional[dict[str, Any]] = None
+    """
+    Extra fields to be added to the vespa request body. Overrides any existing fields,
+    so can also be used to override YQL or ranking profiles.
     """
 
     @model_validator(mode="after")

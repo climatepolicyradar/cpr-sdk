@@ -104,6 +104,17 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
             "input.query(query_embedding)"
         ] = "embed(msmarco-distilbert-dot-v5, @query_string)"
 
+    if parameters.custom_vespa_request_body is not None:
+        overlapping_keys = set(vespa_request_body.keys()) & set(
+            parameters.custom_vespa_request_body.keys()
+        )
+        if overlapping_keys:
+            _LOGGER.warning(
+                f"Custom request body contains overlapping keys that will override defaults: {overlapping_keys}"
+            )
+
+        vespa_request_body = vespa_request_body | parameters.custom_vespa_request_body
+
     return vespa_request_body
 
 
