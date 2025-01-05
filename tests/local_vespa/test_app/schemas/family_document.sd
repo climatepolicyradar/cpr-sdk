@@ -195,7 +195,7 @@ schema family_document {
             expression: bm25(family_name_index)
         }
         function description_score() {
-            expression: query(description_bm25_weight) * bm25(family_description_index) + query(descriptione_closeness_weight) * closeness(family_description_embedding)
+            expression: query(description_bm25_weight) * bm25(family_description_index) + query(description_closeness_weight) * closeness(family_description_embedding)
         }
         first-phase {
             expression: (attribute(name_weight) * name_score()) + (attribute(description_weight) * description_score())
