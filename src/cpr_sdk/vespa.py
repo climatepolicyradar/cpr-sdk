@@ -115,6 +115,8 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
 
         vespa_request_body = vespa_request_body | parameters.custom_vespa_request_body
 
+    vespa_request_body["input.query(description_closeness_weight)"] = 0
+
     return vespa_request_body
 
 
