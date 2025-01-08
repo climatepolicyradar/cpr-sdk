@@ -828,3 +828,21 @@ def test_acronym_replacement(test_vespa):
         .hits[0]
         .text_block.lower()
     )
+
+
+@pytest.mark.vespa
+def test_acronym_replacement_exact_match_search(test_vespa, caplog):
+    """Acronym replacement should not run on exact match searches"""
+
+    # There are no exact matches for the query "ndc" in the test data
+    ndc_response = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string="ndc",
+            exact_match=True,
+            replace_acronyms=True,
+        ),
+    )
+
+    assert "Exact match and replace_acronyms are incompatible." in caplog.text
+    assert len(ndc_response.families) == 0
