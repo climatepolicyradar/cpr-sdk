@@ -257,6 +257,11 @@ class SearchParameters(BaseModel):
     so can also be used to override YQL or ranking profiles.
     """
 
+    replace_acronyms: bool = True
+    """
+    Whether to perform acronym replacement based on the 'acronyms' ruleset.
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""

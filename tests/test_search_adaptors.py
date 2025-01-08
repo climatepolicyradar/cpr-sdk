@@ -774,3 +774,31 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     )
 
     assert response_no_closeness == response_null_closeness_weights
+
+
+@pytest.mark.vespa
+def test_acronym_replacement(test_vespa):
+    query_string = "ndc"
+
+    request_replace_acronyms = SearchParameters(
+        query_string=query_string,
+        replace_acronyms=True,
+    )
+
+    response_replace_acronyms = vespa_search(test_vespa, request_replace_acronyms)
+    assert "Nationally Determined Contribution" in str(
+        response_replace_acronyms.families[0].hits[0].family_name
+    )
+
+    request_dont_replace_acronyms = SearchParameters(
+        query_string=query_string,
+        replace_acronyms=False,
+    )
+
+    response_dont_replace_acronyms = vespa_search(
+        test_vespa, request_dont_replace_acronyms
+    )
+    assert "Nationally Determined Contribution" not in str(
+        response_dont_replace_acronyms.families[0].hits[0].family_name
+    )
+    breakpoint()
