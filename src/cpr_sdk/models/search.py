@@ -257,7 +257,7 @@ class SearchParameters(BaseModel):
     so can also be used to override YQL or ranking profiles.
     """
 
-    replace_acronyms: bool = True
+    replace_acronyms: bool = False
     """
     Whether to perform acronym replacement based on the 'acronyms' ruleset.
     """
