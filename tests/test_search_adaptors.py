@@ -172,7 +172,7 @@ def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__hybrid(test_vespa):
-    family_name = "Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
+    family_name = "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
     request = SearchParameters(query_string=family_name)
     response = vespa_search(test_vespa, request)
 
@@ -180,8 +180,7 @@ def test_vespa_search_adaptor__hybrid(test_vespa):
     # Note that this is a fairly loose test
     got_family_names = []
     for fam in response.families:
-        for doc in fam.hits:
-            got_family_names.append(doc.family_name)
+        got_family_names.append(fam.hits[0].family_name)
     assert family_name in got_family_names
 
 
