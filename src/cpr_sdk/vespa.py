@@ -124,6 +124,9 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
             vespa_request_body["rules.off"] = False
             vespa_request_body["rules.rulebase"] = "acronyms"
 
+    # Disabling embedding search for descriptions
+    vespa_request_body["input.query(description_closeness_weight)"] = 0
+
     return vespa_request_body
 
 

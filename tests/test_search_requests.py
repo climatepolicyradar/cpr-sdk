@@ -28,10 +28,9 @@ def test_build_vespa_request_body(query_type, params):
         else "exact_not_stemmed"
     )
     for key, value in body.items():
-        if not isinstance(value, bool):
-            assert (
-                len(value) > 0
-            ), f"Query type: {query_type} has an empty value for {key}: {value}"
+        assert (
+            not isinstance(value, str) or len(value) > 0
+        ), f"Query type: {query_type} has an empty value for {key}: {value}"
 
 
 def test_build_vespa_request_body__all():
