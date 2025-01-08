@@ -1,6 +1,6 @@
 services:
   vespadaltest:
-    image: vespaengine/vespa:8.458.13
+    image: vespaengine/vespa:latest
     container_name: vespadaltest
     ports:
       - 8080:8080

@@ -260,6 +260,7 @@ class SearchParameters(BaseModel):
     replace_acronyms: bool = False
     """
     Whether to perform acronym replacement based on the 'acronyms' ruleset.
+    See docs: https://docs.vespa.ai/en/query-rewriting.html#rule-bases
     """
 
     @model_validator(mode="after")
