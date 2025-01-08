@@ -68,9 +68,6 @@ class YQLBuilder:
                     (userInput(@query_string)) 
                     or (
                         [{"targetNumHits": 1000}]
-                        nearestNeighbor(family_description_embedding,query_embedding)
-                    ) or (
-                        [{"targetNumHits": 1000}]
                         nearestNeighbor(text_embedding,query_embedding)
                     )
                 )

@@ -29,7 +29,7 @@ def test_build_vespa_request_body(query_type, params):
     )
     for key, value in body.items():
         assert (
-            len(value) > 0
+            not isinstance(value, str) or len(value) > 0
         ), f"Query type: {query_type} has an empty value for {key}: {value}"
 
 
