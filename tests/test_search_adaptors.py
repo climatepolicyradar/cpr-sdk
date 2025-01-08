@@ -778,27 +778,53 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 
 @pytest.mark.vespa
 def test_acronym_replacement(test_vespa):
-    query_string = "ndc"
-
-    request_replace_acronyms = SearchParameters(
-        query_string=query_string,
-        replace_acronyms=True,
+    ndc_response = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string="ndc",
+            replace_acronyms=True,
+        ),
     )
 
-    response_replace_acronyms = vespa_search(test_vespa, request_replace_acronyms)
+    ndc_response_no_replacement = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string="ndc",
+            replace_acronyms=False,
+        ),
+    )
+
     assert "Nationally Determined Contribution" in str(
-        response_replace_acronyms.families[0].hits[0].family_name
-    )
-
-    request_dont_replace_acronyms = SearchParameters(
-        query_string=query_string,
-        replace_acronyms=False,
-    )
-
-    response_dont_replace_acronyms = vespa_search(
-        test_vespa, request_dont_replace_acronyms
+        ndc_response.families[0].hits[0].family_name
     )
     assert "Nationally Determined Contribution" not in str(
-        response_dont_replace_acronyms.families[0].hits[0].family_name
+        ndc_response_no_replacement.families[0].hits[0].family_name
     )
-    breakpoint()
+
+    methane_ch4_response = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string="ch4",
+            replace_acronyms=True,
+        ),
+    )
+    methane_ch4_response_no_replacement = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string="ch4",
+            replace_acronyms=False,
+        ),
+    )
+
+    assert isinstance(methane_ch4_response.families[0].hits[0], Passage)
+    assert "methane" in methane_ch4_response.families[0].hits[0].text_block.lower()
+
+    assert (
+        not (
+            isinstance(methane_ch4_response_no_replacement.families[0].hits[0], Passage)
+        )
+        or "methane"
+        not in methane_ch4_response_no_replacement.families[0]
+        .hits[0]
+        .text_block.lower()
+    )
