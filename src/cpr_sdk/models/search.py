@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from typing import List, Literal, Optional, Sequence, Any
+from typing import Any, List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
@@ -256,6 +256,8 @@ class SearchParameters(BaseModel):
     Extra fields to be added to the vespa request body. Overrides any existing fields,
     so can also be used to override YQL or ranking profiles.
     """
+    
+    concept_count_filters: Optional[Sequence[ConceptCountFiter]] = None
 
     @model_validator(mode="after")
     def validate(self):
@@ -582,3 +584,34 @@ class SearchResponse(BaseModel):
         ]
 
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
+
+class ConceptCountFiter(BaseModel):
+    """
+    A filter for the concept count.
+
+    Can combine filters to achieve the following logic:
+    - Documents with a count of more than 10 matches for any concept.
+    - Documents with any matches of concept Q123.
+    - Documents with more than 10 matches for concept Q123,
+    """
+
+    concept_id: Optional[str] = None
+    count: Optional[int] = None
+    # TODO: Make this a literal type
+    operand: Optional[str] = "greater_than"
+
+    @model_validator(mode="before")
+    def check_configuration(cls, values) -> dict:
+        """Check that the provided confiruation is valid."""
+        concept_id = values.get('concept_id')
+        count = values.get('count')
+        operand = values.get('operand')
+
+        if concept_id is None and count is None:
+            raise ValueError("Either 'concept_id' or 'count' must be provided, but not both None.")
+
+        if operand is not None and count is None:
+            raise ValueError("If 'operand' is provided, 'count' must also be provided.")
+
+        return values

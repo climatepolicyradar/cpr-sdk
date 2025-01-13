@@ -6,6 +6,7 @@ import pytest
 
 from cpr_sdk.models.search import (
     Concept,
+    ConceptCountFiter,
     ConceptFilter,
     Document,
     Filters,
@@ -774,3 +775,27 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     )
 
     assert response_no_closeness == response_null_closeness_weights
+
+# vespa query
+# 'select * from family_document where concept_counts contains
+# sameElement(key contains "concept_0_0", value > 0)'
+# Note these can be stacked via and/or as well as only key or value.
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "concept_count_filters",
+    [
+        [ConceptCountFiter(concept_id="concept_0_0", count=1)],
+    ],
+)
+def test_vespa_search_adaptor__concept_counts(test_vespa, concept_count_filters: list[ConceptCountFiter]) -> None:
+    """Test that filtering for"""
+    request = SearchParameters(
+        concept_count_filters=concept_count_filters,
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for _hit in family.hits:
+            pass
