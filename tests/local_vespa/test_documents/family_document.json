@@ -295,7 +295,10 @@
           "name": "family.sector",
           "value": "Government"
         }
-      ]
+      ],
+      "concept_counts": {
+        "concept_0_0": 2
+      }
     }
   },
   {
@@ -604,7 +607,12 @@
           "name": "family.instrument",
           "value": "Capacity building"
         }
-      ]
+      ],
+      "concept_counts": {
+        "concept_1_1": 101,
+        "concept_2_2": 15,
+        "concept_3_3": 1543
+      }
     }
   },
   {
@@ -925,7 +933,8 @@
           "name": "family.instrument",
           "value": "Capacity building"
         }
-      ]
+      ],
+      "concept_counts": {}
     }
   }
 ]
