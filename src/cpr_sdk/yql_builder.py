@@ -155,6 +155,26 @@ class YQLBuilder:
                 return f"(family_publication_year <= {end})"
         return None
 
+    def build_concept_count_filter(self) -> Optional[str]:
+        """Create the part of the query that filters on concept counts"""
+        concept_count_filters_subqueries = []
+        if self.params.concept_count_filters:
+            for concept_count_filter in self.params.concept_count_filters:
+                query = "(concept_counts contains sameElement("
+                if concept_count_filter.concept_id is not None:
+                    query += f"key contains '{concept_count_filter.concept_id}'"
+                if concept_count_filter.count is not None:
+                    if concept_count_filter.concept_id is not None:
+                        query += ", "
+                    query += f"value {concept_count_filter.operand} {concept_count_filter.count}"
+                query += "))"
+                concept_count_filters_subqueries.append(
+                    query
+                )
+
+            return f"({' and '.join(concept_count_filters_subqueries)})"
+        return None
+
     def build_where_clause(self) -> str:
         """Create the part of the query that adds filters"""
         filters = []
@@ -173,6 +193,7 @@ class YQLBuilder:
             filters.append(self._inclusive_filters(f, "family_source"))
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
+        filters.append(self.build_concept_count_filter())
         return " and ".join([f for f in filters if f])  # Remove empty
 
     def build_continuation(self) -> str:
