@@ -165,8 +165,9 @@ schema family_document {
         }
 
         field concept_counts type map<string, int> {
-            indexing: summary | attribute
-            attribute: fast-search
+            indexing: summary
+            struct-field key { indexing: attribute }
+            struct-field value { indexing: attribute }
         }
     }
 
