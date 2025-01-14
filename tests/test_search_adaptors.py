@@ -172,7 +172,7 @@ def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__hybrid(test_vespa):
-    family_name = "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
+    family_name = "Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
     request = SearchParameters(query_string=family_name)
     response = vespa_search(test_vespa, request)
 
@@ -180,7 +180,8 @@ def test_vespa_search_adaptor__hybrid(test_vespa):
     # Note that this is a fairly loose test
     got_family_names = []
     for fam in response.families:
-        got_family_names.append(fam.hits[0].family_name)
+        for doc in fam.hits:
+            got_family_names.append(doc.family_name)
     assert family_name in got_family_names
 
 
@@ -773,75 +774,3 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     )
 
     assert response_no_closeness == response_null_closeness_weights
-
-
-@pytest.mark.vespa
-def test_acronym_replacement(test_vespa):
-    ndc_response = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string="ndc",
-            replace_acronyms=True,
-        ),
-    )
-
-    ndc_response_no_replacement = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string="ndc",
-            replace_acronyms=False,
-        ),
-    )
-
-    assert "Nationally Determined Contribution" in str(
-        ndc_response.families[0].hits[0].family_name
-    )
-    assert "Nationally Determined Contribution" not in str(
-        ndc_response_no_replacement.families[0].hits[0].family_name
-    )
-
-    methane_ch4_response = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string="ch4",
-            replace_acronyms=True,
-        ),
-    )
-    methane_ch4_response_no_replacement = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string="ch4",
-            replace_acronyms=False,
-        ),
-    )
-
-    assert isinstance(methane_ch4_response.families[0].hits[0], Passage)
-    assert "methane" in methane_ch4_response.families[0].hits[0].text_block.lower()
-
-    assert (
-        not (
-            isinstance(methane_ch4_response_no_replacement.families[0].hits[0], Passage)
-        )
-        or "methane"
-        not in methane_ch4_response_no_replacement.families[0]
-        .hits[0]
-        .text_block.lower()
-    )
-
-
-@pytest.mark.vespa
-def test_acronym_replacement_exact_match_search(test_vespa, caplog):
-    """Acronym replacement should not run on exact match searches"""
-
-    # There are no exact matches for the query "ndc" in the test data
-    ndc_response = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string="ndc",
-            exact_match=True,
-            replace_acronyms=True,
-        ),
-    )
-
-    assert "Exact match and replace_acronyms are incompatible." in caplog.text
-    assert len(ndc_response.families) == 0

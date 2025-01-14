@@ -115,15 +115,6 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
 
         vespa_request_body = vespa_request_body | parameters.custom_vespa_request_body
 
-    if parameters.replace_acronyms:
-        if parameters.exact_match:
-            _LOGGER.warning(
-                "Exact match and replace_acronyms are incompatible. Ignoring replace_acronyms."
-            )
-        else:
-            vespa_request_body["rules.off"] = False
-            vespa_request_body["rules.rulebase"] = "acronyms"
-
     # Disabling embedding search for descriptions
     vespa_request_body["input.query(description_closeness_weight)"] = 0
 
