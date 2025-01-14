@@ -160,16 +160,18 @@ class YQLBuilder:
         concept_count_filters_subqueries = []
         if self.params.concept_count_filters:
             for concept_count_filter in self.params.concept_count_filters:
-                query = "(concept_counts contains sameElement("
-                if concept_count_filter.concept_id is not None:
-                    query += f"key contains '{concept_count_filter.concept_id}'"
-                if concept_count_filter.count is not None:
-                    if concept_count_filter.concept_id is not None:
-                        query += ", "
-                    query += f"value {concept_count_filter.operand} {concept_count_filter.count}"
-                query += "))"
                 concept_count_filters_subqueries.append(
-                    query
+                    f"""
+                    (
+                        concept_counts contains sameElement(
+                            {(
+                                f'key contains "{concept_count_filter.concept_id}", '
+                                if concept_count_filter.concept_id is not None else ""
+                            )}
+                            value {concept_count_filter.operand.value} {concept_count_filter.count}
+                        )
+                    )
+                    """
                 )
 
             return f"({' and '.join(concept_count_filters_subqueries)})"

@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from enum import Enum
 from typing import Any, List, Literal, Optional, Sequence
 
 from pydantic import (
@@ -36,6 +37,16 @@ filter_fields = {
 
 _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
+
+
+class OperandTypeEnum(Enum):
+    """Enumeration of possible operands for yql queries"""
+
+    GREATER_THAN = ">"
+    GREATER_THAN_OR_EQUAL = ">="
+    LESS_THAN = "<"
+    LESS_THAN_OR_EQUAL = "<="
+    EQUALS = "="
 
 
 class MetadataFilter(BaseModel):
@@ -151,35 +162,24 @@ class Filters(BaseModel):
         return clean_values
 
 
-class ConceptCountFiter(BaseModel):
+class ConceptCountFilter(BaseModel):
     """
-    A filter for the concept count.
+    A filter for a concept count.
 
-    Can combine filters to achieve the following logic:
-    - Documents with a count of more than 10 matches for any concept.
-    - Documents with any matches of concept Q123.
-    - Documents with more than 10 matches for concept Q123,
+    Can combine filters for concept id and concept count to achieve the following logic:
+    - Documents with a count of more than 10 matches for a concept.
+    - Documents with any number of matches of concept Q123.
+    - Documents with more than 10 matches for concept Q123.
+
+    These ConceptCountFilters can be combined with an 'and' operator to create more
+    complex queries like:
+    - Documents with more than 10 matches for concept Q123 and more than 5 matches for
+        concept Q456.
     """
 
     concept_id: Optional[str] = None
-    count: Optional[int] = None
-    # TODO: Make this a literal type or enum
-    operand: Optional[str] = ">"
-
-    @model_validator(mode="before")
-    def check_configuration(cls, values) -> dict:
-        """Check that the provided confiruation is valid."""
-        concept_id = values.get('concept_id')
-        count = values.get('count')
-        operand = values.get('operand')
-
-        if concept_id is None and count is None:
-            raise ValueError("Either 'concept_id' or 'count' must be provided, but not both None.")
-
-        if operand is not None and count is None:
-            raise ValueError("If 'operand' is provided, 'count' must also be provided.")
-
-        return values
+    count: int
+    operand: OperandTypeEnum
 
 
 class SearchParameters(BaseModel):
@@ -288,7 +288,7 @@ class SearchParameters(BaseModel):
     so can also be used to override YQL or ranking profiles.
     """
 
-    concept_count_filters: Optional[Sequence[ConceptCountFiter]] = None
+    concept_count_filters: Optional[Sequence[ConceptCountFilter]] = None
 
     @model_validator(mode="after")
     def validate(self):
