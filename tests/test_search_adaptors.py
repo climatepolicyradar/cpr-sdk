@@ -793,11 +793,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
         ),
         # More than or equal to a count of 1000 for any concept.
         (
-            [
-                ConceptCountFilter(
-                    count=1000, operand=OperandTypeEnum(">=")
-                )
-            ],
+            [ConceptCountFilter(count=1000, operand=OperandTypeEnum(">="))],
             {"CCLW.family.10014.0"},
         ),
         # Exactly 101 counts of concept_1_1.
@@ -815,9 +811,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                 ConceptCountFilter(
                     concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
                 ),
-                ConceptCountFilter(
-                    count=1000, operand=OperandTypeEnum(">")
-                )
+                ConceptCountFilter(count=1000, operand=OperandTypeEnum(">")),
             ],
             {"CCLW.family.10014.0"},
         ),
@@ -832,11 +826,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
         ),
         # Any documents with less than three matches for any concept.
         (
-            [
-                ConceptCountFilter(
-                    count=3, operand=OperandTypeEnum("<")
-                )
-            ],
+            [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
             {"CCLW.family.i00000003.n0000"},
         ),
     ],
