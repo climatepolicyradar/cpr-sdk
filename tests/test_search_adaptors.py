@@ -781,12 +781,60 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 @pytest.mark.vespa
 @pytest.mark.parametrize(
     "concept_count_filters,expected_response_families",
-    # TODO: Add more examples
     [
+        # More than or equal to one count of concept_0_0.
         (
             [
                 ConceptCountFilter(
                     concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                )
+            ],
+            {"CCLW.family.i00000003.n0000"},
+        ),
+        # More than or equal to a count of 1000 for any concept.
+        (
+            [
+                ConceptCountFilter(
+                    count=1000, operand=OperandTypeEnum(">=")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+        ),
+        # Exactly 101 counts of concept_1_1.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+        ),
+        # Exactly 101 counts of concept_1_1 and more than 1000 counts for any concept.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                ),
+                ConceptCountFilter(
+                    count=1000, operand=OperandTypeEnum(">")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+        ),
+        # Any matches for concept_1_1.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=0, operand=OperandTypeEnum(">")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+        ),
+        # Any documents with less than three matches for any concept.
+        (
+            [
+                ConceptCountFilter(
+                    count=3, operand=OperandTypeEnum("<")
                 )
             ],
             {"CCLW.family.i00000003.n0000"},
