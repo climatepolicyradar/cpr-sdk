@@ -12,11 +12,11 @@ from cpr_sdk.models.search import (
     Filters,
     Hit,
     MetadataFilter,
+    OperandTypeEnum,
     Passage,
     SearchParameters,
     SearchResponse,
     sort_fields,
-    OperandTypeEnum
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.utils import dig
@@ -752,7 +752,7 @@ def test_vespa_search_response__geographies(
             hit = Hit.from_vespa_response(response_hit=hit)
             assert hit.family_geography not in [None, []]
             assert hit.family_geographies not in [None, []]
- 
+
 
 @pytest.mark.vespa
 def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
@@ -783,14 +783,27 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     "concept_count_filters,expected_response_families",
     # TODO: Add more examples
     [
-        ([ConceptCountFilter(concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">="))], {"CCLW.family.i00000003.n0000"}),
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                )
+            ],
+            {"CCLW.family.i00000003.n0000"},
+        ),
     ],
 )
-def test_vespa_search_adaptor__concept_counts(test_vespa, concept_count_filters: list[ConceptCountFilter], expected_response_families: set[str]) -> None:
+def test_vespa_search_adaptor__concept_counts(
+    test_vespa,
+    concept_count_filters: list[ConceptCountFilter],
+    expected_response_families: set[str],
+) -> None:
     """Test that filtering for concept counts works"""
     request = SearchParameters(
         concept_count_filters=concept_count_filters,
     )
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits == len(expected_response_families)
-    assert set([family.id for family in response.families]) == expected_response_families
+    assert (
+        set([family.id for family in response.families]) == expected_response_families
+    )
