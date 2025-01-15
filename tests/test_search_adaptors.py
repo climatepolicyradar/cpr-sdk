@@ -852,7 +852,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             None,
             None,
         ),
-        # Any documents with less than three matches for any concept,
+        # Any documents with greater than one match for any concept,
         # sorted by concept count in descending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
@@ -860,7 +860,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             "concept_counts",
             "descending",
         ),
-        # Any documents with less than three matches for any concept,
+        # Any documents with greater than one match for any concept,
         # sorted by concept count in ascending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
@@ -868,7 +868,8 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             "concept_counts",
             "ascending",
         ),
-        # Any documents that don't have concept_0_0 present.
+        # Any documents that don't have concept_0_0 present,
+        # sorted by concept count in ascending order.
         (
             [
                 ConceptCountFilter(
