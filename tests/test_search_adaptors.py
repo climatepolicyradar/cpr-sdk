@@ -869,6 +869,20 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             "concept_counts",
             "ascending"
         ),
+        # Any documents that don't have concept_0_0 present.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_0_0",
+                    count=0,
+                    operand=OperandTypeEnum(">"),
+                    negate=True
+                )
+            ],
+            {"CCLW.family.4934.0", "CCLW.family.10014.0"},
+            "concept_counts",
+            "ascending"
+        ),
     ],
 )
 def test_vespa_search_adaptor__concept_counts(

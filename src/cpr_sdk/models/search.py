@@ -175,11 +175,19 @@ class ConceptCountFilter(BaseModel):
     complex queries like:
     - Documents with more than 10 matches for concept Q123 and more than 5 matches for
         concept Q456.
+
+    param concept_id: The id of the concept to filter on.
+    param count: The number of matches to filter on.
+    param operand: The operand to use for the filter.
+        E.g. we want to filter for documents with more than 10 matches of concept Q123.
+    param negate: Whether to negate the filter.
+        E.g. we want to filter for documents that do NOT have a match for a concept.
     """
 
     concept_id: Optional[str] = None
     count: int
     operand: OperandTypeEnum
+    negate: bool = False
 
 
 class SearchParameters(BaseModel):

@@ -162,6 +162,7 @@ class YQLBuilder:
             for concept_count_filter in self.params.concept_count_filters:
                 concept_count_filters_subqueries.append(
                     f"""
+                    {"!" if concept_count_filter.negate else ""}
                     (
                         concept_counts contains sameElement(
                             {(
