@@ -839,6 +839,8 @@ def test_vespa_search_adaptor__concept_counts(
     """Test that filtering for concept counts works"""
     request = SearchParameters(
         concept_count_filters=concept_count_filters,
+        sort_by="concept_counts",
+        sort_order="descending",
     )
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits == len(expected_response_families)

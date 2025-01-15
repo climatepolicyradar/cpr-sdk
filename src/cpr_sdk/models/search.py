@@ -25,6 +25,7 @@ sort_fields = {
     "date": "family_publication_ts",
     "title": "family_name",
     "name": "family_name",
+    "concept_counts": "concept_counts.value",
 }
 
 filter_fields = {
@@ -421,6 +422,7 @@ class Hit(BaseModel):
     concepts: Optional[Sequence[Concept]] = None
     relevance: Optional[float] = None
     rank_features: Optional[dict[str, float]] = None
+    concept_counts: Optional[dict[str, int]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -502,6 +504,7 @@ class Document(Hit):
             concepts=fields.get("concepts"),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
+            concept_counts=fields.get("concept_counts"),
         )
 
 
