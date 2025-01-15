@@ -1,5 +1,5 @@
 from timeit import timeit
-from typing import Mapping
+from typing import Mapping, Union
 from unittest.mock import patch
 
 import pytest
@@ -42,6 +42,18 @@ def profile_search(
     )
     avg_ms = (t / n) * 1000
     return avg_ms
+
+
+def is_sorted(arr: list[int]) -> tuple[bool, bool]:
+    """
+    Check if the array is sorted in ascending or descending order.
+
+    :param arr: List of values to check.
+    :return: Tuple of two booleans (is_ascending, is_descending).
+    """
+    is_ascending = all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))
+    is_descending = all(arr[i] >= arr[i + 1] for i in range(len(arr) - 1))
+    return is_ascending, is_descending
 
 
 @pytest.mark.parametrize(
@@ -780,7 +792,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 
 @pytest.mark.vespa
 @pytest.mark.parametrize(
-    "concept_count_filters,expected_response_families",
+    "concept_count_filters,expected_response_families,sort_by,sort_order",
     [
         # More than or equal to one count of concept_0_0.
         (
@@ -790,11 +802,15 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                 )
             ],
             {"CCLW.family.i00000003.n0000"},
+            None,
+            None,
         ),
         # More than or equal to a count of 1000 for any concept.
         (
             [ConceptCountFilter(count=1000, operand=OperandTypeEnum(">="))],
             {"CCLW.family.10014.0"},
+            None,
+            None,
         ),
         # Exactly 101 counts of concept_1_1.
         (
@@ -804,6 +820,8 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                 )
             ],
             {"CCLW.family.10014.0"},
+            None,
+            None,
         ),
         # Exactly 101 counts of concept_1_1 and more than 1000 counts for any concept.
         (
@@ -814,6 +832,8 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                 ConceptCountFilter(count=1000, operand=OperandTypeEnum(">")),
             ],
             {"CCLW.family.10014.0"},
+            None,
+            None,
         ),
         # Any matches for concept_1_1.
         (
@@ -823,11 +843,31 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                 )
             ],
             {"CCLW.family.10014.0"},
+            None,
+            None
         ),
         # Any documents with less than three matches for any concept.
         (
             [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
             {"CCLW.family.i00000003.n0000"},
+            None,
+            None
+        ),
+        # Any documents with less than three matches for any concept,
+        # sorted by concept count in descending order.
+        (
+            [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
+            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            "concept_counts",
+            "descending"
+        ),
+        # Any documents with less than three matches for any concept,
+        # sorted by concept count in ascending order.
+        (
+            [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
+            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            "concept_counts",
+            "ascending"
         ),
     ],
 )
@@ -835,15 +875,38 @@ def test_vespa_search_adaptor__concept_counts(
     test_vespa,
     concept_count_filters: list[ConceptCountFilter],
     expected_response_families: set[str],
+    sort_by: Union[str, None],
+    sort_order: Union[str, None],
 ) -> None:
     """Test that filtering for concept counts works"""
     request = SearchParameters(
         concept_count_filters=concept_count_filters,
-        sort_by="concept_counts",
-        sort_order="descending",
+        sort_by=sort_by,
     )
+    if sort_order:
+        request.sort_order = sort_order
     response = vespa_search(test_vespa, request)
     assert response.total_family_hits == len(expected_response_families)
     assert (
         set([family.id for family in response.families]) == expected_response_families
     )
+
+    counts = []
+    for family in response.families:
+        for hit in family.hits:
+            if hit.concept_counts:
+                counts.append(max(hit.concept_counts))
+
+    if sort_order is not None:
+        if sort_order == "ascending":
+            assert is_sorted(counts)[0]
+        if sort_order == "descending":
+            assert is_sorted(counts)[1]
+
+
+# TODO: Move this:
+def test_is_sorted() -> None:
+    """Test that the is_sorted function works"""
+
+    assert is_sorted([1, 2, 3]) == (True, False)  # Ascending
+    assert is_sorted([3, 2, 1]) == (False, True)  # Descending
