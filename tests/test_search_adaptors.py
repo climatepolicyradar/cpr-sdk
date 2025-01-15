@@ -843,14 +843,14 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             ],
             {"CCLW.family.10014.0"},
             None,
-            None
+            None,
         ),
         # Any documents with less than three matches for any concept.
         (
             [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
             {"CCLW.family.i00000003.n0000"},
             None,
-            None
+            None,
         ),
         # Any documents with less than three matches for any concept,
         # sorted by concept count in descending order.
@@ -858,7 +858,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
             {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
             "concept_counts",
-            "descending"
+            "descending",
         ),
         # Any documents with less than three matches for any concept,
         # sorted by concept count in ascending order.
@@ -866,7 +866,7 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
             {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
             "concept_counts",
-            "ascending"
+            "ascending",
         ),
         # Any documents that don't have concept_0_0 present.
         (
@@ -875,12 +875,12 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
                     concept_id="concept_0_0",
                     count=0,
                     operand=OperandTypeEnum(">"),
-                    negate=True
+                    negate=True,
                 )
             ],
             {"CCLW.family.4934.0", "CCLW.family.10014.0"},
             "concept_counts",
-            "ascending"
+            "ascending",
         ),
     ],
 )
