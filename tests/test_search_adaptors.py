@@ -917,7 +917,6 @@ def test_vespa_search_adaptor__concept_counts(
             assert is_sorted(counts)[1]
 
 
-# TODO: Move this:
 def test_is_sorted() -> None:
     """Test that the is_sorted function works"""
 
