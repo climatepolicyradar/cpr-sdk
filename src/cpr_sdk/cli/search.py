@@ -14,6 +14,12 @@ SCORES_NUM_DECIMALS = 3
 
 
 def get_rank_feature_names(search_response: SearchResponse) -> list[str]:
+    """
+    Get names of rank features from a search response.
+
+    Rank features surface the scores given to individual parts of the query, and are
+    defined in the Vespa schema.
+    """
     rank_feature_names = set()
     for family in search_response.families:
         for hit in family.hits:
