@@ -116,10 +116,10 @@ def main(
 
         console.print(Markdown("# Results"))
 
-        for idx, family in enumerate(search_response.families):
+        for idx, family in enumerate(search_response.families, start=1):
             family_data = family.hits[0].model_dump()
             console.rule(
-                title=f"Family {idx+1}/{n_results}: '{family_data['family_name']}' ({family_data['family_geography']}). Score: {round(family_data['relevance'], 3)}"
+                title=f"Family {idx}/{n_results}: '{family_data['family_name']}' ({family_data['family_geography']}). Score: {round(family_data['relevance'], 3)}"
             )
             family_url = f"https://app.climatepolicyradar.org/document/{family_data['family_slug']}"
             details = f"""
