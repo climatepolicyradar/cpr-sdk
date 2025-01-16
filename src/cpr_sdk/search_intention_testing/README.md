@@ -6,10 +6,9 @@ Tests on product search. Adapted from [wellcomecollection/rank](https://github.c
 
 ## Getting started
 
-* run `just install`
 * make sure you have Vespa credentials set up for the instance you want to test: [see instructions here](https://github.com/climatepolicyradar/navigator-infra/tree/main/vespa#how-to-add-a-certificate-for-vespa-cloud-access)
 * fill in required environment variables, including the Vespa URL, in `.env`
-* run `just test_search` to run the tests. Optionally open the HTML report at `./search_test_report.html`
+* run `make test_search_intentions` to run the tests. Optionally open the HTML report at `./search_test_report.html`
 
 ## A note on unconventional testing
 
