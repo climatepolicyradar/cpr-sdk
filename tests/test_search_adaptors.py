@@ -775,6 +775,30 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     assert response_no_closeness == response_null_closeness_weights
 
 
+@pytest.mark.vespa
+def test_vespa_search_field_weight_title(test_vespa):
+    query_string = "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
+
+    response = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string=query_string,
+        ),
+    )
+
+    response_null_field_weight = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string=query_string,
+            custom_vespa_request_body={
+                "input.query(name_weight)": 0,
+            },
+        ),
+    )
+
+    assert response.families != response_null_field_weight.families
+
+
 @pytest.mark.skip(
     reason="Local with the Vespa version that's needed to enable this feature"
 )
