@@ -775,6 +775,9 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     assert response_no_closeness == response_null_closeness_weights
 
 
+@pytest.mark.skip(
+    reason="Local with the Vespa version that's needed to enable this feature"
+)
 @pytest.mark.vespa
 def test_acronym_replacement(test_vespa):
     ndc_response = vespa_search(
@@ -829,6 +832,9 @@ def test_acronym_replacement(test_vespa):
     )
 
 
+@pytest.mark.skip(
+    reason="Local with the Vespa version that's needed to enable this feature"
+)
 @pytest.mark.vespa
 def test_acronym_replacement_exact_match_search(test_vespa, caplog):
     """Acronym replacement should not run on exact match searches"""
