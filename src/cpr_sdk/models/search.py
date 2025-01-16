@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
-from typing import List, Literal, Optional, Sequence, Any
+from enum import Enum
+from typing import Any, List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
@@ -24,6 +25,7 @@ sort_fields = {
     "date": "family_publication_ts",
     "title": "family_name",
     "name": "family_name",
+    "concept_counts": "concept_counts.value",
 }
 
 filter_fields = {
@@ -36,6 +38,16 @@ filter_fields = {
 
 _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
+
+
+class OperandTypeEnum(Enum):
+    """Enumeration of possible operands for yql queries"""
+
+    GREATER_THAN = ">"
+    GREATER_THAN_OR_EQUAL = ">="
+    LESS_THAN = "<"
+    LESS_THAN_OR_EQUAL = "<="
+    EQUALS = "="
 
 
 class MetadataFilter(BaseModel):
@@ -151,6 +163,34 @@ class Filters(BaseModel):
         return clean_values
 
 
+class ConceptCountFilter(BaseModel):
+    """
+    A filter for a concept count.
+
+    Can combine filters for concept ID and concept count to achieve logic like:
+    - Documents with greater than 10 matches of concept Q123.
+    - Documents with greater than 1000 matches of any concept.
+
+    These ConceptCountFilters can be combined with an 'and' operator to create more
+    complex queries like:
+    - Documents with more than 10 matches for concept Q123 and more than 5 matches for
+        concept Q456.
+
+    param concept_id: If provided this is the ID of the concept to filter on. If it
+        left blank then all concepts that match the query will be counted.
+    param count: The number of matches to filter on.
+    param operand: The operand to use for the filter.
+        E.g. we want to filter for documents with more than 10 matches of concept Q123.
+    param negate: Whether to negate the filter.
+        E.g. we want to filter for documents that do NOT have a match for a concept.
+    """
+
+    concept_id: Optional[str] = None
+    count: int
+    operand: OperandTypeEnum
+    negate: bool = False
+
+
 class SearchParameters(BaseModel):
     """Parameters for a search request"""
 
@@ -255,6 +295,11 @@ class SearchParameters(BaseModel):
     """
     Extra fields to be added to the vespa request body. Overrides any existing fields,
     so can also be used to override YQL or ranking profiles.
+    """
+
+    concept_count_filters: Optional[Sequence[ConceptCountFilter]] = None
+    """
+    A list of concept count filters to apply to the search.
     """
 
     replace_acronyms: bool = False
@@ -395,6 +440,7 @@ class Hit(BaseModel):
     concepts: Optional[Sequence[Concept]] = None
     relevance: Optional[float] = None
     rank_features: Optional[dict[str, float]] = None
+    concept_counts: Optional[dict[str, int]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -476,6 +522,7 @@ class Document(Hit):
             concepts=fields.get("concepts"),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
+            concept_counts=fields.get("concept_counts"),
         )
 
 

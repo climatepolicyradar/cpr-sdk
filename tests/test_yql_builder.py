@@ -1,7 +1,14 @@
 import pytest
 from vespa.exceptions import VespaError
 
-from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_orders
+from cpr_sdk.models.search import (
+    Filters,
+    SearchParameters,
+    sort_fields,
+    sort_orders,
+    ConceptCountFilter,
+    OperandTypeEnum,
+)
 from cpr_sdk.vespa import VespaErrorDetails
 from cpr_sdk.yql_builder import YQLBuilder
 
@@ -176,3 +183,28 @@ def test_yql_builder_build_where_clause():
     where_clause = YQLBuilder(params).build_where_clause()
     assert "2020" in where_clause
     assert "family_publication_year" in where_clause
+
+
+def test_yql_builder_build_concept_count_filter() -> None:
+    """Test that the concept count filter is built correctly"""
+
+    concept_count_filter_clause = YQLBuilder(
+        SearchParameters()
+    ).build_concept_count_filter()
+
+    assert not concept_count_filter_clause
+
+    search_parameters = SearchParameters(
+        concept_count_filters=[
+            ConceptCountFilter(
+                concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+            )
+        ]
+    )
+    concept_count_filter_clause = YQLBuilder(
+        search_parameters
+    ).build_concept_count_filter()
+    assert concept_count_filter_clause
+    assert concept_count_filter_clause.replace("  ", "").replace("\n", "") == (
+        '((concept_counts contains sameElement(key contains "concept_1_1", value = 101)))'
+    )

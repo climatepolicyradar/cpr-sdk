@@ -238,6 +238,24 @@ For clean up:
 make vespa_dev_down
 ```
 
+### Filtering for concept counts
+
+The cpr_sdk incorporates via `SearchParameters` and a build clause in the `YqlBuilder` class the ability to perform complex queries on the agregated concept counts that are held in the family index.
+
+These counts refer to the total number of matches for a concept in a family document. For example concept Q123 may have 100 matches because the concept for example forestry is mentioned in text 100 times.
+
+So what queries can we perform?
+- An extensive set of tests have been written for the concept count filters, these display the full capabilities of the filtering functionality:
+`tests/test_search_adaptors.py:test_vespa_search_adaptor__concept_counts`
+
+This shows that we can:
+- Filter for documents with a match for a concept.
+- Filter for documents that don't have a match for a concept.
+- Filter for documents with a match for a concept, with a specific count (e.g. > 10 matches)
+- Filter for documents with a count of any concept (e.g. > 10 matches)
+- Stack filters via an AND operator, e.g. 100 matches for Q123 AND 10 matches for Q456.
+- Order results in ascending or descending order such that documents with the most/least matches appear first in search.
+
 ## Release Flow:
 
 - Make updates to the package.
