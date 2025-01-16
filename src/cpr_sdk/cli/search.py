@@ -5,9 +5,9 @@ from rich.console import Console
 from rich.table import Table
 from rich.markdown import Markdown
 import typer
-from cpr_sdk.search_adaptors import VespaSearchAdapter, parse_vespa_response
+from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.models.search import SearchParameters, Passage, Document, SearchResponse
-from cpr_sdk.vespa import build_vespa_request_body
+from cpr_sdk.vespa import build_vespa_request_body, parse_vespa_response
 from cpr_sdk.config import VESPA_URL
 
 SCORES_NUM_DECIMALS = 3
