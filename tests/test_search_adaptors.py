@@ -956,15 +956,11 @@ def test_vespa_search_adaptor__concept_counts(
                         concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
                     )
                 ],
-                metadata=[
-                    MetadataFilter(
-                        name="family.sector", value="Price"
-                    )
-                ],
+                metadata=[MetadataFilter(name="family.sector", value="Price")],
                 exact_match=True,
             )
         ),
-    ]
+    ],
 )
 def test_vespa_search_adaptor__concept_counts_with_other_filters(
     test_vespa,

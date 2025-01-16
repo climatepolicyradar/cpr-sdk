@@ -195,9 +195,11 @@ def test_yql_builder_build_concept_count_filter() -> None:
     assert not concept_count_filter_clause
 
     search_parameters = SearchParameters(
-        concept_count_filters=[ConceptCountFilter(
-            concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
-        )]
+        concept_count_filters=[
+            ConceptCountFilter(
+                concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+            )
+        ]
     )
     concept_count_filter_clause = YQLBuilder(
         search_parameters
