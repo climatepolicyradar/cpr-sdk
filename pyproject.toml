@@ -77,7 +77,7 @@ env_files = """
     .env.test
     .env
 """
-markers = ["vespa"]
+markers = ["vespa", "search_test"]
 
 [tool.black-jupyter]
 line-length = 88

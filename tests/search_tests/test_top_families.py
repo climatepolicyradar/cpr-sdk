@@ -1,8 +1,8 @@
 import pytest
 
 from cpr_sdk.config import VESPA_URL
-from search_testing.models import TopFamiliesTestCase
-from search_testing.executors import do_test_top_families
+from cpr_sdk.search_testing.models import TopFamiliesTestCase
+from cpr_sdk.search_testing.executors import do_test_top_families
 
 test_cases = [
     TopFamiliesTestCase(
@@ -49,6 +49,7 @@ test_cases = [
 ]
 
 
+@pytest.mark.search_test
 @pytest.mark.parametrize("test_case", [test_case.param for test_case in test_cases])
 def test_top_families(test_case: TopFamiliesTestCase):
     return do_test_top_families(test_case, VESPA_URL)

@@ -2,8 +2,8 @@ import pytest
 import re
 
 from cpr_sdk.config import VESPA_URL
-from search_testing.models import FieldCharacteristicsTestCase
-from search_testing.executors import do_test_field_characteristics
+from cpr_sdk.search_testing.executors import do_test_field_characteristics
+from cpr_sdk.search_testing.models import FieldCharacteristicsTestCase
 
 
 def all_words_in_string(include_words: list[str], string: str) -> bool:
@@ -132,6 +132,7 @@ test_cases = [
 ]
 
 
+@pytest.mark.search_test
 @pytest.mark.parametrize("test_case", [test_case.param for test_case in test_cases])
 def test_top_families(test_case: FieldCharacteristicsTestCase):
     return do_test_field_characteristics(test_case, VESPA_URL)
