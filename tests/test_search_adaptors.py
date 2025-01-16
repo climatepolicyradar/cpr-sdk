@@ -776,9 +776,23 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 
 
 @pytest.mark.vespa
-def test_vespa_search_field_weight_title(test_vespa):
-    query_string = "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
-
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "weight_name,query_string",
+    [
+        (
+            "name_weight",
+            "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
+        ),
+        (
+            "description_weight",
+            "forestry and forest resources, biodiversity and sensitive ecosystems",
+        ),
+        ("passage_weight", "climate change adaptation action"),
+    ],
+)
+def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
+    """Test that search results differ when field weights are set to 0."""
     response = vespa_search(
         test_vespa,
         SearchParameters(
@@ -791,7 +805,7 @@ def test_vespa_search_field_weight_title(test_vespa):
         SearchParameters(
             query_string=query_string,
             custom_vespa_request_body={
-                "input.query(name_weight)": 0,
+                f"input.query({weight_name})": 0,
             },
         ),
     )
