@@ -1,7 +1,7 @@
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.models.search import SearchParameters, SearchResponse, Passage
 
-from cpr_sdk.search_testing.models import (
+from cpr_sdk.search_intention_testing.models import (
     TestCase,
     TopFamiliesTestCase,
     FieldCharacteristicsTestCase,

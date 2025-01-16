@@ -1,8 +1,8 @@
 import pytest
 
 from cpr_sdk.config import VESPA_URL
-from cpr_sdk.search_testing.models import SearchComparisonTestCase
-from cpr_sdk.search_testing.executors import do_test_search_comparison
+from cpr_sdk.search_intention_testing.models import SearchComparisonTestCase
+from cpr_sdk.search_intention_testing.executors import do_test_search_comparison
 
 
 test_cases = [
@@ -40,7 +40,7 @@ test_cases = [
 ]
 
 
-@pytest.mark.search_test
+@pytest.mark.search_intention
 @pytest.mark.parametrize("test_case", [test_case.param for test_case in test_cases])
 def test_top_families(test_case: SearchComparisonTestCase):
     return do_test_search_comparison(test_case, VESPA_URL)
