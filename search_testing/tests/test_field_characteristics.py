@@ -1,9 +1,9 @@
 import pytest
 import re
 
-from src.config import VESPA_URL
-from src.search_testing.models import FieldCharacteristicsTestCase
-from src.search_testing.executors import do_test_field_characteristics
+from cpr_sdk.config import VESPA_URL
+from search_testing.models import FieldCharacteristicsTestCase
+from search_testing.executors import do_test_field_characteristics
 
 
 def all_words_in_string(include_words: list[str], string: str) -> bool:

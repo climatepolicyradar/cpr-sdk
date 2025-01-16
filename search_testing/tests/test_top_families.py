@@ -1,8 +1,8 @@
 import pytest
 
-from src.config import VESPA_URL
-from src.search_testing.models import TopFamiliesTestCase
-from src.search_testing.executors import do_test_top_families
+from cpr_sdk.config import VESPA_URL
+from search_testing.models import TopFamiliesTestCase
+from search_testing.executors import do_test_top_families
 
 test_cases = [
     TopFamiliesTestCase(

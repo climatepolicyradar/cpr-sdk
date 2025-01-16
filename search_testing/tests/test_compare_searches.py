@@ -1,8 +1,8 @@
 import pytest
 
-from src.config import VESPA_URL
-from src.search_testing.models import SearchComparisonTestCase
-from src.search_testing.executors import do_test_search_comparison
+from cpr_sdk.config import VESPA_URL
+from search_testing.models import SearchComparisonTestCase
+from search_testing.executors import do_test_search_comparison
 
 
 test_cases = [
