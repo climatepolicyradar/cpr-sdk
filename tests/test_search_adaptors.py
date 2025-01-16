@@ -56,6 +56,13 @@ def is_sorted(arr: list[int]) -> tuple[bool, bool]:
     return is_ascending, is_descending
 
 
+def test_is_sorted() -> None:
+    """Test that the is_sorted function works"""
+
+    assert is_sorted([1, 2, 3]) == (True, False)  # Ascending
+    assert is_sorted([3, 2, 1]) == (False, True)  # Descending
+
+
 @pytest.mark.parametrize(
     "search_adaptor_params",
     [
@@ -918,11 +925,53 @@ def test_vespa_search_adaptor__concept_counts(
             assert is_sorted(counts)[1]
 
 
-def test_is_sorted() -> None:
-    """Test that the is_sorted function works"""
-
-    assert is_sorted([1, 2, 3]) == (True, False)  # Ascending
-    assert is_sorted([3, 2, 1]) == (False, True)  # Descending
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "search_parameters",
+    [
+        # Docuements containing:
+        # - A match for concept_0_0
+        # - Published between 1990 and 2020
+        # - A sematically similar term to 'the' in a text passage.
+        (
+            SearchParameters(
+                query_string="the",
+                concept_count_filters=[
+                    ConceptCountFilter(
+                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                    )
+                ],
+                year_range=(1990, 2020),
+            )
+        ),
+        # Docuements containing:
+        # - An exact match for 'the' in a text passage.
+        # - A match for concept_0_0.
+        # - A document that has the metadata 'family.sector' set to 'Price'.
+        (
+            SearchParameters(
+                query_string="the",
+                concept_count_filters=[
+                    ConceptCountFilter(
+                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                    )
+                ],
+                metadata=[
+                    MetadataFilter(
+                        name="family.sector", value="Price"
+                    )
+                ],
+                exact_match=True,
+            )
+        ),
+    ]
+)
+def test_vespa_search_adaptor__concept_counts_with_other_filters(
+    test_vespa,
+    search_parameters: SearchParameters,
+) -> None:
+    response = vespa_search(test_vespa, search_parameters)
+    assert response.total_family_hits > 0
 
 
 @pytest.mark.vespa
