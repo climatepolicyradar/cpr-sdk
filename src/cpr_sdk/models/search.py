@@ -167,7 +167,7 @@ class ConceptCountFilter(BaseModel):
     """
     A filter for a concept count.
 
-    Can combine filters for concept id and concept count to achieve logic like:
+    Can combine filters for concept ID and concept count to achieve logic like:
     - Documents with greater than 10 matches of concept Q123.
     - Documents with greater than 1000 matches of any concept.
 
@@ -176,7 +176,8 @@ class ConceptCountFilter(BaseModel):
     - Documents with more than 10 matches for concept Q123 and more than 5 matches for
         concept Q456.
 
-    param concept_id: The id of the concept to filter on.
+    param concept_id: If provided this is the ID of the concept to filter on. If it
+        left blank then all concepts that match the query will be counted.
     param count: The number of matches to filter on.
     param operand: The operand to use for the filter.
         E.g. we want to filter for documents with more than 10 matches of concept Q123.
