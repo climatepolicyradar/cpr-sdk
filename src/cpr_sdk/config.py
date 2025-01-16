@@ -25,5 +25,6 @@ load_dotenv(find_dotenv())
 
 root_dir = get_git_root()
 
-VESPA_URL: str = os.environ["VESPA_URL"]
-VESPA_URL = VESPA_URL.rstrip("/")
+VESPA_URL: Optional[str] = os.environ.get("VESPA_URL")
+if VESPA_URL is not None:
+    VESPA_URL = VESPA_URL.rstrip("/")
