@@ -792,7 +792,14 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     ],
 )
 def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
-    """Test that search results differ when field weights are set to 0."""
+    """
+    Test that search results differ when field weights are set to 0.
+
+    TODO: it'd be great if we could focus these tests on whether the field weights
+    actually affect the fields they're supposed to, but there doesn't seem to be a
+    simple way of doing this. The issue could be to do with the lack of diversity
+    of families in the test data.
+    """
     response = vespa_search(
         test_vespa,
         SearchParameters(
