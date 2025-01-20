@@ -798,6 +798,50 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 
 @pytest.mark.vespa
 @pytest.mark.parametrize(
+    "weight_name,query_string",
+    [
+        (
+            "name_weight",
+            "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
+        ),
+        (
+            "description_weight",
+            "forestry and forest resources, biodiversity and sensitive ecosystems",
+        ),
+        ("passage_weight", "climate change adaptation action"),
+    ],
+)
+def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
+    """
+    Test that search results differ when field weights are set to 0.
+
+    TODO: it'd be great if we could focus these tests on whether the field weights
+    actually affect the fields they're supposed to, but there doesn't seem to be a
+    simple way of doing this. The issue could be to do with the lack of diversity
+    of families in the test data.
+    """
+    response = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string=query_string,
+        ),
+    )
+
+    response_null_field_weight = vespa_search(
+        test_vespa,
+        SearchParameters(
+            query_string=query_string,
+            custom_vespa_request_body={
+                f"input.query({weight_name})": 0,
+            },
+        ),
+    )
+
+    assert response.families != response_null_field_weight.families
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
     "concept_count_filters,expected_response_families,sort_by,sort_order",
     [
         # More than or equal to one count of concept_0_0.
@@ -971,6 +1015,10 @@ def test_vespa_search_adaptor__concept_counts_with_other_filters(
     assert response.total_family_hits > 0
 
 
+@pytest.mark.skip(
+    # At this point-in-time, it's `latest`, or `8.465.15`, but may work on a version before that too
+    reason="Requires a newer Vespa version to enable this feature"
+)
 @pytest.mark.vespa
 def test_acronym_replacement(test_vespa):
     ndc_response = vespa_search(
@@ -1025,6 +1073,9 @@ def test_acronym_replacement(test_vespa):
     )
 
 
+@pytest.mark.skip(
+    reason="Local with the Vespa version that's needed to enable this feature"
+)
 @pytest.mark.vespa
 def test_acronym_replacement_exact_match_search(test_vespa, caplog):
     """Acronym replacement should not run on exact match searches"""
