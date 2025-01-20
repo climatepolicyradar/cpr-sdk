@@ -936,8 +936,6 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
         ),
     ],
 )
-
-
 def test_vespa_search_adaptor__concept_counts(
     test_vespa,
     concept_count_filters: list[ConceptCountFilter],
@@ -1015,7 +1013,7 @@ def test_vespa_search_adaptor__concept_counts_with_other_filters(
     response = vespa_search(test_vespa, search_parameters)
     assert response.total_family_hits > 0
 
-    
+
 @pytest.mark.skip(
     # At this point-in-time, it's `latest`, or `8.465.15`, but may work on a version before that too
     reason="Requires a newer Vespa version to enable this feature"
