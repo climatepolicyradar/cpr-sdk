@@ -1,16 +1,18 @@
 from timeit import timeit
-from typing import Mapping
+from typing import Mapping, Union
 from unittest.mock import patch
 
 import pytest
 
 from cpr_sdk.models.search import (
     Concept,
+    ConceptCountFilter,
     ConceptFilter,
     Document,
     Filters,
     Hit,
     MetadataFilter,
+    OperandTypeEnum,
     Passage,
     SearchParameters,
     SearchResponse,
@@ -40,6 +42,25 @@ def profile_search(
     )
     avg_ms = (t / n) * 1000
     return avg_ms
+
+
+def is_sorted(arr: list[int]) -> tuple[bool, bool]:
+    """
+    Check if the array is sorted in ascending or descending order.
+
+    :param arr: List of values to check.
+    :return: Tuple of two booleans (is_ascending, is_descending).
+    """
+    is_ascending = all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))
+    is_descending = all(arr[i] >= arr[i + 1] for i in range(len(arr) - 1))
+    return is_ascending, is_descending
+
+
+def test_is_sorted() -> None:
+    """Test that the is_sorted function works"""
+
+    assert is_sorted([1, 2, 3]) == (True, False)  # Ascending
+    assert is_sorted([3, 2, 1]) == (False, True)  # Descending
 
 
 @pytest.mark.parametrize(
@@ -773,6 +794,180 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
     )
 
     assert response_no_closeness == response_null_closeness_weights
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "concept_count_filters,expected_response_families,sort_by,sort_order",
+    [
+        # More than or equal to one count of concept_0_0.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                )
+            ],
+            {"CCLW.family.i00000003.n0000"},
+            None,
+            None,
+        ),
+        # More than or equal to a count of 1000 for any concept.
+        (
+            [ConceptCountFilter(count=1000, operand=OperandTypeEnum(">="))],
+            {"CCLW.family.10014.0"},
+            None,
+            None,
+        ),
+        # Exactly 101 counts of concept_1_1.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+            None,
+            None,
+        ),
+        # Exactly 101 counts of concept_1_1 and more than 1000 counts for any concept.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                ),
+                ConceptCountFilter(count=1000, operand=OperandTypeEnum(">")),
+            ],
+            {"CCLW.family.10014.0"},
+            None,
+            None,
+        ),
+        # Any matches for concept_1_1.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_1_1", count=0, operand=OperandTypeEnum(">")
+                )
+            ],
+            {"CCLW.family.10014.0"},
+            None,
+            None,
+        ),
+        # Any documents with less than three matches for any concept.
+        (
+            [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
+            {"CCLW.family.i00000003.n0000"},
+            None,
+            None,
+        ),
+        # Any documents with greater than one match for any concept,
+        # sorted by concept count in descending order.
+        (
+            [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
+            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            "concept_counts",
+            "descending",
+        ),
+        # Any documents with greater than one match for any concept,
+        # sorted by concept count in ascending order.
+        (
+            [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
+            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            "concept_counts",
+            "ascending",
+        ),
+        # Any documents that don't have concept_0_0 present,
+        # sorted by concept count in ascending order.
+        (
+            [
+                ConceptCountFilter(
+                    concept_id="concept_0_0",
+                    count=0,
+                    operand=OperandTypeEnum(">"),
+                    negate=True,
+                )
+            ],
+            {"CCLW.family.4934.0", "CCLW.family.10014.0"},
+            "concept_counts",
+            "ascending",
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_counts(
+    test_vespa,
+    concept_count_filters: list[ConceptCountFilter],
+    expected_response_families: set[str],
+    sort_by: Union[str, None],
+    sort_order: Union[str, None],
+) -> None:
+    """Test that filtering for concept counts works"""
+    request = SearchParameters(
+        concept_count_filters=concept_count_filters,
+        sort_by=sort_by,
+    )
+    if sort_order:
+        request.sort_order = sort_order
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits == len(expected_response_families)
+    assert (
+        set([family.id for family in response.families]) == expected_response_families
+    )
+
+    counts = []
+    for family in response.families:
+        for hit in family.hits:
+            if hit.concept_counts:
+                counts.append(max(hit.concept_counts))
+
+    if sort_order is not None:
+        if sort_order == "ascending":
+            assert is_sorted(counts)[0]
+        if sort_order == "descending":
+            assert is_sorted(counts)[1]
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "search_parameters",
+    [
+        # Docuements containing:
+        # - A match for concept_0_0
+        # - Published between 1990 and 2020
+        # - A sematically similar term to 'the' in a text passage.
+        (
+            SearchParameters(
+                query_string="the",
+                concept_count_filters=[
+                    ConceptCountFilter(
+                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                    )
+                ],
+                year_range=(1990, 2020),
+            )
+        ),
+        # Docuements containing:
+        # - An exact match for 'the' in a text passage.
+        # - A match for concept_0_0.
+        # - A document that has the metadata 'family.sector' set to 'Price'.
+        (
+            SearchParameters(
+                query_string="the",
+                concept_count_filters=[
+                    ConceptCountFilter(
+                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                    )
+                ],
+                metadata=[MetadataFilter(name="family.sector", value="Price")],
+                exact_match=True,
+            )
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_counts_with_other_filters(
+    test_vespa,
+    search_parameters: SearchParameters,
+) -> None:
+    response = vespa_search(test_vespa, search_parameters)
+    assert response.total_family_hits > 0
 
 
 @pytest.mark.vespa
