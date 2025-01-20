@@ -967,6 +967,7 @@ def test_vespa_search_adaptor__concept_counts_with_other_filters(
     search_parameters: SearchParameters,
 ) -> None:
     response = vespa_search(test_vespa, search_parameters)
+
     assert response.total_family_hits > 0
 
 
