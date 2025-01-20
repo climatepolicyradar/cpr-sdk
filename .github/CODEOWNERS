@@ -1,1 +1,4 @@
 * @climatepolicyradar/deng
+src/cpr_sdk/search_intention_testing/ @climatepolicyradar/datascience
+src/cpr_sdk/cli/search.py @climatepolicyradar/datascience
+tests/search_intentions/ @climatepolicyradar/datascience
