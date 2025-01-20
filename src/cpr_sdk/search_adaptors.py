@@ -47,19 +47,23 @@ class SearchAdapter(ABC):
 
 
 class VespaSearchAdapter(SearchAdapter):
-    """
-    Search within a vespa instance
+    """Search within a Vespa instance."""
 
-    :param str instance_url: url of the vespa instance
-    :param Optional[str] cert_directory: path to the directory containing the
-        cert and key files for the given instance
-    """
+    instance_url: str
+    client: Vespa
 
     def __init__(
         self,
         instance_url: str,
         cert_directory: Optional[str] = None,
     ):
+        """
+        Initialize the Vespa search adapter.
+
+        :param instance_url: URL of the Vespa instance to connect to
+        :param cert_directory: Optional directory containing cert.pem and key.pem files.
+            If None, will attempt to find certs automatically.
+        """
         self.instance_url = instance_url
         if cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
