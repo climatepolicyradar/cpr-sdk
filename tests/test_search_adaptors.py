@@ -776,7 +776,6 @@ def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
 
 
 @pytest.mark.vespa
-@pytest.mark.vespa
 @pytest.mark.parametrize(
     "weight_name,query_string",
     [
