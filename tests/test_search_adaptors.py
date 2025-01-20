@@ -820,7 +820,8 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
 
 
 @pytest.mark.skip(
-    reason="Local with the Vespa version that's needed to enable this feature"
+    # At this point-in-time, it's `latest`, or `8.465.15`, but may work on a version before that too
+    reason="Requires a newer Vespa version to enable this feature"
 )
 @pytest.mark.vespa
 def test_acronym_replacement(test_vespa):
