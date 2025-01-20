@@ -3,7 +3,10 @@ include ./Makefile-vespa.defs
 .PHONY: test
 
 test:
-	poetry run pytest -vvv
+	poetry run pytest -vvv -m "not search_intention"
 
 test_not_vespa:
-	poetry run pytest -vvv -m "not vespa"
+	poetry run pytest -vvv -m "not vespa and not search_intention"
+
+test_search_intentions:
+	poetry run pytest -vvv -m "search_intention" --html=search_test_report.html --self-contained-html

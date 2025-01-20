@@ -21,7 +21,7 @@ runs:
 
     - shell: bash
       run: |
-        poetry install --all-extras --with dev
+        poetry install --all-extras --with dev --with search_tests
 
     - shell: bash
       run: |
