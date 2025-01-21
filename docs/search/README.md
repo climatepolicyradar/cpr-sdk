@@ -1,4 +1,4 @@
-# Developing on Search
+# Search Developer Documentation
 
 The docs in this directory cover all things technical about search:
 
