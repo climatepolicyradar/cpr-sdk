@@ -3,8 +3,8 @@
 The docs in this directory cover all things technical about search:
 
 1. [How retrieval and ranking work when you use a search engine, and how this works in Vespa](./1_search_retrieval_and_ranking.md)
-2. [What Vespa schemas do](./2_cpr_product_schemas.md)
-3. [How our searches work](./3_cpr_searches.md)
+2. [How our searches work](./2_cpr_searches.md)
+3. [Schema tips & tricks](./3_schema_tips_and_tricks.md)
 4. [Search intention testing](./4_search_intention_tests.md)
 
 ## Prerequisites
