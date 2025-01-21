@@ -17,7 +17,7 @@ This code uses `pytest` in a slightly inconventional way, because we want to kee
 Each [test model](../../src/cpr_sdk/search_intention_testing/models.py) has a `known_failure: bool` property. When marked as True, it'll be logged as a failure but won't fail tests.
 
 1. Examine the tests with `known_failure = True` in the *src/search_testing/tests* directory. These are the ones that need fixing.
-2. Set `known_faliure` to `False` for each of the tests you want to fix.
+2. Set `known_failure` to `False` for each of the tests you want to fix.
 3. Go and fix them! If you're using the CPR SDK, you'll probably want to run `poetry add --editable ~/my-local-path-to-cpr-sdk`
 4. Once they're fixed, you should be able to open a PR with `known_failure=False` for those tests.
 5. 🎉
