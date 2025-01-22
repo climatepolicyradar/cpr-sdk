@@ -220,8 +220,7 @@ This requires the [vespa cli](https://docs.vespa.ai/en/vespa-cli.html) to be ins
 Setup can then be run with:
 
 ```
-poetry install --all-extras --with dev
-poetry shell
+make install
 make vespa_dev_setup
 make test
 ```
