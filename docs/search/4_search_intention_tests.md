@@ -12,7 +12,7 @@ If we maintain them in code here, it's easy to see how many search intentions we
 
 ## How to use these
 
-This code uses `pytest` in a slightly inconventional way, because we want to keep tests in this repo that fail (we won't always fix search tests immediately, but might want to come back and fix them another time – or acknowledge that they will fail for the foreseeable future).
+This code uses `pytest` in a slightly unconventional way, because we want to keep tests in this repo that fail (we won't always fix search tests immediately, but might want to come back and fix them another time – or acknowledge that they will fail for the foreseeable future).
 
 Each [test model](../../src/cpr_sdk/search_intention_testing/models.py) has a `known_failure: bool` property. When marked as True, it'll be logged as a failure but won't fail tests.
 
