@@ -1,6 +1,9 @@
 include ./Makefile-vespa.defs
 
-.PHONY: test
+.PHONY: install test test_not_vespa test_search_intentions
+
+install:
+	poetry install --all-extras --with dev
 
 test:
 	poetry run pytest -vvv -m "not search_intention"
