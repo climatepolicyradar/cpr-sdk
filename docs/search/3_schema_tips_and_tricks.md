@@ -1,10 +1,25 @@
 # Practical tips for working with our Vespa schemas
 
-The Vespa schema is written in a proprietary language, and a lot of its more useful features don't jump straight out of the docs. This is a page for tips and tricks for working with Vespa schemas.
+The Vespa schema is written in a proprietary language, and a lot of its more useful features (and potentially dangerous gotchas) don't jump straight out of the docs. This is a page for tips and tricks for working with Vespa schemas.
 
-## Field analysis
+## Gotcha: searchable text fields are modified by default
 
-Sometimes it's useful to have versions of the same field that have undergone slightly different processing, e.g. one that's been [stemmed](https://en.wikipedia.org/wiki/Stemming) and one that hasn't (for exact match search). Instead of adding another field to the indexer and making this analysis change in Python, it's also possible to feed fields from others with different analysis settings in a Vespa schema.
+Searchable (or string typed, [index](https://docs.vespa.ai/en/reference/schema-reference.html#index) fields) are subject to linguistic processing by default.
+
+The processing that's done is:
+
+- [tokenization](https://docs.vespa.ai/en/linguistics.html#tokenization): splitting into words (which also strips all punctuation)
+- [normalization](https://docs.vespa.ai/en/linguistics.html#normalization): normalising accents (e.g. á -> a)
+- [stemming](https://docs.vespa.ai/en/linguistics.html#stemming): translating words to their base form
+
+As a result, there are two things to watch out for when designing queries:
+
+- **Punctuation will always be ignored.** This is the default, unconfigurable behaviour of the Vespa tokenizer. There seems to be no obvious way to resolve this so that both the query and indexed text are subject to punctuation-aware tokenization, but the Vespa team are aware that we're having this issue.
+- **If you apply any processing to the query, consider whether you need to apply it to the field you're searching on too.** E.g. using a `{stem: false}` annotation on the query will lead to unpredictable behaviour, unless you've also created a variant of the field you're searching with stemming disabled.
+
+## Storing differently-analysed fields
+
+Sometimes it's useful to have versions of the same field that have undergone slightly different processing, e.g. one that's been [stemmed](https://en.wikipedia.org/wiki/Stemming) and one that hasn't (for exact match search). In Vespa, you can use [indexing statements](https://docs.vespa.ai/en/reference/indexing-language-reference.html#indexing-statement) to create fields containing the results of different analyses of source fields. Computing these statements runs *on Vespa*, rather than requiring rewriting and rerunning our Python indexer.
 
 **An important part of this is to try to use naming conventions where possible**: e.g. all non-stemmed versions of a field having the suffix `_not_stemmed` etc. This will make it easier to write queries and rank profiles in the long run.
 
