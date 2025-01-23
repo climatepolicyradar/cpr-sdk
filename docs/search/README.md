@@ -9,6 +9,6 @@ The docs in this directory cover all things technical about search:
 
 ## Prerequisites
 
-To be able to develop on search, you'll want to be able to fire requests at our production Vespa instance from your machine. (We don't use staging here, as its data is not kept up-to-date with what's in production).
+To be able to develop on search, you'll want to be able to fire requests at our production Vespa instance from your machine. (We don't use staging here, as its data is not kept up-to-date with what's in production. It might be desirable at some point to be able to run tests against a staging version of Vespa with up-to-date data.).
 
 Instructions for creating a read-only certificate are in the [navigator infra repo here](https://github.com/climatepolicyradar/navigator-infra/tree/main/vespa#how-to-add-a-certificate-for-vespa-cloud-access).
