@@ -56,7 +56,9 @@ ORDER BY total_word_count DESC
 Vespa separates the concerns of retrieval and ranking into separate mechanisms, which live in different places in our code:
 
 - Retrieval is done in the query, written in a language called YQL. The query lives in [yql_builder.py:YQLBuilder](https://github.com/climatepolicyradar/cpr-sdk/blob/main/src/cpr_sdk/yql_builder.py#L8) in the SDK.
-- Ranking is done in the schema, which lives in the *navigator-infra* repo. Different methods of ranking can be listed in the same schema, in data structures called *rank profiles*.
+- Ranking is done in the Vespa *schema*, which lives in the *navigator-infra* repo (and is copied via automated PRs to all repos which contain Vespa Docker instances for testing, [including this one](../../tests/local_vespa/test_app/schemas/)). Different methods of ranking can be listed in the same schema, in data structures called *rank profiles*.
+
+(A note on *schema*: Vespa uses the term slightly differently to a run-of-the-mill database, and defines schema as "defining a document type and what we want to compute over it, the rank-profiles". See [Vespa's *Schema* documentation](https://docs.vespa.ai/en/schemas.html).)
 
 A call to the Vespa API specifies a query, and which rank profile to use for ranking the results returned by this query. This is convenient in principle, as it lets us change how we rank results by swapping out different rank profiles, whilst leaving the query constant.
 
