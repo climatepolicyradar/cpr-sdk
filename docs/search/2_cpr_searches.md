@@ -132,6 +132,10 @@ The intention of this search is to return documents with the *exact phrase used*
 -- RETRIEVAL PART
 select * from sources family_document, document_passage where 
 ( 
+    -- {stem: false} is an example of a query annotation, telling Vespa not to stem the query.
+    -- It's important to ensure this term runs on a field that's *also not stemmed* – Vespa 
+    -- doesn't do this automatically.
+    -- Docs: https://docs.vespa.ai/en/reference/query-language-reference.html#stem
     (family_name_not_stemmed contains({stem: false}@query_string)) or 
     (family_description_not_stemmed contains({stem: false}@query_string)) or 
     (text_block_not_stemmed contains ({stem: false}@query_string)) 
