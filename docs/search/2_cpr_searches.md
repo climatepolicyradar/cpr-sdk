@@ -269,6 +269,9 @@ The ranking for each field is as follows:
 
 [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) ranks according to the number of times a term in the query appears in each record, penalising occurrences (like 'climate') which appear in lots of records compared to those that are rarer.
 
+> [!TIP]
+> The `description_closeness_weight` has been set to 0 in the SDK code, rather than updating the default value in the schema. This method doesn't require a Vespa schema change thus redeploy, and changing values in code rather than the schema means SDK and backend unit tests can be run on the change.
+
 ``` js
 // family_document hybrid rank profile
 rank-profile hybrid inherits default_family {
