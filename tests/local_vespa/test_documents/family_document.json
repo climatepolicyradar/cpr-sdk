@@ -297,7 +297,7 @@
         }
       ],
       "concept_counts": {
-        "concept_0_0": 2
+        "concept_0_0:extreme weather": 2
       }
     }
   },
@@ -609,9 +609,9 @@
         }
       ],
       "concept_counts": {
-        "concept_1_1": 101,
-        "concept_2_2": 15,
-        "concept_3_3": 1543
+        "concept_1_1:air pollution risk": 101,
+        "concept_2_2:extreme weather": 15,
+        "concept_3_3:media sector": 1543
       }
     }
   },
