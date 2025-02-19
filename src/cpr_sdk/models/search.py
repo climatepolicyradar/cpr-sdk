@@ -437,8 +437,10 @@ class Hit(BaseModel):
     corpus_type_name: Optional[str] = None
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
+    concepts: Optional[Sequence[Concept]] = None
     relevance: Optional[float] = None
     rank_features: Optional[dict[str, float]] = None
+    concept_counts: Optional[dict[str, int]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Hit":
@@ -483,8 +485,6 @@ class Hit(BaseModel):
 class Document(Hit):
     """A document search result hit."""
 
-    concept_counts: Optional[dict[str, int]] = None
-
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Document":
         """
@@ -519,6 +519,7 @@ class Document(Hit):
             corpus_type_name=fields.get("corpus_type_name"),
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
+            concepts=fields.get("concepts"),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
             concept_counts=fields.get("concept_counts"),
@@ -533,7 +534,6 @@ class Passage(Hit):
     text_block_type: str
     text_block_page: Optional[int] = None
     text_block_coords: Optional[Sequence[tuple[float, float]]] = None
-    concepts: Optional[Sequence[Concept]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Passage":
