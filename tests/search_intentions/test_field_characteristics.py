@@ -134,8 +134,7 @@ test_cases = [
         test_field="text_block_text",
         exact_match=False,
         characteristics_test=(lambda x: x not in {"Avian Influenza", "Earthquake"}),
-        description="Semantic search threshold should apply.",
-        # slug: national-disaster-risk-management-plan-2015_3f8f
+        description="Semantic search threshold should apply - document with slug national-disaster-risk-management-plan-2015_3f8f.",
         document_id="CCLW.executive.9690.4110",
         k=100,
         all_or_any="all",
