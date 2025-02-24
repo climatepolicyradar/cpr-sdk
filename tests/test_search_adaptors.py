@@ -844,11 +844,13 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
 @pytest.mark.parametrize(
     "concept_count_filters,expected_response_families,sort_by,sort_order",
     [
-        # More than or equal to one count of concept_0_0.
+        # More than or equal to one count of concept_0_0:extreme weather.
         (
             [
                 ConceptCountFilter(
-                    concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                    concept_id="concept_0_0:extreme weather",
+                    count=1,
+                    operand=OperandTypeEnum(">="),
                 )
             ],
             {"CCLW.family.i00000003.n0000"},
@@ -862,22 +864,26 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
             None,
             None,
         ),
-        # Exactly 101 counts of concept_1_1.
+        # Exactly 101 counts of concept_1_1:air pollution risk.
         (
             [
                 ConceptCountFilter(
-                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                    concept_id="concept_1_1:air pollution risk",
+                    count=101,
+                    operand=OperandTypeEnum("="),
                 )
             ],
             {"CCLW.family.10014.0"},
             None,
             None,
         ),
-        # Exactly 101 counts of concept_1_1 and more than 1000 counts for any concept.
+        # Exactly 101 counts of concept_1_1:air pollution risk and more than 1000 counts for any concept.
         (
             [
                 ConceptCountFilter(
-                    concept_id="concept_1_1", count=101, operand=OperandTypeEnum("=")
+                    concept_id="concept_1_1:air pollution risk",
+                    count=101,
+                    operand=OperandTypeEnum("="),
                 ),
                 ConceptCountFilter(count=1000, operand=OperandTypeEnum(">")),
             ],
@@ -885,11 +891,13 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
             None,
             None,
         ),
-        # Any matches for concept_1_1.
+        # Any matches for concept_1_1:air pollution risk.
         (
             [
                 ConceptCountFilter(
-                    concept_id="concept_1_1", count=0, operand=OperandTypeEnum(">")
+                    concept_id="concept_1_1:air pollution risk",
+                    count=0,
+                    operand=OperandTypeEnum(">"),
                 )
             ],
             {"CCLW.family.10014.0"},
@@ -919,12 +927,12 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
             "concept_counts",
             "ascending",
         ),
-        # Any documents that don't have concept_0_0 present,
+        # Any documents that don't have concept_0_0:extreme weather present,
         # sorted by concept count in ascending order.
         (
             [
                 ConceptCountFilter(
-                    concept_id="concept_0_0",
+                    concept_id="concept_0_0:extreme weather",
                     count=0,
                     operand=OperandTypeEnum(">"),
                     negate=True,
@@ -973,8 +981,8 @@ def test_vespa_search_adaptor__concept_counts(
 @pytest.mark.parametrize(
     "search_parameters",
     [
-        # Docuements containing:
-        # - A match for concept_0_0
+        # Documents containing:
+        # - A match for concept_0_0:extreme weather
         # - Published between 1990 and 2020
         # - A sematically similar term to 'the' in a text passage.
         (
@@ -982,7 +990,9 @@ def test_vespa_search_adaptor__concept_counts(
                 query_string="the",
                 concept_count_filters=[
                     ConceptCountFilter(
-                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                        concept_id="concept_0_0:extreme weather",
+                        count=1,
+                        operand=OperandTypeEnum(">="),
                     )
                 ],
                 year_range=(1990, 2020),
@@ -997,7 +1007,9 @@ def test_vespa_search_adaptor__concept_counts(
                 query_string="the",
                 concept_count_filters=[
                     ConceptCountFilter(
-                        concept_id="concept_0_0", count=1, operand=OperandTypeEnum(">=")
+                        concept_id="concept_0_0:extreme weather",
+                        count=1,
+                        operand=OperandTypeEnum(">="),
                     )
                 ],
                 metadata=[MetadataFilter(name="family.sector", value="Price")],

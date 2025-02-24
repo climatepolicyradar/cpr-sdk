@@ -239,11 +239,27 @@ make vespa_dev_down
 
 ### Filtering for concept counts
 
-The cpr_sdk incorporates via `SearchParameters` and a build clause in the `YqlBuilder` class the ability to perform complex queries on the agregated concept counts that are held in the family index.
+The cpr_sdk incorporates via `SearchParameters` and a build clause in the `YqlBuilder` class the ability to perform complex queries on the agregated concept counts that are held in the family_document index.
 
-These counts refer to the total number of matches for a concept in a family document. For example concept Q123 may have 100 matches because the concept for example forestry is mentioned in text 100 times.
+These counts refer to the total number of matches for a concept in a family document. For example concept `Q374:extreme weather` may have 100 matches because the concept for example extreme weather is mentioned in text 100 times.
 
-So what queries can we perform?
+Simple example. The parameters to return documents containing at least one reference to the concept `extreme weather`:
+
+```python
+from cpr_sdk.models.search import ConceptCountFilter, SearchParameters, OperandTypeEnum
+
+request = SearchParameters(
+    concept_count_filters=[
+        ConceptCountFilter(
+            concept_id="Q374:extreme weather",
+            count=1,
+            operand=OperandTypeEnum(">="),
+        )
+    ],
+)
+```
+
+So what other queries can we perform?
 - An extensive set of tests have been written for the concept count filters, these display the full capabilities of the filtering functionality:
 `tests/test_search_adaptors.py:test_vespa_search_adaptor__concept_counts`
 
@@ -254,6 +270,8 @@ This shows that we can:
 - Filter for documents with a count of any concept (e.g. > 10 matches)
 - Stack filters via an AND operator, e.g. 100 matches for Q123 AND 10 matches for Q456.
 - Order results in ascending or descending order such that documents with the most/least matches appear first in search.
+
+See the ConceptCountFilter object for more details.
 
 ## Release Flow:
 
