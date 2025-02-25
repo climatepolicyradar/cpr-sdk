@@ -559,6 +559,13 @@ def test_vespa_search_adaptor__corpus_type_name(
     [
         (
             "the",
+            [
+                {"name": "name", "value": "floods"},
+                {"name": "name", "value": "environment"},
+            ],
+        ),
+        (
+            "the",
             [{"name": "name", "value": "environment"}],
         ),
         (
