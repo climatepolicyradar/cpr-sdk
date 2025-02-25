@@ -1,4 +1,4 @@
-_MAJOR = "1"
+_MAJOR = "2"
 _MINOR = "16"
 _PATCH = "3"
 _SUFFIX = ""
