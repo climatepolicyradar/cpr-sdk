@@ -28,8 +28,8 @@ test_cases = [
         known_failure=True,
     ),
     TopFamiliesTestCase(
-        search_terms="egypt national climate change strategy",
-        expected_family_slugs=["egypt-national-climate-change-strategy-nccs-2050_d3b1"],
+        search_terms="National Climate Change Strategy 2021-2026",
+        expected_family_slugs=["national-climate-change-strategy-2021-2026_50bb"],
         description="Searching for the family title should return the correct family.",
     ),
     TopFamiliesTestCase(
