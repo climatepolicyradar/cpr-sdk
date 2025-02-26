@@ -100,9 +100,9 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
         vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
     else:
         vespa_request_body["ranking.profile"] = "hybrid"
-        vespa_request_body[
-            "input.query(query_embedding)"
-        ] = "embed(msmarco-distilbert-dot-v5, @query_string)"
+        vespa_request_body["input.query(query_embedding)"] = (
+            "embed(msmarco-distilbert-dot-v5, @query_string)"
+        )
 
     if parameters.custom_vespa_request_body is not None:
         overlapping_keys = set(vespa_request_body.keys()) & set(

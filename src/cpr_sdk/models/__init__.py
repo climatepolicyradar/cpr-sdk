@@ -489,12 +489,12 @@ class BaseDocument(BaseModel):
     languages: Optional[Sequence[str]] = None
     translated: bool
     has_valid_text: bool
-    text_blocks: Optional[
-        Sequence[TextBlock]
-    ] = None  # None if there is no content type
-    page_metadata: Optional[
-        Sequence[PageMetadata]
-    ] = None  # Properties such as page numbers and dimensions for paged documents
+    text_blocks: Optional[Sequence[TextBlock]] = (
+        None  # None if there is no content type
+    )
+    page_metadata: Optional[Sequence[PageMetadata]] = (
+        None  # Properties such as page numbers and dimensions for paged documents
+    )
     document_metadata: Union[BaseMetadata, BackendDocument]
     # The current fields are set in the document parser:
     # https://github.com/climatepolicyradar/navigator-document-parser/blob/5a2872389a85e9f81cdde148b388383d7490807e/cli/parse_pdfs.py#L435
