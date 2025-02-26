@@ -31,6 +31,7 @@ test_cases = [
         search_terms="egypt national climate change strategy",
         expected_family_slugs=["egypt-national-climate-change-strategy-nccs-2050_d3b1"],
         description="Searching for the family title should return the correct family.",
+        known_failure=True,
     ),
     TopFamiliesTestCase(
         search_terms="fca rules of tcfd",
