@@ -78,7 +78,11 @@ class ConceptFilter(BaseModel):
         To get around this we query on "Q1," instead using the comma suffix to separate
         values.
         """
-        if self.name == "parent_concept_ids_flat" and self.value[-1] != ",":
+        if (
+            self.name == "parent_concept_ids_flat"
+            and self.value
+            and self.value[-1] != ","
+        ):
             self.value = self.value + ","
         return self
 
@@ -95,8 +99,8 @@ class Concept(BaseModel):
 
     id: str
     name: str
-    parent_concepts: List[dict[str, str]]
-    parent_concept_ids_flat: str
+    parent_concepts: Optional[List[dict[str, str]]] = None
+    parent_concept_ids_flat: Optional[str] = None
     model: str
     end: int
     start: int
@@ -114,6 +118,10 @@ class Concept(BaseModel):
 
         This field should hold the same ids as concepts in the parent_concepts field.
         """
+        # Skip validation if either field is missing
+        if self.parent_concepts is None or self.parent_concept_ids_flat is None:
+            return self
+
         parent_concept_ids_flattened = ",".join(
             [parent_concept["id"] for parent_concept in self.parent_concepts]
         )

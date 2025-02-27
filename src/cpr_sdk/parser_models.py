@@ -72,9 +72,9 @@ class TextBlock(BaseModel):
 
     text: List[str]
     text_block_id: str
-    language: Optional[
-        str
-    ] = None  # TODO: validate this against a list of language ISO codes
+    language: Optional[str] = (
+        None  # TODO: validate this against a list of language ISO codes
+    )
     type: BlockType
     type_confidence: float = Field(ge=0, le=1)
 
@@ -380,7 +380,7 @@ class ParserOutput(BaseParserOutput):
 
     @staticmethod
     def _rename_text_block_keys(
-        keys: Union[list[str], dict[str, Any]]
+        keys: Union[list[str], dict[str, Any]],
     ) -> Union[list[str], dict[str, Any]]:
         """Prepend text_block. to the keys in the dictionary or list."""
 
