@@ -4,6 +4,11 @@ The command `make test_search_intentions` runs a set of pytest tests that run qu
 
 These were adapted from [wellcomecollection/rank](https://github.com/wellcomecollection/rank).
 
+> [!WARNING]
+> Results from directly querying Vespa won't always be the same as those in the user-facing apps. This is because the apps only show documents that have been published and not deleted. Vespa has no field storing published status, and the pipeline that populates it is write-only.
+>
+> What this means in practice is that some failing tests could pass in our tools, or vice-versa. There's currently no way of handing this in the tests themselves, so use your best judgement as to how to adapt the test to exclude documents that are in Vespa but not in our tools.
+
 ## What are these tests for?
 
 In an ideal world, we'll maintain a collection of search queries we know about and the kinds of results they should return. These could be from users, analytics or dogfooding our own apps. We should also collect a list of search intentions for each new data corpus or custom app.
