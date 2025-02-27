@@ -559,6 +559,13 @@ def test_vespa_search_adaptor__corpus_type_name(
     [
         (
             "the",
+            [
+                {"name": "name", "value": "floods"},
+                {"name": "name", "value": "environment"},
+            ],
+        ),
+        (
+            "the",
             [{"name": "name", "value": "environment"}],
         ),
         (
@@ -627,7 +634,8 @@ def test_vespa_search_adaptor__concept_filter(
                 if concept_filter["name"] == "parent_concept_ids_flat":
                     assert any(
                         [
-                            concept_filter["value"] in hit_concept_filter_val
+                            hit_concept_filter_val is not None
+                            and concept_filter["value"] in hit_concept_filter_val
                             for hit_concept_filter_val in hit_concept_filter_vals
                         ]
                     )

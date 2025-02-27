@@ -25,9 +25,14 @@ def test_concepts(test_vespa, field, search_term, value) -> None:
     assert len(response.hits) > 0
     for hit in response.hits:
         hit_concept_filter_vals = [
-            concept[field] for concept in hit["fields"]["concepts"]
+            concept.get(field) for concept in hit["fields"]["concepts"]
         ]
         if field == "parent_concept_ids_flat":
-            assert any([value in hit_val for hit_val in hit_concept_filter_vals])
+            assert any(
+                [
+                    hit_val is not None and value in hit_val
+                    for hit_val in hit_concept_filter_vals
+                ]
+            )
         else:
             assert value in hit_concept_filter_vals

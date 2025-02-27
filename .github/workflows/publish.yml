@@ -71,12 +71,11 @@ jobs:
       - name: Install python or load from cache with dependencies
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version-file: 'pyproject.toml'
           cache: poetry
 
       - name: Install dependencies
-        run: |
-          poetry install
+        run: poetry install
 
       - name: Update version in pyproject.toml
         run: |
@@ -84,8 +83,7 @@ jobs:
           poetry version $PACKAGE_VERSION
 
       - name: Build
-        run: |
-          poetry build
+        run: poetry build
 
       - name: Publish
         run: poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}

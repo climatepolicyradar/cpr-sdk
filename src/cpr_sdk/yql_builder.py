@@ -2,6 +2,7 @@ from string import Template
 from typing import Optional
 
 from rich import print as rprint
+
 from cpr_sdk.models.search import Filters, SearchParameters
 
 
@@ -94,15 +95,25 @@ class YQLBuilder:
         return None
 
     def build_concepts_filter(self) -> Optional[str]:
-        """Create the part of the query that limits to specific concepts"""
+        """
+        Create the part of the query that limits to specific concepts.
+
+        e.g:
+        - `concepts.name contains 'floods' and concepts.name contains 'environment'`
+        - `concepts.parent_concept_ids_flat matches 'Q123' and concepts.name contains 'environment'`
+        """
         if self.params.concept_filters:
             concepts_query = []
             for concept in self.params.concept_filters:
                 if concept.name == "parent_concept_ids_flat":
-                    concepts_query.append(f"{concept.name} matches '{concept.value}'")
+                    concepts_query.append(
+                        f"concepts.{concept.name} matches '{concept.value}'"
+                    )
                 else:
-                    concepts_query.append(f"{concept.name} contains '{concept.value}'")
-            return f"(concepts contains sameElement({', '.join(concepts_query)}))"
+                    concepts_query.append(
+                        f"concepts.{concept.name} contains '{concept.value}'"
+                    )
+            return f"({' and '.join(concepts_query)})"
         return None
 
     def build_corpus_type_name_filter(self) -> Optional[str]:
