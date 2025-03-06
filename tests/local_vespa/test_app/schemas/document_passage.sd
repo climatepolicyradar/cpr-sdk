@@ -187,12 +187,12 @@ schema document_passage {
             query(passage_closeness_weight) double: 1.0
         }
         function text_score() {
-            expression: query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(text_embedding)
+            expression: query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(auto_text_embedding)
         }
         first-phase {
             expression: query(passage_weight) * text_score()
         }
-        summary-features: text_score() bm25(text_block) closeness(text_embedding) query(passage_weight)
+        summary-features: text_score() bm25(text_block) closeness(auto_text_embedding) query(passage_weight)
     }
     
     rank-profile hybrid_nativerank inherits default_passage {
@@ -202,12 +202,12 @@ schema document_passage {
             query(passage_closeness_weight) double: 1.0
         }
         function text_score() {
-            expression: query(passage_nativerank_weight) * nativeRank(text_block) + query(passage_closeness_weight) * closeness(text_embedding)
+            expression: query(passage_nativerank_weight) * nativeRank(text_block) + query(passage_closeness_weight) * closeness(auto_text_embedding)
         }
         first-phase {
             expression: query(passage_weight) * text_score()
         }
-        summary-features: text_score() nativeRank(text_block) closeness(text_embedding) query(passage_weight)
+        summary-features: text_score() nativeRank(text_block) closeness(auto_text_embedding) query(passage_weight)
     }
 
     rank-profile hybrid_no_closeness inherits hybrid {
