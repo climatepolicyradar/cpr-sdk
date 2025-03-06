@@ -9,6 +9,21 @@ schema document_passage {
         stemming: none
     }
 
+    field auto_text_embedding type tensor<bfloat16>(x[768]) {
+        indexing {
+            input text_block | embed msmarco-distilbert-dot-v5 | attribute | index
+        }
+        attribute {
+            distance-metric: innerproduct
+        }
+        index {
+            hnsw {
+                max-links-per-node: 16
+                neighbors-to-explore-at-insert: 500
+            }
+        }
+    }
+
     document document_passage {
 
         field search_weights_ref type reference<search_weights> {
