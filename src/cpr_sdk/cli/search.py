@@ -6,7 +6,13 @@ from rich.table import Table
 from rich.markdown import Markdown
 import typer
 from cpr_sdk.search_adaptors import VespaSearchAdapter
-from cpr_sdk.models.search import SearchParameters, Passage, Document, SearchResponse
+from cpr_sdk.models.search import (
+    SearchParameters,
+    Passage,
+    Document,
+    SearchResponse,
+    ConceptFilter,
+)
 from cpr_sdk.vespa import build_vespa_request_body, parse_vespa_response
 from cpr_sdk.config import VESPA_URL
 
@@ -55,12 +61,23 @@ def main(
             help="Whether to include tokens in the summary. Tokens are not in the final Vespa response model, so this requires setting a breakpoint on the raw response."
         ),
     ] = False,
+    concept_id: Annotated[
+        list[str],
+        typer.Option(
+            help="Filter results by concept ID. Can be used multiple times in the same run."
+        ),
+    ] = [],
 ):
     """Run a search query with different rank profiles."""
     console = Console()
     search_adapter = VespaSearchAdapter(VESPA_URL)
     search_parameters = SearchParameters(
-        query_string=query, exact_match=exact_match, limit=limit
+        query_string=query,
+        exact_match=exact_match,
+        limit=limit,
+        concept_filters=[
+            ConceptFilter(name="id", value=concept_id) for concept_id in concept_id
+        ],
     )
     request_body = build_vespa_request_body(search_parameters)
 
