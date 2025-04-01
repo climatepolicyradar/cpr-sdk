@@ -1,7 +1,9 @@
 import csv
 import re
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Generator, Union, TypeVar
+
+T = TypeVar("T")
 
 
 def is_sensitive_query(text: str, sensitive_terms: set) -> bool:
@@ -115,3 +117,22 @@ def remove_key_if_all_nested_vals_none(data: dict, key: str) -> dict:
         if all(value is None for value in data[key].values()):
             data.pop(key)
     return data
+
+
+def iterate_batch(
+    data: list[T] | Generator[T, None, None],
+    batch_size: int = 50,
+) -> Generator[list[T], None, None]:
+    """Generate batches from a list or generator with a specified size."""
+    if isinstance(data, list):
+        for i in range(0, len(data), batch_size):
+            yield data[i : i + batch_size]
+    else:
+        batch: list[T] = []
+        for item in data:
+            batch.append(item)
+            if len(batch) >= batch_size:
+                yield batch
+                batch = []
+        if batch:
+            yield batch

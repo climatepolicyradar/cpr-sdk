@@ -4,6 +4,7 @@ import pytest
 from cpr_sdk.utils import (
     dig,
     is_sensitive_query,
+    iterate_batch,
     load_sensitive_query_terms,
     remove_key_if_all_nested_vals_none,
     unflatten_json,
@@ -108,3 +109,22 @@ def test_remove_key_if_all_nested_vals_none() -> None:
         },
         "key",
     ) == {"key2": {"nested": "value"}}
+
+
+@pytest.mark.parametrize(
+    "data, expected_lengths",
+    [
+        # Lists
+        (list(range(50)), [50]),
+        (list(range(850)), [400, 400, 50]),
+        ([], [0]),
+        # Generators
+        ((x for x in range(50)), [50]),
+        ((x for x in range(850)), [400, 400, 50]),
+        ((x for x in []), [0]),
+    ],
+)
+def test_iterate_batch(data, expected_lengths):
+    batch_size = 400
+    for batch, expected in zip(list(iterate_batch(data, batch_size)), expected_lengths):
+        assert len(batch) == expected
