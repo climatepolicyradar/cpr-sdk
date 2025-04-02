@@ -190,7 +190,11 @@ def main(
 
                 table.add_row(
                     text,
-                    str(round(hit.relevance, SCORES_NUM_DECIMALS)),
+                    (
+                        str(round(hit.relevance, SCORES_NUM_DECIMALS))
+                        if hit.relevance is not None
+                        else "n/a"
+                    ),
                     hit_type,
                     tb_id,
                     doc_id,
