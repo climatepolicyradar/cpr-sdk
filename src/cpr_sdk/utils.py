@@ -121,7 +121,7 @@ def remove_key_if_all_nested_vals_none(data: dict, key: str) -> dict:
 
 def iterate_batch(
     data: list[T] | Generator[T, None, None],
-    batch_size: int = 50,
+    batch_size: int,
 ) -> Generator[list[T], None, None]:
     """Generate batches from a list or generator with a specified size."""
     if isinstance(data, list):
