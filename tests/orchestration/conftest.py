@@ -14,7 +14,15 @@ def prefect_test_fixture():
 
 
 @pytest.fixture
-def mock_prefect_slack_webhook():
+def mock_prefect_ui_url_setting():
+    """Patch the SlackWebhook class to return a mock object."""
+    with patch("cpr_sdk.orchestration.hooks.PREFECT_UI_URL") as mock_PREFECT_UI_URL:
+        mock_PREFECT_UI_URL.value.return_value = None
+        yield mock_PREFECT_UI_URL
+
+
+@pytest.fixture
+def mock_prefect_slack_webhook(mock_prefect_ui_url_setting):
     """Patch the SlackWebhook class to return a mock object."""
     with patch("cpr_sdk.orchestration.hooks.SlackWebhook") as mock_SlackWebhook:
         mock_prefect_slack_block = MagicMock()

@@ -2,13 +2,13 @@ from cpr_sdk.orchestration.hooks import SlackNotify
 
 
 def test_message(mock_prefect_slack_webhook, mock_flow, mock_flow_run):
-    SlackNotify.message(mock_flow, mock_flow_run, mock_flow_run.state)
+    slack_block = "slack-webhook-platform-prefect-mvp-sandbox"
+
+    SlackNotify(slack_block).message(mock_flow, mock_flow_run, mock_flow_run.state)
     mock_SlackWebhook, mock_prefect_slack_block = mock_prefect_slack_webhook
 
     # `.load`
-    mock_SlackWebhook.load.assert_called_once_with(
-        "slack-webhook-platform-prefect-mvp-sandbox"
-    )
+    mock_SlackWebhook.load.assert_called_once_with(slack_block)
 
     # `.notify`
     mock_prefect_slack_block.notify.assert_called_once()
