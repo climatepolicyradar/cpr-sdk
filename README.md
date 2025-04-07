@@ -219,7 +219,7 @@ This requires the [vespa cli](https://docs.vespa.ai/en/vespa-cli.html) to be ins
 
 Setup can then be run with:
 
-```
+```bash
 make install
 make vespa_dev_setup
 make test
@@ -227,13 +227,13 @@ make test
 
 Alternatively, to only run non-vespa tests:
 
-```
+```bash
 make test_not_vespa
 ```
 
 For clean up:
 
-```
+```bash
 make vespa_dev_down
 ```
 
