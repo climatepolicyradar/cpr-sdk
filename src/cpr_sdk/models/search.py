@@ -26,6 +26,7 @@ sort_fields = {
     "title": "family_name",
     "name": "family_name",
     "concept_counts": "concept_counts.value",
+    "page_number": "text_block_page"
 }
 
 filter_fields = {
