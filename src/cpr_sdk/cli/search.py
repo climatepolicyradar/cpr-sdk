@@ -6,7 +6,6 @@ import typer
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.table import Table
-from typing_extensions import Annotated
 
 from cpr_sdk.config import VESPA_URL
 from cpr_sdk.models.search import (
@@ -52,34 +51,22 @@ def main(
     exact_match: bool = False,
     limit: int = 20,
     show_rank_features: bool = False,
-    page_results: Annotated[
-        bool,
-        typer.Option(
-            default=True,
-            help="Whether to use the default terminal pager to show results. Disable with `--no-page-results` if you want to redirect the output to a file.",
-        ),
-    ] = True,
-    experimental_tokens: Annotated[
-        bool,
-        typer.Option(
-            default=False,
-            help="Whether to include tokens in the summary. Tokens are not in the final Vespa response model, so this requires setting a breakpoint on the raw response.",
-        ),
-    ] = False,
-    concept_id: Annotated[
-        list[str],
-        typer.Option(
-            default=[],
-            help="Filter results by concept ID. Can be used multiple times in the same run.",
-        ),
-    ] = [],
-    distance_threshold: Annotated[
-        Optional[float],
-        typer.Option(
-            default=None,
-            help="Optional threshold for the vector component of hybrid search. Passages with an inner product score below this threshold will be excluded.",
-        ),
-    ] = None,
+    page_results: bool = typer.Option(
+        default=True,
+        help="Whether to use the default terminal pager to show results. Disable with `--no-page-results` if you want to redirect the output to a file.",
+    ),
+    experimental_tokens: bool = typer.Option(
+        default=False,
+        help="Whether to include tokens in the summary. Tokens are not in the final Vespa response model, so this requires setting a breakpoint on the raw response.",
+    ),
+    concept_id: list[str] = typer.Option(
+        default=[],
+        help="Filter results by concept ID. Can be used multiple times in the same run.",
+    ),
+    distance_threshold: Optional[float] = typer.Option(
+        default=None,
+        help="Optional threshold for the vector component of hybrid search. Passages with an inner product score below this threshold will be excluded.",
+    ),
 ):
     """Run a search query with different rank profiles."""
     console = Console()
