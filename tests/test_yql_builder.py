@@ -2,12 +2,12 @@ import pytest
 from vespa.exceptions import VespaError
 
 from cpr_sdk.models.search import (
+    ConceptCountFilter,
     Filters,
+    OperandTypeEnum,
     SearchParameters,
     sort_fields,
     sort_orders,
-    ConceptCountFilter,
-    OperandTypeEnum,
 )
 from cpr_sdk.vespa import VespaErrorDetails
 from cpr_sdk.yql_builder import YQLBuilder
@@ -208,3 +208,20 @@ def test_yql_builder_build_concept_count_filter() -> None:
     assert concept_count_filter_clause.replace("  ", "").replace("\n", "") == (
         '((concept_counts contains sameElement(key contains "concept_1_1", value = 101)))'
     )
+
+
+def test_distance_threshold_appears_in_yql():
+    """Test whether the distance_threshold clause appears in the YQL when specified."""
+    # Test with distance_threshold set
+    threshold = 0.7
+    params_with_threshold = SearchParameters(
+        query_string="test", distance_threshold=threshold
+    )
+    yql_with_threshold = YQLBuilder(params_with_threshold).to_str()
+    expected_substring = f'"distanceThreshold": {threshold}'
+    assert expected_substring in yql_with_threshold
+
+    # Test without distance_threshold (default is None)
+    params_without_threshold = SearchParameters(query_string="test")
+    yql_without_threshold = YQLBuilder(params_without_threshold).to_str()
+    assert "distanceThreshold" not in yql_without_threshold

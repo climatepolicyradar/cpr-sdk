@@ -1,20 +1,22 @@
 import time
 from contextlib import nullcontext
-from typing_extensions import Annotated
-from rich.console import Console
-from rich.table import Table
-from rich.markdown import Markdown
+from typing import Optional
+
 import typer
-from cpr_sdk.search_adaptors import VespaSearchAdapter
-from cpr_sdk.models.search import (
-    SearchParameters,
-    Passage,
-    Document,
-    SearchResponse,
-    ConceptFilter,
-)
-from cpr_sdk.vespa import build_vespa_request_body, parse_vespa_response
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.table import Table
+
 from cpr_sdk.config import VESPA_URL
+from cpr_sdk.models.search import (
+    ConceptFilter,
+    Document,
+    Passage,
+    SearchParameters,
+    SearchResponse,
+)
+from cpr_sdk.search_adaptors import VespaSearchAdapter
+from cpr_sdk.vespa import build_vespa_request_body, parse_vespa_response
 
 SCORES_NUM_DECIMALS = 3
 
@@ -49,24 +51,22 @@ def main(
     exact_match: bool = False,
     limit: int = 20,
     show_rank_features: bool = False,
-    page_results: Annotated[
-        bool,
-        typer.Option(
-            help="Whether to use the default terminal pager to show results. Disable with `--no-page-results` if you want to redirect the output to a file."
-        ),
-    ] = True,
-    experimental_tokens: Annotated[
-        bool,
-        typer.Option(
-            help="Whether to include tokens in the summary. Tokens are not in the final Vespa response model, so this requires setting a breakpoint on the raw response."
-        ),
-    ] = False,
-    concept_id: Annotated[
-        list[str],
-        typer.Option(
-            help="Filter results by concept ID. Can be used multiple times in the same run."
-        ),
-    ] = [],
+    page_results: bool = typer.Option(
+        default=True,
+        help="Whether to use the default terminal pager to show results. Disable with `--no-page-results` if you want to redirect the output to a file.",
+    ),
+    experimental_tokens: bool = typer.Option(
+        default=False,
+        help="Whether to include tokens in the summary. Tokens are not in the final Vespa response model, so this requires setting a breakpoint on the raw response.",
+    ),
+    concept_id: list[str] = typer.Option(
+        default=[],
+        help="Filter results by concept ID. Can be used multiple times in the same run.",
+    ),
+    distance_threshold: Optional[float] = typer.Option(
+        default=None,
+        help="Optional threshold for the vector component of hybrid search. Passages with an inner product score below this threshold will be excluded.",
+    ),
 ):
     """Run a search query with different rank profiles."""
     console = Console()
@@ -78,6 +78,7 @@ def main(
         concept_filters=[
             ConceptFilter(name="id", value=concept_id) for concept_id in concept_id
         ],
+        distance_threshold=distance_threshold,
     )
     request_body = build_vespa_request_body(search_parameters)
 
@@ -141,10 +142,10 @@ def main(
             family_url = f"https://app.climatepolicyradar.org/document/{family_data['family_slug']}"
             details = f"""
             [bold]Total hits:[/bold] {len(family.hits)}
-            [bold]Family:[/bold] [link={family_url}]{family_data['family_import_id']}[/link]
-            [bold]Family slug:[/bold] {family_data['family_slug']}
-            [bold]Geography:[/bold] {family_data['family_geography']}
-            [bold]Relevance:[/bold] {family_data['relevance']}
+            [bold]Family:[/bold] [link={family_url}]{family_data["family_import_id"]}[/link]
+            [bold]Family slug:[/bold] {family_data["family_slug"]}
+            [bold]Geography:[/bold] {family_data["family_geography"]}
+            [bold]Relevance:[/bold] {family_data["relevance"]}
             """
 
             console.print(details)

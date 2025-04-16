@@ -316,6 +316,13 @@ class SearchParameters(BaseModel):
     See docs: https://docs.vespa.ai/en/query-rewriting.html#rule-bases
     """
 
+    distance_threshold: Optional[float] = None
+    """
+    Optional threshold for the nearest neighbor search distance. Results with a
+    distance score below this threshold will be excluded. Based on the 'innerproduct'
+    distance metric, lower scores are less relevant.
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""

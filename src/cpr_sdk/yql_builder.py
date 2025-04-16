@@ -64,11 +64,19 @@ class YQLBuilder:
                 )
             """
         else:
-            return """
+            # if specified in the search parameters, add a threshold for the distance
+            # between the query and the text_embedding
+            distance_threshold_clause = (
+                f', "distanceThreshold": {self.params.distance_threshold}'
+                if self.params.distance_threshold is not None
+                else ""
+            )
+
+            return f"""
                 (
                     (userInput(@query_string)) 
                     or (
-                        [{"targetNumHits": 1000}]
+                        [{{\"targetNumHits\": 1000{distance_threshold_clause}}}]
                         nearestNeighbor(text_embedding,query_embedding)
                     )
                 )
@@ -176,11 +184,16 @@ class YQLBuilder:
                     {"!" if concept_count_filter.negate else ""}
                     (
                         concept_counts contains sameElement(
-                            {(
-                                f'key contains "{concept_count_filter.concept_id}", '
-                                if concept_count_filter.concept_id is not None else ""
-                            )}
-                            value {concept_count_filter.operand.value} {concept_count_filter.count}
+                            {
+                        (
+                            f'key contains "{concept_count_filter.concept_id}", '
+                            if concept_count_filter.concept_id is not None
+                            else ""
+                        )
+                    }
+                            value {concept_count_filter.operand.value} {
+                        concept_count_filter.count
+                    }
                         )
                     )
                     """
