@@ -3,7 +3,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "cpr_sdk"
 # This version is a placeholder that is overwritten during release.
 # The placeholder is replaced by the value from the cpr_sdk package itself.
 version = "0.0.0"
@@ -19,11 +18,13 @@ classifiers = [
 
 license = "LICENSE"
 
+[project]
+name = "cpr_sdk"
+
 [project.urls]
 Homepage = "https://github.com/climatepolicyradar/cpr-sdk"
 Repository = "https://github.com/climatepolicyradar/cpr-sdk"
 Changelog = "https://github.com/climatepolicyradar/cpr-sdk/blob/main/CHANGELOG.md"
-
 
 [tool.poetry.dependencies]
 python = "^3.10"
