@@ -125,6 +125,12 @@ schema family_document {
             indexing: summary | attribute
         }
 
+        field document_identifiers type array<string> {
+            indexing: attribute | index
+            match: exact
+            attribute: fast-search
+        }
+
         field corpus_import_id type string {
             indexing: summary | attribute
             attribute: fast-search
@@ -201,6 +207,10 @@ schema family_document {
             query(description_bm25_weight) double: 1.0
             query(description_closeness_weight) double: 1.0
         }
+        function identifier_boost_score() {
+            # Huge score if any query term exactly matches an identifier
+            expression: matches(document_identifiers) * 1E9
+        }
         function name_score() {
             expression: bm25(family_name_index)
         }
@@ -208,9 +218,9 @@ schema family_document {
             expression: query(description_bm25_weight) * bm25(family_description_index) + query(description_closeness_weight) * closeness(family_description_embedding)
         }
         first-phase {
-            expression: (query(name_weight) * name_score()) + (query(description_weight) * description_score())
+            expression: identifier_boost_score() + (query(name_weight) * name_score()) + (query(description_weight) * description_score())
         }
-        summary-features: name_score() description_score() bm25(family_name_index) bm25(family_description_index) closeness(family_description_embedding)
+        summary-features: name_score() description_score() bm25(family_name_index) bm25(family_description_index) closeness(family_description_embedding) identifier_boost_score()
     }
     
     rank-profile hybrid_nativerank inherits default_family {
@@ -219,6 +229,10 @@ schema family_document {
             query(description_nativerank_weight) double: 1.0
             query(description_closeness_weight) double: 1.0
         }
+        function identifier_boost_score() {q
+            # Huge score if any query term exactly matches an identifier
+            expression: matches(document_identifiers) * 1E9
+        }
         function name_score() {
             expression: nativeRank(family_name_index)
         }
@@ -226,9 +240,9 @@ schema family_document {
             expression: query(description_nativerank_weight) * nativeRank(family_description_index) + query(description_closeness_weight) * closeness(family_description_embedding)
         }
         first-phase {
-            expression: (query(name_weight) * name_score()) + (query(description_weight) * description_score())
+            expression: identifier_boost_score() + (query(name_weight) * name_score()) + (query(description_weight) * description_score())
         }
-        summary-features: name_score() description_score() nativeRank(family_name_index) nativeRank(family_description_index) closeness(family_description_embedding)
+        summary-features: name_score() description_score() nativeRank(family_name_index) nativeRank(family_description_index) closeness(family_description_embedding) identifier_boost_score()
     }
 
     rank-profile hybrid_no_closeness inherits hybrid {
