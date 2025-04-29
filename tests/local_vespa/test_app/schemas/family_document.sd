@@ -229,7 +229,7 @@ schema family_document {
             query(description_nativerank_weight) double: 1.0
             query(description_closeness_weight) double: 1.0
         }
-        function identifier_boost_score() {q
+        function identifier_boost_score() {
             # Huge score if any query term exactly matches an identifier
             expression: matches(document_identifiers) * 1E9
         }
