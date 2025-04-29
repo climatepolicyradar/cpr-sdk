@@ -54,13 +54,15 @@ class YQLBuilder:
                 (
                     (family_name_not_stemmed contains({stem: false}@query_string)) or
                     (family_description_not_stemmed contains({stem: false}@query_string)) or
-                    (text_block_not_stemmed contains ({stem: false}@query_string))
+                    (text_block_not_stemmed contains ({stem: false}@query_string)) or
+                    (family_import_id contains @query_string)
                 )
             """
         elif self.sensitive:
             return """
                 (
-                    (userInput(@query_string)) 
+                    (userInput(@query_string)) or
+                    (family_import_id contains @query_string)
                 )
             """
         else:
@@ -74,11 +76,12 @@ class YQLBuilder:
 
             return f"""
                 (
-                    (userInput(@query_string)) 
-                    or (
+                    (userInput(@query_string)) or
+                    (
                         [{{\"targetNumHits\": 1000{distance_threshold_clause}}}]
                         nearestNeighbor(text_embedding,query_embedding)
-                    )
+                    ) or
+                    (family_import_id contains @query_string)
                 )
             """
 
