@@ -74,11 +74,12 @@ class YQLBuilder:
 
             return f"""
                 (
-                    (userInput(@query_string)) 
+                    (userInput(@query_string))
                     or (
                         [{{\"targetNumHits\": 1000{distance_threshold_clause}}}]
                         nearestNeighbor(text_embedding,query_embedding)
                     )
+                    or (document_identifiers contains @query_string)
                 )
             """
 
