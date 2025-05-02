@@ -27,6 +27,8 @@ Tools:
 Scripts/agent flows:
 
 * [x] simple human in the loop searches
+* [x] agentic RAG
+  * [ ] could have response model
 * [ ] agent plans searches and returns results (will require clear models returned by search)
 * [ ] ask a question of a document's PDF given its name or URL
 

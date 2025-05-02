@@ -4,7 +4,7 @@ from pydantic_ai import Agent, DocumentUrl
 from pydantic import BaseModel
 
 GENAI_PROVIDER = "google-gla"
-GENAI_MODEL = "gemini-1.5-pro"
+GENAI_MODEL = "gemini-2.0-flash"
 GENAI_MODEL_PROVIDER = f"{GENAI_PROVIDER}:{GENAI_MODEL}"
 
 
