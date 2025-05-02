@@ -27,10 +27,10 @@ Tools:
 Scripts/agent flows:
 
 * [x] simple human in the loop searches
-* [x] agentic RAG
-  * [ ] could have response model
-* [ ] agent plans searches and returns results (will require clear models returned by search)
-* [ ] ask a question of a document's PDF given its name or URL
+* [X] agent plans searches and returns results 
+  * TODO: clear models returned by search
+* [ ] manual: given URLs, use the PDF tool to answer a prompt about policies in policies
+  * [ ] adjust this example to use the in-document search tool instead. use pydantic-ai's usage tracking to compare the cost of each.
 
 Extras:
 
