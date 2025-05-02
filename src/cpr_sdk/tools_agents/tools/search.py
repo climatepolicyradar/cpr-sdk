@@ -1,12 +1,13 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from cpr_sdk.config import VESPA_URL
 from cpr_sdk.models.search import (
-    Family,
     SearchParameters,
     SearchResponse,
     Passage,
+    Document,
     Filters,
+    Hit,
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 
@@ -22,9 +23,10 @@ def search_database(
     query: str,
     limit: int = 20,
     max_hits_per_family: int = 10,
+    return_type: Literal["documents", "passages", "both"] = "documents",
     filters: Optional[Filters] = None,
     exact_match: bool = False,
-) -> list[Family]:
+) -> list[Hit] | list[Document] | list[Passage]:
     """
     Search whole database.
 
@@ -32,12 +34,12 @@ def search_database(
         query: The query to search for.
         limit: The maximum number of results to return.
         max_hits_per_family: The maximum number of hits to return per family.
+        return_type: The type of results to return.
         filters: The filters to apply to the search.
         exact_match: Whether to use exact matching.
 
     Returns:
-        A list of families containing the search results. Each of these contains a mix of
-        documents and passages.
+        A list of hits containing the search results.
     """
 
     search_adapter = _get_search_adapter()
@@ -50,7 +52,15 @@ def search_database(
     )
 
     response: SearchResponse = search_adapter.search(search_parameters)
-    return list(response.families)
+
+    all_results = [hit for family in response.families for hit in family.hits]
+
+    if return_type == "documents":
+        return [hit for hit in all_results if isinstance(hit, Document)]
+    elif return_type == "passages":
+        return [hit for hit in all_results if isinstance(hit, Passage)]
+    else:
+        return all_results
 
 
 def search_within_document(

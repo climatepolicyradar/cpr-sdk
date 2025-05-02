@@ -19,7 +19,18 @@ Tools:
 * [x] run our product search
 * [x] search within a document
 * [] search for documents based on their titles
-* [] use an AI service to ask a question of a PDF
+
+* [x] use an AI service to ask a question of a PDF
 * [] arbitrarily prompt an LLM, with pydantic models for inputs and outputs
 
-* [] refactor the CLI to use the tool here
+
+Scripts/agent flows:
+
+* [x] simple human in the loop searches
+* [ ] agent plans searches and returns results (will require clear models returned by search)
+* [ ] ask a question of a document's PDF given its name or URL
+
+Extras:
+
+* [] genAI tools have centralised config
+* [] refactor the search CLI to use the tools

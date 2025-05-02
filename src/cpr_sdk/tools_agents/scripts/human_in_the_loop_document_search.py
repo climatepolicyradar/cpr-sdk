@@ -7,42 +7,42 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.prompt import Prompt, IntPrompt, Confirm
 
-from cpr_sdk.models.search import Family, Passage, Filters, Document
+from cpr_sdk.models.search import Passage, Filters, Hit
 from cpr_sdk.tools_agents.tools.search import search_database, search_within_document
 
 console = Console()
 
 
-def display_search_results(families: list[Family]) -> None:
+def display_search_results(documents: list[Hit]) -> None:
     """Display search results in a readable format."""
 
-    if not families:
+    if not documents:
         console.print("[bold red]No results found.[/bold red]")
         return
 
-    for i, family in enumerate(families, 1):
-        documents = [hit for hit in family.hits if isinstance(hit, Document)]
-        family_name = documents[0].family_name
-        family_description = documents[0].family_description
-        family_source = documents[0].family_source
+    console.print(Panel("[bold]Document Search Results[/bold]", style="cyan"))
 
-        table = Table(show_header=False, box=None, padding=(0, 1))
-        table.add_row(
-            f"[bold cyan]{i}. {family_name}[/bold cyan] [dim](ID: {family.id})[/dim]"
+    doc_table = Table(show_header=True)
+    doc_table.add_column("#", style="dim")
+    doc_table.add_column("Document Title", style="cyan")
+    doc_table.add_column("Family", style="green")
+    doc_table.add_column("Source", style="yellow")
+    doc_table.add_column("Type", style="blue")
+    doc_table.add_column("ID", style="dim")
+    doc_table.add_column("Geographies", style="magenta")
+
+    for i, doc in enumerate(documents, 1):
+        doc_table.add_row(
+            str(i),
+            doc.document_title or "Untitled",
+            doc.family_name or "Unknown",
+            doc.family_source or "Unknown",
+            doc.document_content_type or "Unknown",
+            doc.document_import_id or "No ID",
+            ", ".join(doc.family_geographies) if doc.family_geographies else "Unknown",
         )
-        table.add_row(f"[yellow]Source:[/yellow] {family_source}")
 
-        if family_description:
-            table.add_row(
-                f"[yellow]Description:[/yellow] {family_description[:100]}..."
-            )
-
-        for document in documents:
-            table.add_row(
-                f"[green]Document:[/green] {document.document_title} [dim]({document.document_slug})[/dim]"
-            )
-
-        console.print(Panel(table, expand=False))
+    console.print(doc_table)
 
 
 def display_passages(passages: list[Passage]) -> None:
@@ -64,6 +64,7 @@ def display_passages(passages: list[Passage]) -> None:
 
 def search_document_workflow(
     filters: Optional[Filters] = None,
+    limit: int = 20,
 ) -> None:
     """Run the interactive workflow to find a document and search within it."""
 
@@ -71,86 +72,35 @@ def search_document_workflow(
     console.print(Panel("[bold]Document Search[/bold]", style="cyan"))
     initial_query = Prompt.ask("Enter search query to find a document")
 
-    limit = IntPrompt.ask("Maximum number of results to return", default=20)
-    max_hits = IntPrompt.ask("Maximum hits per family", default=10)
-    exact_match = Confirm.ask("Use exact matching?", default=False)
-
     with console.status("[bold green]Searching database...[/bold green]"):
-        families = search_database(
+        documents = search_database(
             query=initial_query,
             limit=limit,
-            max_hits_per_family=max_hits,
             filters=filters,
-            exact_match=exact_match,
+            exact_match=False,
+            return_type="documents",
         )
 
-    display_search_results(families)
+    display_search_results(documents)
 
-    if not families:
+    if not documents:
         console.print(
             "[bold red]No documents found. Please try a different search.[/bold red]"
         )
         return
 
-    # Step 2: Select a family
+    # Step 2: Select a document
     while True:
         selection = Prompt.ask(
-            f"Select a document [dim](1-{len(families)}) or 'q' to quit[/dim]"
+            f"Select a document [dim](1-{len(documents)}) or 'q' to quit[/dim]"
         )
         if selection.lower() == "q":
             return
 
         try:
             idx = int(selection) - 1
-            if 0 <= idx < len(families):
-                selected_family: Family = families[idx]
-                break
-            else:
-                console.print(
-                    f"[yellow]Please enter a number between 1 and {len(families)}[/yellow]"
-                )
-        except ValueError:
-            console.print("[yellow]Please enter a valid number or 'q'[/yellow]")
-
-    documents = [hit for hit in selected_family.hits if isinstance(hit, Document)]
-    console.print(
-        f"\nSelected family: [bold cyan]{documents[0].family_name}[/bold cyan] [dim](ID: {selected_family.id})[/dim]"
-    )
-
-    # Step 3: Select a specific document within the family
-    if not documents:
-        console.print("[bold red]No documents found in this family.[/bold red]")
-        return
-
-    console.print(Panel("[bold]Documents in Selected Family[/bold]", style="cyan"))
-
-    doc_table = Table(show_header=True)
-    doc_table.add_column("#", style="dim")
-    doc_table.add_column("Title", style="cyan")
-    doc_table.add_column("Type", style="green")
-    doc_table.add_column("ID", style="dim")
-
-    for i, doc in enumerate(documents, 1):
-        doc_table.add_row(
-            str(i),
-            doc.document_title or "Untitled",
-            doc.document_content_type or "Unknown",
-            doc.document_import_id,
-        )
-
-    console.print(doc_table)
-
-    while True:
-        doc_selection = Prompt.ask(
-            f"Select a document [dim](1-{len(documents)}) or 'q' to quit[/dim]"
-        )
-        if doc_selection.lower() == "q":
-            return
-
-        try:
-            doc_idx = int(doc_selection) - 1
-            if 0 <= doc_idx < len(documents):
-                selected_document = documents[doc_idx]
+            if 0 <= idx < len(documents):
+                selected_document = documents[idx]
                 document_id = selected_document.document_import_id
                 if document_id is None:
                     console.print("[bold red]Selected document has no ID.[/bold red]")
@@ -166,7 +116,7 @@ def search_document_workflow(
         except ValueError:
             console.print("[yellow]Please enter a valid number or 'q'[/yellow]")
 
-    # Step 4: Search within the document
+    # Step 3: Search within the document
     while True:
         console.print(Panel("[bold]Search Within Document[/bold]", style="cyan"))
         doc_query = Prompt.ask("Enter search query for the document (or 'q' to quit)")
@@ -174,7 +124,7 @@ def search_document_workflow(
         if doc_query.lower() == "q":
             break
 
-        doc_limit = IntPrompt.ask("Maximum passages to return", default=20)
+        doc_limit = IntPrompt.ask("Maximum passages to return", default=100)
         doc_exact_match = Confirm.ask("Use exact matching?", default=False)
 
         with console.status("[bold green]Searching within document...[/bold green]"):
