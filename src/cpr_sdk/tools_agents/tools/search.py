@@ -83,6 +83,9 @@ def search_within_document(
 
     response: SearchResponse = search_adapter.search(search_parameters)
 
+    if len(response.families) == 0:
+        return []
+
     hits: list[Passage] = [
         _hit for _hit in response.families[0].hits if isinstance(_hit, Passage)
     ]

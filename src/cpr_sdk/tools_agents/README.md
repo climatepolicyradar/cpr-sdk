@@ -32,5 +32,7 @@ Scripts/agent flows:
 
 Extras:
 
+* [] add logging to tools so you know what's being called
 * [] genAI tools have centralised config
+* [] genAI system prompt for agent?
 * [] refactor the search CLI to use the tools
