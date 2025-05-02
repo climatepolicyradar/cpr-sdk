@@ -37,6 +37,7 @@ def do_rag(query: str, pdf: bool = False) -> None:
         
         If you can't find any evidence to support the user's query, just say so.
         """,
+        tools=tools,
     )
     result = search_agent.run_sync(query)
 
