@@ -20,7 +20,7 @@ Tools:
 
 * [x] run our product search
 * [x] search within a document
-* [] search for documents based on their titles (rathter than family titles)
+* [] search for documents based on their titles (rather than family titles)
 
 * [x] use an AI service to ask a question of a PDF
 * [] arbitrarily prompt an LLM, with pydantic models for inputs and outputs
