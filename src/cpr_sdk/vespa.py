@@ -88,6 +88,12 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
         else False
     )
 
+    if parameters.by_document_title and not parameters.documents_only:
+        _LOGGER.warning(
+            "Searching by document title is not supported when documents_only is False. Setting documents_only to True."
+        )
+        parameters.documents_only = True
+
     yql = YQLBuilder(params=parameters, sensitive=sensitive).to_str()
     vespa_request_body: dict[str, Any] = {
         "yql": yql,
@@ -102,6 +108,8 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
         vespa_request_body["ranking.profile"] = "exact_not_stemmed"
     elif sensitive:
         vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
+    elif parameters.by_document_title:
+        vespa_request_body["ranking.profile"] = "bm25_document_title"
     else:
         vespa_request_body["ranking.profile"] = "hybrid"
         vespa_request_body["input.query(query_embedding)"] = (

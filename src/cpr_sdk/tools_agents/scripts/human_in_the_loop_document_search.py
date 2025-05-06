@@ -8,7 +8,10 @@ from rich.table import Table
 from rich.prompt import Prompt, IntPrompt, Confirm
 
 from cpr_sdk.models.search import Passage, Filters, Hit
-from cpr_sdk.tools_agents.tools.search import search_database, search_within_document
+from cpr_sdk.tools_agents.tools.search import (
+    search_within_document,
+    search_for_documents_by_title,
+)
 
 console = Console()
 
@@ -73,15 +76,12 @@ def search_document_workflow(
     initial_query = Prompt.ask("Enter search query to find a document")
 
     with console.status("[bold green]Searching database...[/bold green]"):
-        documents = search_database(
-            query=initial_query,
+        documents = search_for_documents_by_title(
+            title=initial_query,
             limit=limit,
-            filters=filters,
-            exact_match=False,
-            return_type="documents",
         )
 
-    display_search_results(documents)
+    display_search_results(documents)  # type: ignore
 
     if not documents:
         console.print(

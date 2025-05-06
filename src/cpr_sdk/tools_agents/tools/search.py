@@ -63,6 +63,37 @@ def search_database(
         return all_results
 
 
+def search_for_documents_by_title(
+    title: str,
+    limit: int = 20,
+) -> list[Document]:
+    """
+    Search for documents by title.
+
+    Args:
+        title: The title to search for.
+        limit: The maximum number of documents to return.
+
+    Returns:
+        A list of documents containing the search results.
+    """
+    search_parameters = SearchParameters(
+        query_string=title,
+        limit=limit,
+        by_document_title=True,
+        documents_only=True,
+    )
+
+    search_adapter = _get_search_adapter()
+    response: SearchResponse = search_adapter.search(search_parameters)
+
+    all_results = [hit for family in response.families for hit in family.hits]
+
+    # We set the limit here as the limit in the query doesn't seem to work.
+    # TODO: Investigate why the limit in the query doesn't work.
+    return [hit for hit in all_results if isinstance(hit, Document)][:limit]
+
+
 def search_within_document(
     document_id: str,
     query: str,
