@@ -64,21 +64,21 @@ def search_database(
 
 
 def search_for_documents_by_title(
-    title: str,
+    query: str,
     limit: int = 20,
 ) -> list[Document]:
     """
     Search for documents by title.
 
     Args:
-        title: The title to search for.
+        query: The title to search for.
         limit: The maximum number of documents to return.
 
     Returns:
         A list of documents containing the search results.
     """
     search_parameters = SearchParameters(
-        query_string=title,
+        query_string=query,
         limit=limit,
         by_document_title=True,
         documents_only=True,

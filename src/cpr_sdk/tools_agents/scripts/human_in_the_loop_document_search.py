@@ -77,7 +77,7 @@ def search_document_workflow(
 
     with console.status("[bold green]Searching database...[/bold green]"):
         documents = search_for_documents_by_title(
-            title=initial_query,
+            query=initial_query,
             limit=limit,
         )
 
