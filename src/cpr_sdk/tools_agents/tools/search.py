@@ -26,7 +26,7 @@ def search_database(
     return_type: Literal["documents", "passages", "both"] = "documents",
     filters: Optional[Filters] = None,
     exact_match: bool = False,
-) -> list[Hit] | list[Document] | list[Passage]:
+) -> list[Hit]:
     """
     Search whole database.
 
