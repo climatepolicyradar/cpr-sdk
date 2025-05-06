@@ -66,7 +66,7 @@ class YQLBuilder:
         elif self.params.by_document_title:
             return """
                 (
-                    (document_title_not_stemmed contains({stem: false}@query_string))
+                    (document_title_index contains(@query_string))
                 )
             """
         else:
