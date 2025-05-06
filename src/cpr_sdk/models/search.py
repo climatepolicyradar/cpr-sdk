@@ -449,6 +449,7 @@ class Hit(BaseModel):
     document_content_type: Optional[str] = None
     document_cdn_object: Optional[str] = None
     document_source_url: Optional[str] = None
+    document_title: Optional[str] = None
     corpus_type_name: Optional[str] = None
     corpus_import_id: Optional[str] = None
     metadata: Optional[Sequence[dict[str, str]]] = None
@@ -531,6 +532,7 @@ class Document(Hit):
             document_content_type=fields.get("document_content_type"),
             document_cdn_object=fields.get("document_cdn_object"),
             document_source_url=fields.get("document_source_url"),
+            document_title=fields.get("document_title"),
             corpus_type_name=fields.get("corpus_type_name"),
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),

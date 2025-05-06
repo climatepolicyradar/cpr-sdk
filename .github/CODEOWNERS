@@ -3,3 +3,4 @@ src/cpr_sdk/search_intention_testing/ @climatepolicyradar/datascience
 src/cpr_sdk/cli/search.py @climatepolicyradar/datascience
 tests/search_intentions/ @climatepolicyradar/datascience
 src/version.py @climatepolicyradar/datascience @climatepolicyradar/deng
+src/cpr_sdk/tools_agents/ @climatepolicyradar/datascience

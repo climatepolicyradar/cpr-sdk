@@ -82,7 +82,11 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
 
 def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
     """Constructs the payload for a vespa query"""
-    sensitive = is_sensitive_query(parameters.query_string, SENSITIVE_QUERY_TERMS)
+    sensitive = (
+        is_sensitive_query(parameters.query_string, SENSITIVE_QUERY_TERMS)
+        if parameters.query_string
+        else False
+    )
 
     yql = YQLBuilder(params=parameters, sensitive=sensitive).to_str()
     vespa_request_body: dict[str, Any] = {

@@ -73,6 +73,12 @@ pyvespa = "^0.45.0"
 python-dotenv = ">=0.21.0"
 pytest-dotenv = "^0.5.2"
 
+[tool.poetry.group.tools_agents]
+optional = true
+
+[tool.poetry.group.tools_agents.dependencies]
+pydantic-ai = "^0.1.9"
+
 [tool.pytest.ini_options]
 addopts = "-p no:cacheprovider"
 env_files = """
