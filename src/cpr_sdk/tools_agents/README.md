@@ -10,7 +10,9 @@ This submodule enables the following:
 
 ## Setup
 
-1. Install this submodule's dependency group: `poetry install --with tools_agents
+1. Install this submodule's dependency group: `poetry install --with tools_agents.
+2. Add any API keys needed to `.env`.  Using Gemini (default) requires a valid `GEMINI_API_KEY`.
+3. Try one of the examples in `scripts/`
 
 ## Requirements (in progress)
 
@@ -18,11 +20,10 @@ Tools:
 
 * [x] run our product search
 * [x] search within a document
-* [] search for documents based on their titles
+* [] search for documents based on their titles (rathter than family titles)
 
 * [x] use an AI service to ask a question of a PDF
 * [] arbitrarily prompt an LLM, with pydantic models for inputs and outputs
-
 
 Scripts/agent flows:
 
@@ -35,6 +36,4 @@ Scripts/agent flows:
 Extras:
 
 * [] add logging to tools so you know what's being called
-* [] genAI tools have centralised config
-* [] genAI system prompt for agent?
 * [] refactor the search CLI to use the tools
