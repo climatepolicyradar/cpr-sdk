@@ -323,15 +323,16 @@ class SearchParameters(BaseModel):
     distance metric, lower scores are less relevant.
     """
 
+    by_document_title: bool = False
+    """
+    Whether to search by document title rather than family title.
+    """
+
     @model_validator(mode="after")
     def validate(self):
         """Validate against mutually exclusive fields"""
         if self.exact_match and self.all_results:
             raise ValueError("`exact_match` and `all_results` are mutually exclusive")
-        if self.documents_only and not self.all_results:
-            raise ValueError(
-                "`documents_only` requires `all_results`, other queries are not supported"
-            )
         return self
 
     @model_validator(mode="after")

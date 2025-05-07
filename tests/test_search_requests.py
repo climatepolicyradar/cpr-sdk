@@ -51,19 +51,6 @@ def test_whether_an_empty_query_string_does_all_result_search():
         pytest.fail(f"{e.__class__.__name__}: {e}")
 
 
-def test_wether_documents_only_without_all_results_raises_error():
-    q = "Search"
-    with pytest.raises(ValidationError) as excinfo:
-        SearchParameters(query_string=q, documents_only=True)
-    assert "`documents_only` requires `all_results`" in str(excinfo.value)
-
-    # They should be fine otherwise:
-    try:
-        SearchParameters(query_string=q, all_results=True, documents_only=True)
-    except Exception as e:
-        pytest.fail(f"{e.__class__.__name__}: {e}")
-
-
 def test_wether_combining_all_results_and_exact_match_raises_error():
     q = "Search"
     with pytest.raises(ValidationError) as excinfo:

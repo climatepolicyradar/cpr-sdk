@@ -20,7 +20,7 @@ Tools:
 
 * [x] run our product search
 * [x] search within a document
-* [] search for documents based on their titles (rather than family titles)
+* [x] search for documents based on their titles (rather than family titles)
 
 * [x] use an AI service to ask a question of a PDF
 * [] arbitrarily prompt an LLM, with pydantic models for inputs and outputs
@@ -28,7 +28,7 @@ Tools:
 Scripts/agent flows:
 
 * [x] simple human in the loop searches
-* [X] agent plans searches and returns results 
+* [x] agent plans searches and returns results
   * TODO: clear models returned by search
 * [ ] manual: given URLs, use the PDF tool to answer a prompt about policies in policies
   * [ ] adjust this example to use the in-document search tool instead. use pydantic-ai's usage tracking to compare the cost of each.

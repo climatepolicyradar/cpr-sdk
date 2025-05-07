@@ -63,6 +63,12 @@ class YQLBuilder:
                     (userInput(@query_string)) 
                 )
             """
+        elif self.params.by_document_title:
+            return """
+                (
+                    (document_title_index contains(@query_string))
+                )
+            """
         else:
             # if specified in the search parameters, add a threshold for the distance
             # between the query and the text_embedding
