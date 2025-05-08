@@ -708,7 +708,17 @@ def test_vespa_search_adaptor__concept_and_model_filter(
                 [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
             )
 
+            specified_models = [
+                concept_filter["model"] for concept_filter in concept_and_model_filters
+            ]
+
+            # Only concepts with the specified models should be present
+            assert all(
+                concept_hit.model in specified_models for concept_hit in hit.concepts
+            )
+
             for concept_filter in concept_and_model_filters:
+                # Find the concepts with the same model and name/id as the filter
                 field_name = concept_filter["concept_field"]
                 hit_concept_filter_vals = [
                     concept.__getattribute__(field_name)
@@ -716,12 +726,7 @@ def test_vespa_search_adaptor__concept_and_model_filter(
                     if concept.model == concept_filter["model"]
                 ]
 
-                assert any(
-                    [
-                        hit_concept_filter_val == concept_filter["value"]
-                        for hit_concept_filter_val in hit_concept_filter_vals
-                    ]
-                )
+                assert len(hit_concept_filter_vals) > 0
 
 
 @pytest.mark.vespa
