@@ -1,5 +1,5 @@
 from timeit import timeit
-from typing import Mapping, Union
+from typing import Mapping, Union, Optional
 from unittest.mock import patch
 
 import pytest
@@ -7,6 +7,7 @@ import pytest
 from cpr_sdk.models.search import (
     Concept,
     ConceptCountFilter,
+    ConceptAndModelFilter,
     ConceptFilter,
     Document,
     Filters,
@@ -646,6 +647,106 @@ def test_vespa_search_adaptor__concept_filter(
                             for hit_concept_filter_val in hit_concept_filter_vals
                         ]
                     )
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, family_ids, concept_and_model_filters",
+    [
+        (
+            "the",
+            None,
+            [
+                {"concept_field": "name", "value": "sectors", "model": "sectors_model"},
+                {
+                    "concept_field": "name",
+                    "value": "environment",
+                    "model": "environment_model",
+                },
+            ],
+        ),
+        # Two variants of the same filter, one using the name field and the other the ID field
+        (
+            "the",
+            None,
+            [
+                {
+                    "concept_field": "name",
+                    "value": "environment",
+                    "model": "environment_model",
+                }
+            ],
+        ),
+        (
+            "the",
+            None,
+            [
+                {
+                    "concept_field": "id",
+                    "value": "concept_2_2",
+                    "model": "environment_model",
+                },
+            ],
+        ),
+        # This is a specific test case for a piece of data which has two overlapping
+        # concept annotations for the same concept, with two different model IDs.
+        (
+            "",
+            ["CCLW.family.10014.0"],
+            [
+                {
+                    "concept_field": "name",
+                    "value": "sectors",
+                    "model": "sectors_model_2",
+                },
+            ],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_and_model_filter(
+    test_vespa,
+    query_string: str,
+    family_ids: Optional[str],
+    concept_and_model_filters: list[dict],
+):
+    """Test that the concept and model filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        family_ids=family_ids,
+        concept_and_model_filters=[
+            ConceptAndModelFilter.model_validate(_filter)
+            for _filter in concept_and_model_filters
+        ],
+        documents_only=False,
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.concepts and hit.concepts != []
+            assert all(
+                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
+            )
+
+            specified_models = [
+                concept_filter["model"] for concept_filter in concept_and_model_filters
+            ]
+
+            # Only concept annotations with the specified models should be present
+            assert all(
+                concept_hit.model in specified_models for concept_hit in hit.concepts
+            )
+
+            for concept_filter in concept_and_model_filters:
+                # Find the concepts with the same model and name/id as the filter
+                field_name = concept_filter["concept_field"]
+                hit_concept_filter_vals = [
+                    concept.__getattribute__(field_name)
+                    for concept in hit.concepts
+                    if concept.model == concept_filter["model"]
+                ]
+
+                assert len(hit_concept_filter_vals) > 0
 
 
 @pytest.mark.vespa
