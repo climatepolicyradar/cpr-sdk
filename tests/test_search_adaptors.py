@@ -7,6 +7,7 @@ import pytest
 from cpr_sdk.models.search import (
     Concept,
     ConceptCountFilter,
+    ConceptAndModelFilter,
     ConceptFilter,
     Document,
     Filters,
@@ -646,6 +647,81 @@ def test_vespa_search_adaptor__concept_filter(
                             for hit_concept_filter_val in hit_concept_filter_vals
                         ]
                     )
+
+
+@pytest.mark.vespa
+@pytest.mark.parametrize(
+    "query_string, concept_and_model_filters",
+    [
+        (
+            "the",
+            [
+                {"concept_field": "name", "value": "sectors", "model": "sectors_model"},
+                {
+                    "concept_field": "name",
+                    "value": "environment",
+                    "model": "environment_model",
+                },
+            ],
+        ),
+        # Two variants of the same filter, one using the name field and the other the ID field
+        (
+            "the",
+            [
+                {
+                    "concept_field": "name",
+                    "value": "environment",
+                    "model": "environment_model",
+                }
+            ],
+        ),
+        (
+            "the",
+            [
+                {
+                    "concept_field": "id",
+                    "value": "concept_2_2",
+                    "model": "environment_model",
+                },
+            ],
+        ),
+    ],
+)
+def test_vespa_search_adaptor__concept_and_model_filter(
+    test_vespa, query_string: str, concept_and_model_filters: list[dict]
+):
+    """Test that the concept and model filter works"""
+    request = SearchParameters(
+        query_string=query_string,
+        concept_and_model_filters=[
+            ConceptAndModelFilter.model_validate(_filter)
+            for _filter in concept_and_model_filters
+        ],
+        documents_only=False,
+    )
+    response = vespa_search(test_vespa, request)
+    assert response.total_family_hits > 0
+    for family in response.families:
+        for hit in family.hits:
+            assert hit.concepts and hit.concepts != []
+            assert all(
+                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
+            )
+
+            for concept_filter in concept_and_model_filters:
+                field_name = concept_filter["concept_field"]
+                hit_concept_filter_vals = [
+                    concept.__getattribute__(field_name)
+                    for concept in hit.concepts
+                    if concept.model == concept_filter["model"]
+                ]
+
+                assert any(
+                    [
+                        hit_concept_filter_val == concept_filter["value"]
+                        for hit_concept_filter_val in hit_concept_filter_vals
+                    ]
+                )
 
 
 @pytest.mark.vespa

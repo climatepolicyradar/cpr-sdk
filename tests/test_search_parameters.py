@@ -19,7 +19,7 @@ from cpr_sdk.models.search import SearchParameters
                 "concept_filters": [{"name": "name", "value": "environment"}],
             },
             True,
-            "Cannot set concept_filters when only searching documents.",
+            "Cannot set concept_filters or concept_and_model_filters when only searching documents.",
         ),
         (
             {

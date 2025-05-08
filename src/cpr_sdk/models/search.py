@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 from enum import Enum
 from typing import Any, List, Literal, Optional, Sequence
+from typing_extensions import Self
 
 from pydantic import (
     AliasChoices,
@@ -64,7 +65,7 @@ class ConceptFilter(BaseModel):
     value: str
 
     @model_validator(mode="after")
-    def validate_parent_concept_ids_flat(self) -> "ConceptFilter":
+    def validate_parent_concept_ids_flat(self) -> Self:
         """
         Validate parent_concept_ids_flat field.
 
@@ -85,6 +86,14 @@ class ConceptFilter(BaseModel):
         ):
             self.value = self.value + ","
         return self
+
+
+class ConceptAndModelFilter(BaseModel):
+    """A filter for concept fields, which also filters on model"""
+
+    concept_field: Literal["name", "id"]
+    value: str
+    model: str
 
 
 class Concept(BaseModel):
@@ -112,7 +121,7 @@ class Concept(BaseModel):
     )
 
     @model_validator(mode="after")
-    def validate_parent_concept_ids_flat(self) -> "Concept":
+    def validate_parent_concept_ids_flat(self) -> Self:
         """
         Validate parent_concept_ids_flat field.
 
@@ -299,6 +308,14 @@ class SearchParameters(BaseModel):
     A field and item mapping to search in the concepts field of the document passages.
     """
 
+    concept_and_model_filters: Optional[Sequence[ConceptAndModelFilter]] = None
+    """
+    A field and item mapping to search in the concepts field of the document passages,
+    which also strictly filters on model ID for the concept. Use instead of 
+    concept_filters if you need to filter on predictions from a specific model for a 
+    concept.
+    """
+
     custom_vespa_request_body: Optional[dict[str, Any]] = None
     """
     Extra fields to be added to the vespa request body. Overrides any existing fields,
@@ -324,7 +341,7 @@ class SearchParameters(BaseModel):
     """
 
     @model_validator(mode="after")
-    def validate(self):
+    def validate(self) -> Self:
         """Validate against mutually exclusive fields"""
         if self.exact_match and self.all_results:
             raise ValueError("`exact_match` and `all_results` are mutually exclusive")
@@ -335,11 +352,23 @@ class SearchParameters(BaseModel):
         return self
 
     @model_validator(mode="after")
-    def concept_filters_not_set_if_documents_only(self) -> "SearchParameters":
+    def concept_filters_not_set_if_documents_only(self) -> Self:
         """Ensure concept_filters are not set if browse mode (documents_only) is set."""
-        if self.concept_filters is not None and self.documents_only is True:
+        if (
+            any([self.concept_filters, self.concept_and_model_filters])
+            and self.documents_only is True
+        ):
             raise ValueError(
-                "Cannot set concept_filters when only searching documents. This is as concept_filters are only applicable to passages."
+                "Cannot set concept_filters or concept_and_model_filters when only searching documents. This is as concept_filters are only applicable to passages."
+            )
+        return self
+
+    @model_validator(mode="after")
+    def concept_filters_and_concept_model_filters_mutually_exclusive(self) -> Self:
+        """Ensure that both concept_filters and concept_model_filters are not set."""
+        if self.concept_filters and self.concept_and_model_filters:
+            raise ValueError(
+                "Cannot set both concept_filters and concept_model_filters. Use one or the other."
             )
         return self
 

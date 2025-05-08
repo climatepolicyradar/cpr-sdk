@@ -2,6 +2,7 @@ import pytest
 from vespa.exceptions import VespaError
 
 from cpr_sdk.models.search import (
+    ConceptAndModelFilter,
     ConceptCountFilter,
     Filters,
     OperandTypeEnum,
@@ -225,3 +226,22 @@ def test_distance_threshold_appears_in_yql():
     params_without_threshold = SearchParameters(query_string="test")
     yql_without_threshold = YQLBuilder(params_without_threshold).to_str()
     assert "distanceThreshold" not in yql_without_threshold
+
+
+def test_yql_builder_build_concept_and_model_filter():
+    """Test that the concept and model filter is built correctly."""
+    params = SearchParameters(
+        concept_and_model_filters=[
+            ConceptAndModelFilter(
+                concept_field="name", value="floods", model="shiny-new-model-yay"
+            ),
+            ConceptAndModelFilter(
+                concept_field="id", value="Q123", model="q123-model-from-tuesday"
+            ),
+        ]
+    )
+    yql = YQLBuilder(params).build_concept_and_model_filter()
+    assert (
+        yql
+        == "(concepts contains sameElement(name contains('floods'), model contains('shiny-new-model-yay')) and concepts contains sameElement(id contains('Q123'), model contains('q123-model-from-tuesday')))"
+    )
