@@ -352,8 +352,9 @@ class SearchParameters(BaseModel):
         return self
 
     @model_validator(mode="after")
-    def concept_filters_not_set_if_documents_only(self) -> Self:
-        """Ensure concept_filters are not set if browse mode (documents_only) is set."""
+    def validate_concept_filters(self) -> Self:
+        """Validate concept filters"""
+        # Ensure concept_filters are not set if browse mode (documents_only) is set.
         if (
             any([self.concept_filters, self.concept_and_model_filters])
             and self.documents_only is True
@@ -361,11 +362,8 @@ class SearchParameters(BaseModel):
             raise ValueError(
                 "Cannot set concept_filters or concept_and_model_filters when only searching documents. This is as concept_filters are only applicable to passages."
             )
-        return self
 
-    @model_validator(mode="after")
-    def concept_filters_and_concept_model_filters_mutually_exclusive(self) -> Self:
-        """Ensure that both concept_filters and concept_model_filters are not set."""
+        # Ensure that both concept_filters and concept_model_filters are not set.
         if self.concept_filters and self.concept_and_model_filters:
             raise ValueError(
                 "Cannot set both concept_filters and concept_model_filters. Use one or the other."
