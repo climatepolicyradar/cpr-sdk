@@ -196,17 +196,9 @@ class BaseParserOutput(BaseModel):
         """
         Validate the relationship between content-type and the data that is set.
 
-        Check that html_data is set if content_type is HTML, or pdf_data is set if
-        content_type is PDF.
-
         Check that if the content-type is not HTML or PDF, then html_data and pdf_data
         are both null.
         """
-        if self.document_content_type == CONTENT_TYPE_HTML and self.html_data is None:
-            raise ValueError("html_data must be set for HTML documents")
-
-        if self.document_content_type == CONTENT_TYPE_PDF and self.pdf_data is None:
-            raise ValueError("pdf_data must be set for PDF documents")
 
         if self.document_content_type not in {
             CONTENT_TYPE_HTML,
@@ -234,12 +226,11 @@ class BaseParserOutput(BaseModel):
 
         :return: Sequence[TextBlock]
         """
-        if self.document_content_type == CONTENT_TYPE_HTML:
-            html_data: Union[HTMLData, None] = self.html_data
-            return html_data.text_blocks if html_data else []
-        elif self.document_content_type == CONTENT_TYPE_PDF:
-            pdf_data: Union[PDFData, None] = self.pdf_data
-            return pdf_data.text_blocks if pdf_data else []
+
+        if self.html_data is not None:
+            return self.html_data.text_blocks
+        elif self.pdf_data is not None:
+            return self.pdf_data.text_blocks
         return []
 
     def to_string(self) -> str:  # type: ignore
