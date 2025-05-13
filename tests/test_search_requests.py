@@ -51,7 +51,7 @@ def test_whether_an_empty_query_string_does_all_result_search():
         pytest.fail(f"{e.__class__.__name__}: {e}")
 
 
-def test_wether_combining_all_results_and_exact_match_raises_error():
+def test_whether_combining_all_results_and_exact_match_raises_error():
     q = "Search"
     with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string=q, exact_match=True, all_results=True)
