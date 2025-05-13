@@ -18,6 +18,10 @@ from cpr_sdk.vespa import build_vespa_request_body
         ("hybrid", SearchParameters(query_string="test")),
         ("exact", SearchParameters(query_string="test", exact_match=True)),
         ("hybrid_no_closeness", SearchParameters(query_string="sensitive")),
+        (
+            "bm25_document_title",
+            SearchParameters(query_string="test", by_document_title=True),
+        ),
     ],
 )
 def test_build_vespa_request_body(query_type, params):

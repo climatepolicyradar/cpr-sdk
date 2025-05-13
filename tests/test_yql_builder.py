@@ -225,3 +225,10 @@ def test_distance_threshold_appears_in_yql():
     params_without_threshold = SearchParameters(query_string="test")
     yql_without_threshold = YQLBuilder(params_without_threshold).to_str()
     assert "distanceThreshold" not in yql_without_threshold
+
+
+def test_by_document_title_appears_in_yql():
+    """Test whether the searchable document title field appears in the YQL when specified."""
+    params = SearchParameters(query_string="test", by_document_title=True)
+    yql = YQLBuilder(params).to_str()
+    assert "document_title_index" in yql
