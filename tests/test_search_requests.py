@@ -13,10 +13,10 @@ from cpr_sdk.vespa import build_vespa_request_body
     {re.compile(r"\b" + re.escape("sensitive") + r"\b")},
 )
 @pytest.mark.parametrize(
-    "query_type, params",
+    "expected_rank_profile, params",
     [
         ("hybrid", SearchParameters(query_string="test")),
-        ("exact", SearchParameters(query_string="test", exact_match=True)),
+        ("exact_not_stemmed", SearchParameters(query_string="test", exact_match=True)),
         ("hybrid_no_closeness", SearchParameters(query_string="sensitive")),
         (
             "bm25_document_title",
@@ -24,17 +24,13 @@ from cpr_sdk.vespa import build_vespa_request_body
         ),
     ],
 )
-def test_build_vespa_request_body(query_type, params):
+def test_build_vespa_request_body(expected_rank_profile, params):
     body = build_vespa_request_body(parameters=params)
-    assert (
-        body["ranking.profile"] == query_type
-        if query_type != "exact"
-        else "exact_not_stemmed"
-    )
+    assert body["ranking.profile"] == expected_rank_profile
     for key, value in body.items():
         assert (
             not isinstance(value, str) or len(value) > 0
-        ), f"Query type: {query_type} has an empty value for {key}: {value}"
+        ), f"Search parameters: {params} has an empty value for {key}: {value}"
 
 
 def test_build_vespa_request_body__all():
