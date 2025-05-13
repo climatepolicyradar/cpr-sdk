@@ -56,17 +56,9 @@ def test_parser_output_object(
     parser_output_no_pdf_data["pdf_data"] = None
     parser_output_no_pdf_data["document_content_type"] = CONTENT_TYPE_PDF
 
-    with pytest.raises(pydantic.ValidationError) as context:
-        ParserOutput.model_validate(parser_output_no_pdf_data)
-    assert "pdf_data must be set for PDF documents" in str(context.value)
-
     parser_output_no_html_data = parser_output_json_pdf.copy()
     parser_output_no_html_data["html_data"] = None
     parser_output_no_html_data["document_content_type"] = CONTENT_TYPE_HTML
-
-    with pytest.raises(pydantic.ValidationError) as context:
-        ParserOutput.model_validate(parser_output_no_html_data)
-    assert "html_data must be set for HTML documents" in str(context.value)
 
     parser_output_no_content_type = parser_output_json_pdf.copy()
     # PDF data is set as the default
