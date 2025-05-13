@@ -13,24 +13,24 @@ from cpr_sdk.vespa import build_vespa_request_body
     {re.compile(r"\b" + re.escape("sensitive") + r"\b")},
 )
 @pytest.mark.parametrize(
-    "query_type, params",
+    "expected_rank_profile, params",
     [
         ("hybrid", SearchParameters(query_string="test")),
-        ("exact", SearchParameters(query_string="test", exact_match=True)),
+        ("exact_not_stemmed", SearchParameters(query_string="test", exact_match=True)),
         ("hybrid_no_closeness", SearchParameters(query_string="sensitive")),
+        (
+            "bm25_document_title",
+            SearchParameters(query_string="test", by_document_title=True),
+        ),
     ],
 )
-def test_build_vespa_request_body(query_type, params):
+def test_build_vespa_request_body(expected_rank_profile, params):
     body = build_vespa_request_body(parameters=params)
-    assert (
-        body["ranking.profile"] == query_type
-        if query_type != "exact"
-        else "exact_not_stemmed"
-    )
+    assert body["ranking.profile"] == expected_rank_profile
     for key, value in body.items():
         assert (
             not isinstance(value, str) or len(value) > 0
-        ), f"Query type: {query_type} has an empty value for {key}: {value}"
+        ), f"Search parameters: {params} has an empty value for {key}: {value}"
 
 
 def test_build_vespa_request_body__all():
@@ -51,20 +51,7 @@ def test_whether_an_empty_query_string_does_all_result_search():
         pytest.fail(f"{e.__class__.__name__}: {e}")
 
 
-def test_wether_documents_only_without_all_results_raises_error():
-    q = "Search"
-    with pytest.raises(ValidationError) as excinfo:
-        SearchParameters(query_string=q, documents_only=True)
-    assert "`documents_only` requires `all_results`" in str(excinfo.value)
-
-    # They should be fine otherwise:
-    try:
-        SearchParameters(query_string=q, all_results=True, documents_only=True)
-    except Exception as e:
-        pytest.fail(f"{e.__class__.__name__}: {e}")
-
-
-def test_wether_combining_all_results_and_exact_match_raises_error():
+def test_whether_combining_all_results_and_exact_match_raises_error():
     q = "Search"
     with pytest.raises(ValidationError) as excinfo:
         SearchParameters(query_string=q, exact_match=True, all_results=True)
