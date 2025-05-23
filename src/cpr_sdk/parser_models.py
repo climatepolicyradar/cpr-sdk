@@ -200,12 +200,13 @@ class BaseParserOutput(BaseModel):
         are both null.
         """
 
-        if self.document_content_type not in {
-            CONTENT_TYPE_HTML,
-            CONTENT_TYPE_PDF,
-        } and (self.html_data is not None or self.pdf_data is not None):
+        document_has_data = (
+            self.html_data is not None or self.pdf_data is not None
+        )
+
+        if not self.document_content_type and document_has_data:
             raise ValueError(
-                "html_data and pdf_data must be null for documents with no content type."
+                "html_data or pdf_data must be null for documents with no content type."
             )
 
         return self
