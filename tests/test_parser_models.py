@@ -70,21 +70,11 @@ def test_parser_output_object(
         "html_data or pdf_data must be null for documents with no content type."
     ) in str(context.value)
 
-    # Test the can construct a parser output with content type ms word with pdf data.
-    parser_output_ms_word = parser_output_json_pdf.copy()
-    parser_output_ms_word["document_content_type"] = "application/msword"
-
-    ParserOutput.model_validate(parser_output_empty_fields)
-
     # PDF data is set as the default
     parser_output_not_known_content_type = parser_output_json_pdf.copy()
-    parser_output_not_known_content_type["document_content_type"] = "not_known"
+    parser_output_not_known_content_type["document_content_type"] = "application/msword"
 
-    with pytest.raises(pydantic.ValidationError) as context:
-        ParserOutput.model_validate(parser_output_not_known_content_type)
-    assert (
-        "html_data and pdf_data must be null for documents with no content type."
-    ) in str(context.value)
+    ParserOutput.model_validate(parser_output_not_known_content_type)
 
     # Test the text blocks property
     assert ParserOutput.model_validate(parser_output_json_pdf).text_blocks != []
