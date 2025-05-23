@@ -71,8 +71,8 @@ def test_parser_output_object(
     ) in str(context.value)
 
     # Test the can construct a parser output with content type ms word with pdf data.
-    parser_output_ms_w = parser_output_json_pdf.copy()
-    parser_output_ms_w["document_content_type"] = "application/msword"
+    parser_output_ms_word = parser_output_json_pdf.copy()
+    parser_output_ms_word["document_content_type"] = "application/msword"
 
     ParserOutput.model_validate(parser_output_empty_fields)
 
