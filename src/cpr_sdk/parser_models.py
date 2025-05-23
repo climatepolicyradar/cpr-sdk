@@ -8,7 +8,6 @@ from typing import Any, Final, List, Optional, Sequence, Tuple, TypeVar, Union
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
-    CONTENT_TYPE_PDF,
     BackendDocument,
     Json,
 )
@@ -200,9 +199,7 @@ class BaseParserOutput(BaseModel):
         are both null.
         """
 
-        document_has_data = (
-            self.html_data is not None or self.pdf_data is not None
-        )
+        document_has_data = self.html_data is not None or self.pdf_data is not None
 
         if not self.document_content_type and document_has_data:
             raise ValueError(
