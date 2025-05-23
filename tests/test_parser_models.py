@@ -67,7 +67,7 @@ def test_parser_output_object(
     with pytest.raises(pydantic.ValidationError) as context:
         ParserOutput.model_validate(parser_output_no_content_type)
     assert (
-        "html_data and pdf_data must be null for documents with no content type."
+        "html_data or pdf_data must be null for documents with no content type."
     ) in str(context.value)
 
     # Test the can construct a parser output with content type ms word with pdf data.
