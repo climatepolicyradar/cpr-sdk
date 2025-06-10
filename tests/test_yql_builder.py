@@ -221,10 +221,10 @@ def test_distance_threshold_appears_in_yql():
     expected_substring = f'"distanceThreshold": {threshold}'
     assert expected_substring in yql_with_threshold
 
-    # Test without distance_threshold (default is None)
+    # Test with distance_threshold (default is a Float)
     params_without_threshold = SearchParameters(query_string="test")
     yql_without_threshold = YQLBuilder(params_without_threshold).to_str()
-    assert "distanceThreshold" not in yql_without_threshold
+    assert "distanceThreshold" in yql_without_threshold
 
 
 def test_by_document_title_appears_in_yql():

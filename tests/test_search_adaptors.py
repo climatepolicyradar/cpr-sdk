@@ -555,61 +555,40 @@ def test_vespa_search_adaptor__corpus_type_name(
 
 @pytest.mark.vespa
 @pytest.mark.parametrize(
-    "query_string, concept_filters",
+    "concept_filters",
     [
-        (
-            "the",
-            [
-                {"name": "name", "value": "floods"},
-                {"name": "name", "value": "environment"},
-            ],
-        ),
-        (
-            "the",
-            [{"name": "name", "value": "environment"}],
-        ),
-        (
-            "the",
-            [
-                {"name": "model", "value": "sectors_model"},
-                {"name": "id", "value": "concept_0_0"},
-            ],
-        ),
-        (
-            "the",
-            [
-                {"name": "parent_concept_ids_flat", "value": "Q0"},
-            ],
-        ),
-        (
-            "the",
-            [
-                {"name": "parent_concept_ids_flat", "value": "Q0"},
-                {"name": "parent_concept_ids_flat", "value": "Q1"},
-            ],
-        ),
-        (
-            "the",
-            [
-                {"name": "parent_concept_ids_flat", "value": "Q0,"},
-                {"name": "id", "value": "concept_0_0"},
-            ],
-        ),
-        (
-            "",
-            [
-                {"name": "parent_concept_ids_flat", "value": "Q0,"},
-                {"name": "id", "value": "concept_0_0"},
-            ],
-        ),
+        [
+            {"name": "name", "value": "floods"},
+            {"name": "name", "value": "environment"},
+        ],
+        [
+            {"name": "name", "value": "environment"},
+        ],
+        [
+            {"name": "model", "value": "sectors_model"},
+            {"name": "id", "value": "concept_0_0"},
+        ],
+        [
+            {"name": "parent_concept_ids_flat", "value": "Q0"},
+        ],
+        [
+            {"name": "parent_concept_ids_flat", "value": "Q0"},
+            {"name": "parent_concept_ids_flat", "value": "Q1"},
+        ],
+        [
+            {"name": "parent_concept_ids_flat", "value": "Q0,"},
+            {"name": "id", "value": "concept_0_0"},
+        ],
+        [
+            {"name": "parent_concept_ids_flat", "value": "Q0,"},
+            {"name": "id", "value": "concept_0_0"},
+        ],
     ],
 )
-def test_vespa_search_adaptor__concept_filter(
-    test_vespa, query_string: str, concept_filters: list[dict]
-):
+def test_vespa_search_adaptor__concept_filter(test_vespa, concept_filters: list[dict]):
     """Test that the concept filter works"""
     request = SearchParameters(
-        query_string=query_string,
+        all_results=True,
         concept_filters=[
             ConceptFilter.model_validate(concept_filter)
             for concept_filter in concept_filters
