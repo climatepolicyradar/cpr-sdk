@@ -204,3 +204,14 @@ class SearchComparisonTestCase(TestCase):
 
     def __str__(self) -> str:  # noqa: D105
         return "SearchComparisonTestCase"
+
+
+class PassagesTestCase(TestCase):
+    """Test the passages returned by the search."""
+
+    expected_passages: list[str] = Field(
+        description="The expected passages for the search."
+    )
+    forbidden_passages: list[str] = Field(
+        description="The passages which should not be returned by the search.",
+    )
