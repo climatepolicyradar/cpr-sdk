@@ -1,3 +1,5 @@
+import pytest
+
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.models.search import SearchParameters, SearchResponse, Passage
 
@@ -200,6 +202,11 @@ def do_test_passage_thresholds(
         instance_url=instance_url,
     )
 
+    if search_response.total_family_hits != 1:
+        pytest.fail(
+            f"Unexpected search response, documents: {search_response.total_family_hits}"
+        )
+
     passages = [
         hit.text_block
         for family in search_response.families
@@ -218,8 +225,22 @@ def do_test_passage_thresholds(
             forbidden_passages.append(passage)
 
     mismatch = len(missing_passages) + len(forbidden_passages)
+
+    change = ""
+    if missing_passages and forbidden_passages:
+        change = "OVERLAP"
+    if missing_passages:
+        change = "RAISE"
+    if forbidden_passages:
+        change = "LOWER"
+
+    missing_passages_str = "\n\t".join(missing_passages) if missing_passages else "/"
+    forbidden_passages_str = (
+        "\n\t".join(forbidden_passages) if forbidden_passages else "/"
+    )
     assert not mismatch, (
-        f"{mismatch} passages don't match thresholds for {test_case.document_id}."
-        f"\nPassages not found in search response: {missing_passages}."
-        f"\nPassages that should not be found in search response: {forbidden_passages}."
+        f"\nThreshold issue: {change}"
+        f"\n{mismatch} passages don't match thresholds for {test_case.document_id}."
+        f"\nPassages not found in search response: \n\t{missing_passages_str}"
+        f"\nPassages that should not be found in search response: \n\t{forbidden_passages_str}."
     )
