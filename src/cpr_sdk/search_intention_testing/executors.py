@@ -7,6 +7,7 @@ from cpr_sdk.search_intention_testing.models import (
     FieldCharacteristicsTestCase,
     FamiliesInTopKTestCase,
     SearchComparisonTestCase,
+    PassagesTestCase,
 )
 
 
@@ -14,6 +15,7 @@ def get_search_response(
     test_case: TestCase,
     limit: int,
     instance_url: str,
+    **kwargs,
 ) -> SearchResponse:
     """Get a response from a Vespa instance given a test case and a limit."""
     search_adapter = VespaSearchAdapter(instance_url)
@@ -24,6 +26,7 @@ def get_search_response(
         document_ids=[test_case.document_id] if test_case.document_id else None,
         filters=test_case.get_search_filters(),
         limit=limit,
+        **kwargs,
     )
 
     return search_adapter.search(search_parameters)
@@ -184,3 +187,39 @@ def do_test_search_comparison(
         assert (
             overlap >= test_case.minimum_families_overlap
         ), f"Overlap between {unit_of_comparison} is less than expected: {overlap} < {test_case.minimum_families_overlap}. Differences: {differences}"
+
+
+def do_test_passage_thresholds(
+    test_case: PassagesTestCase,
+    instance_url: str,
+):
+    search_response = get_search_response(
+        test_case=test_case,
+        limit=100,
+        max_hits_per_family=500,
+        instance_url=instance_url,
+    )
+
+    passages = [
+        hit.text_block
+        for family in search_response.families
+        for hit in family.hits
+        if isinstance(hit, Passage)
+    ]
+
+    missing_passages = []
+    for passage in test_case.expected_passages:
+        if passage not in passages:
+            missing_passages.append(passage)
+
+    forbidden_passages = []
+    for passage in test_case.forbidden_passages:
+        if passage in passages:
+            forbidden_passages.append(passage)
+
+    mismatch = len(missing_passages) + len(forbidden_passages)
+    assert not mismatch, (
+        f"{mismatch} passages don't match thresholds for {test_case.document_id}."
+        f"\nPassages not found in search response: {missing_passages}."
+        f"\nPassages that should not be found in search response: {forbidden_passages}."
+    )
