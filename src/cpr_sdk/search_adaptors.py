@@ -56,6 +56,7 @@ class VespaSearchAdapter(SearchAdapter):
         self,
         instance_url: str,
         cert_directory: Optional[str] = None,
+        skip_cert_usage: bool = False,
     ):
         """
         Initialize the Vespa search adapter.
@@ -63,9 +64,14 @@ class VespaSearchAdapter(SearchAdapter):
         :param instance_url: URL of the Vespa instance to connect to
         :param cert_directory: Optional directory containing cert.pem and key.pem files.
             If None, will attempt to find certs automatically.
+        :param skip_cert_usage: If True, will not use certs, this is useful for
+            running against local instances that aren't secured.
         """
         self.instance_url = instance_url
-        if cert_directory is None:
+        if skip_cert_usage:
+            cert_path = None
+            key_path = None
+        elif cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
         else:
             cert_path = (Path(cert_directory) / "cert.pem").__str__()
