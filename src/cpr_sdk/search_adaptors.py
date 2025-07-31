@@ -36,6 +36,16 @@ class SearchAdapter(ABC):
         """
         raise NotImplementedError
 
+    async def async_search(self, parameters: SearchParameters) -> SearchResponse:
+        """
+        Search a dataset asynchronously
+
+        :param SearchParameters parameters: a search request object
+        :return SearchResponse: a list of parent families, each containing relevant
+            child documents and passages
+        """
+        raise NotImplementedError
+
     def get_by_id(self, document_id: str) -> SearchResponse:
         """
         Get a single document by its id
@@ -91,6 +101,36 @@ class VespaSearchAdapter(SearchAdapter):
         query_time_start = time.time()
         try:
             vespa_response = self.client.query(body=vespa_request_body)
+        except VespaError as e:
+            err_details = VespaErrorDetails(e)
+            if err_details.is_invalid_query_parameter:
+                LOGGER.error(err_details.message)
+                raise QueryError(err_details.summary)
+            else:
+                raise e
+        query_time_end = time.time()
+
+        response = parse_vespa_response(vespa_response=vespa_response)
+
+        response.query_time_ms = int((query_time_end - query_time_start) * 1000)
+        response.total_time_ms = int((time.time() - total_time_start) * 1000)
+
+        return response
+
+    async def async_search(self, parameters: SearchParameters) -> SearchResponse:
+        """
+        Search a vespa instance asynchronously
+
+        :param SearchParameters parameters: a search request object
+        :return SearchResponse: a list of families, with response metadata
+        """
+        total_time_start = time.time()
+        vespa_request_body = build_vespa_request_body(parameters)
+        query_time_start = time.time()
+
+        try:
+            async with self.client.asyncio() as session:
+                vespa_response = await session.query(body=vespa_request_body)
         except VespaError as e:
             err_details = VespaErrorDetails(e)
             if err_details.is_invalid_query_parameter:
