@@ -1,5 +1,4 @@
 import json
-import tempfile
 from pathlib import Path
 
 import boto3
@@ -13,17 +12,12 @@ VESPA_TEST_SEARCH_URL = "http://localhost:8080"
 
 @pytest.fixture()
 def test_vespa():
-    """Vespa adapter pointing to test url and using empty cert files"""
-    with tempfile.TemporaryDirectory() as tmpdir_cert_dir:
-        with open(Path(tmpdir_cert_dir) / "cert.pem", "w"):
-            pass
-        with open(Path(tmpdir_cert_dir) / "key.pem", "w"):
-            pass
-        adaptor = VespaSearchAdapter(
-            instance_url=VESPA_TEST_SEARCH_URL, cert_directory=tmpdir_cert_dir
-        )
-
-        yield adaptor
+    """Vespa adapter pointing to test url and skipping cert usage"""
+    adaptor = VespaSearchAdapter(
+        instance_url=VESPA_TEST_SEARCH_URL,
+        skip_cert_usage=True,
+    )
+    yield adaptor
 
 
 @pytest.fixture()
