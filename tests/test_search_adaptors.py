@@ -1,4 +1,5 @@
 from timeit import timeit
+import traceback
 from typing import Mapping, Union
 from unittest.mock import patch
 
@@ -29,7 +30,10 @@ def vespa_search(
     try:
         response = adaptor.search(request)
     except Exception as e:
-        pytest.fail(f"Vespa query failed. {e.__class__.__name__}: {e}")
+        pytest.fail(
+            f"Vespa query failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
     return response
 
 
