@@ -20,6 +20,7 @@ from cpr_sdk.vespa import build_vespa_request_body, parse_vespa_response
 
 SCORES_NUM_DECIMALS = 3
 
+app = typer.Typer()
 
 def get_rank_feature_names(search_response: SearchResponse) -> list[str]:
     """
@@ -45,7 +46,7 @@ def add_tokens_summary_to_yql(yql: str) -> str:
 
     return yql.replace("summary(search_summary)", "summary(search_summary_with_tokens)")
 
-
+@app.command()
 def main(
     query: str = typer.Argument(..., help="The search query to run."),
     exact_match: bool = False,
@@ -206,4 +207,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
