@@ -1,22 +1,16 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "cpr_sdk"
 # This version is a placeholder that is overwritten during release.
 # The placeholder is replaced by the value from the cpr_sdk package itself.
 version = "0.0.0"
 description = ""
-authors = ["CPR Tech <tech@climatepolicyradar.org>"]
+authors = [{ name = "CPR Tech", email = "tech@climatepolicyradar.org" }]
 readme = "README.md"
-packages = [{ include = "cpr_sdk", from = "src" }]
 classifiers = [
   "Intended Audience :: Science/Research",
   "Programming Language :: Python :: 3",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-
 license = "LICENSE"
 
 [project.urls]
@@ -24,6 +18,8 @@ Homepage = "https://github.com/climatepolicyradar/cpr-sdk"
 Repository = "https://github.com/climatepolicyradar/cpr-sdk"
 Changelog = "https://github.com/climatepolicyradar/cpr-sdk/blob/main/CHANGELOG.md"
 
+[tool.poetry]
+packages = [{ include = "cpr_sdk", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -39,7 +35,7 @@ numpy = "<2"
 pyvespa = { version = "^0.45.0", optional = true }
 pyyaml = { version = "^6.0.2", optional = true }
 spacy = { version = "^3.7.5", optional = true }
-prefect = { extras=["slack"], version = ">=3.0.0", optional = true }
+prefect = { extras = ["slack"], version = ">=3.0.0", optional = true }
 poetry = "^1.8.5"
 flatten-dict = "^0.4.2"
 rich = "^13.9.4"
@@ -81,8 +77,8 @@ optional = true
 pydantic-ai = "^0.1.9"
 
 [tool.pytest.ini_options]
-addopts = "-p no:cacheprovider"
-env_files = """
+addopTS = "-P NO:CACHEPROVIDER"
+ENV_files = """
     .env.test
     .env
 """
@@ -130,3 +126,7 @@ lint.ignore = [
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 "tests/*" = ["E501"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
