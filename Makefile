@@ -3,7 +3,7 @@ include ./Makefile-vespa.defs
 .PHONY: install test test_not_vespa test_search_intentions lint lint-all
 
 install:
-	poetry install --all-extras --with dev
+	poetry install --all-extras --with dev --with search_tests --with tools_agents
 
 test:
 	poetry run pytest -vvv -m "not search_intention"

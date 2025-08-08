@@ -50,6 +50,7 @@ jobs:
         precommit-checks,
         fixme-checks,
         placeholder-version-checks,
+        package-version-checks,
       ]
     steps:
       - name: Check out repository code
