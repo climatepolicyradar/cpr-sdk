@@ -42,6 +42,9 @@ Changelog = "https://github.com/climatepolicyradar/cpr-sdk/blob/main/CHANGELOG.m
 [tool.poetry]
 packages = [{ include = "cpr_sdk", from = "src" }]
 
+[tool.poetry.scripts]
+search = "cpr_sdk.cli.search:app"
+
 [tool.poetry.group.dev]
 optional = true
 
