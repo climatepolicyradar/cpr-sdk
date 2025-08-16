@@ -87,6 +87,17 @@ class ConceptFilter(BaseModel):
         return self
 
 
+class ConceptInstanceFilter(BaseModel):
+    """A filter for concept instance fields in the new concepts_instances map"""
+
+    concept_id: str
+    """The concept ID to filter on (e.g., 'Q880')"""
+
+    model_version: Optional[str] = None
+    """Optional specific model version to filter on (e.g., 'kx7m3p9w'). 
+    If not provided, will match any model version for the concept."""
+
+
 class Concept(BaseModel):
     """
     A concept extracted from a passage of text.
@@ -299,6 +310,17 @@ class SearchParameters(BaseModel):
     A field and item mapping to search in the concepts field of the document passages.
     """
 
+    concept_instance_filters: Optional[Sequence[ConceptInstanceFilter]] = None
+    """
+    A list of concept instance filters to apply to the search. These filters work on
+    the new concepts_instances map field and allow filtering by concept ID and 
+    optionally by specific model version.
+    
+    Example usage:
+    - Filter by concept ID only: ConceptInstanceFilter(concept_id="Q880")
+    - Filter by concept ID and model version: ConceptInstanceFilter(concept_id="Q880", model_version="kx7m3p9w")
+    """
+
     custom_vespa_request_body: Optional[dict[str, Any]] = None
     """
     Extra fields to be added to the vespa request body. Overrides any existing fields,
@@ -342,6 +364,32 @@ class SearchParameters(BaseModel):
             raise ValueError(
                 "Cannot set concept_filters when only searching documents. This is as concept_filters are only applicable to passages."
             )
+        return self
+
+    @model_validator(mode="after")
+    def concept_instance_filters_validation(self) -> "SearchParameters":
+        """Validate concept_instance_filters field."""
+        if self.concept_instance_filters is not None:
+            for filter_item in self.concept_instance_filters:
+                # Validate concept_id format (should start with Q and contain only alphanumeric)
+                if (
+                    not filter_item.concept_id.startswith("Q")
+                    or not filter_item.concept_id[1:].isalnum()
+                ):
+                    raise ValueError(
+                        f"concept_id must start with 'Q' followed by alphanumeric characters. "
+                        f"Received: {filter_item.concept_id}"
+                    )
+
+                # Validate model_version format if provided (should be alphanumeric)
+                if (
+                    filter_item.model_version is not None
+                    and not filter_item.model_version.isalnum()
+                ):
+                    raise ValueError(
+                        f"model_version must be alphanumeric. "
+                        f"Received: {filter_item.model_version}"
+                    )
         return self
 
     @field_validator("continuation_tokens")
@@ -502,6 +550,18 @@ class Hit(BaseModel):
 class Document(Hit):
     """A document search result hit."""
 
+    class ConceptVersion(BaseModel):
+        concept_id: str
+        canonical_id: str
+
+    class ConceptInstance(BaseModel):
+        concept_id: str
+        model_id_all: str
+        counts_by_model_version: dict[str, int]
+
+    concepts_instances: dict[str, ConceptInstance] | None = None
+    concepts_versions: dict[str, str] | None = None
+
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Document":
         """
@@ -538,6 +598,8 @@ class Document(Hit):
             corpus_import_id=fields.get("corpus_import_id"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            concepts_instances=fields.get("concepts_instances"),
+            concepts_versions=fields.get("concepts_versions"),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
             concept_counts=fields.get("concept_counts"),
@@ -546,6 +608,22 @@ class Document(Hit):
 
 class Passage(Hit):
     """A passage search result hit."""
+
+    class ConceptVersion(BaseModel):
+        concept_id: str
+        canonical_id: str
+
+    class Span(BaseModel):
+        start: int
+        end: int
+
+    class ConceptInstance(BaseModel):
+        concept_id: str
+        model_id_all: str
+        spans_by_model_version: dict[str, list["Span"]]
+
+    concepts_instances: dict[str, ConceptInstance] | None = None
+    concepts_versions: dict[str, str] | None = None
 
     text_block: str
     text_block_id: str
@@ -593,7 +671,8 @@ class Passage(Hit):
             text_block_page=fields.get("text_block_page"),
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
-            concepts=fields.get("concepts"),
+            concepts_instances=fields.get("concepts_instances"),
+            concepts_versions=fields.get("concepts_versions"),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
         )
@@ -622,6 +701,54 @@ class Family(BaseModel):
         fields_to_compare = [f for f in self.__dict__.keys() if f not in ("relevance")]
 
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
+
+class BaseHit(BaseModel):
+    @classmethod
+    def from_vespa_response(cls, response_hit: dict) -> "Hit":
+        """
+        Create a Hit from a Vespa response hit.
+
+        :param dict response_hit: part of a json response from Vespa
+        :raises ValueError: if the response type is unknown
+        :return Hit: an individual document or passage hit
+        """
+        # vespa structures its response differently depending on the api endpoint
+        # for searches, the response should contain a sddocname field
+        response_type = response_hit.get("fields", {}).get("sddocname")
+        if response_type is None:
+            # for get_by_id, the response should contain an id field
+            response_type = response_hit["id"].split(":")[2]
+
+        if response_type == "family_document":
+            hit = Document.from_vespa_response(response_hit=response_hit)
+        elif response_type == "document_passage":
+            hit = Passage.from_vespa_response(response_hit=response_hit)
+        else:
+            raise ValueError(f"Unknown response type: {response_type}")
+        return hit
+
+    def __eq__(self, other):
+        """
+        Check if two hits are equal.
+
+        Ignores relevance and rank_features as these are dependent on non-deterministic query routing.
+        """
+        if not isinstance(other, self.__class__):
+            return False
+
+        fields_to_compare = [
+            f for f in self.__dict__.keys() if f not in ("relevance", "rank_features")
+        ]
+
+        return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
+
+class Profile(BaseHit):
+    # E.g. "primaries", "experimentals"
+    id: str
+    # E.g. <Q990, n2nuerdn>
+    concepts_versions: dict[str, str]
 
 
 class SearchResponse(BaseModel):

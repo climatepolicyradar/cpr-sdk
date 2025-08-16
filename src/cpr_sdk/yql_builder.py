@@ -130,6 +130,41 @@ class YQLBuilder:
             return f"({' and '.join(concepts_query)})"
         return None
 
+    def build_concept_instances_filter(self) -> Optional[str]:
+        """
+        Create the part of the query that limits to specific concept instances.
+        
+        This filters on the new concepts_instances map field.
+        
+        Examples:
+        - Filter by concept ID only: `concepts_instances contains sameElement(key contains "q880")`
+        - Filter by concept ID and model version: `concepts_instances contains sameElement(key contains "q880", value.model_id_all contains "kx7m3p9w")`
+        """
+        if self.params.concept_instance_filters:
+            concept_instance_queries = []
+            for filter_item in self.params.concept_instance_filters:
+                # Convert concept_id to lowercase to match Vespa data format
+                concept_id = filter_item.concept_id.lower()
+                
+                if filter_item.model_version:
+                    # Filter by both concept ID and model version
+                    # Use regex matches for the comma-separated model_id_all field
+                    # This should match the model version anywhere in the comma-separated string
+                    concept_instance_queries.append(
+                        f"""concepts_instances contains sameElement(
+                            key contains "{concept_id}",
+                            value.model_id_all matches ".*{filter_item.model_version}.*"
+                        )"""
+                    )
+                else:
+                    # Filter by concept ID only
+                    concept_instance_queries.append(
+                        f'concepts_instances contains sameElement(key contains "{concept_id}")'
+                    )
+            
+            return f"({' and '.join(concept_instance_queries)})"
+        return None
+
     def build_corpus_type_name_filter(self) -> Optional[str]:
         """Create the part of the query that limits to specific corpora"""
         if self.params.corpus_type_names:
@@ -218,6 +253,7 @@ class YQLBuilder:
         filters.append(self.build_corpus_import_ids_filter())
         filters.append(self.build_metadata_filter())
         filters.append(self.build_concepts_filter())
+        filters.append(self.build_concept_instances_filter())
         if f := self.params.filters:
             filters.append(self._inclusive_filters(f, "family_geographies"))
             filters.append(self._inclusive_filters(f, "family_geography"))
