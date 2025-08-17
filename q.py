@@ -1,5 +1,6 @@
 from src.cpr_sdk.search_adaptors import VespaSearchAdapter
 from src.cpr_sdk.models.search import SearchParameters, ConceptInstanceFilter
+from src.cpr_sdk.models.model_profile import VespaModelProfileAdapter
 
 if __name__ == "__main__":
     adaptor = VespaSearchAdapter(
@@ -113,4 +114,48 @@ if __name__ == "__main__":
     print(
         f"Found {response.total_hits} hits for concept Q880 with unknown model version x0x1x2x3"
     )
+    print()
+
+    # Example 5: Model Profile Operations
+    print("=== Model Profile Operations ===")
+    profile_adaptor = VespaModelProfileAdapter(
+        instance_url="http://localhost:8080", skip_cert_usage=True
+    )
+
+    # Get all model profiles
+    print("Getting all model profiles...")
+    try:
+        all_profiles = profile_adaptor.get_all_profiles()
+        print(f"Found {len(all_profiles)} model profiles:")
+    except Exception as e:
+        print(f"Error fetching model profiles: {e}")
+        all_profiles = []
+    for profile in all_profiles:
+        print(f"  - {profile.id} ({profile.name}): {len(profile.concepts_versions)} concepts")
+        # Show a few concept versions as examples
+        concept_examples = list(profile.concepts_versions.items())[:3]
+        for concept_id, version in concept_examples:
+            print(f"    - {concept_id}: {version}")
+        if len(profile.concepts_versions) > 3:
+            print(f"    - ... and {len(profile.concepts_versions) - 3} more")
+    print()
+
+    # Get specific model profile
+    print("Getting specific model profile: 'primaries'")
+    primaries_profile = profile_adaptor.get_profile_by_id("primaries")
+    if primaries_profile:
+        print(f"Found primaries profile with {len(primaries_profile.concepts_versions)} concepts:")
+        for concept_id, version in primaries_profile.concepts_versions.items():
+            print(f"  - {concept_id}: {version}")
+    else:
+        print("Primaries profile not found")
+    print()
+
+    # Get non-existent profile
+    print("Getting non-existent model profile: 'unknown'")
+    unknown_profile = profile_adaptor.get_profile_by_id("unknown")
+    if unknown_profile:
+        print(f"Found unknown profile: {unknown_profile.id}")
+    else:
+        print("Unknown profile not found (as expected)")
     print()

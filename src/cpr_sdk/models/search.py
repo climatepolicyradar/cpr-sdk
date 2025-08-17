@@ -703,54 +703,6 @@ class Family(BaseModel):
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
 
 
-class BaseHit(BaseModel):
-    @classmethod
-    def from_vespa_response(cls, response_hit: dict) -> "Hit":
-        """
-        Create a Hit from a Vespa response hit.
-
-        :param dict response_hit: part of a json response from Vespa
-        :raises ValueError: if the response type is unknown
-        :return Hit: an individual document or passage hit
-        """
-        # vespa structures its response differently depending on the api endpoint
-        # for searches, the response should contain a sddocname field
-        response_type = response_hit.get("fields", {}).get("sddocname")
-        if response_type is None:
-            # for get_by_id, the response should contain an id field
-            response_type = response_hit["id"].split(":")[2]
-
-        if response_type == "family_document":
-            hit = Document.from_vespa_response(response_hit=response_hit)
-        elif response_type == "document_passage":
-            hit = Passage.from_vespa_response(response_hit=response_hit)
-        else:
-            raise ValueError(f"Unknown response type: {response_type}")
-        return hit
-
-    def __eq__(self, other):
-        """
-        Check if two hits are equal.
-
-        Ignores relevance and rank_features as these are dependent on non-deterministic query routing.
-        """
-        if not isinstance(other, self.__class__):
-            return False
-
-        fields_to_compare = [
-            f for f in self.__dict__.keys() if f not in ("relevance", "rank_features")
-        ]
-
-        return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
-
-
-class Profile(BaseHit):
-    # E.g. "primaries", "experimentals"
-    id: str
-    # E.g. <Q990, n2nuerdn>
-    concepts_versions: dict[str, str]
-
-
 class SearchResponse(BaseModel):
     """Relevant results, and search response metadata"""
 

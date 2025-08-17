@@ -133,9 +133,9 @@ class YQLBuilder:
     def build_concept_instances_filter(self) -> Optional[str]:
         """
         Create the part of the query that limits to specific concept instances.
-        
+
         This filters on the new concepts_instances map field.
-        
+
         Examples:
         - Filter by concept ID only: `concepts_instances contains sameElement(key contains "q880")`
         - Filter by concept ID and model version: `concepts_instances contains sameElement(key contains "q880", value.model_id_all contains "kx7m3p9w")`
@@ -145,7 +145,7 @@ class YQLBuilder:
             for filter_item in self.params.concept_instance_filters:
                 # Convert concept_id to lowercase to match Vespa data format
                 concept_id = filter_item.concept_id.lower()
-                
+
                 if filter_item.model_version:
                     # Filter by both concept ID and model version
                     # Use regex matches for the comma-separated model_id_all field
@@ -161,7 +161,7 @@ class YQLBuilder:
                     concept_instance_queries.append(
                         f'concepts_instances contains sameElement(key contains "{concept_id}")'
                     )
-            
+
             return f"({' and '.join(concept_instance_queries)})"
         return None
 
@@ -303,23 +303,23 @@ class YQLBuilder:
         return " ".join(yql.split())
 
 
-if __name__ == "__main__":
-    # YQL example
-    params = SearchParameters(
-        query_string="climate",
-        exact_match=False,
-        limit=10,
-        max_hits_per_family=10,
-        filters=Filters(
-            **{"document_languages": ["value"], "family_source": ["value"]}
-        ),
-        year_range=(2000, 2020),
-        continuation_tokens=None,
-    )
+# if __name__ == "__main__":
+#     # YQL example
+#     params = SearchParameters(
+#         query_string="climate",
+#         exact_match=False,
+#         limit=10,
+#         max_hits_per_family=10,
+#         filters=Filters(
+#             **{"document_languages": ["value"], "family_source": ["value"]}
+#         ),
+#         year_range=(2000, 2020),
+#         continuation_tokens=None,
+#     )
 
-    yql_new = YQLBuilder(
-        params=params,
-        sensitive=False,
-    ).to_str()
+#     yql_new = YQLBuilder(
+#         params=params,
+#         sensitive=False,
+#     ).to_str()
 
-    rprint(yql_new)
+#     rprint(yql_new)
