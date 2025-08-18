@@ -25,7 +25,7 @@ def get_model_profile_adapter(vespa_url: str = "http://localhost:8080") -> Vespa
     return VespaModelProfileAdapter(instance_url=vespa_url, skip_cert_usage=True)
 
 
-@st.cache_data
+@st.cache_resource
 def load_test_passage(document_id: str = "CCLW.document.i00000005.n0000") -> Optional[Passage]:
     """Load the test passage from Vespa."""
     try:
@@ -50,7 +50,34 @@ def load_test_passage(document_id: str = "CCLW.document.i00000005.n0000") -> Opt
         return None
 
 
-@st.cache_data
+@st.cache_resource  
+def load_family_document(document_id: str = "CCLW.document.i00000005.n0000"):
+    """Load a family document from Vespa that shows counts by model versions."""
+    try:
+        adapter = get_search_adapter()
+        request = SearchParameters(document_ids=[document_id])
+        response = adapter.search(request)
+        
+        if response.families:
+            for family in response.families:
+                # Return the family object itself, which has concepts_instances with counts
+                if hasattr(family, 'concepts_instances') and family.concepts_instances:
+                    return family
+        
+        # If no family found with concepts_instances, return the first family
+        if response.families:
+            return response.families[0]
+        
+        return None
+    except ConnectionError:
+        st.error("🔌 Cannot connect to Vespa. Make sure it's running at http://localhost:8080")
+        return None
+    except Exception as e:
+        st.error(f"Error loading family document: {e}")
+        return None
+
+
+@st.cache_resource
 def load_model_profiles() -> Dict[str, ModelProfile]:
     """Load all model profiles from Vespa."""
     try:
@@ -76,6 +103,34 @@ def get_available_concepts(passage: Passage) -> Dict[str, List[str]]:
                 # Fallback to model_id_all if spans_by_model_version not available
                 concepts[concept_id] = instance.model_id_all.split(',') if instance.model_id_all else []
     return concepts
+
+
+def get_available_concepts_from_family(family) -> Dict[str, List[str]]:
+    """Extract available concepts and their model versions from a family document."""
+    concepts = {}
+    if family and hasattr(family, 'concepts_instances') and family.concepts_instances:
+        for concept_id, instance in family.concepts_instances.items():
+            if hasattr(instance, 'counts_by_model_version') and instance.counts_by_model_version:
+                concepts[concept_id] = list(instance.counts_by_model_version.keys())
+    return concepts
+
+
+def get_family_concept_counts(family, concept_id: str, model_version: str = None) -> Dict[str, int]:
+    """Get counts for a specific concept and optionally model version from family document."""
+    if not family or not hasattr(family, 'concepts_instances') or not family.concepts_instances:
+        return {}
+    
+    instance = family.concepts_instances.get(concept_id.lower())
+    if not instance or not hasattr(instance, 'counts_by_model_version'):
+        return {}
+    
+    if model_version:
+        # Return count for specific model version
+        count = instance.counts_by_model_version.get(model_version, 0)
+        return {model_version: count}
+    else:
+        # Return all counts by model version
+        return instance.counts_by_model_version
 
 
 def get_concept_spans(passage: Passage, concept_id: str, model_version: str) -> List[Tuple[int, int]]:

@@ -3,9 +3,12 @@
 import streamlit as st
 from typing import Dict, List, Optional, Tuple
 from utils.data_loader import (
-    load_test_passage, 
+    load_test_passage,
+    load_family_document,
     load_model_profiles, 
     get_available_concepts,
+    get_available_concepts_from_family,
+    get_family_concept_counts,
     get_all_concept_spans,
     get_concept_statistics
 )
@@ -221,25 +224,116 @@ def render_main_content(passage, selected_concepts: Dict[str, str], model_profil
         st.write(f"Character Count: {len(passage.text_block)}")
 
 
+def render_family_content(family, selected_concepts: Dict[str, str], model_profiles: Dict, selected_profile_name: str = None):
+    """Render content for family documents with concept counts."""
+    if not family:
+        st.error("Unable to load family document")
+        st.write("Please ensure Vespa is running at http://localhost:8080")
+        return
+    
+    # Show current filtering status
+    if selected_profile_name and selected_profile_name != "No Filter (All Available)":
+        profile = model_profiles.get(selected_profile_name)
+        if profile:
+            st.write(f"Filtering by model profile: {selected_profile_name} ({len(profile.concepts_versions)} concepts defined)")
+        else:
+            st.write(f"Filtering by model profile: {selected_profile_name}")
+    else:
+        st.write("No filtering applied - showing all available concepts and versions")
+    
+    # Statistics Panel for family
+    st.subheader("Statistics")
+    
+    total_concepts = len(selected_concepts)
+    total_count = 0
+    
+    for concept_id, model_version in selected_concepts.items():
+        if "_" in concept_id:
+            concept_id = concept_id.split("_")[0]
+        counts = get_family_concept_counts(family, concept_id, model_version)
+        total_count += sum(counts.values())
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Selected Concepts", total_concepts)
+    with col2:
+        st.metric("Total Count", total_count)
+    
+    # Concept Counts Display
+    st.subheader("Concept Counts by Model Version")
+    
+    if selected_concepts:
+        for concept_id, model_version in selected_concepts.items():
+            if "_" in concept_id:
+                concept_id = concept_id.split("_")[0]
+            
+            counts = get_family_concept_counts(family, concept_id, model_version)
+            if counts:
+                st.write(f"**{concept_id.upper()}** ({model_version}): {counts[model_version]} instances")
+    else:
+        st.write("Select concepts from the sidebar to see counts")
+    
+    # Family Metadata
+    with st.expander("Family Metadata"):
+        if hasattr(family, 'name'):
+            st.write(f"Family Name: {family.name}")
+        if hasattr(family, 'document_import_id'):
+            st.write(f"Document Import ID: {family.document_import_id}")
+        elif hasattr(family, 'family_import_id'):
+            st.write(f"Family Import ID: {family.family_import_id}")
+        if hasattr(family, 'total_passages'):
+            st.write(f"Total Passages: {family.total_passages}")
+        if hasattr(family, 'hits') and family.hits:
+            st.write(f"Number of Hits: {len(family.hits)}")
+        
+        # Debug: show available attributes
+        st.write("Available attributes:", [attr for attr in dir(family) if not attr.startswith('_')])
+
+
 def main():
     """Main application entry point."""
     setup_page()
     
-    # Load data
-    with st.spinner("Loading data from Vespa..."):
-        passage = load_test_passage()
-        model_profiles = load_model_profiles()
+    # Document type selector
+    doc_type = st.selectbox(
+        "Document Type",
+        options=["Passage (with spans)", "Family Document (with counts)"],
+        index=0,
+        help="Choose between passage view (shows highlighted text spans) or family document view (shows concept counts)"
+    )
     
-    if passage:
-        available_concepts = get_available_concepts(passage)
+    # Load data based on document type
+    model_profiles = load_model_profiles()
+    
+    if doc_type == "Passage (with spans)":
+        with st.spinner("Loading passage data from Vespa..."):
+            passage = load_test_passage("CCLW.document.i00000005.n0000")
         
-        # Render sidebar and get selected concepts + profile info
-        selected_concepts, selected_profile_name = render_sidebar(available_concepts, model_profiles)
+        if passage:
+            available_concepts = get_available_concepts(passage)
+            
+            # Render sidebar and get selected concepts + profile info
+            selected_concepts, selected_profile_name = render_sidebar(available_concepts, model_profiles)
+            
+            render_main_content(passage, selected_concepts, model_profiles, selected_profile_name)
+        else:
+            st.error("Unable to load test passage")
+            st.write("Please ensure Vespa is running at http://localhost:8080")
+    
+    else:  # Family Document
+        with st.spinner("Loading family document from Vespa..."):
+            family = load_family_document("CCLW.document.i00000005.n0000")
         
-        render_main_content(passage, selected_concepts, model_profiles, selected_profile_name)
-    else:
-        st.error("Unable to load test passage")
-        st.write("Please ensure Vespa is running at http://localhost:8080")
+        if family:
+            available_concepts = get_available_concepts_from_family(family)
+            
+            # Render sidebar and get selected concepts + profile info
+            selected_concepts, selected_profile_name = render_sidebar(available_concepts, model_profiles)
+            
+            render_family_content(family, selected_concepts, model_profiles, selected_profile_name)
+        else:
+            st.error("Unable to load family document")
+            st.write("Please ensure Vespa is running at http://localhost:8080")
 
 
 if __name__ == "__main__":
