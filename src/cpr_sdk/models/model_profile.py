@@ -1,6 +1,7 @@
 import logging
 from abc import ABC
-from typing import List, Optional
+from typing import Dict, List, Optional
+from pydantic import BaseModel
 
 from requests.exceptions import HTTPError
 from vespa.application import Vespa
@@ -13,13 +14,20 @@ from cpr_sdk.vespa import VespaErrorDetails, find_vespa_cert_paths
 LOGGER = logging.getLogger(__name__)
 
 
+class ConceptVersion(BaseModel):
+    """Represents a concept version with its metadata."""
+    concept_id: str
+    wikibase_revision_id: str
+    canonical_id: str
+
+
 class ModelProfile(BaseHit):
     # E.g. "primaries", "experimentals"
     id: str
     # E.g. "primaries", "experimentals"
     name: Optional[str] = None
-    # E.g. <Q990, n2nuerdn>
-    concepts_versions: dict[str, str]
+    # E.g. <Q990, ConceptVersion(concept_id="Q990", wikibase_revision_id="1610", canonical_id="n2nuerdn")>
+    concepts_versions: Dict[str, ConceptVersion]
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "ModelProfile":
@@ -31,10 +39,31 @@ class ModelProfile(BaseHit):
         """
         fields = response_hit["fields"]
         profile_id = fields.get("id")
+        
+        # Parse concepts_versions from new struct format
+        concepts_versions_raw = fields.get("concepts_versions", {})
+        concepts_versions = {}
+        
+        for concept_id, version_data in concepts_versions_raw.items():
+            if isinstance(version_data, dict):
+                # New format: concept_version struct
+                concepts_versions[concept_id] = ConceptVersion(
+                    concept_id=version_data.get("concept_id", concept_id),
+                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                    canonical_id=version_data.get("canonical_id", "")
+                )
+            else:
+                # Legacy format: string (for backwards compatibility)
+                concepts_versions[concept_id] = ConceptVersion(
+                    concept_id=concept_id,
+                    wikibase_revision_id="",
+                    canonical_id=str(version_data)
+                )
+        
         return cls(
             id=profile_id,
             name=fields.get("name") or profile_id,  # Fallback to id if name is None
-            concepts_versions=fields.get("concepts_versions", {}),
+            concepts_versions=concepts_versions,
         )
 
 

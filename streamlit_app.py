@@ -51,8 +51,8 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
             st.sidebar.write(f"{len(selected_profile.concepts_versions)} concepts defined")
             
             with st.sidebar.expander("View Profile Details"):
-                for concept_id, version in selected_profile.concepts_versions.items():
-                    st.write(f"• {concept_id.upper()}: {version}")
+                for concept_id, concept_version in selected_profile.concepts_versions.items():
+                    st.write(f"• {concept_id.upper()}: {concept_version.canonical_id}")
         else:
             st.sidebar.write("No filtering applied - showing all available concepts and versions")
     
@@ -64,7 +64,8 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
         
         for concept_id, available_versions in available_concepts.items():
             if concept_id in profile_concept_ids:
-                profile_version = selected_profile.concepts_versions[concept_id]
+                profile_concept_version = selected_profile.concepts_versions[concept_id]
+                profile_version = profile_concept_version.canonical_id
                 
                 # Check if the profile's specified version exists in the passage
                 if profile_version in available_versions:
@@ -104,7 +105,8 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
             # Concept toggle with additional info
             concept_label = concept_id.upper()
             if selected_profile and concept_id in selected_profile.concepts_versions:
-                profile_version = selected_profile.concepts_versions[concept_id]
+                profile_concept_version = selected_profile.concepts_versions[concept_id]
+                profile_version = profile_concept_version.canonical_id
                 if profile_version not in model_versions:
                     concept_label += " (version mismatch)"
             
@@ -120,7 +122,8 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
                     selected_concepts[concept_id] = model_versions[0]
                     version_info = model_versions[0]
                     if selected_profile and concept_id in selected_profile.concepts_versions:
-                        profile_version = selected_profile.concepts_versions[concept_id]
+                        profile_concept_version = selected_profile.concepts_versions[concept_id]
+                        profile_version = profile_concept_version.canonical_id
                         if model_versions[0] != profile_version:
                             version_info += f" (profile wants {profile_version})"
                     st.sidebar.caption(f"Using: {version_info}")
@@ -131,7 +134,8 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
                     # Pre-select profile version if available
                     default_index = 0
                     if selected_profile and concept_id in selected_profile.concepts_versions:
-                        profile_version = selected_profile.concepts_versions[concept_id]
+                        profile_concept_version = selected_profile.concepts_versions[concept_id]
+                        profile_version = profile_concept_version.canonical_id
                         if profile_version in model_versions:
                             default_index = model_versions.index(profile_version) + 1
                     

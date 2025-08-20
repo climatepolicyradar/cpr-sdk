@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Literal, Optional, Sequence
+from typing import Any, Dict, List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
@@ -552,6 +552,7 @@ class Document(Hit):
 
     class ConceptVersion(BaseModel):
         concept_id: str
+        wikibase_revision_id: str
         canonical_id: str
 
     class ConceptInstance(BaseModel):
@@ -560,7 +561,31 @@ class Document(Hit):
         counts_by_model_version: dict[str, int]
 
     concepts_instances: dict[str, ConceptInstance] | None = None
-    concepts_versions: dict[str, str] | None = None
+    concepts_versions: dict[str, ConceptVersion] | None = None
+
+    @staticmethod
+    def _parse_concepts_versions(concepts_versions_raw: dict | None) -> dict[str, "Document.ConceptVersion"] | None:
+        """Parse concepts_versions from Vespa response."""
+        if not concepts_versions_raw:
+            return None
+        
+        concepts_versions = {}
+        for concept_id, version_data in concepts_versions_raw.items():
+            if isinstance(version_data, dict):
+                # New format: concept_version struct
+                concepts_versions[concept_id] = Document.ConceptVersion(
+                    concept_id=version_data.get("concept_id", concept_id),
+                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                    canonical_id=version_data.get("canonical_id", "")
+                )
+            else:
+                # Legacy format: string (for backwards compatibility)
+                concepts_versions[concept_id] = Document.ConceptVersion(
+                    concept_id=concept_id,
+                    wikibase_revision_id="",
+                    canonical_id=str(version_data)
+                )
+        return concepts_versions
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Document":
@@ -599,7 +624,7 @@ class Document(Hit):
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
             concepts_instances=fields.get("concepts_instances"),
-            concepts_versions=fields.get("concepts_versions"),
+            concepts_versions=cls._parse_concepts_versions(fields.get("concepts_versions")),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
             concept_counts=fields.get("concept_counts"),
@@ -611,6 +636,7 @@ class Passage(Hit):
 
     class ConceptVersion(BaseModel):
         concept_id: str
+        wikibase_revision_id: str
         canonical_id: str
 
     class Span(BaseModel):
@@ -623,13 +649,37 @@ class Passage(Hit):
         spans_by_model_version: dict[str, list["Span"]]
 
     concepts_instances: dict[str, ConceptInstance] | None = None
-    concepts_versions: dict[str, str] | None = None
+    concepts_versions: dict[str, ConceptVersion] | None = None
 
     text_block: str
     text_block_id: str
     text_block_type: str
     text_block_page: Optional[int] = None
     text_block_coords: Optional[Sequence[tuple[float, float]]] = None
+
+    @staticmethod
+    def _parse_concepts_versions(concepts_versions_raw: dict | None) -> dict[str, "Passage.ConceptVersion"] | None:
+        """Parse concepts_versions from Vespa response."""
+        if not concepts_versions_raw:
+            return None
+        
+        concepts_versions = {}
+        for concept_id, version_data in concepts_versions_raw.items():
+            if isinstance(version_data, dict):
+                # New format: concept_version struct
+                concepts_versions[concept_id] = Passage.ConceptVersion(
+                    concept_id=version_data.get("concept_id", concept_id),
+                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                    canonical_id=version_data.get("canonical_id", "")
+                )
+            else:
+                # Legacy format: string (for backwards compatibility)
+                concepts_versions[concept_id] = Passage.ConceptVersion(
+                    concept_id=concept_id,
+                    wikibase_revision_id="",
+                    canonical_id=str(version_data)
+                )
+        return concepts_versions
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Passage":
@@ -672,7 +722,7 @@ class Passage(Hit):
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
             concepts_instances=fields.get("concepts_instances"),
-            concepts_versions=fields.get("concepts_versions"),
+            concepts_versions=cls._parse_concepts_versions(fields.get("concepts_versions")),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
         )
