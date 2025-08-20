@@ -10,7 +10,8 @@ from utils.data_loader import (
     get_available_concepts_from_family,
     get_family_concept_counts,
     get_all_concept_spans,
-    get_concept_statistics
+    get_concept_statistics,
+    get_concepts_from_vespa
 )
 from utils.visualizer import create_highlighted_passage
 
@@ -50,11 +51,35 @@ def render_sidebar(available_concepts: Dict[str, List[str]], model_profiles: Dic
             st.sidebar.write(f"Using: {selected_profile.name or selected_profile.id}")
             st.sidebar.write(f"{len(selected_profile.concepts_versions)} concepts defined")
             
-            with st.sidebar.expander("View Profile Details"):
-                for concept_id, concept_version in selected_profile.concepts_versions.items():
-                    st.write(f"• {concept_id.upper()}: {concept_version.canonical_id}")
+            st.sidebar.write("**Profile Details:**")
+            for concept_id, concept_version in selected_profile.concepts_versions.items():
+                st.sidebar.write(f"• {concept_id.upper()}: {concept_version.canonical_id} (rev: {concept_version.wikibase_revision_id})")
         else:
             st.sidebar.write("No filtering applied - showing all available concepts and versions")
+    
+    # Show concept details from Vespa
+    if available_concepts:
+        st.sidebar.write("**Concept Details:**")
+        concept_ids = list(available_concepts.keys())
+        concept_details = get_concepts_from_vespa(concept_ids)
+        
+        if concept_details:
+            for concept_key, concept_data in concept_details.items():
+                concept_id = concept_data.get("id", "").upper()
+                preferred_label = concept_data.get("preferred_label", "")
+                revision = concept_data.get("revision", "")
+                
+                label_text = f"{concept_id}: {preferred_label}" if preferred_label else concept_id
+                if revision:
+                    label_text += f" (rev: {revision})"
+                
+                st.sidebar.write(f"• {label_text}")
+                
+                # Show description if available
+                if concept_data.get("description"):
+                    st.sidebar.caption(f"  {concept_data['description']}")
+        else:
+            st.sidebar.write("No concept details found in Vespa")
     
     # Filter available concepts based on selected profile
     if selected_profile:

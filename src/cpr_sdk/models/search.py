@@ -571,20 +571,11 @@ class Document(Hit):
         
         concepts_versions = {}
         for concept_id, version_data in concepts_versions_raw.items():
-            if isinstance(version_data, dict):
-                # New format: concept_version struct
-                concepts_versions[concept_id] = Document.ConceptVersion(
-                    concept_id=version_data.get("concept_id", concept_id),
-                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
-                    canonical_id=version_data.get("canonical_id", "")
-                )
-            else:
-                # Legacy format: string (for backwards compatibility)
-                concepts_versions[concept_id] = Document.ConceptVersion(
-                    concept_id=concept_id,
-                    wikibase_revision_id="",
-                    canonical_id=str(version_data)
-                )
+            concepts_versions[concept_id] = Document.ConceptVersion(
+                concept_id=version_data.get("concept_id", concept_id),
+                wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                canonical_id=version_data.get("canonical_id", "")
+            )
         return concepts_versions
 
     @classmethod
@@ -665,20 +656,11 @@ class Passage(Hit):
         
         concepts_versions = {}
         for concept_id, version_data in concepts_versions_raw.items():
-            if isinstance(version_data, dict):
-                # New format: concept_version struct
-                concepts_versions[concept_id] = Passage.ConceptVersion(
-                    concept_id=version_data.get("concept_id", concept_id),
-                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
-                    canonical_id=version_data.get("canonical_id", "")
-                )
-            else:
-                # Legacy format: string (for backwards compatibility)
-                concepts_versions[concept_id] = Passage.ConceptVersion(
-                    concept_id=concept_id,
-                    wikibase_revision_id="",
-                    canonical_id=str(version_data)
-                )
+            concepts_versions[concept_id] = Passage.ConceptVersion(
+                concept_id=version_data.get("concept_id", concept_id),
+                wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                canonical_id=version_data.get("canonical_id", "")
+            )
         return concepts_versions
 
     @classmethod

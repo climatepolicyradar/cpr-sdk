@@ -11,6 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.models.search import SearchParameters, Passage
 from cpr_sdk.models.model_profile import VespaModelProfileAdapter, ModelProfile
+from vespa.application import Vespa
 
 
 @st.cache_resource
@@ -23,6 +24,12 @@ def get_search_adapter(vespa_url: str = "http://localhost:8080") -> VespaSearchA
 def get_model_profile_adapter(vespa_url: str = "http://localhost:8080") -> VespaModelProfileAdapter:
     """Get cached VespaModelProfileAdapter instance."""
     return VespaModelProfileAdapter(instance_url=vespa_url, skip_cert_usage=True)
+
+
+@st.cache_resource
+def get_vespa_client(vespa_url: str = "http://localhost:8080") -> Vespa:
+    """Get cached Vespa client instance."""
+    return Vespa(url=vespa_url)
 
 
 @st.cache_resource
@@ -196,3 +203,40 @@ def get_concept_statistics(passage: Passage, selected_concepts: Dict[str, str]) 
         stats["coverage_percentage"] = 0
     
     return stats
+
+
+@st.cache_data
+def get_concepts_from_vespa(concept_ids: List[str]) -> Dict[str, Dict]:
+    """Get concept information from Vespa for given concept IDs."""
+    try:
+        client = get_vespa_client()
+        concepts = {}
+        
+        for concept_id in concept_ids:
+            vespa_request_body = {
+                "yql": f'select * from concept where id contains "{concept_id.lower()}"',
+                "hits": 10,  # Get multiple versions if they exist
+            }
+            
+            vespa_response = client.query(body=vespa_request_body)
+            
+            if "root" in vespa_response.json and "children" in vespa_response.json["root"]:
+                for hit in vespa_response.json["root"]["children"]:
+                    fields = hit["fields"]
+                    concept_data = {
+                        "id": fields.get("id"),
+                        "revision": fields.get("revision"),
+                        "preferred_label": fields.get("preferred_label"),
+                        "description": fields.get("description"),
+                        "definition": fields.get("definition"),
+                        "alternative_labels": fields.get("alternative_labels", []),
+                        "subconcept_of": fields.get("subconcept_of", []),
+                    }
+                    # Use concept_id + revision as key to handle multiple versions
+                    key = f"{concept_data['id']}_{concept_data['revision']}" if concept_data['revision'] else concept_data['id']
+                    concepts[key] = concept_data
+        
+        return concepts
+    except Exception as e:
+        st.error(f"Error querying concepts from Vespa: {e}")
+        return {}

@@ -40,25 +40,16 @@ class ModelProfile(BaseHit):
         fields = response_hit["fields"]
         profile_id = fields.get("id")
         
-        # Parse concepts_versions from new struct format
+        # Parse concepts_versions from struct format
         concepts_versions_raw = fields.get("concepts_versions", {})
         concepts_versions = {}
         
         for concept_id, version_data in concepts_versions_raw.items():
-            if isinstance(version_data, dict):
-                # New format: concept_version struct
-                concepts_versions[concept_id] = ConceptVersion(
-                    concept_id=version_data.get("concept_id", concept_id),
-                    wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
-                    canonical_id=version_data.get("canonical_id", "")
-                )
-            else:
-                # Legacy format: string (for backwards compatibility)
-                concepts_versions[concept_id] = ConceptVersion(
-                    concept_id=concept_id,
-                    wikibase_revision_id="",
-                    canonical_id=str(version_data)
-                )
+            concepts_versions[concept_id] = ConceptVersion(
+                concept_id=version_data.get("concept_id", concept_id),
+                wikibase_revision_id=version_data.get("wikibase_revision_id", ""),
+                canonical_id=version_data.get("canonical_id", "")
+            )
         
         return cls(
             id=profile_id,
