@@ -10,11 +10,11 @@ runs:
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10"
+        python-version-file: pyproject.toml
 
     - shell: bash
       run: |
-        pipx install poetry==1.8.2
+        pipx install poetry
 
     - shell: bash
       run: |
