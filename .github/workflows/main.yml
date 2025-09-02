@@ -68,17 +68,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install poetry
-        run: pipx install poetry==1.8.2
+        run: pipx install poetry
 
       - name: Install python or load from cache with dependencies
         uses: actions/setup-python@v5
         with:
-          python-version-file: 'pyproject.toml'
+          python-version-file: pyproject.toml
           cache: poetry
 
       - name: Install dependencies
-        run: |
-          poetry install
+        run: poetry install
 
       - name: Set Unique Package Version
         run: |
@@ -87,8 +86,7 @@ jobs:
           poetry version
 
       - name: Build
-        run: |
-          poetry build
+        run: poetry build
 
       - name: Publish
         run: |

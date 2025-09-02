@@ -4,23 +4,24 @@ description: Run pre-commit checks
 runs:
   using: composite
   steps:
-    - name: Setup Python
+    # Ideally this would be after the Python setup, so that it uses the Python
+    # from there, but, the caching depends on the `poetry` binary being available.
+    #
+    # We're installing it through pipx anywhere, as opposed to being in a virtual env.
+    - name: Install Poetry
+      shell: bash
+      run: pipx install poetry
+
+    - name: Install Python or load from cache with dependencies
       uses: actions/setup-python@v5
       with:
-        python-version-file: 'pyproject.toml'
+        python-version-file: pyproject.toml
         cache: poetry
 
-    - shell: bash
-      run: pipx install poetry==1.8.2
+    - name: Install dependencies
+      shell: bash
+      run: make install
 
-    - name: Install python or load from cache with dependencies
-      uses: actions/setup-python@v5
-      with:
-        python-version-file: 'pyproject.toml'
-        cache: poetry
-
-    - shell: bash
-      run: poetry install --all-extras --with dev --with search_tests --with tools_agents
-
-    - shell: bash
-      run: poetry run pre-commit run --all-files
+    - name: Lint
+      shell: bash
+      run: make lint-all
