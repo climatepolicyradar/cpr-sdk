@@ -67,6 +67,7 @@ class VespaSearchAdapter(SearchAdapter):
         instance_url: str,
         cert_directory: Optional[str] = None,
         skip_cert_usage: bool = False,
+        vespa_cloud_secret_token=None,
     ):
         """
         Initialize the Vespa search adapter.
@@ -76,18 +77,25 @@ class VespaSearchAdapter(SearchAdapter):
             If None, will attempt to find certs automatically.
         :param skip_cert_usage: If True, will not use certs, this is useful for
             running against local instances that aren't secured.
+        :param vespa_cloud_secret_token: If present, will use to authenticate to vespa
+            cloud
         """
         self.instance_url = instance_url
-        if skip_cert_usage:
+        if vespa_cloud_secret_token:
+            self.client = Vespa(
+                url=instance_url, vespa_cloud_secret_token=vespa_cloud_secret_token
+            )
+        elif skip_cert_usage:
             cert_path = None
             key_path = None
+            self.client = Vespa(url=instance_url)
         elif cert_directory is None:
             cert_path, key_path = find_vespa_cert_paths()
+            self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
         else:
             cert_path = (Path(cert_directory) / "cert.pem").__str__()
             key_path = (Path(cert_directory) / "key.pem").__str__()
-
-        self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
+            self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
 
     def search(self, parameters: SearchParameters) -> SearchResponse:
         """
