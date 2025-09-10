@@ -4,7 +4,6 @@ import logging
 import time
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Optional
 
 from typing_extensions import override
 
@@ -70,9 +69,9 @@ class VespaSearchAdapter(SearchAdapter):
     def __init__(
         self,
         instance_url: str,
-        cert_directory: Optional[str] = None,
+        cert_directory: str | None = None,
         skip_cert_usage: bool = False,
-        vespa_cloud_secret_token=None,
+        vespa_cloud_secret_token: str | None = None,
     ):
         """
         Initialize the Vespa search adapter.
