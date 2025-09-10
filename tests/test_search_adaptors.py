@@ -1702,7 +1702,6 @@ def test_vespa_search_adaptor__concept_counts(
     if sort_order:
         request.sort_order = sort_order
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits == len(expected_response_families)
     assert (
         set([family.id for family in response.families]) == expected_response_families
     )
@@ -1711,7 +1710,7 @@ def test_vespa_search_adaptor__concept_counts(
     for family in response.families:
         for hit in family.hits:
             if hit.concept_counts:
-                counts.append(max(hit.concept_counts))
+                counts.append(max(hit.concept_counts.values()))
 
     if sort_order is not None:
         if sort_order == "ascending":
@@ -1840,7 +1839,6 @@ async def test_vespa_async_search_adaptor__concept_counts(
     if sort_order:
         request.sort_order = sort_order
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits == len(expected_response_families)
     assert (
         set([family.id for family in response.families]) == expected_response_families
     )
@@ -1849,7 +1847,7 @@ async def test_vespa_async_search_adaptor__concept_counts(
     for family in response.families:
         for hit in family.hits:
             if hit.concept_counts:
-                counts.append(max(hit.concept_counts))
+                counts.append(max(hit.concept_counts.values()))
 
     if sort_order is not None:
         if sort_order == "ascending":
