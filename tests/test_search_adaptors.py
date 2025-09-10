@@ -108,7 +108,7 @@ def test_vespa_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")
     response = vespa_search(test_vespa, request)
 
-    assert len(response.families) == response.total_family_hits == 3
+    assert len(response.families) == response.total_family_hits == 4
     assert response.query_time_ms < response.total_time_ms
     total_passage_count = sum([f.total_passage_hits for f in response.families])
     assert total_passage_count == response.total_hits
@@ -120,7 +120,7 @@ async def test_vespa_async_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")
     response = await async_vespa_search(test_vespa, request)
 
-    assert len(response.families) == response.total_family_hits == 3
+    assert len(response.families) == response.total_family_hits == 4
     assert response.query_time_ms < response.total_time_ms
     total_passage_count = sum([f.total_passage_hits for f in response.families])
     assert total_passage_count == response.total_hits
@@ -555,7 +555,7 @@ def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
     first_family_ids = [f.id for f in response.families]
     family_continuation = response.continuation_token
     assert len(response.families) == 2
-    assert response.total_family_hits == 3
+    assert response.total_family_hits == 4
 
     # Family increment
     request = SearchParameters(
@@ -566,8 +566,8 @@ def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
     )
     response = vespa_search(test_vespa, request)
     prev_family_continuation = response.prev_continuation_token
-    assert len(response.families) == 1
-    assert response.total_family_hits == 3
+    assert len(response.families) == 2
+    assert response.total_family_hits == 4
 
     # Family should have changed
     second_family_ids = [f.id for f in response.families]
@@ -604,7 +604,7 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families(test_ve
     first_family_ids = [f.id for f in response.families]
     family_continuation = response.continuation_token
     assert len(response.families) == 2
-    assert response.total_family_hits == 3
+    assert response.total_family_hits == 4
 
     # Family increment
     request = SearchParameters(
@@ -615,8 +615,8 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families(test_ve
     )
     response = await async_vespa_search(test_vespa, request)
     prev_family_continuation = response.prev_continuation_token
-    assert len(response.families) == 1
-    assert response.total_family_hits == 3
+    assert len(response.families) == 2
+    assert response.total_family_hits == 4
 
     # Family should have changed
     second_family_ids = [f.id for f in response.families]
@@ -1650,7 +1650,10 @@ async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_s
         # Any documents with less than three matches for any concept.
         (
             [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
-            {"CCLW.family.i00000003.n0000"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "AF.family.009MHNWR.0",
+            },
             None,
             None,
         ),
@@ -1658,7 +1661,11 @@ async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_s
         # sorted by concept count in descending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
-            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "descending",
         ),
@@ -1666,7 +1673,11 @@ async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_s
         # sorted by concept count in ascending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
-            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "ascending",
         ),
@@ -1681,7 +1692,11 @@ async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_s
                     negate=True,
                 )
             ],
-            {"CCLW.family.4934.0", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.4934.0",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "ascending",
         ),
@@ -1786,7 +1801,10 @@ def test_vespa_search_adaptor__concept_counts(
         # Any documents with less than three matches for any concept.
         (
             [ConceptCountFilter(count=3, operand=OperandTypeEnum("<"))],
-            {"CCLW.family.i00000003.n0000"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "AF.family.009MHNWR.0",
+            },
             None,
             None,
         ),
@@ -1794,7 +1812,11 @@ def test_vespa_search_adaptor__concept_counts(
         # sorted by concept count in descending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
-            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "descending",
         ),
@@ -1802,7 +1824,11 @@ def test_vespa_search_adaptor__concept_counts(
         # sorted by concept count in ascending order.
         (
             [ConceptCountFilter(count=1, operand=OperandTypeEnum(">"))],
-            {"CCLW.family.i00000003.n0000", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.i00000003.n0000",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "ascending",
         ),
@@ -1817,7 +1843,11 @@ def test_vespa_search_adaptor__concept_counts(
                     negate=True,
                 )
             ],
-            {"CCLW.family.4934.0", "CCLW.family.10014.0"},
+            {
+                "CCLW.family.4934.0",
+                "CCLW.family.10014.0",
+                "AF.family.009MHNWR.0",
+            },
             "concept_counts",
             "ascending",
         ),
