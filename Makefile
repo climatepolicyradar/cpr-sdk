@@ -1,4 +1,4 @@
-include ./Makefile-vespa.defs
+include ./vespa.mk
 
 .PHONY: install test test_not_vespa test_search_intentions lint lint-all
 
