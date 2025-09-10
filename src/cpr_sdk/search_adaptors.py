@@ -172,10 +172,12 @@ class VespaSearchAdapter(SearchAdapter):
             "id:doc_search:document_passage::UNFCCC.party.1060.0.3743"
         :return Hit: a single document or passage
         """
-        namespace, schema, data_id = split_document_id(document_id)
+        document_id_parts = split_document_id(document_id)
         try:
             vespa_response = self.client.get_data(
-                namespace=namespace, schema=schema, data_id=data_id
+                namespace=document_id_parts.namespace,
+                schema=document_id_parts.schema,
+                data_id=document_id_parts.data_id,
             )
         except HTTPError as e:
             if e.response is not None:

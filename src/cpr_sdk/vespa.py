@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, NamedTuple, Optional
 
 import yaml
 from vespa.exceptions import VespaError
@@ -15,16 +15,22 @@ SENSITIVE_QUERY_TERMS = load_sensitive_query_terms()
 _LOGGER = logging.getLogger(__name__)
 
 
-def split_document_id(document_id: str) -> tuple[str, str, str]:
+class DocumentIdComponents(NamedTuple):
+    """Components within a Document ID."""
+
+    namespace: str
+    schema: str
+    data_id: str
+
+
+def split_document_id(document_id: str) -> DocumentIdComponents:
     """
-    Split a document_id into its namespace, schema, and data_id components.
+    Split a document ID into its namespace, schema, and data ID components.
 
-    IDs should be of the form: "id:namespace:schema::data_id"
-
-    :param str document_id: a document id of the form "id:namespace:schema::data_id"
-    :raises ValueError: if the document id is not of the expected form
-    :return tuple[str, str, str]: the namespace, schema, and data_id components of the
-        document_id
+    :param str document_id: a document ID of the form "id:namespace:schema::data_id"
+    :raises ValueError: if the document ID is not of the expected form
+    :return DocumentIdComponents: the namespace, schema, and data ID components of the
+        document ID
     """
     try:
         namespace_and_schema, data_id = document_id.split("::")
@@ -34,7 +40,7 @@ def split_document_id(document_id: str) -> tuple[str, str, str]:
             f'Failed to parse document id: "{document_id}". '
             'Document ids should be of the form: "id:namespace:schema::data_id"'
         ) from e
-    return namespace, schema, data_id
+    return DocumentIdComponents(namespace, schema, data_id)
 
 
 def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
