@@ -46,7 +46,7 @@ class SearchAdapter(ABC):
         """
         raise NotImplementedError
 
-    def get_by_id(self, document_id: str) -> SearchResponse:
+    def get_by_id(self, document_id: str) -> Hit:
         """
         Get a single document by its id
 
