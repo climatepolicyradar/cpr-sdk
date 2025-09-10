@@ -31,6 +31,15 @@ vespa_deploy_app:
 vespa_load_data:
 	vespa feed --target local --wait 60 tests/local_vespa/test_documents/*.json
 
+# Deletes all test data from local Vespa instance
+.ONESHELL:
+vespa_delete_data:
+	curl -X DELETE "http://localhost:8080/document/v1/doc_search/family_document/docid?selection=true&cluster=family-document-passage"
+	curl -X DELETE "http://localhost:8080/document/v1/doc_search/document_passage/docid?selection=true&cluster=family-document-passage"
+	curl -X DELETE "http://localhost:8080/document/v1/doc_search/search_weights/docid?selection=true&cluster=family-document-passage"
+	curl -X DELETE "http://localhost:8080/document/v1/doc_search/concept/docid?selection=true&cluster=family-document-passage"
+	curl -X DELETE "http://localhost:8080/document/v1/doc_search/classifiers_profile/docid?selection=true&cluster=family-document-passage"
+
 # Set up a local instance of Vespa
 vespa_dev_setup: vespa_confirm_cli_installed vespa_dev_start vespa_healthy vespa_deploy_app vespa_load_data
 
