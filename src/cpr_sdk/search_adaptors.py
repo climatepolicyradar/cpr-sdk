@@ -2,9 +2,11 @@
 
 import logging
 import time
-from abc import ABC
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Optional
+
+from typing_extensions import override
 
 from requests.exceptions import HTTPError
 from vespa.application import Vespa
@@ -26,6 +28,7 @@ LOGGER = logging.getLogger(__name__)
 class SearchAdapter(ABC):
     """Base class for all search adapters."""
 
+    @abstractmethod
     def search(self, parameters: SearchParameters) -> SearchResponse:
         """
         Search a dataset
@@ -36,6 +39,7 @@ class SearchAdapter(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def async_search(self, parameters: SearchParameters) -> SearchResponse:
         """
         Search a dataset asynchronously
@@ -46,6 +50,7 @@ class SearchAdapter(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     def get_by_id(self, document_id: str) -> Hit:
         """
         Get a single document by its id
@@ -97,6 +102,7 @@ class VespaSearchAdapter(SearchAdapter):
             key_path = (Path(cert_directory) / "key.pem").__str__()
             self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
 
+    @override
     def search(self, parameters: SearchParameters) -> SearchResponse:
         """
         Search a vespa instance
@@ -125,6 +131,7 @@ class VespaSearchAdapter(SearchAdapter):
 
         return response
 
+    @override
     async def async_search(self, parameters: SearchParameters) -> SearchResponse:
         """
         Search a vespa instance asynchronously
@@ -155,6 +162,7 @@ class VespaSearchAdapter(SearchAdapter):
 
         return response
 
+    @override
     def get_by_id(self, document_id: str) -> Hit:
         """
         Get a single document by its id
