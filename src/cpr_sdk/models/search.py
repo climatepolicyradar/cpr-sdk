@@ -87,59 +87,6 @@ class ConceptFilter(BaseModel):
         return self
 
 
-class Concept(BaseModel):
-    """
-    A concept extracted from a passage of text.
-
-    This refers to a span of text within passage that holds a concept.
-    E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
-    ending at index 17, classified by model "environment_model_1" on the 12th Jan at
-    12:00.
-    """
-
-    id: str
-    name: str
-    parent_concepts: Optional[List[dict[str, str]]] = None
-    parent_concept_ids_flat: Optional[str] = None
-    model: str
-    end: int
-    start: int
-    timestamp: datetime
-
-    model_config = ConfigDict(
-        use_enum_values=True,
-        json_encoders={datetime: lambda dt: dt.isoformat()},
-    )
-
-    @model_validator(mode="after")
-    def validate_parent_concept_ids_flat(self) -> "Concept":
-        """
-        Validate parent_concept_ids_flat field.
-
-        This field should hold the same ids as concepts in the parent_concepts field.
-        """
-        # Skip validation if either field is missing
-        if self.parent_concepts is None or self.parent_concept_ids_flat is None:
-            return self
-
-        parent_concept_ids_flattened = ",".join(
-            [parent_concept["id"] for parent_concept in self.parent_concepts]
-        )
-
-        if not (
-            self.parent_concept_ids_flat == parent_concept_ids_flattened
-            or self.parent_concept_ids_flat == parent_concept_ids_flattened + ","
-        ):
-            raise ValueError(
-                "parent_concept_ids_flat must be a comma separated list of parent "
-                "concept ids held in the parent concepts field. "
-                f"Received parent_concept_ids_flat: {self.parent_concept_ids_flat}\n"
-                "Received ids in the parent_concept objects: "
-                f"{parent_concept_ids_flattened}"
-            )
-        return self
-
-
 class Filters(BaseModel):
     """Filterable fields in a search request"""
 
@@ -545,6 +492,58 @@ class Document(Hit):
 
 class Passage(Hit):
     """A passage search result hit."""
+
+    class Concept(BaseModel):
+        """
+        A concept extracted from a passage of text.
+
+        This refers to a span of text within passage that holds a concept.
+        E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
+        ending at index 17, classified by model "environment_model_1" on the 12th Jan at
+        12:00.
+        """
+
+        id: str
+        name: str
+        parent_concepts: Optional[List[dict[str, str]]] = None
+        parent_concept_ids_flat: Optional[str] = None
+        model: str
+        end: int
+        start: int
+        timestamp: datetime
+
+        model_config = ConfigDict(
+            use_enum_values=True,
+            json_encoders={datetime: lambda dt: dt.isoformat()},
+        )
+
+        @model_validator(mode="after")
+        def validate_parent_concept_ids_flat(self) -> "Passage.Concept":
+            """
+            Validate parent_concept_ids_flat field.
+
+            This field should hold the same ids as concepts in the parent_concepts field.
+            """
+            # Skip validation if either field is missing
+            if self.parent_concepts is None or self.parent_concept_ids_flat is None:
+                return self
+
+            parent_concept_ids_flattened = ",".join(
+                [parent_concept["id"] for parent_concept in self.parent_concepts]
+            )
+
+            if not (
+                self.parent_concept_ids_flat == parent_concept_ids_flattened
+                or self.parent_concept_ids_flat == parent_concept_ids_flattened + ","
+            ):
+                raise ValueError(
+                    "parent_concept_ids_flat must be a comma separated list of parent "
+                    "concept ids held in the parent concepts field. "
+                    f"Received parent_concept_ids_flat: {self.parent_concept_ids_flat}\n"
+                    "Received ids in the parent_concept objects: "
+                    f"{parent_concept_ids_flattened}"
+                )
+            return self
 
     text_block: str
     text_block_id: str

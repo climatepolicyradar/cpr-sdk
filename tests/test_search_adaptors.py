@@ -6,7 +6,6 @@ from unittest.mock import patch
 import pytest
 
 from cpr_sdk.models.search import (
-    Concept,
     ConceptCountFilter,
     ConceptFilter,
     Document,
@@ -1109,7 +1108,10 @@ def test_vespa_search_adaptor__concept_filter(test_vespa, concept_filters: list[
         for hit in family.hits:
             assert hit.concepts and hit.concepts != []
             assert all(
-                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
+                [
+                    isinstance(concept_hit, Passage.Concept)
+                    for concept_hit in hit.concepts
+                ]
             )
 
             for concept_filter in concept_filters:
@@ -1186,7 +1188,10 @@ async def test_vespa_async_search_adaptor__concept_filter(
         for hit in family.hits:
             assert hit.concepts and hit.concepts != []
             assert all(
-                [isinstance(concept_hit, Concept) for concept_hit in hit.concepts]
+                [
+                    isinstance(concept_hit, Passage.Concept)
+                    for concept_hit in hit.concepts
+                ]
             )
 
             for concept_filter in concept_filters:
