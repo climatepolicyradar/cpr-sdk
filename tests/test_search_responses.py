@@ -5,7 +5,6 @@ import pytest
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import Document, Hit, Passage
 from cpr_sdk.vespa import parse_vespa_response, split_document_id
-from vespa.io import VespaResponse
 
 
 @pytest.fixture

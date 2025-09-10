@@ -1,3 +1,4 @@
+
 import traceback
 from collections.abc import Mapping
 from timeit import timeit
@@ -11,6 +12,19 @@ from cpr_sdk.models.search import (
     ConceptFilter,
     ConceptV2DocumentFilter,
     ConceptV2PassageFilter,
+    Document,
+    Filters,
+    Hit,
+    MetadataFilter,
+    OperandTypeEnum,
+    Passage,
+    SearchParameters,
+    SearchResponse,
+    sort_fields,
+)
+from cpr_sdk.models.search import (
+    ConceptCountFilter,
+    ConceptFilter,
     Document,
     Filters,
     Hit,
