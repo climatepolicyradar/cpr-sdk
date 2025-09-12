@@ -84,9 +84,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "wol5xsxa"
             }
-          ]
+          ],
+          "concepts_v2_flat": "jr3s4jsa:Q503:wol5xsxa"
         }
       ]
     }
@@ -560,9 +562,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "zdjzrne7"
             }
-          ]
+          ],
+          "concepts_v2_flat": "2gvuuvnw:Q789:zdjzrne7,"
         }
       ]
     }
@@ -851,7 +855,7 @@
       ],
       "text_block_page": 39,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Development of tools",
+      "text_block": "· Development of tools",
       "spans": []
     }
   },
@@ -947,7 +951,7 @@
       ],
       "text_block_page": 24,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Opportunities and challenges for all stakeholders.",
+      "text_block": "· Opportunities and challenges for all stakeholders.",
       "spans": []
     }
   },
@@ -1011,7 +1015,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -1619,7 +1623,7 @@
       ],
       "text_block_page": 43,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "Porcentaje de ejecuci\u00f3n 2015",
+      "text_block": "Porcentaje de ejecución 2015",
       "spans": []
     }
   },
@@ -1994,14 +1998,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "qixwmteg"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "27sdixck"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:qixwmteg,r7nmt2kg:27sdixck,"
+          "concepts_v2_flat": "bqm9freh:Q123:qixwmteg,r7nmt2kg:Q456:27sdixck"
         },
         {
           "start": 37,
@@ -2009,10 +2015,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "5tnr2fij"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:5tnr2fij,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:5tnr2fij"
         }
       ]
     }
@@ -2070,10 +2077,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "x0t7fk2b"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:x0t7fk2b,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:x0t7fk2b"
         }
       ]
     }
@@ -2426,7 +2434,7 @@
       ],
       "text_block_page": 56,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Effective communication and information sharing enhances project awareness and facilitates evidence-based decision making:",
+      "text_block": "· Effective communication and information sharing enhances project awareness and facilitates evidence-based decision making:",
       "spans": []
     }
   },
@@ -2522,7 +2530,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -2863,10 +2871,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "tw1xmncv"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:tw1xmncv,"
+          "concepts_v2_flat": "bqm9freh:Q123:tw1xmncv"
         },
         {
           "start": 254,
@@ -2874,14 +2883,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "szksytzt"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "hi7vc4c8"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:szksytzt,r7nmt2kg:hi7vc4c8,"
+          "concepts_v2_flat": "bqm9freh:Q123:szksytzt,r7nmt2kg:Q456:hi7vc4c8,"
         },
         {
           "start": 298,
@@ -2889,10 +2900,11 @@
           "concepts_v2": [
             {
               "concept_id": "tntx3gy5",
+              "concept_wikibase_id": "Q512",
               "classifier_id": "o87fxsrv"
             }
           ],
-          "concepts_v2_flat": "tntx3gy5:o87fxsrv,"
+          "concepts_v2_flat": "tntx3gy5:Q512:o87fxsrv"
         },
         {
           "start": 281,
@@ -2900,10 +2912,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "6pt7xv6g"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:6pt7xv6g,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:6pt7xv6g"
         }
       ]
     }
@@ -3249,10 +3262,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "hwrrn037"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:hwrrn037,"
+          "concepts_v2_flat": "dw5brr9c:Q504:hwrrn037,"
         }
       ]
     }
@@ -3406,10 +3420,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "0h984hay"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:0h984hay,"
+          "concepts_v2_flat": "zhj5vezx:Q508:0h984hay"
         }
       ]
     }
@@ -3819,10 +3834,11 @@
           "concepts_v2": [
             {
               "concept_id": "9nzh8ngn",
+              "concept_wikibase_id": "Q519",
               "classifier_id": "i7yherp6"
             }
           ],
-          "concepts_v2_flat": "9nzh8ngn:i7yherp6,"
+          "concepts_v2_flat": "9nzh8ngn:Q519:i7yherp6,"
         }
       ]
     }
@@ -3895,10 +3911,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "5i5lal4j"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:5i5lal4j,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:5i5lal4j"
         },
         {
           "start": 140,
@@ -3906,10 +3923,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "2tylqhv8"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:2tylqhv8,"
+          "concepts_v2_flat": "b836x3e3:Q506:2tylqhv8,"
         }
       ]
     }
@@ -4134,7 +4152,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Conclusions",
+      "text_block": "· Conclusions",
       "spans": []
     }
   },
@@ -4206,14 +4224,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "fb6w4wp4"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "a1045wxt"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:fb6w4wp4,r7nmt2kg:a1045wxt,"
+          "concepts_v2_flat": "bqm9freh:Q123:fb6w4wp4,r7nmt2kg:Q456:a1045wxt"
         }
       ]
     }
@@ -4278,7 +4298,7 @@
       ],
       "text_block_page": 26,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Project Document (PRODOC)",
+      "text_block": "· Project Document (PRODOC)",
       "spans": []
     }
   },
@@ -4310,7 +4330,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 4. Likely Insignificant risks for sustainability",
+      "text_block": "• 4. Likely Insignificant risks for sustainability",
       "spans": []
     }
   },
@@ -4854,7 +4874,7 @@
       ],
       "text_block_page": 24,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Lessons learned by project stakeholders.",
+      "text_block": "· Lessons learned by project stakeholders.",
       "spans": []
     }
   },
@@ -4918,7 +4938,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 2. Relevant",
+      "text_block": "• 2. Relevant",
       "spans": []
     }
   },
@@ -5238,7 +5258,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 5. Satisfactory",
+      "text_block": "• 5. Satisfactory",
       "spans": []
     }
   },
@@ -5724,10 +5744,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "mlvecsta"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:mlvecsta,"
+          "concepts_v2_flat": "nhhzwfva:Q374:mlvecsta"
         },
         {
           "start": 343,
@@ -5735,10 +5756,11 @@
           "concepts_v2": [
             {
               "concept_id": "q5dt2x5y",
+              "concept_wikibase_id": "Q515",
               "classifier_id": "lfoyseqb"
             }
           ],
-          "concepts_v2_flat": "q5dt2x5y:lfoyseqb,"
+          "concepts_v2_flat": "q5dt2x5y:Q515:lfoyseqb"
         },
         {
           "start": 231,
@@ -5746,14 +5768,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "w4v2rzq0"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "jue2a08w"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:w4v2rzq0,r7nmt2kg:jue2a08w,"
+          "concepts_v2_flat": "bqm9freh:Q123:w4v2rzq0,r7nmt2kg:Q456:jue2a08w"
         }
       ]
     }
@@ -5914,7 +5938,7 @@
       ],
       "text_block_page": 44,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Interviewed stakeholders highlighted the considerable guidance received from UNDP and recognized the openness of this agency in the implementation of the project design changes required after the midterm evaluation of the project.",
+      "text_block": "· Interviewed stakeholders highlighted the considerable guidance received from UNDP and recognized the openness of this agency in the implementation of the project design changes required after the midterm evaluation of the project.",
       "spans": []
     }
   },
@@ -5978,7 +6002,7 @@
       ],
       "text_block_page": 26,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Work plans",
+      "text_block": "· Work plans",
       "spans": []
     }
   },
@@ -6039,10 +6063,11 @@
           "concepts_v2": [
             {
               "concept_id": "mtg8hg7x",
+              "concept_wikibase_id": "Q516",
               "classifier_id": "ne4t0fyy"
             }
           ],
-          "concepts_v2_flat": "mtg8hg7x:ne4t0fyy,"
+          "concepts_v2_flat": "mtg8hg7x:Q516:ne4t0fyy"
         }
       ]
     }
@@ -6132,10 +6157,11 @@
           "concepts_v2": [
             {
               "concept_id": "rfrb6hue",
+              "concept_wikibase_id": "Q514",
               "classifier_id": "wdmyftlr"
             }
           ],
-          "concepts_v2_flat": "rfrb6hue:wdmyftlr,"
+          "concepts_v2_flat": "rfrb6hue:Q514:wdmyftlr"
         }
       ]
     }
@@ -6513,10 +6539,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "tcha3k5q"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:tcha3k5q,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:tcha3k5q"
         }
       ]
     }
@@ -7221,7 +7248,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Extensive measures benefited 23,318 households.",
+      "text_block": "· Extensive measures benefited 23,318 households.",
       "spans": []
     }
   },
@@ -7317,7 +7344,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Lessons Learned",
+      "text_block": "· Lessons Learned",
       "spans": []
     }
   },
@@ -7701,7 +7728,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -7995,10 +8022,11 @@
           "concepts_v2": [
             {
               "concept_id": "w7s2zf4v",
+              "concept_wikibase_id": "Q517",
               "classifier_id": "ituwsh5v"
             }
           ],
-          "concepts_v2_flat": "w7s2zf4v:ituwsh5v,"
+          "concepts_v2_flat": "w7s2zf4v:Q517:ituwsh5v"
         },
         {
           "start": 476,
@@ -8006,10 +8034,11 @@
           "concepts_v2": [
             {
               "concept_id": "w7s2zf4v",
+              "concept_wikibase_id": "Q517",
               "classifier_id": "nb08t9x2"
             }
           ],
-          "concepts_v2_flat": "w7s2zf4v:nb08t9x2,"
+          "concepts_v2_flat": "w7s2zf4v:Q517:nb08t9x2,"
         },
         {
           "start": 109,
@@ -8017,10 +8046,11 @@
           "concepts_v2": [
             {
               "concept_id": "tntx3gy5",
+              "concept_wikibase_id": "Q512",
               "classifier_id": "elel017o"
             }
           ],
-          "concepts_v2_flat": "tntx3gy5:elel017o,"
+          "concepts_v2_flat": "tntx3gy5:Q512:elel017o"
         },
         {
           "start": 433,
@@ -8028,10 +8058,11 @@
           "concepts_v2": [
             {
               "concept_id": "mbu7hjcq",
+              "concept_wikibase_id": "Q523",
               "classifier_id": "z5a1wxaw"
             }
           ],
-          "concepts_v2_flat": "mbu7hjcq:z5a1wxaw,"
+          "concepts_v2_flat": "mbu7hjcq:Q523:z5a1wxaw"
         }
       ]
     }
@@ -8281,10 +8312,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "5ul69f0j"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:5ul69f0j,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:5ul69f0j"
         }
       ]
     }
@@ -8692,10 +8724,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "q49tklhj"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:q49tklhj,"
+          "concepts_v2_flat": "nhhzwfva:Q374:q49tklhj"
         },
         {
           "start": 195,
@@ -8703,14 +8736,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "73r741vb"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "lrqi4zs4"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:73r741vb,r7nmt2kg:lrqi4zs4,"
+          "concepts_v2_flat": "bqm9freh:Q123:73r741vb,r7nmt2kg:Q456:lrqi4zs4,"
         }
       ]
     }
@@ -8941,10 +8976,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "yrw7c9i7"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:yrw7c9i7,"
+          "concepts_v2_flat": "nhhzwfva:Q374:yrw7c9i7,"
         },
         {
           "start": 432,
@@ -8952,14 +8988,16 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "v3fzq3mz"
             },
             {
               "concept_id": "gmerqh8z",
+              "concept_wikibase_id": "Q513",
               "classifier_id": "s3283ybu"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:v3fzq3mz,gmerqh8z:s3283ybu,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:v3fzq3mz,gmerqh8z:Q513:s3283ybu"
         },
         {
           "start": 408,
@@ -8967,10 +9005,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "580x0pet"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:580x0pet,"
+          "concepts_v2_flat": "dw5brr9c:Q504:580x0pet"
         }
       ]
     }
@@ -9291,7 +9330,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Management support in 35,600 hectares in Protected Areas (ICF) and 68,000 hectares in Sub-Basins (SANAA).",
+      "text_block": "· Management support in 35,600 hectares in Protected Areas (ICF) and 68,000 hectares in Sub-Basins (SANAA).",
       "concepts": [
         {
           "parent_concepts": [
@@ -9316,10 +9355,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "akm2leho"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:akm2leho,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:akm2leho"
         }
       ]
     }
@@ -9460,14 +9500,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "1stggl1x"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "hkq3z85m"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:1stggl1x,awgxsauj:hkq3z85m,"
+          "concepts_v2_flat": "rns7bps4:Q500:1stggl1x,awgxsauj:Q501:hkq3z85m"
         }
       ]
     }
@@ -9832,14 +9874,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "b3rqqibq"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "egeo6d1y"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:b3rqqibq,awgxsauj:egeo6d1y,"
+          "concepts_v2_flat": "rns7bps4:Q500:b3rqqibq,awgxsauj:Q501:egeo6d1y"
         }
       ]
     }
@@ -9968,7 +10012,7 @@
       ],
       "text_block_page": 8,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Potential for sustainability",
+      "text_block": "· Potential for sustainability",
       "spans": []
     }
   },
@@ -10608,7 +10652,7 @@
       ],
       "text_block_page": 43,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "Porcentaje de ejecuci\u00f3n 2016 :selected:",
+      "text_block": "Porcentaje de ejecución 2016 :selected:",
       "spans": []
     }
   },
@@ -10704,7 +10748,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Development of 22 micro-watershed action plans, which stipulate operational workplans and budgets.",
+      "text_block": "· Development of 22 micro-watershed action plans, which stipulate operational workplans and budgets.",
       "spans": []
     }
   },
@@ -10800,7 +10844,7 @@
       ],
       "text_block_page": 24,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Strategic positioning of UNDP in emerging areas like climate risk management and gender integration.",
+      "text_block": "· Strategic positioning of UNDP in emerging areas like climate risk management and gender integration.",
       "concepts": [
         {
           "parent_concepts": [
@@ -10825,10 +10869,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "6uvrxfct"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:6uvrxfct,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:6uvrxfct"
         }
       ]
     }
@@ -10989,7 +11034,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Community of Surcos de Ca\u00f1a",
+      "text_block": "· Community of Surcos de Caña",
       "spans": []
     }
   },
@@ -11245,7 +11290,7 @@
       ],
       "text_block_page": 27,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 ATLAS reports",
+      "text_block": "· ATLAS reports",
       "spans": []
     }
   },
@@ -11469,7 +11514,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Vice-Minister of MiAmbiente+",
+      "text_block": "· Vice-Minister of MiAmbiente+",
       "spans": []
     }
   },
@@ -11825,10 +11870,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "bm20jzuc"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:bm20jzuc,"
+          "concepts_v2_flat": "nhhzwfva:Q374:bm20jzuc"
         },
         {
           "start": 483,
@@ -11836,14 +11882,16 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "sovndwaa"
             },
             {
               "concept_id": "gmerqh8z",
+              "concept_wikibase_id": "Q513",
               "classifier_id": "a2gyztw2"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:sovndwaa,gmerqh8z:a2gyztw2,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:sovndwaa,gmerqh8z:Q513:a2gyztw2,"
         },
         {
           "start": 515,
@@ -11851,10 +11899,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "82xzag93"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:82xzag93,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:82xzag93,"
         },
         {
           "start": 449,
@@ -11862,10 +11911,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "e1nrq5mi"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:e1nrq5mi,"
+          "concepts_v2_flat": "kynzgerh:Q505:e1nrq5mi"
         },
         {
           "start": 416,
@@ -11873,10 +11923,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "tx13eneb"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:tx13eneb,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:tx13eneb"
         }
       ]
     }
@@ -12069,7 +12120,7 @@
       ],
       "text_block_page": 26,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 External Audit Reports",
+      "text_block": "· External Audit Reports",
       "spans": []
     }
   },
@@ -12593,14 +12644,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "bl3duejh"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "qdurz2lp"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:bl3duejh,awgxsauj:qdurz2lp,"
+          "concepts_v2_flat": "rns7bps4:Q500:bl3duejh,awgxsauj:Q501:qdurz2lp"
         }
       ]
     }
@@ -12709,14 +12762,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "51hiwrdf"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "l7pkl591"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:51hiwrdf,awgxsauj:l7pkl591,"
+          "concepts_v2_flat": "rns7bps4:Q500:51hiwrdf,awgxsauj:Q501:l7pkl591,"
         }
       ]
     }
@@ -12845,7 +12900,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 COSUDE. Final Project Report. Scenarios of climate change for Honduras through the analysis and use of Regional Climate Models. The case of the basin of the Choluteca River.",
+      "text_block": "· COSUDE. Final Project Report. Scenarios of climate change for Honduras through the analysis and use of Regional Climate Models. The case of the basin of the Choluteca River.",
       "spans": []
     }
   },
@@ -13030,10 +13085,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "snwtl0z0"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:snwtl0z0,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:snwtl0z0,"
         }
       ]
     }
@@ -13138,14 +13194,16 @@
           "concepts_v2": [
             {
               "concept_id": "3nj2mmps",
+              "concept_wikibase_id": "Q510",
               "classifier_id": "fuj69j32"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "5x0a0dbj"
             }
           ],
-          "concepts_v2_flat": "3nj2mmps:fuj69j32,r7nmt2kg:5x0a0dbj,"
+          "concepts_v2_flat": "3nj2mmps:Q510:fuj69j32,r7nmt2kg:Q456:5x0a0dbj"
         }
       ]
     }
@@ -13363,10 +13421,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "yoyf108o"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:yoyf108o,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:yoyf108o"
         }
       ]
     }
@@ -13533,10 +13592,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "zsxqle3p"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:zsxqle3p,"
+          "concepts_v2_flat": "nhhzwfva:Q374:zsxqle3p"
         },
         {
           "start": 343,
@@ -13544,10 +13604,11 @@
           "concepts_v2": [
             {
               "concept_id": "q5dt2x5y",
+              "concept_wikibase_id": "Q515",
               "classifier_id": "d7fdum6j"
             }
           ],
-          "concepts_v2_flat": "q5dt2x5y:d7fdum6j,"
+          "concepts_v2_flat": "q5dt2x5y:Q515:d7fdum6j"
         },
         {
           "start": 231,
@@ -13555,14 +13616,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "1irb37sf"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "q7nronun"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:1irb37sf,r7nmt2kg:q7nronun,"
+          "concepts_v2_flat": "bqm9freh:Q123:1irb37sf,r7nmt2kg:Q456:q7nronun"
         }
       ]
     }
@@ -13684,10 +13747,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "oo48idtv"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:oo48idtv,"
+          "concepts_v2_flat": "8gpdnspp:Q507:oo48idtv"
         }
       ]
     }
@@ -13784,7 +13848,7 @@
       ],
       "text_block_page": 52,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 In 2015, women's participation was closely monitored in pilots designed at the municipal level.",
+      "text_block": "· In 2015, women's participation was closely monitored in pilots designed at the municipal level.",
       "concepts": [
         {
           "parent_concepts": [
@@ -13809,10 +13873,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "mxncnt3h"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:mxncnt3h,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:mxncnt3h"
         }
       ]
     }
@@ -13845,7 +13910,7 @@
       ],
       "text_block_page": 75,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 1. Highly unsatisfactory",
+      "text_block": "• 1. Highly unsatisfactory",
       "spans": []
     }
   },
@@ -13941,7 +14006,7 @@
       ],
       "text_block_page": 32,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Comparison of baseline values of the main indicators.",
+      "text_block": "· Comparison of baseline values of the main indicators.",
       "spans": []
     }
   },
@@ -14005,7 +14070,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 6. Higly Satisfactory",
+      "text_block": "· 6. Higly Satisfactory",
       "spans": []
     }
   },
@@ -14252,14 +14317,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "bhxbeh2l"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "qccj5cjq"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:bhxbeh2l,r7nmt2kg:qccj5cjq,"
+          "concepts_v2_flat": "bqm9freh:Q123:bhxbeh2l,r7nmt2kg:Q456:qccj5cjq"
         },
         {
           "start": 221,
@@ -14267,10 +14334,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "xctswrii"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:xctswrii,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:xctswrii"
         }
       ]
     }
@@ -14399,7 +14467,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Visit to urban colonies",
+      "text_block": "· Visit to urban colonies",
       "spans": []
     }
   },
@@ -15060,10 +15128,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "ppoacwcd"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:ppoacwcd,"
+          "concepts_v2_flat": "bqm9freh:Q123:ppoacwcd"
         },
         {
           "start": 67,
@@ -15071,14 +15140,16 @@
           "concepts_v2": [
             {
               "concept_id": "w3wrtq64",
+              "concept_wikibase_id": "Q511",
               "classifier_id": "57ndz10q"
             },
             {
               "concept_id": "w3wrtq64",
+              "concept_wikibase_id": "Q511",
               "classifier_id": "be7458ih"
             }
           ],
-          "concepts_v2_flat": "w3wrtq64:57ndz10q,w3wrtq64:be7458ih,"
+          "concepts_v2_flat": "w3wrtq64:Q511:57ndz10q,w3wrtq64:Q511:be7458ih"
         },
         {
           "start": 237,
@@ -15086,14 +15157,16 @@
           "concepts_v2": [
             {
               "concept_id": "w3wrtq64",
+              "concept_wikibase_id": "Q511",
               "classifier_id": "8ehl6qcc"
             },
             {
               "concept_id": "w3wrtq64",
+              "concept_wikibase_id": "Q511",
               "classifier_id": "gimx3ck4"
             }
           ],
-          "concepts_v2_flat": "w3wrtq64:8ehl6qcc,w3wrtq64:gimx3ck4,"
+          "concepts_v2_flat": "w3wrtq64:Q511:8ehl6qcc,w3wrtq64:Q511:gimx3ck4,"
         }
       ]
     }
@@ -15279,10 +15352,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "jqznzg14"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:jqznzg14,"
+          "concepts_v2_flat": "zhj5vezx:Q508:jqznzg14,"
         }
       ]
     }
@@ -15411,7 +15485,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 A critical mass of professionals with expertise in climate change adaptation was created. In addition, understanding about the impact of climate change in Honduras was improved.",
+      "text_block": "· A critical mass of professionals with expertise in climate change adaptation was created. In addition, understanding about the impact of climate change in Honduras was improved.",
       "spans": []
     }
   },
@@ -15500,10 +15574,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "zba4psjs"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:zba4psjs,"
+          "concepts_v2_flat": "dw5brr9c:Q504:zba4psjs"
         }
       ]
     }
@@ -15632,7 +15707,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -15824,7 +15899,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 6. Highly Satisfactory",
+      "text_block": "• 6. Highly Satisfactory",
       "spans": []
     }
   },
@@ -16182,10 +16257,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "5m509yb9"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:5m509yb9,"
+          "concepts_v2_flat": "zhj5vezx:Q508:5m509yb9,"
         },
         {
           "start": 26,
@@ -16193,10 +16269,11 @@
           "concepts_v2": [
             {
               "concept_id": "ah84cx9r",
+              "concept_wikibase_id": "Q526",
               "classifier_id": "ugnsobaa"
             }
           ],
-          "concepts_v2_flat": "ah84cx9r:ugnsobaa,"
+          "concepts_v2_flat": "ah84cx9r:Q526:ugnsobaa"
         },
         {
           "start": 185,
@@ -16204,10 +16281,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "riopnahw"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:riopnahw,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:riopnahw"
         },
         {
           "start": 202,
@@ -16215,10 +16293,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "49jih2m3"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:49jih2m3,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:49jih2m3,"
         }
       ]
     }
@@ -16251,7 +16330,7 @@
       ],
       "text_block_page": 51,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -16347,7 +16426,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 SANAA",
+      "text_block": "· SANAA",
       "spans": []
     }
   },
@@ -16596,10 +16675,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "zkjwl8fw"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:zkjwl8fw,"
+          "concepts_v2_flat": "zhj5vezx:Q508:zkjwl8fw"
         }
       ]
     }
@@ -16973,14 +17053,16 @@
           "concepts_v2": [
             {
               "concept_id": "ca7awjjg",
+              "concept_wikibase_id": "Q525",
               "classifier_id": "vuu0a0zg"
             },
             {
               "concept_id": "egnxgkd8",
+              "concept_wikibase_id": "Q524",
               "classifier_id": "8db1exg0"
             }
           ],
-          "concepts_v2_flat": "ca7awjjg:vuu0a0zg,egnxgkd8:8db1exg0,"
+          "concepts_v2_flat": "ca7awjjg:Q525:vuu0a0zg,egnxgkd8:Q524:8db1exg0,"
         },
         {
           "start": 344,
@@ -16988,10 +17070,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "xjqqgpyp"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:xjqqgpyp,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:xjqqgpyp"
         },
         {
           "start": 689,
@@ -16999,10 +17082,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "huix0n5l"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:huix0n5l,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:huix0n5l"
         },
         {
           "start": 400,
@@ -17010,10 +17094,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "27e57hc7"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:27e57hc7,"
+          "concepts_v2_flat": "b836x3e3:Q506:27e57hc7,"
         }
       ]
     }
@@ -17142,7 +17227,7 @@
       ],
       "text_block_page": 8,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Information sharing",
+      "text_block": "· Information sharing",
       "spans": []
     }
   },
@@ -17694,10 +17779,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "ybv6odj1"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:ybv6odj1,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:ybv6odj1,"
         },
         {
           "start": 140,
@@ -17705,10 +17791,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "csfzzm2n"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:csfzzm2n,"
+          "concepts_v2_flat": "b836x3e3:Q506:csfzzm2n"
         }
       ]
     }
@@ -17741,7 +17828,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 AMDC. 2016. Final Counterpart Report.",
+      "text_block": "· AMDC. 2016. Final Counterpart Report.",
       "spans": []
     }
   },
@@ -18022,10 +18109,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "chrtt0a7"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:chrtt0a7,"
+          "concepts_v2_flat": "bqm9freh:Q123:chrtt0a7,"
         }
       ]
     }
@@ -18128,14 +18216,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "zwqv7iym"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "xrqi427b"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:zwqv7iym,r7nmt2kg:xrqi427b,"
+          "concepts_v2_flat": "bqm9freh:Q123:zwqv7iym,r7nmt2kg:Q456:xrqi427b"
         },
         {
           "start": 74,
@@ -18143,14 +18233,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "u0s8tncb"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "0sru1gis"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:u0s8tncb,r7nmt2kg:0sru1gis,"
+          "concepts_v2_flat": "bqm9freh:Q123:u0s8tncb,r7nmt2kg:Q456:0sru1gis"
         }
       ]
     }
@@ -18183,7 +18275,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 6. Highly Satisfactory",
+      "text_block": "• 6. Highly Satisfactory",
       "spans": []
     }
   },
@@ -18375,7 +18467,7 @@
       ],
       "text_block_page": 32,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Identification of best practices.",
+      "text_block": "· Identification of best practices.",
       "spans": []
     }
   },
@@ -18816,10 +18908,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "tr4xym58"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:tr4xym58,"
+          "concepts_v2_flat": "kynzgerh:Q505:tr4xym58,"
         }
       ]
     }
@@ -18992,14 +19085,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "9qa0ie4r"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "ak311ol4"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:9qa0ie4r,awgxsauj:ak311ol4,"
+          "concepts_v2_flat": "rns7bps4:Q500:9qa0ie4r,awgxsauj:Q501:ak311ol4,"
         }
       ]
     }
@@ -19160,7 +19255,7 @@
       ],
       "text_block_page": 9,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Highlighting the cross-cutting nature of climate change is essential for country ownership and sustainability:",
+      "text_block": "· Highlighting the cross-cutting nature of climate change is essential for country ownership and sustainability:",
       "spans": []
     }
   },
@@ -19832,7 +19927,7 @@
       ],
       "text_block_page": 47,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The perceived level of ownership was satisfactory, since the project interventions always had a multi-sectoral approach as the common denominator. Accordingly, it can be affirmed that a dynamic of participation of the different institutions was created, which was achieved through the signing of agreements and joint monitoring. This is another aspect that has added to the relevance of the project, as it is directly proportional to the degree of acceptance and ownership by the stakeholders, especially in the case of a subject such as water resources in the context of climate change, whose management is",
+      "text_block": "· The perceived level of ownership was satisfactory, since the project interventions always had a multi-sectoral approach as the common denominator. Accordingly, it can be affirmed that a dynamic of participation of the different institutions was created, which was achieved through the signing of agreements and joint monitoring. This is another aspect that has added to the relevance of the project, as it is directly proportional to the degree of acceptance and ownership by the stakeholders, especially in the case of a subject such as water resources in the context of climate change, whose management is",
       "spans": []
     }
   },
@@ -20024,7 +20119,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -20184,7 +20279,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 2. Somewhat likely Significant risks",
+      "text_block": "• 2. Somewhat likely Significant risks",
       "spans": []
     }
   },
@@ -20273,10 +20368,11 @@
           "concepts_v2": [
             {
               "concept_id": "7nmp7hq3",
+              "concept_wikibase_id": "Q520",
               "classifier_id": "21ee91qs"
             }
           ],
-          "concepts_v2_flat": "7nmp7hq3:21ee91qs,"
+          "concepts_v2_flat": "7nmp7hq3:Q520:21ee91qs"
         }
       ]
     }
@@ -20366,10 +20462,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "dr8vrzbs"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:dr8vrzbs,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:dr8vrzbs"
         }
       ]
     }
@@ -20626,7 +20723,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 AMDC",
+      "text_block": "· AMDC",
       "spans": []
     }
   },
@@ -20690,7 +20787,7 @@
       ],
       "text_block_page": 37,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The project achieved relevant results corresponding to defined objectives. The set of targets were generally achieved, which influenced the adequate positioning of the project. As shown in the table below, the project has exceeded the targets proposed for most indicators.",
+      "text_block": "· The project achieved relevant results corresponding to defined objectives. The set of targets were generally achieved, which influenced the adequate positioning of the project. As shown in the table below, the project has exceeded the targets proposed for most indicators.",
       "spans": []
     }
   },
@@ -20786,7 +20883,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Fundaci\u00f3n Vida. 2013. Perceptions Report.",
+      "text_block": "· Fundación Vida. 2013. Perceptions Report.",
       "spans": []
     }
   },
@@ -20873,14 +20970,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "8nvrn9f0"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "mlbs7ueb"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:8nvrn9f0,r7nmt2kg:mlbs7ueb,"
+          "concepts_v2_flat": "bqm9freh:Q123:8nvrn9f0,r7nmt2kg:Q456:mlbs7ueb"
         },
         {
           "start": 221,
@@ -20888,10 +20987,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "30g49k4s"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:30g49k4s,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:30g49k4s"
         }
       ]
     }
@@ -21244,7 +21344,7 @@
       ],
       "text_block_page": 32,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Identification of lessons learned.",
+      "text_block": "· Identification of lessons learned.",
       "spans": []
     }
   },
@@ -21363,10 +21463,11 @@
           "concepts_v2": [
             {
               "concept_id": "bahk6avj",
+              "concept_wikibase_id": "Q518",
               "classifier_id": "0w4mgqt5"
             }
           ],
-          "concepts_v2_flat": "bahk6avj:0w4mgqt5,"
+          "concepts_v2_flat": "bahk6avj:Q518:0w4mgqt5,"
         },
         {
           "start": 113,
@@ -21374,14 +21475,16 @@
           "concepts_v2": [
             {
               "concept_id": "3nj2mmps",
+              "concept_wikibase_id": "Q510",
               "classifier_id": "axrchke8"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "uqu3e84q"
             }
           ],
-          "concepts_v2_flat": "3nj2mmps:axrchke8,r7nmt2kg:uqu3e84q,"
+          "concepts_v2_flat": "3nj2mmps:Q510:axrchke8,r7nmt2kg:Q456:uqu3e84q"
         }
       ]
     }
@@ -21414,7 +21517,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Recommendations",
+      "text_block": "· Recommendations",
       "spans": []
     }
   },
@@ -21542,7 +21645,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 3. Somewhat unsatisfactory",
+      "text_block": "• 3. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -21606,7 +21709,7 @@
       ],
       "text_block_page": 55,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Potential for sustainability",
+      "text_block": "· Potential for sustainability",
       "spans": []
     }
   },
@@ -21734,7 +21837,7 @@
       ],
       "text_block_page": 7,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Existing water stress and projected increased water scarcity in Tegucigalpa and surroundings, as well as flash floods due to extreme events, addressed through a range of complementary measures that will serve to pilot responses to climate change impacts in both watershed and urban settings.",
+      "text_block": "· Existing water stress and projected increased water scarcity in Tegucigalpa and surroundings, as well as flash floods due to extreme events, addressed through a range of complementary measures that will serve to pilot responses to climate change impacts in both watershed and urban settings.",
       "concepts": [
         {
           "parent_concepts": [
@@ -21789,10 +21892,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "k05v274u"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:k05v274u,"
+          "concepts_v2_flat": "nhhzwfva:Q374:k05v274u"
         },
         {
           "start": 127,
@@ -21800,10 +21904,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "xq4hl5lo"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:xq4hl5lo,"
+          "concepts_v2_flat": "nhhzwfva:Q374:xq4hl5lo"
         },
         {
           "start": 48,
@@ -21811,10 +21916,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "zbyvumrf"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:zbyvumrf,"
+          "concepts_v2_flat": "dw5brr9c:Q504:zbyvumrf"
         }
       ]
     }
@@ -22231,7 +22337,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 References",
+      "text_block": "· References",
       "spans": []
     }
   },
@@ -22487,7 +22593,7 @@
       ],
       "text_block_page": 55,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Information sharing",
+      "text_block": "· Information sharing",
       "spans": []
     }
   },
@@ -22655,10 +22761,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "eaik8uf2"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:eaik8uf2,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:eaik8uf2,"
         },
         {
           "start": 199,
@@ -22666,10 +22773,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "tolfws53"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:tolfws53,"
+          "concepts_v2_flat": "kynzgerh:Q505:tolfws53,"
         }
       ]
     }
@@ -22894,7 +23002,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Project Management Unit",
+      "text_block": "· Project Management Unit",
       "spans": []
     }
   },
@@ -23054,7 +23162,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 1. Highly unsatisfactory",
+      "text_block": "• 1. Highly unsatisfactory",
       "spans": []
     }
   },
@@ -23118,7 +23226,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 \u2022 Not relevant",
+      "text_block": "• • Not relevant",
       "spans": []
     }
   },
@@ -23335,10 +23443,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "nw9rf20k"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:nw9rf20k,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:nw9rf20k"
         }
       ]
     }
@@ -23403,7 +23512,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 UNAH",
+      "text_block": "· UNAH",
       "spans": []
     }
   },
@@ -23467,7 +23576,7 @@
       ],
       "text_block_page": 21,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Lack of inter-institutional coordination to address problems generated by water scarcity.",
+      "text_block": "· Lack of inter-institutional coordination to address problems generated by water scarcity.",
       "concepts": [
         {
           "parent_concepts": [
@@ -23492,10 +23601,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "57sj2q81"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:57sj2q81,"
+          "concepts_v2_flat": "dw5brr9c:Q504:57sj2q81,"
         }
       ]
     }
@@ -23656,7 +23766,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 4. Somewhat satisfactory",
+      "text_block": "· 4. Somewhat satisfactory",
       "spans": []
     }
   },
@@ -23720,7 +23830,7 @@
       ],
       "text_block_page": 45,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Financial risks",
+      "text_block": "· Financial risks",
       "spans": []
     }
   },
@@ -23944,7 +24054,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Community of Ceniceras",
+      "text_block": "· Community of Ceniceras",
       "spans": []
     }
   },
@@ -24072,7 +24182,7 @@
       ],
       "text_block_page": 75,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 4. Somewhat satisfactory",
+      "text_block": "· 4. Somewhat satisfactory",
       "spans": []
     }
   },
@@ -24193,10 +24303,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "u91smjgg"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:u91smjgg,"
+          "concepts_v2_flat": "8gpdnspp:Q507:u91smjgg"
         }
       ]
     }
@@ -24593,14 +24704,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "zs397d3g"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "ifgzgnf0"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:zs397d3g,awgxsauj:ifgzgnf0,"
+          "concepts_v2_flat": "rns7bps4:Q500:zs397d3g,awgxsauj:Q501:ifgzgnf0,"
         }
       ]
     }
@@ -24850,10 +24963,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "1g6sph4g"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:1g6sph4g,"
+          "concepts_v2_flat": "bqm9freh:Q123:1g6sph4g"
         }
       ]
     }
@@ -24886,7 +25000,7 @@
       ],
       "text_block_page": 32,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Variation analysis of planned and executed activities.",
+      "text_block": "· Variation analysis of planned and executed activities.",
       "spans": []
     }
   },
@@ -25054,10 +25168,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "arz96o1t"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:arz96o1t,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:arz96o1t"
         },
         {
           "start": 47,
@@ -25065,10 +25180,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "jdc8jjy8"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:jdc8jjy8,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:jdc8jjy8,"
         }
       ]
     }
@@ -25126,10 +25242,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "rje2kjtp"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:rje2kjtp,"
+          "concepts_v2_flat": "bqm9freh:Q123:rje2kjtp"
         }
       ]
     }
@@ -25238,14 +25355,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "nw5ng0ym"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "9xm174op"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:nw5ng0ym,awgxsauj:9xm174op,"
+          "concepts_v2_flat": "rns7bps4:Q500:nw5ng0ym,awgxsauj:Q501:9xm174op"
         }
       ]
     }
@@ -25310,7 +25429,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 SERNA, PNUD, FA. 2011. Initial Workshop Report.",
+      "text_block": "· SERNA, PNUD, FA. 2011. Initial Workshop Report.",
       "spans": []
     }
   },
@@ -25438,7 +25557,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 http://copeco.gob.hn/mision-y-vision, consulted on August 2016.",
+      "text_block": "· http://copeco.gob.hn/mision-y-vision, consulted on August 2016.",
       "spans": []
     }
   },
@@ -25534,7 +25653,7 @@
       ],
       "text_block_page": 35,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The change of government and the change in project coordination generated delays and created difficulties in maintaining certain achievements / advances that the Implementing and Executing agencies had achieved.",
+      "text_block": "· The change of government and the change in project coordination generated delays and created difficulties in maintaining certain achievements / advances that the Implementing and Executing agencies had achieved.",
       "spans": []
     }
   },
@@ -25655,10 +25774,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "zig5bbrm"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:zig5bbrm,"
+          "concepts_v2_flat": "bqm9freh:Q123:zig5bbrm"
         }
       ]
     }
@@ -26166,10 +26286,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "9aj21yg8"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:9aj21yg8,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:9aj21yg8,"
         },
         {
           "start": 92,
@@ -26177,14 +26298,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "6sblgy2a"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "dg069ayl"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:6sblgy2a,awgxsauj:dg069ayl,"
+          "concepts_v2_flat": "rns7bps4:Q500:6sblgy2a,awgxsauj:Q501:dg069ayl"
         }
       ]
     }
@@ -26513,10 +26636,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "1dgxcobn"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:1dgxcobn,"
+          "concepts_v2_flat": "nhhzwfva:Q374:1dgxcobn"
         },
         {
           "start": 105,
@@ -26524,10 +26648,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "g91bkcvu"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:g91bkcvu,"
+          "concepts_v2_flat": "dw5brr9c:Q504:g91bkcvu"
         }
       ]
     }
@@ -26600,14 +26725,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "lklgxi4o"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "rabl6nca"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:lklgxi4o,r7nmt2kg:rabl6nca,"
+          "concepts_v2_flat": "bqm9freh:Q123:lklgxi4o,r7nmt2kg:Q456:rabl6nca"
         }
       ]
     }
@@ -26665,10 +26792,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "cripqhyg"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:cripqhyg,"
+          "concepts_v2_flat": "kynzgerh:Q505:cripqhyg"
         }
       ]
     }
@@ -26701,7 +26829,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 https://www.adaptation-fund.org/wp- content/uploads/2015/01/Honduras_Inception%20Workshop%20Report%20final.pdf",
+      "text_block": "· https://www.adaptation-fund.org/wp- content/uploads/2015/01/Honduras_Inception%20Workshop%20Report%20final.pdf",
       "spans": []
     }
   },
@@ -26861,7 +26989,7 @@
       ],
       "text_block_page": 75,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 3. Somewhat unsatisfactory",
+      "text_block": "· 3. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -27014,10 +27142,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "ombrpj8w"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:ombrpj8w,"
+          "concepts_v2_flat": "b836x3e3:Q506:ombrpj8w"
         }
       ]
     }
@@ -27050,7 +27179,7 @@
       ],
       "text_block_page": 56,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The possibility of Institutional changes must be taken into account during project design:",
+      "text_block": "· The possibility of Institutional changes must be taken into account during project design:",
       "spans": []
     }
   },
@@ -27363,10 +27492,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "ubnikaj7"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:ubnikaj7,"
+          "concepts_v2_flat": "b836x3e3:Q506:ubnikaj7,"
         }
       ]
     }
@@ -27486,10 +27616,11 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "88yadfyw"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:88yadfyw,"
+          "concepts_v2_flat": "bqm9freh:Q123:88yadfyw"
         },
         {
           "start": 331,
@@ -27497,10 +27628,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "qmr7vijd"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:qmr7vijd,"
+          "concepts_v2_flat": "kynzgerh:Q505:qmr7vijd"
         },
         {
           "start": 390,
@@ -27508,10 +27640,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "elknhzci"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:elknhzci,"
+          "concepts_v2_flat": "kynzgerh:Q505:elknhzci"
         }
       ]
     }
@@ -27601,10 +27734,11 @@
           "concepts_v2": [
             {
               "concept_id": "q5dt2x5y",
+              "concept_wikibase_id": "Q515",
               "classifier_id": "4se07o9x"
             }
           ],
-          "concepts_v2_flat": "q5dt2x5y:4se07o9x,"
+          "concepts_v2_flat": "q5dt2x5y:Q515:4se07o9x"
         }
       ]
     }
@@ -27741,10 +27875,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "75zh3nlp"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:75zh3nlp,"
+          "concepts_v2_flat": "nhhzwfva:Q374:75zh3nlp"
         },
         {
           "start": 142,
@@ -27752,10 +27887,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "u5l3evw4"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:u5l3evw4,"
+          "concepts_v2_flat": "kynzgerh:Q505:u5l3evw4,"
         }
       ]
     }
@@ -27884,7 +28020,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 1. Highly unsatisfactory",
+      "text_block": "• 1. Highly unsatisfactory",
       "spans": []
     }
   },
@@ -27973,10 +28109,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "rphodk1o"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:rphodk1o,"
+          "concepts_v2_flat": "zhj5vezx:Q508:rphodk1o"
         }
       ]
     }
@@ -28169,7 +28306,7 @@
       ],
       "text_block_page": 14,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "Moreover, 35% of total EAP performs agricultural, forestry, hunting and fishing activities, mainly in rural areas; and most are severely affected by climate change and extreme events related to tropical cyclones or the El Ni\u00f1o-Southern Oscillation (ENSO) phenomenon.",
+      "text_block": "Moreover, 35% of total EAP performs agricultural, forestry, hunting and fishing activities, mainly in rural areas; and most are severely affected by climate change and extreme events related to tropical cyclones or the El Niño-Southern Oscillation (ENSO) phenomenon.",
       "concepts": [
         {
           "parent_concepts": [
@@ -28224,10 +28361,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "zd9bty2d"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:zd9bty2d,"
+          "concepts_v2_flat": "nhhzwfva:Q374:zd9bty2d"
         },
         {
           "start": 194,
@@ -28235,10 +28373,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "hlue8b0s"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:hlue8b0s,"
+          "concepts_v2_flat": "nhhzwfva:Q374:hlue8b0s"
         },
         {
           "start": 72,
@@ -28246,10 +28385,11 @@
           "concepts_v2": [
             {
               "concept_id": "xzknej96",
+              "concept_wikibase_id": "Q521",
               "classifier_id": "zjvvu4ob"
             }
           ],
-          "concepts_v2_flat": "xzknej96:zjvvu4ob,"
+          "concepts_v2_flat": "xzknej96:Q521:zjvvu4ob"
         }
       ]
     }
@@ -28474,7 +28614,7 @@
       ],
       "text_block_page": 38,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Regarding risk management, the project progress report of December 2016 identified a new risk that about the attack of the bark beetle pest reduced the coverage of the forest corridor and exposed it to forest fires during the 2016-2017 seasons. This has been mitigated through a number of actions, including: Project dedicated resources to support the Restoration Plan that is being implemented at the national level and, specifically, through the Forest Conservation Institute. The project has supported the 3 Municipalities of the Forest Corridor with greater pest affectations, in the actions of Restoration (nurseries) and patrols to avoid land use change in the affected areas, and the prevention of forest fires. A 2nd proposal submitted to AF further aims at further addressing these issues.",
+      "text_block": "· Regarding risk management, the project progress report of December 2016 identified a new risk that about the attack of the bark beetle pest reduced the coverage of the forest corridor and exposed it to forest fires during the 2016-2017 seasons. This has been mitigated through a number of actions, including: Project dedicated resources to support the Restoration Plan that is being implemented at the national level and, specifically, through the Forest Conservation Institute. The project has supported the 3 Municipalities of the Forest Corridor with greater pest affectations, in the actions of Restoration (nurseries) and patrols to avoid land use change in the affected areas, and the prevention of forest fires. A 2nd proposal submitted to AF further aims at further addressing these issues.",
       "concepts": [
         {
           "parent_concepts": [
@@ -28559,10 +28699,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "f6xv2u38"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:f6xv2u38,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:f6xv2u38,"
         },
         {
           "start": 204,
@@ -28570,10 +28711,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "tdwv81sl"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:tdwv81sl,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:tdwv81sl"
         },
         {
           "start": 564,
@@ -28581,10 +28723,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "h6v85om9"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:h6v85om9,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:h6v85om9,"
         },
         {
           "start": 707,
@@ -28592,10 +28735,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "2qngoh5i"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:2qngoh5i,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:2qngoh5i"
         },
         {
           "start": 693,
@@ -28603,10 +28747,11 @@
           "concepts_v2": [
             {
               "concept_id": "tntx3gy5",
+              "concept_wikibase_id": "Q512",
               "classifier_id": "bl9cvynu"
             }
           ],
-          "concepts_v2_flat": "tntx3gy5:bl9cvynu,"
+          "concepts_v2_flat": "tntx3gy5:Q512:bl9cvynu"
         }
       ]
     }
@@ -28863,7 +29008,7 @@
       ],
       "text_block_page": 26,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Relevant national legislation",
+      "text_block": "· Relevant national legislation",
       "spans": []
     }
   },
@@ -30175,7 +30320,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 3. Somewhat unsatisfactory",
+      "text_block": "· 3. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -30424,10 +30569,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "q8dh5w5t"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:q8dh5w5t,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:q8dh5w5t"
         }
       ]
     }
@@ -30460,7 +30606,7 @@
       ],
       "text_block_page": 47,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Stakeholder involvement has been appropriate, from the project design stage to completion. The project did not only focus on institutional stakeholders but also on residents of vulnerable communities. This guaranteed that in addition to institutional staff in charge of service provision, the capacities and resilience of those actually receiving benefits via civil works were improved.",
+      "text_block": "· Stakeholder involvement has been appropriate, from the project design stage to completion. The project did not only focus on institutional stakeholders but also on residents of vulnerable communities. This guaranteed that in addition to institutional staff in charge of service provision, the capacities and resilience of those actually receiving benefits via civil works were improved.",
       "spans": []
     }
   },
@@ -30684,7 +30830,7 @@
       ],
       "text_block_page": 42,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Other elements of communication produced by the project included, but were not limited to pages on social networks, information pamphlets on micro-watershed plans, pamphlets on the content of communication strategies of the Central Forest Corridor platform, the UNAH Program on Climate Change, maps and templates, among others.",
+      "text_block": "· Other elements of communication produced by the project included, but were not limited to pages on social networks, information pamphlets on micro-watershed plans, pamphlets on the content of communication strategies of the Central Forest Corridor platform, the UNAH Program on Climate Change, maps and templates, among others.",
       "spans": []
     }
   },
@@ -30812,7 +30958,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Three educational programs have been established (e.g. Diploma on Climate Change with a focus on Water Resources). In the case of the strengthening of the Meteorological Network, the 46 stations constitute evidence of progress in the production of strategic information in real time. In the process of dissemination of information, the Honduran Land Use Institute of the UNAH was involved. One persisting challenge is how to get information to be used beyond state institutions so that it can fulfill its strategic purpose of providing evidence to mayors, producers, and water management boards. \u00b7 Fundaci\u00f3n Vida developed a series of communication tools to reach larger audiences. In this way, their capacities were strengthened to synthesize and communicate strategic information on water resource management and climate change.",
+      "text_block": "· Three educational programs have been established (e.g. Diploma on Climate Change with a focus on Water Resources). In the case of the strengthening of the Meteorological Network, the 46 stations constitute evidence of progress in the production of strategic information in real time. In the process of dissemination of information, the Honduran Land Use Institute of the UNAH was involved. One persisting challenge is how to get information to be used beyond state institutions so that it can fulfill its strategic purpose of providing evidence to mayors, producers, and water management boards. · Fundación Vida developed a series of communication tools to reach larger audiences. In this way, their capacities were strengthened to synthesize and communicate strategic information on water resource management and climate change.",
       "concepts": [
         {
           "parent_concepts": [
@@ -30882,14 +31028,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "fgmlnjx3"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "0kf6zxj6"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:fgmlnjx3,r7nmt2kg:0kf6zxj6,"
+          "concepts_v2_flat": "bqm9freh:Q123:fgmlnjx3,r7nmt2kg:Q456:0kf6zxj6,"
         },
         {
           "start": 787,
@@ -30897,14 +31045,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "r9kpki5s"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "fgmesgiw"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:r9kpki5s,r7nmt2kg:fgmesgiw,"
+          "concepts_v2_flat": "bqm9freh:Q123:r9kpki5s,r7nmt2kg:Q456:fgmesgiw"
         }
       ]
     }
@@ -31314,10 +31464,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "rz4ztw3s"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:rz4ztw3s,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:rz4ztw3s"
         }
       ]
     }
@@ -31505,10 +31656,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "zefyz1ci"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:zefyz1ci,"
+          "concepts_v2_flat": "8gpdnspp:Q507:zefyz1ci"
         },
         {
           "start": 11,
@@ -31516,14 +31668,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "7fo3n1mi"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "jh7sllnu"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:7fo3n1mi,awgxsauj:jh7sllnu,"
+          "concepts_v2_flat": "rns7bps4:Q500:7fo3n1mi,awgxsauj:Q501:jh7sllnu"
         }
       ]
     }
@@ -31812,7 +31966,7 @@
       ],
       "text_block_page": 16,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "The National Action Plan for the Response to Desertification and Drought (PAN-LCD, 2014-2022) reported that water resources undergo significant pressures in the country. Deforestation, field burning, inappropriate use of land, inadequate construction of rural roads, forest fires and the expansion of the agricultural border have contributed to the considerable reduction of available water in rural areas,",
+      "text_block": "The National Action Plan for the Response to Desertification and Drought (PAN-LCD, 2014-2022) reported that water resources undergo significant pressures in the country. Deforestation, field burning, inappropriate use of land, inadequate construction of rural roads, forest fires and the expansion of the agricultural border have contributed to the considerable reduction of available water in rural areas",
       "concepts": [
         {
           "parent_concepts": [
@@ -31912,10 +32066,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "y7wiypor"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:y7wiypor,"
+          "concepts_v2_flat": "nhhzwfva:Q374:y7wiypor"
         },
         {
           "start": 45,
@@ -31923,14 +32078,16 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "ltng1gc8"
             },
             {
               "concept_id": "w9z6qa9t",
+              "concept_wikibase_id": "Q522",
               "classifier_id": "6cedxyjq"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:ltng1gc8,w9z6qa9t:6cedxyjq,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:ltng1gc8,w9z6qa9t:Q522:6cedxyjq"
         },
         {
           "start": 170,
@@ -31938,10 +32095,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "dwbxxr44"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:dwbxxr44,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:dwbxxr44,"
         },
         {
           "start": 267,
@@ -31949,10 +32107,11 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "y30iiz1p"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:y30iiz1p,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:y30iiz1p"
         },
         {
           "start": 238,
@@ -31960,10 +32119,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "qciw9r5b"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:qciw9r5b,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:qciw9r5b"
         }
       ]
     }
@@ -32403,14 +32563,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "3u72fk5b"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "gmbl19pi"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:3u72fk5b,r7nmt2kg:gmbl19pi,"
+          "concepts_v2_flat": "bqm9freh:Q123:3u72fk5b,r7nmt2kg:Q456:gmbl19pi"
         },
         {
           "start": 73,
@@ -32418,10 +32580,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "xtf0elze"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:xtf0elze,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:xtf0elze"
         }
       ]
     }
@@ -32797,14 +32960,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "nrtw6r4f"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "vitw4emn"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:nrtw6r4f,r7nmt2kg:vitw4emn,"
+          "concepts_v2_flat": "bqm9freh:Q123:nrtw6r4f,r7nmt2kg:Q456:vitw4emn"
         },
         {
           "start": 37,
@@ -32812,10 +32977,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "gelepbo4"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:gelepbo4,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:gelepbo4,"
         }
       ]
     }
@@ -32880,7 +33046,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 3. Somewhat likely",
+      "text_block": "• 3. Somewhat likely",
       "spans": []
     }
   },
@@ -33008,7 +33174,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 5. Satisfactory",
+      "text_block": "• 5. Satisfactory",
       "spans": []
     }
   },
@@ -33065,10 +33231,11 @@
           "concepts_v2": [
             {
               "concept_id": "rfrb6hue",
+              "concept_wikibase_id": "Q514",
               "classifier_id": "s5aifx3f"
             }
           ],
-          "concepts_v2_flat": "rfrb6hue:s5aifx3f,"
+          "concepts_v2_flat": "rfrb6hue:Q514:s5aifx3f"
         }
       ]
     }
@@ -33165,7 +33332,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Annexes",
+      "text_block": "· Annexes",
       "spans": []
     }
   },
@@ -33581,7 +33748,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": ". Executive Director of the Nation Plan at the Secretariat of the Presidency \u00b7 ICF",
+      "text_block": ". Executive Director of the Nation Plan at the Secretariat of the Presidency · ICF",
       "spans": []
     }
   },
@@ -33613,7 +33780,7 @@
       ],
       "text_block_page": 45,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Socio-political risks",
+      "text_block": "· Socio-political risks",
       "spans": []
     }
   },
@@ -33965,7 +34132,7 @@
       ],
       "text_block_page": 26,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Budgets",
+      "text_block": "· Budgets",
       "spans": []
     }
   },
@@ -34201,14 +34368,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "usoc210v"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "hhhxnajn"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:usoc210v,awgxsauj:hhhxnajn,"
+          "concepts_v2_flat": "rns7bps4:Q500:usoc210v,awgxsauj:Q501:hhhxnajn"
         }
       ]
     }
@@ -34273,7 +34442,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The Proposed Methodology",
+      "text_block": "· The Proposed Methodology",
       "spans": []
     }
   },
@@ -34369,7 +34538,7 @@
       ],
       "text_block_page": 45,
       "text_block_type": "BlockType.SECTION_HEADING",
-      "text_block": "\u00b7 Risks linked to institutional arrangements",
+      "text_block": "· Risks linked to institutional arrangements",
       "spans": []
     }
   },
@@ -34593,7 +34762,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 Establishment of water harvesting works in vulnerable areas of Tegucigalpa.",
+      "text_block": "· Establishment of water harvesting works in vulnerable areas of Tegucigalpa.",
       "spans": []
     }
   },
@@ -35004,10 +35173,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "ziyv8ewm"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:ziyv8ewm,"
+          "concepts_v2_flat": "8gpdnspp:Q507:ziyv8ewm"
         },
         {
           "start": 11,
@@ -35015,14 +35185,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "8857b4rb"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "hmq6u8cp"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:8857b4rb,awgxsauj:hmq6u8cp,"
+          "concepts_v2_flat": "rns7bps4:Q500:8857b4rb,awgxsauj:Q501:hmq6u8cp"
         }
       ]
     }
@@ -35119,7 +35291,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 1. Highly unsatisfactory",
+      "text_block": "• 1. Highly unsatisfactory",
       "spans": []
     }
   },
@@ -35663,7 +35835,7 @@
       ],
       "text_block_page": 15,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The Law on Water and Sanitation (2003)",
+      "text_block": "· The Law on Water and Sanitation (2003)",
       "concepts": [
         {
           "parent_concepts": [
@@ -35703,14 +35875,16 @@
           "concepts_v2": [
             {
               "concept_id": "3nj2mmps",
+              "concept_wikibase_id": "Q510",
               "classifier_id": "oe9n8fdy"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "vsr0aoil"
             }
           ],
-          "concepts_v2_flat": "3nj2mmps:oe9n8fdy,r7nmt2kg:vsr0aoil,"
+          "concepts_v2_flat": "3nj2mmps:Q510:oe9n8fdy,r7nmt2kg:Q456:vsr0aoil"
         }
       ]
     }
@@ -35864,10 +36038,11 @@
           "concepts_v2": [
             {
               "concept_id": "3nj2mmps",
+              "concept_wikibase_id": "Q510",
               "classifier_id": "a4g3jgff"
             }
           ],
-          "concepts_v2_flat": "3nj2mmps:a4g3jgff,"
+          "concepts_v2_flat": "3nj2mmps:Q510:a4g3jgff"
         }
       ]
     }
@@ -36008,14 +36183,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "qbd2ab0o"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "ss3zgme3"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:qbd2ab0o,awgxsauj:ss3zgme3,"
+          "concepts_v2_flat": "rns7bps4:Q500:qbd2ab0o,awgxsauj:Q501:ss3zgme3,"
         }
       ]
     }
@@ -36521,10 +36698,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "ts64yr3m"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:ts64yr3m,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:ts64yr3m"
         }
       ]
     }
@@ -36885,10 +37063,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "wncfmgjk"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:wncfmgjk,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:wncfmgjk"
         },
         {
           "start": 122,
@@ -36896,10 +37075,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "2s0ubri8"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:2s0ubri8,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:2s0ubri8,"
         }
       ]
     }
@@ -36996,7 +37176,7 @@
       ],
       "text_block_page": 39,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 Capacity strengthening",
+      "text_block": "• Capacity strengthening",
       "spans": []
     }
   },
@@ -37341,10 +37521,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "4bpsw3ok"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:4bpsw3ok,"
+          "concepts_v2_flat": "dw5brr9c:Q504:4bpsw3ok"
         }
       ]
     }
@@ -37549,14 +37730,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "5ohwqn2y"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "8rbev9sj"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:5ohwqn2y,awgxsauj:8rbev9sj,"
+          "concepts_v2_flat": "rns7bps4:Q500:5ohwqn2y,awgxsauj:Q501:8rbev9sj"
         }
       ]
     }
@@ -38429,10 +38612,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "w2y9rnvv"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:w2y9rnvv,"
+          "concepts_v2_flat": "nhhzwfva:Q374:w2y9rnvv"
         },
         {
           "start": 255,
@@ -38440,10 +38624,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "vspe61s1"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:vspe61s1,"
+          "concepts_v2_flat": "dw5brr9c:Q504:vspe61s1,"
         }
       ]
     }
@@ -39436,7 +39621,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 3. Somewhat unsatisfactory",
+      "text_block": "• 3. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -39544,10 +39729,11 @@
           "concepts_v2": [
             {
               "concept_id": "3j4qadvf",
+              "concept_wikibase_id": "Q528",
               "classifier_id": "q7jn4qrp"
             }
           ],
-          "concepts_v2_flat": "3j4qadvf:q7jn4qrp,"
+          "concepts_v2_flat": "3j4qadvf:Q528:q7jn4qrp"
         },
         {
           "start": 318,
@@ -39555,10 +39741,11 @@
           "concepts_v2": [
             {
               "concept_id": "mtg8hg7x",
+              "concept_wikibase_id": "Q516",
               "classifier_id": "1hn4mr5a"
             }
           ],
-          "concepts_v2_flat": "mtg8hg7x:1hn4mr5a,"
+          "concepts_v2_flat": "mtg8hg7x:Q516:1hn4mr5a"
         }
       ]
     }
@@ -39712,14 +39899,16 @@
           "concepts_v2": [
             {
               "concept_id": "9tskhyxb",
+              "concept_wikibase_id": "Q527",
               "classifier_id": "avxrcrq0"
             },
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "2wa5gmlo"
             }
           ],
-          "concepts_v2_flat": "9tskhyxb:avxrcrq0,b836x3e3:2wa5gmlo,"
+          "concepts_v2_flat": "9tskhyxb:Q527:avxrcrq0,b836x3e3:Q506:2wa5gmlo"
         },
         {
           "start": 140,
@@ -39727,10 +39916,11 @@
           "concepts_v2": [
             {
               "concept_id": "9nzh8ngn",
+              "concept_wikibase_id": "Q519",
               "classifier_id": "hnw5xh1w"
             }
           ],
-          "concepts_v2_flat": "9nzh8ngn:hnw5xh1w,"
+          "concepts_v2_flat": "9nzh8ngn:Q519:hnw5xh1w"
         },
         {
           "start": 185,
@@ -39738,10 +39928,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "yclqug20"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:yclqug20,"
+          "concepts_v2_flat": "8gpdnspp:Q507:yclqug20,"
         },
         {
           "start": 121,
@@ -39749,10 +39940,11 @@
           "concepts_v2": [
             {
               "concept_id": "7nmp7hq3",
+              "concept_wikibase_id": "Q520",
               "classifier_id": "ok1w0k8f"
             }
           ],
-          "concepts_v2_flat": "7nmp7hq3:ok1w0k8f,"
+          "concepts_v2_flat": "7nmp7hq3:Q520:ok1w0k8f"
         }
       ]
     }
@@ -40130,10 +40322,11 @@
           "concepts_v2": [
             {
               "concept_id": "zhj5vezx",
+              "concept_wikibase_id": "Q508",
               "classifier_id": "nq0e5ue1"
             }
           ],
-          "concepts_v2_flat": "zhj5vezx:nq0e5ue1,"
+          "concepts_v2_flat": "zhj5vezx:Q508:nq0e5ue1,"
         }
       ]
     }
@@ -40198,7 +40391,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 5. Satisfactory",
+      "text_block": "• 5. Satisfactory",
       "spans": []
     }
   },
@@ -40550,7 +40743,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -40838,7 +41031,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 At the end of the project, more than 20,000 people using micro- watersheds were counted.",
+      "text_block": "· At the end of the project, more than 20,000 people using micro- watersheds were counted.",
       "spans": []
     }
   },
@@ -40966,7 +41159,7 @@
       ],
       "text_block_page": 32,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 An evaluation of financial execution.",
+      "text_block": "· An evaluation of financial execution.",
       "spans": []
     }
   },
@@ -41023,10 +41216,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "589akj3z"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:589akj3z,"
+          "concepts_v2_flat": "kynzgerh:Q505:589akj3z"
         }
       ]
     }
@@ -41155,7 +41349,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 http://www.sefin.gob.hn/wp-content/uploads/2010/01/VISION_DE_PAIS.pdf",
+      "text_block": "· http://www.sefin.gob.hn/wp-content/uploads/2010/01/VISION_DE_PAIS.pdf",
       "spans": []
     }
   },
@@ -41263,14 +41457,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "rrcv8fp0"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "94donhla"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:rrcv8fp0,awgxsauj:94donhla,"
+          "concepts_v2_flat": "rns7bps4:Q500:rrcv8fp0,awgxsauj:Q501:94donhla"
         }
       ]
     }
@@ -41303,7 +41499,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 4. Somewhat satisfactory",
+      "text_block": "· 4. Somewhat satisfactory",
       "spans": []
     }
   },
@@ -41360,10 +41556,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "ginqeukr"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:ginqeukr,"
+          "concepts_v2_flat": "b836x3e3:Q506:ginqeukr"
         }
       ]
     }
@@ -41436,14 +41633,16 @@
           "concepts_v2": [
             {
               "concept_id": "bqm9freh",
+              "concept_wikibase_id": "Q123",
               "classifier_id": "q1ypwezi"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "f5i663pr"
             }
           ],
-          "concepts_v2_flat": "bqm9freh:q1ypwezi,r7nmt2kg:f5i663pr,"
+          "concepts_v2_flat": "bqm9freh:Q123:q1ypwezi,r7nmt2kg:Q456:f5i663pr"
         }
       ]
     }
@@ -41508,7 +41707,7 @@
       ],
       "text_block_page": 12,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 General Project Information",
+      "text_block": "· General Project Information",
       "spans": []
     }
   },
@@ -41789,10 +41988,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "pllh8pzm"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:pllh8pzm,"
+          "concepts_v2_flat": "dw5brr9c:Q504:pllh8pzm"
         }
       ]
     }
@@ -41857,7 +42057,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 5. Satisfactory",
+      "text_block": "• 5. Satisfactory",
       "spans": []
     }
   },
@@ -41914,10 +42114,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "jzb1neo5"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:jzb1neo5,"
+          "concepts_v2_flat": "8gpdnspp:Q507:jzb1neo5,"
         }
       ]
     }
@@ -41950,7 +42151,7 @@
       ],
       "text_block_page": 21,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Stress generate by water scarcity.",
+      "text_block": "· Stress generate by water scarcity.",
       "concepts": [
         {
           "parent_concepts": [
@@ -41975,10 +42176,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "oh2gtlbv"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:oh2gtlbv,"
+          "concepts_v2_flat": "dw5brr9c:Q504:oh2gtlbv"
         }
       ]
     }
@@ -42196,10 +42398,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "hc8bxhtc"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:hc8bxhtc,"
+          "concepts_v2_flat": "nhhzwfva:Q374:hc8bxhtc"
         },
         {
           "start": 205,
@@ -42207,14 +42410,16 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "2m4awcdc"
             },
             {
               "concept_id": "gmerqh8z",
+              "concept_wikibase_id": "Q513",
               "classifier_id": "2b9am2fr"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:2m4awcdc,gmerqh8z:2b9am2fr,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:2m4awcdc,gmerqh8z:Q513:2b9am2fr"
         },
         {
           "start": 71,
@@ -42222,10 +42427,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "68e63kl0"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:68e63kl0,"
+          "concepts_v2_flat": "dw5brr9c:Q504:68e63kl0,"
         },
         {
           "start": 281,
@@ -42233,10 +42439,11 @@
           "concepts_v2": [
             {
               "concept_id": "mtg8hg7x",
+              "concept_wikibase_id": "Q516",
               "classifier_id": "xzcxtc19"
             }
           ],
-          "concepts_v2_flat": "mtg8hg7x:xzcxtc19,"
+          "concepts_v2_flat": "mtg8hg7x:Q516:xzcxtc19,"
         }
       ]
     }
@@ -42326,10 +42533,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "ywgzf70h"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:ywgzf70h,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:ywgzf70h"
         }
       ]
     }
@@ -42362,7 +42570,7 @@
       ],
       "text_block_page": 47,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The project supported environmental priorities for adaptation to climate change as it demonstrated the linkage between environmental issues and climate risk management, based on an integrated and holistic vision. Concrete national priorities in which the project has intervened include: protection of water resources, protection of watersheds, creation of reforestation and conservation plans, water harvesting, drip irrigation, and capacity building for management and resilience to these priorities in all levels.",
+      "text_block": "· The project supported environmental priorities for adaptation to climate change as it demonstrated the linkage between environmental issues and climate risk management, based on an integrated and holistic vision. Concrete national priorities in which the project has intervened include: protection of water resources, protection of watersheds, creation of reforestation and conservation plans, water harvesting, drip irrigation, and capacity building for management and resilience to these priorities in all levels.",
       "concepts": [
         {
           "parent_concepts": [
@@ -42387,10 +42595,11 @@
           "concepts_v2": [
             {
               "concept_id": "tntx3gy5",
+              "concept_wikibase_id": "Q512",
               "classifier_id": "bhqevcc3"
             }
           ],
-          "concepts_v2_flat": "tntx3gy5:bhqevcc3,"
+          "concepts_v2_flat": "tntx3gy5:Q512:bhqevcc3,"
         }
       ]
     }
@@ -42519,7 +42728,7 @@
       ],
       "text_block_page": 38,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 In 2015, some project activities were not implemented as expected because of:",
+      "text_block": "· In 2015, some project activities were not implemented as expected because of:",
       "spans": []
     }
   },
@@ -42640,10 +42849,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "9szfd6c5"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:9szfd6c5,"
+          "concepts_v2_flat": "nhhzwfva:Q374:9szfd6c5,"
         }
       ]
     }
@@ -42720,14 +42930,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "89d5hx64"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "bri808un"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:89d5hx64,awgxsauj:bri808un,"
+          "concepts_v2_flat": "rns7bps4:Q500:89d5hx64,awgxsauj:Q501:bri808un"
         }
       ]
     }
@@ -42792,7 +43004,7 @@
       ],
       "text_block_page": 30,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Given that interviews depend on the style of the interviewer and the choice of issues, there is a risk that personal perceptions and thoughts might be factored in. This is why the proposed interview formats have been developed to reduce the likelihood of this type of bias.",
+      "text_block": "· Given that interviews depend on the style of the interviewer and the choice of issues, there is a risk that personal perceptions and thoughts might be factored in. This is why the proposed interview formats have been developed to reduce the likelihood of this type of bias.",
       "spans": []
     }
   },
@@ -43041,10 +43253,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "1ukx2wdf"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:1ukx2wdf,"
+          "concepts_v2_flat": "nhhzwfva:Q374:1ukx2wdf"
         }
       ]
     }
@@ -43333,7 +43546,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 At the end of the project, 2,104 families and 6,842 families benefited from works to adapt to climate change in rural and urban areas, respectively.",
+      "text_block": "· At the end of the project, 2,104 families and 6,842 families benefited from works to adapt to climate change in rural and urban areas, respectively.",
       "spans": []
     }
   },
@@ -43633,14 +43846,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "gsl5rzez"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "o8g6544u"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:gsl5rzez,awgxsauj:o8g6544u,"
+          "concepts_v2_flat": "rns7bps4:Q500:gsl5rzez,awgxsauj:Q501:o8g6544u"
         }
       ]
     }
@@ -44325,14 +44540,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "4ndlqwq5"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "p3tghw2k"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:4ndlqwq5,awgxsauj:p3tghw2k,"
+          "concepts_v2_flat": "rns7bps4:Q500:4ndlqwq5,awgxsauj:Q501:p3tghw2k"
         }
       ]
     }
@@ -44365,7 +44582,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 4. Somewhat satisfactory",
+      "text_block": "· 4. Somewhat satisfactory",
       "spans": []
     }
   },
@@ -44646,10 +44863,11 @@
           "concepts_v2": [
             {
               "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789",
               "classifier_id": "zb4n5tfy"
             }
           ],
-          "concepts_v2_flat": "2gvuuvnw:zb4n5tfy,"
+          "concepts_v2_flat": "2gvuuvnw:Q789:zb4n5tfy"
         }
       ]
     }
@@ -44906,7 +45124,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 SMN",
+      "text_block": "· SMN",
       "spans": []
     }
   },
@@ -45027,10 +45245,11 @@
           "concepts_v2": [
             {
               "concept_id": "bahk6avj",
+              "concept_wikibase_id": "Q518",
               "classifier_id": "tn8tplzf"
             }
           ],
-          "concepts_v2_flat": "bahk6avj:tn8tplzf,"
+          "concepts_v2_flat": "bahk6avj:Q518:tn8tplzf"
         }
       ]
     }
@@ -45063,7 +45282,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Fundaci\u00f3n Vida",
+      "text_block": "· Fundación Vida",
       "spans": []
     }
   },
@@ -45218,10 +45437,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "ruarmed7"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:ruarmed7,"
+          "concepts_v2_flat": "8gpdnspp:Q507:ruarmed7,"
         },
         {
           "start": 328,
@@ -45229,14 +45449,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "iyafaxqx"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "lu8joa9l"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:iyafaxqx,awgxsauj:lu8joa9l,"
+          "concepts_v2_flat": "rns7bps4:Q500:iyafaxqx,awgxsauj:Q501:lu8joa9l"
         }
       ]
     }
@@ -45301,7 +45523,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 2. Unsatisfactory",
+      "text_block": "· 2. Unsatisfactory",
       "spans": []
     }
   },
@@ -45358,10 +45580,11 @@
           "concepts_v2": [
             {
               "concept_id": "jr3s4jsa",
+              "concept_wikibase_id": "Q503",
               "classifier_id": "kw3z8mrk"
             }
           ],
-          "concepts_v2_flat": "jr3s4jsa:kw3z8mrk,"
+          "concepts_v2_flat": "jr3s4jsa:Q503:kw3z8mrk"
         }
       ]
     }
@@ -45394,7 +45617,7 @@
       ],
       "text_block_page": 9,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 The possibility of Institutional changes must be taken into account during project design:",
+      "text_block": "· The possibility of Institutional changes must be taken into account during project design:",
       "spans": []
     }
   },
@@ -45498,14 +45721,16 @@
           "concepts_v2": [
             {
               "concept_id": "3nj2mmps",
+              "concept_wikibase_id": "Q510",
               "classifier_id": "mtd3ivkx"
             },
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "438m9agr"
             }
           ],
-          "concepts_v2_flat": "3nj2mmps:mtd3ivkx,r7nmt2kg:438m9agr,"
+          "concepts_v2_flat": "3nj2mmps:Q510:mtd3ivkx,r7nmt2kg:Q456:438m9agr"
         }
       ]
     }
@@ -45979,10 +46204,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "60hogk8u"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:60hogk8u,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:60hogk8u"
         }
       ]
     }
@@ -46079,7 +46305,7 @@
       ],
       "text_block_page": 60,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Fundaci\u00f3n Vida. 2014. Perceptions Report.",
+      "text_block": "· Fundación Vida. 2014. Perceptions Report.",
       "spans": []
     }
   },
@@ -46815,7 +47041,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -46879,7 +47105,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 2. Somewhat unsatisfactory",
+      "text_block": "• 2. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -47000,10 +47226,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "fvmrwyg3"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:fvmrwyg3,"
+          "concepts_v2_flat": "b836x3e3:Q506:fvmrwyg3,"
         }
       ]
     }
@@ -47132,7 +47359,7 @@
       ],
       "text_block_page": 41,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 8,186 families from Tegucigalpa and the Central Forest Corridor municipalities with intensive measures to improve access to water in quantity and quality (water harvesting, micro irrigation, improvement of small water systems, domestic technologies (stack, eco-stoves, filters).",
+      "text_block": "· 8,186 families from Tegucigalpa and the Central Forest Corridor municipalities with intensive measures to improve access to water in quantity and quality (water harvesting, micro irrigation, improvement of small water systems, domestic technologies (stack, eco-stoves, filters).",
       "spans": []
     }
   },
@@ -48076,14 +48303,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "ixctrn3f"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "2b71ul0x"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:ixctrn3f,awgxsauj:2b71ul0x,"
+          "concepts_v2_flat": "rns7bps4:Q500:ixctrn3f,awgxsauj:Q501:2b71ul0x"
         },
         {
           "start": 126,
@@ -48091,14 +48320,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "d9y9xo1g"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "w9v0p4q2"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:d9y9xo1g,awgxsauj:w9v0p4q2,"
+          "concepts_v2_flat": "rns7bps4:Q500:d9y9xo1g,awgxsauj:Q501:w9v0p4q2,"
         },
         {
           "start": 146,
@@ -48106,14 +48337,16 @@
           "concepts_v2": [
             {
               "concept_id": "rns7bps4",
+              "concept_wikibase_id": "Q500",
               "classifier_id": "5l8i88wp"
             },
             {
               "concept_id": "awgxsauj",
+              "concept_wikibase_id": "Q501",
               "classifier_id": "wbyyfwao"
             }
           ],
-          "concepts_v2_flat": "rns7bps4:5l8i88wp,awgxsauj:wbyyfwao,"
+          "concepts_v2_flat": "rns7bps4:Q500:5l8i88wp,awgxsauj:Q501:wbyyfwao"
         }
       ]
     }
@@ -48370,7 +48603,7 @@
       ],
       "text_block_page": 75,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022 2. Unsatisfactory",
+      "text_block": "• 2. Unsatisfactory",
       "spans": []
     }
   },
@@ -48427,10 +48660,11 @@
           "concepts_v2": [
             {
               "concept_id": "b836x3e3",
+              "concept_wikibase_id": "Q506",
               "classifier_id": "gqnaztam"
             }
           ],
-          "concepts_v2_flat": "b836x3e3:gqnaztam,"
+          "concepts_v2_flat": "b836x3e3:Q506:gqnaztam"
         }
       ]
     }
@@ -48968,10 +49202,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "zpozu5k1"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:zpozu5k1,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:zpozu5k1,"
         }
       ]
     }
@@ -49164,7 +49399,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 2. Somewhat unsatisfactory",
+      "text_block": "· 2. Somewhat unsatisfactory",
       "spans": []
     }
   },
@@ -49285,10 +49520,11 @@
           "concepts_v2": [
             {
               "concept_id": "rfrb6hue",
+              "concept_wikibase_id": "Q514",
               "classifier_id": "dyq5h681"
             }
           ],
-          "concepts_v2_flat": "rfrb6hue:dyq5h681,"
+          "concepts_v2_flat": "rfrb6hue:Q514:dyq5h681,"
         }
       ]
     }
@@ -49417,7 +49653,7 @@
       ],
       "text_block_page": 31,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Municipality of Ojojona: Mayor Omar Aguilar Nieto",
+      "text_block": "· Municipality of Ojojona: Mayor Omar Aguilar Nieto",
       "spans": []
     }
   },
@@ -49481,7 +49717,7 @@
       ],
       "text_block_page": 51,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 M&E activities included a start-up workshop and regular monitoring of project indicators, the types of reports to be submitted and the specification of the mid-term and end-of- project evaluations.",
+      "text_block": "· M&E activities included a start-up workshop and regular monitoring of project indicators, the types of reports to be submitted and the specification of the mid-term and end-of- project evaluations.",
       "spans": []
     }
   },
@@ -49730,10 +49966,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "jrx21lyp"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:jrx21lyp,"
+          "concepts_v2_flat": "8gpdnspp:Q507:jrx21lyp"
         }
       ]
     }
@@ -50438,7 +50675,7 @@
       ],
       "text_block_page": 70,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u2022",
+      "text_block": "•",
       "spans": []
     }
   },
@@ -50918,7 +51155,7 @@
       ],
       "text_block_page": 47,
       "text_block_type": "BlockType.FOOT_NOTE",
-      "text_block": "17 Adapted from Fundaci\u00f3n Vida. 2013. Perceptions Report.",
+      "text_block": "17 Adapted from Fundación Vida. 2013. Perceptions Report.",
       "spans": []
     }
   },
@@ -50982,7 +51219,7 @@
       ],
       "text_block_page": 24,
       "text_block_type": "BlockType.TEXT",
-      "text_block": ". UNDAF Outcome n\u00ba 5: The Honduran State has the capacities to reduce population vulnerability through the implementation of policies that integrate environment and risk management to achieve sustainable development, welfare and equity for every Honduran citizen.",
+      "text_block": ". UNDAF Outcome nº 5: The Honduran State has the capacities to reduce population vulnerability through the implementation of policies that integrate environment and risk management to achieve sustainable development, welfare and equity for every Honduran citizen.",
       "spans": []
     }
   },
@@ -51039,10 +51276,11 @@
           "concepts_v2": [
             {
               "concept_id": "8gpdnspp",
+              "concept_wikibase_id": "Q507",
               "classifier_id": "4ax2mif3"
             }
           ],
-          "concepts_v2_flat": "8gpdnspp:4ax2mif3,"
+          "concepts_v2_flat": "8gpdnspp:Q507:4ax2mif3,"
         }
       ]
     }
@@ -51324,10 +51562,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "1mfnzlec"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:1mfnzlec,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:1mfnzlec"
         }
       ]
     }
@@ -51716,10 +51955,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "46zn5zmm"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:46zn5zmm,"
+          "concepts_v2_flat": "nhhzwfva:Q374:46zn5zmm"
         },
         {
           "start": 487,
@@ -51727,14 +51967,16 @@
           "concepts_v2": [
             {
               "concept_id": "xaqt5dpj",
+              "concept_wikibase_id": "Q502",
               "classifier_id": "808x6ocw"
             },
             {
               "concept_id": "gmerqh8z",
+              "concept_wikibase_id": "Q513",
               "classifier_id": "fj70vbrr"
             }
           ],
-          "concepts_v2_flat": "xaqt5dpj:808x6ocw,gmerqh8z:fj70vbrr,"
+          "concepts_v2_flat": "xaqt5dpj:Q502:808x6ocw,gmerqh8z:Q513:fj70vbrr"
         },
         {
           "start": 519,
@@ -51742,10 +51984,11 @@
           "concepts_v2": [
             {
               "concept_id": "3h6q3tmx",
+              "concept_wikibase_id": "Q509",
               "classifier_id": "7378pp5r"
             }
           ],
-          "concepts_v2_flat": "3h6q3tmx:7378pp5r,"
+          "concepts_v2_flat": "3h6q3tmx:Q509:7378pp5r"
         },
         {
           "start": 453,
@@ -51753,10 +51996,11 @@
           "concepts_v2": [
             {
               "concept_id": "kynzgerh",
+              "concept_wikibase_id": "Q505",
               "classifier_id": "6jk8mdv7"
             }
           ],
-          "concepts_v2_flat": "kynzgerh:6jk8mdv7,"
+          "concepts_v2_flat": "kynzgerh:Q505:6jk8mdv7,"
         },
         {
           "start": 420,
@@ -51764,10 +52008,11 @@
           "concepts_v2": [
             {
               "concept_id": "r7nmt2kg",
+              "concept_wikibase_id": "Q456",
               "classifier_id": "5on8okam"
             }
           ],
-          "concepts_v2_flat": "r7nmt2kg:5on8okam,"
+          "concepts_v2_flat": "r7nmt2kg:Q456:5on8okam"
         }
       ]
     }
@@ -51832,7 +52077,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 6. Highly Satisfactory",
+      "text_block": "· 6. Highly Satisfactory",
       "spans": []
     }
   },
@@ -52088,7 +52333,7 @@
       ],
       "text_block_page": 30,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Interview results facilitate the information triangulation process.",
+      "text_block": "· Interview results facilitate the information triangulation process.",
       "spans": []
     }
   },
@@ -52184,7 +52429,7 @@
       ],
       "text_block_page": 74,
       "text_block_type": "BlockType.TABLE_CELL",
-      "text_block": "\u00b7 1. Not likely - Serious risks",
+      "text_block": "· 1. Not likely - Serious risks",
       "spans": []
     }
   },
@@ -52280,7 +52525,7 @@
       ],
       "text_block_page": 54,
       "text_block_type": "BlockType.TEXT",
-      "text_block": "\u00b7 Existing water stress and projected increased water scarcity in Tegucigalpa and surroundings, as well as flash floods due to extreme events, addressed through a range of complementary measures that will serve to pilot responses to climate change impacts in both watershed and urban settings.",
+      "text_block": "· Existing water stress and projected increased water scarcity in Tegucigalpa and surroundings, as well as flash floods due to extreme events, addressed through a range of complementary measures that will serve to pilot responses to climate change impacts in both watershed and urban settings.",
       "concepts": [
         {
           "parent_concepts": [
@@ -52335,10 +52580,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "ek0sb41c"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:ek0sb41c,"
+          "concepts_v2_flat": "nhhzwfva:Q374:ek0sb41c"
         },
         {
           "start": 127,
@@ -52346,10 +52592,11 @@
           "concepts_v2": [
             {
               "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374",
               "classifier_id": "muew0u9h"
             }
           ],
-          "concepts_v2_flat": "nhhzwfva:muew0u9h,"
+          "concepts_v2_flat": "nhhzwfva:Q374:muew0u9h"
         },
         {
           "start": 48,
@@ -52357,10 +52604,11 @@
           "concepts_v2": [
             {
               "concept_id": "dw5brr9c",
+              "concept_wikibase_id": "Q504",
               "classifier_id": "ahre9s4d"
             }
           ],
-          "concepts_v2_flat": "dw5brr9c:ahre9s4d,"
+          "concepts_v2_flat": "dw5brr9c:Q504:ahre9s4d"
         }
       ]
     }

@@ -418,7 +418,7 @@
             "concepts_v2": [
                 {
                     "concept_id": "concept_0_0",
-                    "concept_version": "3300",
+                    "concept_wikibase_id": "Q100",
                     "classifier_id": "p23a3t9a",
                     "count": 2
                 }
@@ -852,19 +852,19 @@
             "concepts_v2": [
                 {
                     "concept_id": "concept_1_1",
-                    "concept_version": "1402",
+                    "concept_wikibase_id": "Q111",
                     "classifier_id": "kx7m3p9w",
                     "count": 101
                 },
                 {
                     "concept_id": "concept_2_2",
-                    "concept_version": "1099",
+                    "concept_wikibase_id": "Q222",
                     "classifier_id": "d9fg4j6m",
                     "count": 15
                 },
                 {
                     "concept_id": "concept_3_3",
-                    "concept_version": "101",
+                    "concept_wikibase_id": "Q333",
                     "classifier_id": "kkl3xj1z",
                     "count": 1543
                 }
