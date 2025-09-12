@@ -87,59 +87,6 @@ class ConceptFilter(BaseModel):
         return self
 
 
-class Concept(BaseModel):
-    """
-    A concept extracted from a passage of text.
-
-    This refers to a span of text within passage that holds a concept.
-    E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
-    ending at index 17, classified by model "environment_model_1" on the 12th Jan at
-    12:00.
-    """
-
-    id: str
-    name: str
-    parent_concepts: Optional[List[dict[str, str]]] = None
-    parent_concept_ids_flat: Optional[str] = None
-    model: str
-    end: int
-    start: int
-    timestamp: datetime
-
-    model_config = ConfigDict(
-        use_enum_values=True,
-        json_encoders={datetime: lambda dt: dt.isoformat()},
-    )
-
-    @model_validator(mode="after")
-    def validate_parent_concept_ids_flat(self) -> "Concept":
-        """
-        Validate parent_concept_ids_flat field.
-
-        This field should hold the same ids as concepts in the parent_concepts field.
-        """
-        # Skip validation if either field is missing
-        if self.parent_concepts is None or self.parent_concept_ids_flat is None:
-            return self
-
-        parent_concept_ids_flattened = ",".join(
-            [parent_concept["id"] for parent_concept in self.parent_concepts]
-        )
-
-        if not (
-            self.parent_concept_ids_flat == parent_concept_ids_flattened
-            or self.parent_concept_ids_flat == parent_concept_ids_flattened + ","
-        ):
-            raise ValueError(
-                "parent_concept_ids_flat must be a comma separated list of parent "
-                "concept ids held in the parent concepts field. "
-                f"Received parent_concept_ids_flat: {self.parent_concept_ids_flat}\n"
-                "Received ids in the parent_concept objects: "
-                f"{parent_concept_ids_flattened}"
-            )
-        return self
-
-
 class Filters(BaseModel):
     """Filterable fields in a search request"""
 
@@ -197,6 +144,85 @@ class ConceptCountFilter(BaseModel):
     count: int
     operand: OperandTypeEnum
     negate: bool = False
+
+
+class ConceptV2PassageFilter(BaseModel):
+    """
+    A filter for v2 concept data in passage spans.
+
+    Examples:
+    - Find passages with Wikibase ID Q10: ConceptV2PassageFilter(concept_wikibase_id="Q10")
+    - Find passages with concept ID "nhhzwfva": ConceptV2PassageFilter(concept_id="nhhzwfva")
+    - Find passages with classifier ID "chrtt0a7": ConceptV2PassageFilter(classifier_id="chrtt0a7")
+    """
+
+    concept_id: str | None = None
+    """If provided this is the concept ID to filter on. If left blank then all concepts that match will be counted."""
+
+    concept_wikibase_id: str | None = None
+    """If provided this is the Wikibase ID (e.g. Q374) to filter on. If left blank then all concepts that match will be counted."""
+
+    classifier_id: str | None = None
+    """If provided this is the classifier ID to filter on. If left blank then all classifiers that match will be counted."""
+
+    negate: bool = False
+    """Whether to negate the filter. E.g. we want to filter for documents that do NOT have a match for a concept."""
+
+    @model_validator(mode="after")
+    def validate_at_least_one_field(self) -> "ConceptV2PassageFilter":
+        """Ensure at least one filter field is provided."""
+        if not any([self.concept_id, self.concept_wikibase_id, self.classifier_id]):
+            raise ValueError("At least one constraint must be provided")
+        return self
+
+
+class ConceptV2DocumentFilter(BaseModel):
+    """
+    A filter for v2 concept counts in documents.
+
+    Can combine filters for concept ID, Wikibase ID, classifier ID,
+    and concept count to achieve logic like:
+    - Documents with greater than 10 matches of concept "nhhzwfva".
+    - Documents with greater than 5 matches of concept Q374.
+    - Documents with greater than 1000 matches of any concept from classifier "chrtt0a7".
+
+    These ConceptV2DocumentFilters can be combined with an 'and' operator to create more
+    complex queries like:
+    - Documents with more than 10 matches for concept "nhhzwfva" and more than 5 matches for
+      concept Q374.
+    """
+
+    concept_id: str | None = None
+    """If provided this is the concept ID to filter on. If left blank then all concepts that match will be counted."""
+
+    concept_wikibase_id: str | None = None
+    """If provided this is the Wikibase ID (e.g. Q374) to filter on. If left blank then all concepts that match will be counted."""
+
+    classifier_id: str | None = None
+    """If provided this is the classifier ID to filter on. If left blank then all classifiers that match will be counted."""
+
+    count: int | None = None
+    """The number of matches to filter on."""
+
+    operand: OperandTypeEnum | None = None
+    """The operand to use for the filter. E.g. we want to filter for documents with more than 10 matches of concept "nhhzwfva"."""
+
+    negate: bool = False
+    """Whether to negate the filter. E.g. we want to filter for documents that do NOT have a match for a concept."""
+
+    @model_validator(mode="after")
+    def validate_at_least_one_field(self) -> "ConceptV2DocumentFilter":
+        """Ensure at least one filter field is provided."""
+        if not any(
+            [
+                self.concept_id,
+                self.concept_wikibase_id,
+                self.classifier_id,
+                all([self.count, self.operand]),
+            ],
+        ):
+            raise ValueError("At least one constraint must be provided")
+        return self
 
 
 class SearchParameters(BaseModel):
@@ -308,6 +334,16 @@ class SearchParameters(BaseModel):
     concept_count_filters: Optional[Sequence[ConceptCountFilter]] = None
     """
     A list of concept count filters to apply to the search.
+    """
+
+    concept_v2_passage_filters: Sequence[ConceptV2PassageFilter] | None = None
+    """
+    A list of v2 concept filters to apply to passages' spans.
+    """
+
+    concept_v2_document_filters: Sequence[ConceptV2DocumentFilter] | None = None
+    """
+    A list of v2 concept count filters to apply to documents.
     """
 
     replace_acronyms: bool = False
@@ -545,6 +581,58 @@ class Document(Hit):
 
 class Passage(Hit):
     """A passage search result hit."""
+
+    class Concept(BaseModel):
+        """
+        A concept extracted from a passage of text.
+
+        This refers to a span of text within passage that holds a concept.
+        E.g. "Adaptation strategy" is a concept within a passage starting at index 0 and
+        ending at index 17, classified by model "environment_model_1" on the 12th Jan at
+        12:00.
+        """
+
+        id: str
+        name: str
+        parent_concepts: Optional[List[dict[str, str]]] = None
+        parent_concept_ids_flat: Optional[str] = None
+        model: str
+        end: int
+        start: int
+        timestamp: datetime
+
+        model_config = ConfigDict(
+            use_enum_values=True,
+            json_encoders={datetime: lambda dt: dt.isoformat()},
+        )
+
+        @model_validator(mode="after")
+        def validate_parent_concept_ids_flat(self) -> "Passage.Concept":
+            """
+            Validate parent_concept_ids_flat field.
+
+            This field should hold the same ids as concepts in the parent_concepts field.
+            """
+            # Skip validation if either field is missing
+            if self.parent_concepts is None or self.parent_concept_ids_flat is None:
+                return self
+
+            parent_concept_ids_flattened = ",".join(
+                [parent_concept["id"] for parent_concept in self.parent_concepts]
+            )
+
+            if not (
+                self.parent_concept_ids_flat == parent_concept_ids_flattened
+                or self.parent_concept_ids_flat == parent_concept_ids_flattened + ","
+            ):
+                raise ValueError(
+                    "parent_concept_ids_flat must be a comma separated list of parent "
+                    "concept ids held in the parent concepts field. "
+                    f"Received parent_concept_ids_flat: {self.parent_concept_ids_flat}\n"
+                    "Received ids in the parent_concept objects: "
+                    f"{parent_concept_ids_flattened}"
+                )
+            return self
 
     text_block: str
     text_block_id: str

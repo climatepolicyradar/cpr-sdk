@@ -5,7 +5,7 @@ import pytest
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import Hit
 from cpr_sdk.vespa import parse_vespa_response, split_document_id
-from cpr_sdk.models.search import Concept, Passage
+from cpr_sdk.models.search import Passage
 from vespa.io import VespaResponse
 
 
@@ -934,7 +934,7 @@ def test_document_passage_parse_from_valid_response():
         corpus_import_id=None,
         metadata=None,
         concepts=[
-            Concept(
+            Passage.Concept(
                 id="concept_0_0",
                 name="sectors",
                 parent_concepts=None,
@@ -944,7 +944,7 @@ def test_document_passage_parse_from_valid_response():
                 start=1,
                 timestamp=datetime(2024, 9, 26, 16, 15, 39, 817896),
             ),
-            Concept(
+            Passage.Concept(
                 id="concept_0_0",
                 name="environment",
                 parent_concepts=[

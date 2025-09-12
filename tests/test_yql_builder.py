@@ -1,8 +1,11 @@
+from typing import Any
 import pytest
 from vespa.exceptions import VespaError
 
 from cpr_sdk.models.search import (
     ConceptCountFilter,
+    ConceptV2DocumentFilter,
+    ConceptV2PassageFilter,
     Filters,
     OperandTypeEnum,
     SearchParameters,
@@ -232,3 +235,219 @@ def test_by_document_title_appears_in_yql():
     params = SearchParameters(query_string="test", by_document_title=True)
     yql = YQLBuilder(params).to_str()
     assert "document_title_index" in yql
+
+
+@pytest.mark.parametrize(
+    "filter_kwargs,expected_yql_pattern",
+    [
+        (
+            {"concept_id": "test_id"},
+            "(spans contains sameElement(concepts_v2_flat matches '^test_id'))",
+        ),
+        (
+            {"concept_wikibase_id": "Q374"},
+            "(spans contains sameElement(concepts_v2_flat matches 'Q374'))",
+        ),
+        (
+            {"classifier_id": "test_classifier"},
+            "(spans contains sameElement(concepts_v2_flat matches 'test_classifier'))",
+        ),
+        (
+            {"concept_id": "test_id", "classifier_id": "test_classifier"},
+            "(spans contains sameElement(concepts_v2_flat matches '^test_id:.*:test_classifier'))",
+        ),
+        (
+            {"concept_wikibase_id": "Q374", "classifier_id": "test_classifier"},
+            "(spans contains sameElement(concepts_v2_flat matches '.*:Q374:test_classifier'))",
+        ),
+        (
+            {
+                "concept_wikibase_id": "Q374",
+                "classifier_id": "test_classifier",
+                "negate": True,
+            },
+            "(!(spans contains sameElement(concepts_v2_flat matches '.*:Q374:test_classifier')))",
+        ),
+    ],
+)
+def test_concept_v2_passage_filter_validation(
+    filter_kwargs: dict[str, Any], expected_yql_pattern: str
+):
+    """Test that ConceptV2PassageFilter validation works correctly and generates proper YQL."""
+
+    filter_obj = ConceptV2PassageFilter(**filter_kwargs)
+
+    search_params = SearchParameters(concept_v2_passage_filters=[filter_obj])
+    yql_builder = YQLBuilder(search_params)
+    passage_filter_clause = yql_builder.build_concept_v2_passage_filter()
+
+    assert passage_filter_clause is not None
+    assert passage_filter_clause == expected_yql_pattern
+
+
+def test_concept_v2_passage_filter_validation_error():
+    """Test that ConceptV2PassageFilter raises validation error when no fields provided."""
+    with pytest.raises(
+        ValueError,
+        match="At least one constraint must be provided",
+    ):
+        _ = ConceptV2PassageFilter()
+
+
+@pytest.mark.parametrize(
+    "field_name,field_value",
+    [
+        ("concept_id", 123),
+        ("concept_wikibase_id", 456),
+        ("classifier_id", 789),
+        ("concept_id", []),
+        ("concept_wikibase_id", {}),
+        ("classifier_id", True),
+    ],
+)
+def test_concept_v2_passage_filter_pydantic_validation_error(
+    field_name: str, field_value: Any
+):
+    """Test that ConceptV2PassageFilter raises ValidationError when non-string values are provided via Pydantic validation."""
+    from pydantic import ValidationError
+
+    filter_kwargs = {field_name: field_value}
+
+    with pytest.raises(ValidationError, match="Input should be a valid string"):
+        ConceptV2PassageFilter(**filter_kwargs)
+
+
+@pytest.mark.parametrize(
+    "filter_kwargs,expected_yql_pattern",
+    [
+        (
+            {"concept_id": "test_id", "count": 5, "operand": OperandTypeEnum(">=")},
+            "(concepts_v2 contains sameElement(concept_id contains 'test_id', count >= 5))",
+        ),
+        (
+            {
+                "concept_wikibase_id": "Q374",
+                "count": 1,
+                "operand": OperandTypeEnum("="),
+            },
+            "(concepts_v2 contains sameElement(concept_wikibase_id contains 'Q374', count = 1))",
+        ),
+        (
+            {
+                "classifier_id": "test_classifier",
+                "count": 10,
+                "operand": OperandTypeEnum(">"),
+                "negate": True,
+            },
+            "(!(concepts_v2 contains sameElement(classifier_id contains 'test_classifier', count > 10)))",
+        ),
+        (
+            {
+                "concept_id": "test_id",
+                "concept_wikibase_id": "Q374",
+                "classifier_id": "test_classifier",
+                "count": 2,
+                "operand": OperandTypeEnum("<="),
+            },
+            "(concepts_v2 contains sameElement(concept_id contains 'test_id', concept_wikibase_id contains 'Q374', classifier_id contains 'test_classifier', count <= 2))",
+        ),
+    ],
+)
+def test_concept_v2_document_filter_validation(
+    filter_kwargs: dict[str, Any], expected_yql_pattern: str
+):
+    """Test that ConceptV2DocumentFilter validation works correctly and generates proper YQL."""
+
+    filter_obj = ConceptV2DocumentFilter(**filter_kwargs)
+
+    search_params = SearchParameters(concept_v2_document_filters=[filter_obj])
+    yql_builder = YQLBuilder(search_params)
+    document_filter_clause = yql_builder.build_concept_v2_document_filter()
+
+    assert document_filter_clause is not None
+    assert document_filter_clause == expected_yql_pattern
+
+
+def test_concept_v2_document_filter_multi():
+    filter_obj_1 = ConceptV2DocumentFilter(concept_id="1")
+    filter_obj_2 = ConceptV2DocumentFilter(
+        count=1,
+        operand=OperandTypeEnum("<"),
+        concept_wikibase_id="Q300",
+    )
+
+    search_params = SearchParameters(
+        concept_v2_document_filters=[
+            filter_obj_1,
+            filter_obj_2,
+        ]
+    )
+    yql_builder = YQLBuilder(search_params)
+    document_filter_clause = yql_builder.build_concept_v2_document_filter()
+
+    assert document_filter_clause is not None
+    assert (
+        document_filter_clause
+        == "(concepts_v2 contains sameElement(concept_id contains '1') and concepts_v2 contains sameElement(concept_wikibase_id contains 'Q300', count < 1))"
+    )
+
+
+def test_concept_v2_document_filter_validation_error():
+    """Test that ConceptV2DocumentFilter raises validation error when no valid fields provided."""
+    with pytest.raises(
+        ValueError,
+        match="At least one constraint must be provided",
+    ):
+        _ = ConceptV2DocumentFilter()
+
+    with pytest.raises(
+        ValueError,
+        match="At least one constraint must be provided",
+    ):
+        _ = ConceptV2DocumentFilter(count=5)
+
+
+def test_concept_v2_filters_appear_in_yql():
+    """Test that v2 concept filters appear in the full YQL query."""
+
+    # Test passage filter
+    params = SearchParameters(
+        query_string="test",
+        concept_v2_passage_filters=[ConceptV2PassageFilter(concept_wikibase_id="Q374")],
+    )
+    yql = YQLBuilder(params).to_str()
+    assert (
+        yql
+        == 'select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{"targetNumHits": 1000, "distanceThreshold": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (spans contains sameElement(concepts_v2_flat matches \'Q374\')) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )'
+    )
+
+    # Test document filter
+    params = SearchParameters(
+        query_string="test",
+        concept_v2_document_filters=[
+            ConceptV2DocumentFilter(
+                concept_wikibase_id="Q374", count=5, operand=OperandTypeEnum(">=")
+            )
+        ],
+    )
+    yql = YQLBuilder(params).to_str()
+    assert (
+        yql
+        == 'select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{"targetNumHits": 1000, "distanceThreshold": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (concepts_v2 contains sameElement(concept_wikibase_id contains \'Q374\', count >= 5)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )'
+    )
+
+    # Test both filters together
+    params = SearchParameters(
+        query_string="test",
+        concept_v2_passage_filters=[ConceptV2PassageFilter(concept_wikibase_id="Q374")],
+        concept_v2_document_filters=[
+            ConceptV2DocumentFilter(
+                concept_id="nhhzwfva", count=1, operand=OperandTypeEnum("=")
+            )
+        ],
+    )
+    yql = YQLBuilder(params).to_str()
+    assert (
+        yql
+        == "select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{\"targetNumHits\": 1000, \"distanceThreshold\": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (spans contains sameElement(concepts_v2_flat matches 'Q374')) and (concepts_v2 contains sameElement(concept_id contains 'nhhzwfva', count = 1)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
+    )

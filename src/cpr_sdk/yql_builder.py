@@ -208,6 +208,115 @@ class YQLBuilder:
             return f"({' and '.join(concept_count_filters_subqueries)})"
         return None
 
+    def build_concept_v2_passage_filter(self) -> str | None:
+        """
+        Create the part of the query that filters passage spans by v2 concepts.
+
+        Based on navigator-infra system tests, uses concepts_v2_flat matches pattern:
+        - `spans contains sameElement(concepts_v2_flat matches 'y28e4s6n:kx7m3p9w')`
+        - `spans contains sameElement(concepts_v2_flat matches 'y28e4s6n')`  # concept only
+        """
+        if not self.params.concept_v2_passage_filters:
+            return None
+
+        passage_filters: list[str] = []
+
+        for filter_obj in self.params.concept_v2_passage_filters:
+            match_patterns: list[str] = []
+
+            # > Having a prefix using the ^ will be faster than not having one.
+            match (
+                filter_obj.concept_id,
+                filter_obj.concept_wikibase_id,
+                filter_obj.classifier_id,
+            ):
+                case (None, None, None):
+                    raise ValueError("At least one constraint must be provided")
+                case (None, None, classifier_id):
+                    match_patterns.append(f"concepts_v2_flat matches '{classifier_id}'")
+                case (None, concept_wikibase_id, None):
+                    match_patterns.append(
+                        f"concepts_v2_flat matches '{concept_wikibase_id}'"
+                    )
+                case (concept_id, None, None):
+                    match_patterns.append(f"concepts_v2_flat matches '^{concept_id}'")
+
+                case (concept_id, concept_wikibase_id, None):
+                    match_patterns.append(
+                        f"concepts_v2_flat matches '^{concept_id}:{concept_wikibase_id}'"
+                    )
+                case (concept_id, None, classifier_id):
+                    match_patterns.append(
+                        f"concepts_v2_flat matches '^{concept_id}:.*:{classifier_id}'"
+                    )
+                case (None, concept_wikibase_id, classifier_id):
+                    match_patterns.append(
+                        f"concepts_v2_flat matches '.*:{concept_wikibase_id}:{classifier_id}'"
+                    )
+
+                case (concept_id, concept_wikibase_id, classifier_id):
+                    match_patterns.append(
+                        f"concepts_v2_flat matches '^{concept_id}:{concept_wikibase_id}:{classifier_id}'"
+                    )
+
+            for pattern in match_patterns:
+                document_filter = f"spans contains sameElement({pattern})"
+                if filter_obj.negate:
+                    document_filter = f"!({document_filter})"
+                passage_filters.append(document_filter)
+
+        if not passage_filters:
+            return None
+
+        return f"({' and '.join(passage_filters)})"
+
+    def build_concept_v2_document_filter(self) -> str | None:
+        """
+        Create the part of the query that filters documents by v2 concept counts.
+
+        Based on navigator-infra system tests:
+        - `concepts_v2 contains sameElement(concept_id contains 'y28e4s6n')`
+        - `concepts_v2 contains sameElement(concept_id contains 'y28e4s6n', classifier_id contains 'kx7m3p9w')`
+        - `concepts_v2 contains sameElement(concept_wikibase_id contains 'Q100', count > 5)`
+        """
+        if not self.params.concept_v2_document_filters:
+            return None
+
+        document_filters: list[str] = []
+
+        for filter_obj in self.params.concept_v2_document_filters:
+            concept_conditions: list[str] = []
+
+            if filter_obj.concept_id:
+                concept_conditions.append(
+                    f"concept_id contains '{filter_obj.concept_id}'"
+                )
+            if filter_obj.concept_wikibase_id:
+                concept_conditions.append(
+                    f"concept_wikibase_id contains '{filter_obj.concept_wikibase_id}'"
+                )
+            if filter_obj.classifier_id:
+                concept_conditions.append(
+                    f"classifier_id contains '{filter_obj.classifier_id}'"
+                )
+
+            if filter_obj.count is not None and filter_obj.operand is not None:
+                concept_conditions.append(
+                    f"count {filter_obj.operand.value} {filter_obj.count}"
+                )
+
+            if concept_conditions:
+                conditions_str = ", ".join(concept_conditions)
+                document_filter = f"concepts_v2 contains sameElement({conditions_str})"
+                if filter_obj.negate:
+                    document_filter = f"!({document_filter})"
+                document_filters.append(document_filter)
+
+        if not document_filters:
+            return None
+
+        return f"({' and '.join(document_filters)})"
+
     def build_where_clause(self) -> str:
         """Create the part of the query that adds filters"""
         filters = []
@@ -227,6 +336,8 @@ class YQLBuilder:
         filters.append(self.build_year_start_filter())
         filters.append(self.build_year_end_filter())
         filters.append(self.build_concept_count_filter())
+        filters.append(self.build_concept_v2_passage_filter())
+        filters.append(self.build_concept_v2_document_filter())
         return " and ".join([f for f in filters if f])  # Remove empty
 
     def build_continuation(self) -> str:

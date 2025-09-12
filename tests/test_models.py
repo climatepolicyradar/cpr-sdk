@@ -20,7 +20,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.models.search import Concept, MetadataFilter
+from cpr_sdk.models.search import Passage, MetadataFilter
 
 
 @pytest.fixture
@@ -615,7 +615,7 @@ def test_vespa_concept_instantiation() -> None:
     There is a relationship to enforce between the parent_concepts objects and the
     parent_concept_ids_flat fields.
     """
-    Concept(
+    Passage.Concept(
         name="test_concept_name_1",
         id="test_concept_id_1.1",
         parent_concepts=[
@@ -629,7 +629,7 @@ def test_vespa_concept_instantiation() -> None:
     )
 
     with pytest.raises(ValidationError):
-        Concept(
+        Passage.Concept(
             name="test_concept_name_2",
             id="test_concept_id_2.1",
             parent_concepts=[
@@ -646,7 +646,7 @@ def test_vespa_concept_instantiation() -> None:
 def test_vespa_concept_json_conversion() -> None:
     """Test that the Vespa concept can be converted to json correctly."""
     json.dumps(
-        Concept(
+        Passage.Concept(
             name="test_concept_name_1",
             id="test_concept_id_1.1",
             parent_concepts=[
