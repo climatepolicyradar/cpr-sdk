@@ -58,6 +58,7 @@
       },
       {
         "concept_id": "2gvuuvnw",
+        "concept_wikibase_id": "Q789",
         "classifier_id": "anfhdhxm",
         "count": 1
       },
@@ -78,6 +79,7 @@
       },
       {
         "concept_id": "nhhzwfva",
+        "concept_wikibase_id": "Q374",
         "classifier_id": "4xdbmh5t",
         "count": 9
       },
