@@ -1,0 +1,12 @@
+{
+    "pathId": "/document/v1/doc_search/concept/docid/Q730.hzaw3hdg",
+    "id": "id:doc_search:concept::Q730.hzaw3hdg",
+    "fields": {
+        "preferred_label": "fishing sector",
+        "wikibase_revision": 511,
+        "wikibase_id": "Q730",
+        "subconcept_of": ["njhxa72q"],
+        "id": "hzaw3hdg",
+        "wikibase_url": "https://wikibase.example.org/wiki/Item:Q730"
+    }
+}
