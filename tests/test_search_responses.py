@@ -1,12 +1,21 @@
 from datetime import datetime
+from cpr_sdk.utils import dig
+from cpr_sdk.result import Error, Ok, Err
 import json
 
 import pytest
 from cpr_sdk.exceptions import FetchError
-from cpr_sdk.models.search import Hit
+from cpr_sdk.models.search import (
+    Hit,
+    extract_schema_name,
+    SCHEMA_NAME_FIELD_NAME,
+    Concept,
+    WikibaseId,
+)
 from cpr_sdk.vespa import parse_vespa_response, split_document_id
 from cpr_sdk.models.search import Passage
 from vespa.io import VespaResponse
+from pydantic import AnyHttpUrl
 
 
 @pytest.fixture
@@ -1000,3 +1009,126 @@ def test_document_passage_parse_from_valid_response():
             )
         ],
     )
+
+
+@pytest.mark.parametrize(
+    ("hit", "expected"),
+    [
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {},
+            },
+            Ok("family_document"),
+        ),
+        (
+            {
+                "id": "id:doc_search:document_passage::CCLW.family.11171.0.220",
+                "fields": {},
+            },
+            Ok("document_passage"),
+        ),
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {SCHEMA_NAME_FIELD_NAME: "family_document"},
+            },
+            Ok("family_document"),
+        ),
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {SCHEMA_NAME_FIELD_NAME: "document_passage"},
+            },
+            Ok("document_passage"),
+        ),
+        (
+            {
+                "id": "invalid",
+                "fields": {},
+            },
+            Err(
+                Error(
+                    msg="Could not parse response type from ID: invalid",
+                    metadata={},
+                ),
+            ),
+        ),
+    ],
+)
+def test_extract_schema_name(hit, expected):
+    assert extract_schema_name(hit) == expected
+
+
+def test_parse_get_concept_response():
+    # $ vespa document get --target local --application doc_search 'id:doc_search:concept::hzaw3hdg' | jq
+    with open("tests/test_data/search_responses/get_concept_response.json") as f:
+        response_json = json.load(f)
+        assert Concept.from_vespa_response(response_json) == Concept(
+            id="hzaw3hdg",
+            wikibase_id=WikibaseId("Q730"),
+            wikibase_url=AnyHttpUrl("https://wikibase.example.org/wiki/Item:Q730"),
+            preferred_label="fishing sector",
+            description=None,
+            definition=None,
+            alternative_labels=[],
+            negative_labels=[],
+            subconcept_of=["njhxa72q"],
+            has_subconcept=[],
+            related_concepts=[],
+            recursive_concept_of=None,
+            recursive_has_subconcept=None,
+            response_raw={
+                "pathId": "/document/v1/doc_search/concept/docid/hzaw3hdg",
+                "id": "id:doc_search:concept::hzaw3hdg",
+                "fields": {
+                    "preferred_label": "fishing sector",
+                    "wikibase_id": "Q730",
+                    "subconcept_of": ["njhxa72q"],
+                    "id": "hzaw3hdg",
+                    "wikibase_url": "https://wikibase.example.org/wiki/Item:Q730",
+                },
+            },
+        )
+
+
+def test_parse_query_concept_response():
+    # $ vespa query --target local --application doc_search 'select * from concept where true limit 1' | jq
+    with open("tests/test_data/search_responses/query_concept_response.json") as f:
+        response_json = json.load(f)
+        assert Concept.from_vespa_response(
+            dig(
+                response_json,
+                "root",
+                "children",
+                0,
+            )
+        ) == Concept(
+            id="hzaw3hdg",
+            wikibase_id=WikibaseId("Q730"),
+            wikibase_url=AnyHttpUrl("https://wikibase.example.org/wiki/Item:Q730"),
+            preferred_label="fishing sector",
+            description=None,
+            definition=None,
+            alternative_labels=[],
+            negative_labels=[],
+            subconcept_of=["njhxa72q"],
+            has_subconcept=[],
+            related_concepts=[],
+            recursive_concept_of=None,
+            recursive_has_subconcept=None,
+            response_raw={
+                "id": "id:doc_search:concept::hzaw3hdg",
+                "relevance": 0.0,
+                "source": "family-document-passage",
+                "fields": {
+                    "sddocname": "concept",
+                    "documentid": "id:doc_search:concept::hzaw3hdg",
+                    "id": "hzaw3hdg",
+                    "wikibase_id": "Q730",
+                    "wikibase_url": "https://wikibase.example.org/wiki/Item:Q730",
+                    "preferred_label": "fishing sector",
+                    "subconcept_of": ["njhxa72q"],
+                },
+            },
+        )
