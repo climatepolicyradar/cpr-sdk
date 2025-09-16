@@ -355,6 +355,17 @@ async def test_vespa_async_search_adaptor__bad_query_string_still_works(test_ves
 
 
 @pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
+    metadata = [{"name": "family.concept_preferred_label", "value":'category/With apostrophe\'s', }]
+    request = SearchParameters(metadata=metadata)
+    try:
+        await async_vespa_search(test_vespa, request)
+    except Exception as e:
+        raise AssertionError(f"failed with: {e}")
+
+
+@pytest.mark.vespa
 def test_vespa_search_adaptor__hybrid(test_vespa):
     family_name = "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035"
     request = SearchParameters(query_string=family_name)
