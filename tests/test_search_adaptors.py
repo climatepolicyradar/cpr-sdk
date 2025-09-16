@@ -347,7 +347,12 @@ async def test_vespa_async_search_adaptor__bad_query_string_still_works(test_ves
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
-    metadata = [{"name": "family.concept_preferred_label", "value":'category/With apostrophe\'s', }]
+    metadata = [
+        {
+            "name": "family.concept_preferred_label",
+            "value": "category/With apostrophe's",
+        }
+    ]
     request = SearchParameters(metadata=metadata)
     try:
         vespa_search(test_vespa, request)
@@ -357,8 +362,15 @@ def test_vespa_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
 
 @pytest.mark.vespa
 @pytest.mark.asyncio
-async def test_vespa_async_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
-    metadata = [{"name": "family.concept_preferred_label", "value":'category/With apostrophe\'s', }]
+async def test_vespa_async_search_adaptor__apostrophe_in_metadata_still_works(
+    test_vespa,
+):
+    metadata = [
+        {
+            "name": "family.concept_preferred_label",
+            "value": "category/With apostrophe's",
+        }
+    ]
     request = SearchParameters(metadata=metadata)
     try:
         await async_vespa_search(test_vespa, request)
