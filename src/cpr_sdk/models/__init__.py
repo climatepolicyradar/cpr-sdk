@@ -57,6 +57,14 @@ from pydantic import (
 )
 from tqdm.auto import tqdm
 
+from .concept import Concept, JsonDict, WikibaseId
+
+__all__ = [
+    "Concept",
+    "JsonDict",
+    "WikibaseId",
+]
+
 LOGGER = logging.getLogger(__name__)
 
 AnyDocument = TypeVar("AnyDocument", bound="BaseDocument")

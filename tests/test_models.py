@@ -20,7 +20,8 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.models.search import Concept, JsonDict, Passage, MetadataFilter, WikibaseId
+from cpr_sdk.models.search import Passage, MetadataFilter
+from cpr_sdk.models import Concept, JsonDict, WikibaseId
 
 
 @pytest.fixture
