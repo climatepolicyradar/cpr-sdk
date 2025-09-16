@@ -1,6 +1,6 @@
-from timeit import timeit
 import traceback
 from collections.abc import Mapping
+from timeit import timeit
 from typing import Union
 from unittest.mock import patch
 
@@ -333,15 +333,6 @@ def test_vespa_search_adaptor__bad_query_string_still_works(test_vespa):
     except Exception as e:
         raise AssertionError(f"failed with: {e}")
 
-@pytest.mark.vespa
-def test_vespa_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
-    metadata = [{"name": "family.concept_preferred_label", "value":'category/With apostrophe\'s', }]
-    request = SearchParameters(metadata=metadata)
-    try:
-        vespa_search(test_vespa, request)
-    except Exception as e:
-        raise AssertionError(f"failed with: {e}")
-
 
 @pytest.mark.vespa
 @pytest.mark.asyncio
@@ -350,6 +341,16 @@ async def test_vespa_async_search_adaptor__bad_query_string_still_works(test_ves
     request = SearchParameters(query_string=family_name)
     try:
         await async_vespa_search(test_vespa, request)
+    except Exception as e:
+        raise AssertionError(f"failed with: {e}")
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__apostrophe_in_metadata_still_works(test_vespa):
+    metadata = [{"name": "family.concept_preferred_label", "value":'category/With apostrophe\'s', }]
+    request = SearchParameters(metadata=metadata)
+    try:
+        vespa_search(test_vespa, request)
     except Exception as e:
         raise AssertionError(f"failed with: {e}")
 

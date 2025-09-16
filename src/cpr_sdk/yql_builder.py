@@ -39,10 +39,10 @@ class YQLBuilder:
         self.sensitive = sensitive
 
     def _escape_yql_literal(self, value: Optional[str]) -> str:
-        """Escape a Python string for safe inclusion in a single-quoted YQL literal."""
+        """Escape a apostrophes for safe inclusion in a single-quoted YQL literal."""
         if value is None:
             return ""
-        return value.replace("\\", "\\\\").replace("'", "\\'")
+        return value.replace("'", "\\'")
 
     def build_sources(self) -> str:
         """Creates the part of the query that determines which sources to search"""
