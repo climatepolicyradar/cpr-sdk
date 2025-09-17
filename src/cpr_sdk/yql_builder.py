@@ -38,7 +38,7 @@ class YQLBuilder:
         self.params = params
         self.sensitive = sensitive
 
-    def _escape_yql_literal(self, value: Optional[str]) -> str:
+    def _escape_apostrophes(self, value: Optional[str]) -> str:
         """Escape a apostrophes for safe inclusion in a single-quoted YQL literal."""
         if value is None:
             return ""
