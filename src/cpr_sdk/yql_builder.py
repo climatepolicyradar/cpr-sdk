@@ -99,8 +99,8 @@ class YQLBuilder:
         metadata_filters = []
         if self.params.metadata:
             for metadata in self.params.metadata:
-                name_escaped = self._escape_yql_literal(metadata.name)
-                value_escaped = self._escape_yql_literal(metadata.value)
+                name_escaped = self._escape_apostrophes(metadata.name)
+                value_escaped = self._escape_apostrophes(metadata.value)
                 metadata_filters.append(
                     f"""
                     (
