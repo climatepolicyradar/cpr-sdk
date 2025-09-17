@@ -38,6 +38,12 @@ class YQLBuilder:
         self.params = params
         self.sensitive = sensitive
 
+    def _escape_apostrophes(self, value: Optional[str]) -> str:
+        """Escape a apostrophes for safe inclusion in a single-quoted YQL literal."""
+        if value is None:
+            return ""
+        return value.replace("'", "\\'")
+
     def build_sources(self) -> str:
         """Creates the part of the query that determines which sources to search"""
         if self.params.documents_only:
@@ -92,19 +98,19 @@ class YQLBuilder:
         """Create the part of the query that limits to specific metadata"""
         metadata_filters = []
         if self.params.metadata:
-            [
+            for metadata in self.params.metadata:
+                name_escaped = self._escape_apostrophes(metadata.name)
+                value_escaped = self._escape_apostrophes(metadata.value)
                 metadata_filters.append(
                     f"""
                     (
                         metadata contains sameElement(
-                            name contains '{metadata.name}',
-                            value contains '{metadata.value}'
+                            name contains '{name_escaped}',
+                            value contains '{value_escaped}'
                         )
                     )
                     """
                 )
-                for metadata in self.params.metadata
-            ]
             return f"({' and '.join(metadata_filters)})"
         return None
 
