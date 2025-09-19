@@ -1,0 +1,292 @@
+{
+  "root": {
+    "id": "toplevel",
+    "relevance": 1.0,
+    "fields": {
+      "totalCount": 1
+    },
+    "coverage": {
+      "coverage": 100,
+      "documents": 4,
+      "full": true,
+      "nodes": 1,
+      "results": 1,
+      "resultsFull": 1
+    },
+    "children": [
+      {
+        "id": "id:doc_search:family_document::AF.document.009MHNWR.n0007",
+        "relevance": 0.0017429193899782135,
+        "source": "family-document-passage",
+        "fields": {
+          "sddocname": "family_document",
+          "documentid": "id:doc_search:family_document::AF.document.009MHNWR.n0007",
+          "search_weights_ref": "id:doc_search:search_weights::default_weights",
+          "family_name": "Addressing Climate Change Risks on Water Resources in Honduras: Increased Systemic Resilience and Reduced Vulnerability of the Urban Poor",
+          "family_description": "The objective of the project is to increase resilience to climate change and water-related risks for the most vulnerable population in Honduras through pilot activities and an overarching intervention to mainstream climate change considerations into water sector policies. The specific project objectives included: Strengthen institutional structures to mainstream climate risks into water resources management, national planning; Assist in safeguarding water supplies of Tegucigalpa metro area against water scarcity and extreme climate events; Build capacity and outreach to enable all stakeholders to respond to long-term climate change impacts",
+          "family_import_id": "AF.family.009MHNWR.0",
+          "family_slug": "addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_df09",
+          "family_publication_ts": "2010-09-17T00:00:00+00:00",
+          "family_category": "MCF",
+          "family_geography": "HND",
+          "family_geographies": [
+            "HND"
+          ],
+          "family_source": "AF",
+          "document_import_id": "AF.document.009MHNWR.n0007",
+          "document_title": "Final evaluation report",
+          "document_slug": "final-evaluation-report_8dec",
+          "document_languages": [
+            "English"
+          ],
+          "document_md5_sum": "0996c52e8a82f6caf973962e8972797c",
+          "document_content_type": "application/pdf",
+          "document_cdn_object": "HND/2010/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_0996c52e8a82f6caf973962e8972797c.pdf",
+          "document_source_url": "https://fifspubprd.azureedge.net/afdocuments/project/62/4399_AF_Honduras_Terminal%20eval%20report_May%2017.pdf",
+          "corpus_import_id": "MCF.corpus.AF.n0000",
+          "corpus_type_name": "AF",
+          "metadata": [
+            {
+              "name": "family.region",
+              "value": "Latin America & Caribbean"
+            },
+            {
+              "name": "family.sector",
+              "value": "Water management"
+            },
+            {
+              "name": "family.status",
+              "value": "Project Completed"
+            },
+            {
+              "name": "family.project_id",
+              "value": "009MHNWR"
+            },
+            {
+              "name": "family.project_url",
+              "value": "https://www.adaptation-fund.org/project/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor/"
+            },
+            {
+              "name": "family.implementing_agency",
+              "value": "UN Development Programme"
+            },
+            {
+              "name": "family.project_value_fund_spend",
+              "value": "5620300"
+            },
+            {
+              "name": "family.project_value_co_financing",
+              "value": "0"
+            }
+          ],
+          "concept_counts": {
+            "Q765:trade sector": 2,
+            "Q404:terrestrial risk": 14,
+            "Q715:tax": 2,
+            "Q684:indigenous people": 1,
+            "Q676:marginalized ethnicity": 1,
+            "Q1286:early warning system": 3,
+            "Q1343:climate finance": 21,
+            "Q788:fishing sector": 1,
+            "Q1276:direct investment": 2,
+            "Q856:healthcare sector": 4,
+            "Q779:finance and insurance sector": 9,
+            "Q762:energy supply sector": 1,
+            "Q760:extractive sector": 6,
+            "Q787:forestry sector": 4,
+            "Q763:environmental management sector": 5,
+            "Q1167:people with limited assets": 9,
+            "Q973:slow onset event": 1,
+            "Q701:people on the move": 1,
+            "Q786:agriculture sector": 9,
+            "Q764:construction sector": 6,
+            "Q818:water management sector": 30,
+            "Q1277:fees and charges": 1,
+            "Q1362:climate fund": 21,
+            "Q956:societal impact": 12,
+            "Q769:information communication technology sector": 3,
+            "Q1282:zoning and spatial planning": 11,
+            "Q695:youth": 2,
+            "Q704:women and minority genders": 14,
+            "Q1281:codes and standards": 1,
+            "Q775:public sector": 23,
+            "Q374:extreme weather": 19,
+            "Q774:education sector": 3,
+            "Q986:geohazard": 4
+          },
+          "concepts_v2": [
+            {
+              "count": 9,
+              "classifier_id": "z664n8h8",
+              "concept_id": "b836x3e3"
+            },
+            {
+              "count": 2,
+              "classifier_id": "3k993hvh",
+              "concept_id": "b836x3e3"
+            },
+            {
+              "count": 1,
+              "classifier_id": "t9kpjjab",
+              "concept_id": "mbu7hjcq"
+            },
+            {
+              "count": 1,
+              "classifier_id": "zjmxvf2p",
+              "concept_id": "3j4qadvf"
+            },
+            {
+              "count": 1,
+              "classifier_id": "anfhdhxm",
+              "concept_id": "2gvuuvnw",
+              "concept_wikibase_id": "Q789"
+            },
+            {
+              "count": 3,
+              "classifier_id": "6vyhx47j",
+              "concept_id": "mtg8hg7x"
+            },
+            {
+              "count": 1,
+              "classifier_id": "nd9bzgv5",
+              "concept_id": "rns7bps4"
+            },
+            {
+              "count": 1,
+              "classifier_id": "gjx26rb3",
+              "concept_id": "awgxsauj"
+            },
+            {
+              "count": 9,
+              "classifier_id": "4xdbmh5t",
+              "concept_id": "nhhzwfva",
+              "concept_wikibase_id": "Q374"
+            },
+            {
+              "count": 4,
+              "classifier_id": "28zh5bs4",
+              "concept_id": "xaqt5dpj"
+            },
+            {
+              "count": 1,
+              "classifier_id": "3snuveg6",
+              "concept_id": "ca7awjjg"
+            },
+            {
+              "count": 1,
+              "classifier_id": "46rgzfnu",
+              "concept_id": "egnxgkd8"
+            },
+            {
+              "count": 2,
+              "classifier_id": "fqez4pu2",
+              "concept_id": "bahk6avj"
+            },
+            {
+              "count": 1,
+              "classifier_id": "3ehtcmgr",
+              "concept_id": "9tskhyxb"
+            },
+            {
+              "count": 4,
+              "classifier_id": "zqmpxwvx",
+              "concept_id": "jr3s4jsa"
+            },
+            {
+              "count": 2,
+              "classifier_id": "f5597c7c",
+              "concept_id": "w7s2zf4v"
+            },
+            {
+              "count": 6,
+              "classifier_id": "hr5fnv8a",
+              "concept_id": "zhj5vezx"
+            },
+            {
+              "count": 1,
+              "classifier_id": "b9htgybc",
+              "concept_id": "ah84cx9r"
+            },
+            {
+              "count": 5,
+              "classifier_id": "aukd7tza",
+              "concept_id": "3nj2mmps"
+            },
+            {
+              "count": 6,
+              "classifier_id": "6anbektb",
+              "concept_id": "3h6q3tmx"
+            },
+            {
+              "count": 2,
+              "classifier_id": "y8t4ztbx",
+              "concept_id": "9nzh8ngn"
+            },
+            {
+              "count": 3,
+              "classifier_id": "3dhbaxdc",
+              "concept_id": "rfrb6hue"
+            },
+            {
+              "count": 3,
+              "classifier_id": "jd5bafz5",
+              "concept_id": "q5dt2x5y"
+            },
+            {
+              "count": 3,
+              "classifier_id": "arevhgbf",
+              "concept_id": "bqm9freh"
+            },
+            {
+              "count": 9,
+              "classifier_id": "cqt336zm",
+              "concept_id": "8gpdnspp"
+            },
+            {
+              "count": 9,
+              "classifier_id": "a2u6z83b",
+              "concept_id": "kynzgerh"
+            },
+            {
+              "count": 4,
+              "classifier_id": "ukwxdeh3",
+              "concept_id": "tntx3gy5"
+            },
+            {
+              "count": 1,
+              "classifier_id": "z6txkdwk",
+              "concept_id": "xzknej96"
+            },
+            {
+              "count": 0,
+              "classifier_id": "ebvzbghd",
+              "concept_id": "r7nmt2kg"
+            },
+            {
+              "count": 4,
+              "classifier_id": "h5n4vrvw",
+              "concept_id": "w3wrtq64"
+            },
+            {
+              "count": 2,
+              "classifier_id": "q2b4mq7k",
+              "concept_id": "dw5brr9c"
+            },
+            {
+              "count": 1,
+              "classifier_id": "d2gk7ksc",
+              "concept_id": "w9z6qa9t"
+            },
+            {
+              "count": 4,
+              "classifier_id": "fz3ejy99",
+              "concept_id": "gmerqh8z"
+            }
+          ],
+          "family_name_index": "Addressing Climate Change Risks on Water Resources in Honduras: Increased Systemic Resilience and Reduced Vulnerability of the Urban Poor",
+          "family_description_index": "The objective of the project is to increase resilience to climate change and water-related risks for the most vulnerable population in Honduras through pilot activities and an overarching intervention to mainstream climate change considerations into water sector policies. The specific project objectives included: Strengthen institutional structures to mainstream climate risks into water resources management, national planning; Assist in safeguarding water supplies of Tegucigalpa metro area against water scarcity and extreme climate events; Build capacity and outreach to enable all stakeholders to respond to long-term climate change impacts"
+        }
+      }
+    ]
+  }
+}
