@@ -1,0 +1,158 @@
+{
+    "root": {
+        "id": "toplevel",
+        "relevance": 1.0,
+        "fields": {
+            "totalCount": 1
+        },
+        "coverage": {
+            "coverage": 100,
+            "documents": 3421,
+            "full": true,
+            "nodes": 1,
+            "results": 1,
+            "resultsFull": 1
+        },
+        "children": [
+            {
+                "id": "id:doc_search:document_passage::AF.document.009MHNWR.n0007.1020",
+                "relevance": 0.0017429193899782135,
+                "source": "family-document-passage",
+                "fields": {
+                    "sddocname": "document_passage",
+                    "documentid": "id:doc_search:document_passage::AF.document.009MHNWR.n0007.1020",
+                    "text_block_not_stemmed": ":unselected: o Strong working and coordination relationships were built with central level institutions and local level communities and entities. The project allowed for a fairly direct relationship with institutions linked to the water resource management sector, with producers, cooperators, Water Boards, Board of Trustees, City Halls, the academic sector and the National Drought Expert Committee. Nonetheless, evidence on the full and active participation of the private sector was missing.",
+                    "search_weights_ref": "id:doc_search:search_weights::default_weights",
+                    "family_document_ref": "id:doc_search:family_document::AF.document.009MHNWR.n0007",
+                    "text_block_id": "1020",
+                    "text_block_coords": [
+                        [
+                            125.9207992553711,
+                            156.04559326171875
+                        ],
+                        [
+                            540.864013671875,
+                            156.39120483398438
+                        ],
+                        [
+                            540.7703857421875,
+                            269.5032043457031
+                        ],
+                        [
+                            125.82720184326172,
+                            269.1575927734375
+                        ]
+                    ],
+                    "text_block_page": 53,
+                    "text_block_type": "BlockType.TEXT",
+                    "text_block": ":unselected: o Strong working and coordination relationships were built with central level institutions and local level communities and entities. The project allowed for a fairly direct relationship with institutions linked to the water resource management sector, with producers, cooperators, Water Boards, Board of Trustees, City Halls, the academic sector and the National Drought Expert Committee. Nonetheless, evidence on the full and active participation of the private sector was missing.",
+                    "concepts": [
+                        {
+                            "parent_concepts": [
+                                {
+                                    "name": "",
+                                    "id": "Q975"
+                                }
+                            ],
+                            "name": "extreme weather",
+                            "id": "Q374",
+                            "parent_concept_ids_flat": "Q975,",
+                            "model": "KeywordClassifier(\"extreme weather\")",
+                            "end": 383,
+                            "start": 376,
+                            "timestamp": "2025-06-05T13:27:48.345804"
+                        },
+                        {
+                            "parent_concepts": [
+                                {
+                                    "name": "",
+                                    "id": "Q709"
+                                }
+                            ],
+                            "name": "education sector",
+                            "id": "Q774",
+                            "parent_concept_ids_flat": "Q709,",
+                            "model": "KeywordClassifier(\"education sector\")",
+                            "end": 358,
+                            "start": 343,
+                            "timestamp": "2025-06-05T14:54:27.687991"
+                        },
+                        {
+                            "parent_concepts": [
+                                {
+                                    "name": "",
+                                    "id": "Q709"
+                                }
+                            ],
+                            "name": "public sector",
+                            "id": "Q775",
+                            "parent_concept_ids_flat": "Q709,",
+                            "model": "KeywordClassifier(\"public sector\")",
+                            "end": 256,
+                            "start": 231,
+                            "timestamp": "2025-06-05T14:58:04.387175"
+                        },
+                        {
+                            "parent_concepts": [
+                                {
+                                    "name": "",
+                                    "id": "Q709"
+                                }
+                            ],
+                            "name": "water management sector",
+                            "id": "Q818",
+                            "parent_concept_ids_flat": "Q709,",
+                            "model": "KeywordClassifier(\"water management sector\")",
+                            "end": 256,
+                            "start": 231,
+                            "timestamp": "2025-06-05T15:45:24.608990"
+                        }
+                    ],
+                    "spans": [
+                        {
+                            "end": 383,
+                            "start": 376,
+                            "concepts_v2_flat": "nhhzwfva:Q374:mlvecsta",
+                            "concepts_v2": [
+                                {
+                                    "concept_wikibase_id": "Q374",
+                                    "classifier_id": "mlvecsta",
+                                    "concept_id": "nhhzwfva"
+                                }
+                            ]
+                        },
+                        {
+                            "end": 358,
+                            "start": 343,
+                            "concepts_v2_flat": "q5dt2x5y:Q515:lfoyseqb",
+                            "concepts_v2": [
+                                {
+                                    "concept_wikibase_id": "Q515",
+                                    "classifier_id": "lfoyseqb",
+                                    "concept_id": "q5dt2x5y"
+                                }
+                            ]
+                        },
+                        {
+                            "end": 256,
+                            "start": 231,
+                            "concepts_v2_flat": "bqm9freh:Q123:w4v2rzq0,r7nmt2kg:Q456:jue2a08w",
+                            "concepts_v2": [
+                                {
+                                    "concept_wikibase_id": "Q123",
+                                    "classifier_id": "w4v2rzq0",
+                                    "concept_id": "bqm9freh"
+                                },
+                                {
+                                    "concept_wikibase_id": "Q456",
+                                    "classifier_id": "jue2a08w",
+                                    "concept_id": "r7nmt2kg"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

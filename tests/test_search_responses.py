@@ -1,11 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timezone
 import json
 
 import pytest
 from cpr_sdk.exceptions import FetchError
-from cpr_sdk.models.search import Hit
+from cpr_sdk.models.search import Document, Hit, Passage
 from cpr_sdk.vespa import parse_vespa_response, split_document_id
-from cpr_sdk.models.search import Passage
 from vespa.io import VespaResponse
 
 
@@ -70,6 +69,165 @@ def test_whether_continuation_token_is_returned_when_present(
 
 def test_whether_valid_get_document_response_is_parsed(valid_get_document_response):
     assert Hit.from_vespa_response(valid_get_document_response)
+
+
+def test_whether_valid_get_document_response_is_parsed_hit():
+    path = "tests/test_data/search_responses/family_documents.json"
+    with open(path) as f:
+        response_json = json.load(f)
+
+    assert Document(
+        family_name="Addressing Climate Change Risks on Water Resources in Honduras: Increased Systemic Resilience and Reduced Vulnerability of the Urban Poor",
+        family_description="The objective of the project is to increase resilience to climate change and water-related risks for the most vulnerable population in Honduras through pilot activities and an overarching intervention to mainstream climate change considerations into water sector policies. The specific project objectives included: Strengthen institutional structures to mainstream climate risks into water resources management, national planning; Assist in safeguarding water supplies of Tegucigalpa metro area against water scarcity and extreme climate events; Build capacity and outreach to enable all stakeholders to respond to long-term climate change impacts",
+        family_source="AF",
+        family_import_id="AF.family.009MHNWR.0",
+        family_slug="addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_df09",
+        family_category="MCF",
+        family_publication_ts=datetime(2010, 9, 17, 0, 0, tzinfo=timezone.utc),
+        family_geography="HND",
+        family_geographies=["HND"],
+        document_import_id="AF.document.009MHNWR.n0007",
+        document_slug="final-evaluation-report_8dec",
+        document_languages=["English"],
+        document_content_type="application/pdf",
+        document_cdn_object="HND/2010/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_0996c52e8a82f6caf973962e8972797c.pdf",
+        document_source_url="https://fifspubprd.azureedge.net/afdocuments/project/62/4399_AF_Honduras_Terminal%20eval%20report_May%2017.pdf",
+        document_title="Final evaluation report",
+        corpus_type_name="AF",
+        corpus_import_id="MCF.corpus.AF.n0000",
+        metadata=[
+            {"name": "family.region", "value": "Latin America & Caribbean"},
+            {"name": "family.sector", "value": "Water management"},
+            {"name": "family.status", "value": "Project Completed"},
+            {"name": "family.project_id", "value": "009MHNWR"},
+            {
+                "name": "family.project_url",
+                "value": "https://www.adaptation-fund.org/project/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor/",
+            },
+            {"name": "family.implementing_agency", "value": "UN Development Programme"},
+            {"name": "family.project_value_fund_spend", "value": "5620300"},
+            {"name": "family.project_value_co_financing", "value": "0"},
+        ],
+        relevance=0.0017429193899782135,
+        rank_features=None,
+        concept_counts={
+            "Q765:trade sector": 2,
+            "Q404:terrestrial risk": 14,
+            "Q715:tax": 2,
+            "Q684:indigenous people": 1,
+            "Q676:marginalized ethnicity": 1,
+            "Q1286:early warning system": 3,
+            "Q1343:climate finance": 21,
+            "Q788:fishing sector": 1,
+            "Q1276:direct investment": 2,
+            "Q856:healthcare sector": 4,
+            "Q779:finance and insurance sector": 9,
+            "Q762:energy supply sector": 1,
+            "Q760:extractive sector": 6,
+            "Q787:forestry sector": 4,
+            "Q763:environmental management sector": 5,
+            "Q1167:people with limited assets": 9,
+            "Q973:slow onset event": 1,
+            "Q701:people on the move": 1,
+            "Q786:agriculture sector": 9,
+            "Q764:construction sector": 6,
+            "Q818:water management sector": 30,
+            "Q1277:fees and charges": 1,
+            "Q1362:climate fund": 21,
+            "Q956:societal impact": 12,
+            "Q769:information communication technology sector": 3,
+            "Q1282:zoning and spatial planning": 11,
+            "Q695:youth": 2,
+            "Q704:women and minority genders": 14,
+            "Q1281:codes and standards": 1,
+            "Q775:public sector": 23,
+            "Q374:extreme weather": 19,
+            "Q774:education sector": 3,
+            "Q986:geohazard": 4,
+        },
+    ) == Hit.from_vespa_response(response_json["root"]["children"][0])
+
+
+def test_whether_valid_get_passage_response_is_parsed_hit():
+    path = "tests/test_data/search_responses/document_passages.json"
+    with open(path) as f:
+        response_json = json.load(f)
+
+    assert Passage(
+        family_name=None,
+        family_description=None,
+        family_source=None,
+        family_import_id=None,
+        family_slug=None,
+        family_category=None,
+        family_publication_ts=None,
+        family_geography=None,
+        family_geographies=[],
+        document_import_id=None,
+        document_slug=None,
+        document_languages=[],
+        document_content_type=None,
+        document_cdn_object=None,
+        document_source_url=None,
+        document_title=None,
+        corpus_type_name=None,
+        corpus_import_id=None,
+        metadata=None,
+        relevance=0.0017429193899782135,
+        rank_features=None,
+        text_block=":unselected: o Strong working and coordination relationships were built with central level institutions and local level communities and entities. The project allowed for a fairly direct relationship with institutions linked to the water resource management sector, with producers, cooperators, Water Boards, Board of Trustees, City Halls, the academic sector and the National Drought Expert Committee. Nonetheless, evidence on the full and active participation of the private sector was missing.",
+        text_block_id="1020",
+        text_block_type="BlockType.TEXT",
+        text_block_page=53,
+        text_block_coords=[
+            (125.9207992553711, 156.04559326171875),
+            (540.864013671875, 156.39120483398438),
+            (540.7703857421875, 269.5032043457031),
+            (125.82720184326172, 269.1575927734375),
+        ],
+        concepts=[
+            Passage.Concept(
+                id="Q374",
+                name="extreme weather",
+                parent_concepts=[{"name": "", "id": "Q975"}],
+                parent_concept_ids_flat="Q975,",
+                model='KeywordClassifier("extreme weather")',
+                end=383,
+                start=376,
+                timestamp=datetime(2025, 6, 5, 13, 27, 48, 345804),
+            ),
+            Passage.Concept(
+                id="Q774",
+                name="education sector",
+                parent_concepts=[{"name": "", "id": "Q709"}],
+                parent_concept_ids_flat="Q709,",
+                model='KeywordClassifier("education sector")',
+                end=358,
+                start=343,
+                timestamp=datetime(2025, 6, 5, 14, 54, 27, 687991),
+            ),
+            Passage.Concept(
+                id="Q775",
+                name="public sector",
+                parent_concepts=[{"name": "", "id": "Q709"}],
+                parent_concept_ids_flat="Q709,",
+                model='KeywordClassifier("public sector")',
+                end=256,
+                start=231,
+                timestamp=datetime(2025, 6, 5, 14, 58, 4, 387175),
+            ),
+            Passage.Concept(
+                id="Q818",
+                name="water management sector",
+                parent_concepts=[{"name": "", "id": "Q709"}],
+                parent_concept_ids_flat="Q709,",
+                model='KeywordClassifier("water management sector")',
+                end=256,
+                start=231,
+                timestamp=datetime(2025, 6, 5, 15, 45, 24, 608990),
+            ),
+        ],
+    ) == Hit.from_vespa_response(response_json["root"]["children"][0])
 
 
 def test_whether_valid_get_passage_response_is_parsed(valid_get_passage_response):
