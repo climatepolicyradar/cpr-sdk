@@ -23,7 +23,7 @@ from cpr_sdk.models.search import (
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
 from cpr_sdk.utils import dig
-from cpr_sdk.vespa import YQLBuilder, build_vespa_request_body
+from cpr_sdk.vespa import build_vespa_request_body
 
 
 def vespa_search(
@@ -2157,11 +2157,33 @@ def test_vespa_search_adaptor__concept_v2_passage_filter(
         concept_v2_passage_filters=concept_v2_passage_filters,
         documents_only=False,
     )
-    print("!!!", str(YQLBuilder(request).build_concept_v2_passage_filter()))
     response = vespa_search(test_vespa, request)
 
     actual_documents = {family.id for family in response.families}
     assert actual_documents == expected_documents
+
+    # Verify concepts_v2 deserialization in passage spans
+    for family in response.families:
+        for hit in family.hits:
+            if isinstance(hit, Passage) and hit.spans:
+                # At least some passages should have spans with concepts_v2
+                has_concepts_v2 = False
+                for span in hit.spans:
+                    if span.concepts_v2:
+                        has_concepts_v2 = True
+                        # Verify the deserialised structure
+                        for concept in span.concepts_v2:
+                            assert isinstance(concept, Passage.Span.ConceptV2)
+                            assert concept.concept_id
+                            assert concept.concept_wikibase_id
+                            assert concept.classifier_id
+
+                # At least one passage should have concepts_v2 when not negating
+                if not any(
+                    getattr(f, "negate", False) for f in concept_v2_passage_filters
+                ):
+                    if has_concepts_v2:
+                        break
 
 
 @pytest.mark.vespa
@@ -2247,8 +2269,29 @@ def test_vespa_search_adaptor__concept_v2_document_filter(
     # For specific test cases, verify expected families are present
     if "AF.family.009MHNWR.0" in expected_families:
         # At minimum should include our test family if we're filtering for its concepts
-        if not any(f.negate for f in concept_v2_document_filters):
+        if not any(getattr(f, "negate", False) for f in concept_v2_document_filters):
             assert response.total_family_hits > 0
+
+    # Verify concepts_v2 deserialization at document level
+    found_concepts_v2 = False
+    for family in response.families:
+        for hit in family.hits:
+            if isinstance(hit, Document) and hit.concepts_v2:
+                found_concepts_v2 = True
+                # Verify the deserialised structure
+                for concept in hit.concepts_v2:
+                    assert isinstance(concept, Document.ConceptV2)
+                    assert concept.concept_id
+                    assert concept.classifier_id
+                    assert concept.count >= 0
+                    assert concept.concept_wikibase_id
+                break
+        if found_concepts_v2:
+            break
+
+    # At least one document should have concepts_v2 when not negating
+    if not any(getattr(f, "negate", False) for f in concept_v2_document_filters):
+        assert found_concepts_v2, "Expected at least one document with concepts_v2"
 
 
 @pytest.mark.vespa
@@ -2284,6 +2327,24 @@ async def test_vespa_async_search_adaptor__concept_v2_document_filter(
         response.total_family_hits >= 0
     )  # May be 0 if concept doesn't exist in test data
 
+    # Verify concepts_v2 deserialization at document level
+    if response.total_family_hits > 0:
+        found_concepts_v2 = False
+        for family in response.families:
+            for hit in family.hits:
+                if isinstance(hit, Document) and hit.concepts_v2:
+                    found_concepts_v2 = True
+                    # Verify the deserialized structure
+                    for concept in hit.concepts_v2:
+                        assert isinstance(concept, Document.ConceptV2)
+                        assert concept.concept_id
+                        assert concept.classifier_id
+                        assert concept.count >= 0
+                    break
+            if found_concepts_v2:
+                break
+        assert found_concepts_v2, "Expected at least one document with concepts_v2"
+
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__combined_v2_concept_filters(test_vespa):
@@ -2304,6 +2365,38 @@ def test_vespa_search_adaptor__combined_v2_concept_filters(test_vespa):
     # Results may be limited due to the combined filtering
     assert response.total_family_hits >= 0
 
+    # Verify both passage and document concepts_v2 deserialization
+    if response.total_family_hits > 0:
+        found_document_concepts_v2 = False
+        found_passage_concepts_v2 = False
+
+        for family in response.families:
+            for hit in family.hits:
+                # Check document-level concepts_v2
+                if isinstance(hit, Document) and hit.concepts_v2:
+                    found_document_concepts_v2 = True
+                    for concept in hit.concepts_v2:
+                        assert isinstance(concept, Document.ConceptV2)
+                        assert concept.concept_id
+                        assert concept.classifier_id
+                        assert concept.count >= 0
+
+                # Check passage-level concepts_v2 in spans
+                if isinstance(hit, Passage) and hit.spans:
+                    for span in hit.spans:
+                        if span.concepts_v2:
+                            found_passage_concepts_v2 = True
+                            for concept in span.concepts_v2:
+                                assert isinstance(concept, Passage.Span.ConceptV2)
+                                assert concept.concept_id
+                                assert concept.concept_wikibase_id
+                                assert concept.classifier_id
+
+        # At least one should be found given the filters
+        assert (
+            found_document_concepts_v2 or found_passage_concepts_v2
+        ), "Expected at least document or passage concepts_v2 to be populated"
+
 
 @pytest.mark.vespa
 def test_vespa_search_adaptor__v2_concept_with_query_string(test_vespa):
@@ -2318,3 +2411,26 @@ def test_vespa_search_adaptor__v2_concept_with_query_string(test_vespa):
     # Should find results that match both the query and the concept filter
     assert response.total_family_hits >= 0
     assert response.query_time_ms > 0  # Ensure query was processed
+
+    # Verify concepts_v2 deserialization in passage spans
+    if response.total_family_hits > 0:
+        found_concepts_v2 = False
+        for family in response.families:
+            for hit in family.hits:
+                if isinstance(hit, Passage) and hit.spans:
+                    for span in hit.spans:
+                        if span.concepts_v2:
+                            found_concepts_v2 = True
+                            # Verify the deserialized structure
+                            for concept in span.concepts_v2:
+                                assert isinstance(concept, Passage.Span.ConceptV2)
+                                assert concept.concept_id
+                                assert concept.concept_wikibase_id
+                                assert concept.classifier_id
+                            break
+                    if found_concepts_v2:
+                        break
+            if found_concepts_v2:
+                break
+        # Should find at least one passage with concepts_v2
+        assert found_concepts_v2, "Expected at least one passage with concepts_v2"

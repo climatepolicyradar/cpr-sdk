@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 import json
@@ -20,7 +20,7 @@ from cpr_sdk.models import (
     Span,
     TextBlock,
 )
-from cpr_sdk.models.search import Passage, MetadataFilter
+from cpr_sdk.models.search import Document, Passage, MetadataFilter
 
 
 @pytest.fixture
@@ -659,3 +659,381 @@ def test_vespa_concept_json_conversion() -> None:
             timestamp=datetime.now(),
         ).model_dump(mode="json")
     )
+
+
+def test_vespa_passage_json() -> None:
+    """Test that Vespa passage spans can be parsed and converted to JSON correctly."""
+    # Load the test fixture
+    with open(
+        "tests/local_vespa/test_documents/document_passage.AF.document.009MHNWR.n0007.json"
+    ) as f:
+        passages_data = json.load(f)
+
+    # Find a passage that has spans
+    passage_with_spans = None
+    for passage_data in passages_data:
+        if passage_data.get("fields", {}).get("text_block_id") == "248":
+            passage_with_spans = passage_data
+            break
+
+    assert passage_with_spans is not None, "No passage with spans found in test data"
+
+    expected_passage = Passage(
+        family_name=None,
+        family_description=None,
+        family_source=None,
+        family_import_id=None,
+        family_slug=None,
+        family_category=None,
+        family_publication_ts=None,
+        family_geography=None,
+        family_geographies=[],
+        document_import_id=None,
+        document_slug=None,
+        document_languages=[],
+        document_content_type=None,
+        document_cdn_object=None,
+        document_source_url=None,
+        document_title=None,
+        corpus_type_name=None,
+        corpus_import_id=None,
+        metadata=None,
+        concepts=[
+            Passage.Concept(
+                id="Q704",
+                name="women and minority genders",
+                parent_concepts=[{"name": "", "id": "Q1170"}],
+                parent_concept_ids_flat="Q1170,",
+                model='KeywordClassifier("women and minority genders")',
+                end=133,
+                start=128,
+                timestamp=datetime(2025, 6, 5, 14, 4, 52, 719991),
+            )
+        ],
+        relevance=0.0017429193899782135,
+        rank_features=None,
+        concept_counts=None,
+        text_block="5. While the project strengthened resilience to climate change at all levels and worked towards increasing the participation of women, it is still necessary to further enhance their active participation in actions linked to climate change adaptation and water resources management beyond what was observed in 2015 in pilots designed at the municipal level.",
+        text_block_id="248",
+        text_block_type="BlockType.TEXT",
+        text_block_page=10,
+        text_block_coords=[
+            (88.3583984375, 268.81201171875),
+            (540.8280029296875, 268.81201171875),
+            (540.8280029296875, 348.5592041015625),
+            (88.3583984375, 348.5592041015625),
+        ],
+        spans=[
+            Passage.Span(
+                start=128,
+                end=133,
+                concepts_v2=[
+                    Passage.Span.ConceptV2(
+                        concept_id="jr3s4jsa",
+                        concept_wikibase_id="Q503",
+                        classifier_id="5ul69f0j",
+                    )
+                ],
+            )
+        ],
+    )
+
+    # Parse it into a Passage object
+    passage = Passage.from_vespa_response(passage_with_spans)
+    assert passage == expected_passage
+
+    # Dump it to JSON to ensure serialisation works
+    passage_json = passage.model_dump(mode="json")
+
+    # Load it back to verify round-trip
+    assert Passage.model_validate(passage_json) == expected_passage
+
+
+def test_vespa_document_json() -> None:
+    """Test that Vespa document can be parsed and converted to JSON correctly."""
+    with open(
+        "tests/local_vespa/test_documents/family_document.AF.document.009MHNWR.n0007.json"
+    ) as f:
+        document_data = json.load(f)
+
+    expected_document = Document(
+        family_name="Addressing Climate Change Risks on Water Resources in Honduras: Increased Systemic Resilience and Reduced Vulnerability of the Urban Poor",
+        family_description="The objective of the project is to increase resilience to climate change and water-related risks for the most vulnerable population in Honduras through pilot activities and an overarching intervention to mainstream climate change considerations into water sector policies. The specific project objectives included: Strengthen institutional structures to mainstream climate risks into water resources management, national planning; Assist in safeguarding water supplies of Tegucigalpa metro area against water scarcity and extreme climate events; Build capacity and outreach to enable all stakeholders to respond to long-term climate change impacts",
+        family_source="AF",
+        family_import_id="AF.family.009MHNWR.0",
+        family_slug="addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_df09",
+        family_category="MCF",
+        family_publication_ts=datetime(2010, 9, 17, 0, 0, tzinfo=timezone.utc),
+        family_geography="HND",
+        family_geographies=["HND"],
+        document_import_id="AF.document.009MHNWR.n0007",
+        document_slug="final-evaluation-report_8dec",
+        document_languages=["English"],
+        document_content_type="application/pdf",
+        document_cdn_object="HND/2010/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor_0996c52e8a82f6caf973962e8972797c.pdf",
+        document_source_url="https://fifspubprd.azureedge.net/afdocuments/project/62/4399_AF_Honduras_Terminal%20eval%20report_May%2017.pdf",
+        document_title="Final evaluation report",
+        corpus_type_name="AF",
+        corpus_import_id="MCF.corpus.AF.n0000",
+        metadata=[
+            {"name": "family.region", "value": "Latin America & Caribbean"},
+            {"name": "family.sector", "value": "Water management"},
+            {"name": "family.status", "value": "Project Completed"},
+            {"name": "family.project_id", "value": "009MHNWR"},
+            {
+                "name": "family.project_url",
+                "value": "https://www.adaptation-fund.org/project/addressing-climate-change-risks-on-water-resources-in-honduras-increased-systemic-resilience-and-reduced-vulnerability-of-the-urban-poor/",
+            },
+            {"name": "family.implementing_agency", "value": "UN Development Programme"},
+            {"name": "family.project_value_fund_spend", "value": "5620300"},
+            {"name": "family.project_value_co_financing", "value": "0"},
+        ],
+        concepts=None,
+        relevance=None,
+        rank_features=None,
+        concept_counts={
+            "Q1167:people with limited assets": 9,
+            "Q1276:direct investment": 2,
+            "Q1277:fees and charges": 1,
+            "Q1281:codes and standards": 1,
+            "Q1282:zoning and spatial planning": 11,
+            "Q1286:early warning system": 3,
+            "Q1343:climate finance": 21,
+            "Q1362:climate fund": 21,
+            "Q374:extreme weather": 19,
+            "Q404:terrestrial risk": 14,
+            "Q676:marginalized ethnicity": 1,
+            "Q684:indigenous people": 1,
+            "Q695:youth": 2,
+            "Q701:people on the move": 1,
+            "Q704:women and minority genders": 14,
+            "Q715:tax": 2,
+            "Q760:extractive sector": 6,
+            "Q762:energy supply sector": 1,
+            "Q763:environmental management sector": 5,
+            "Q764:construction sector": 6,
+            "Q765:trade sector": 2,
+            "Q769:information communication technology sector": 3,
+            "Q774:education sector": 3,
+            "Q775:public sector": 23,
+            "Q779:finance and insurance sector": 9,
+            "Q786:agriculture sector": 9,
+            "Q787:forestry sector": 4,
+            "Q788:fishing sector": 1,
+            "Q818:water management sector": 30,
+            "Q856:healthcare sector": 4,
+            "Q956:societal impact": 12,
+            "Q973:slow onset event": 1,
+            "Q986:geohazard": 4,
+        },
+        concepts_v2=[
+            Document.ConceptV2(
+                concept_id="b836x3e3",
+                concept_wikibase_id="Q506",
+                classifier_id="z664n8h8",
+                count=9,
+            ),
+            Document.ConceptV2(
+                concept_id="b836x3e3",
+                concept_wikibase_id="Q506",
+                classifier_id="3k993hvh",
+                count=2,
+            ),
+            Document.ConceptV2(
+                concept_id="mbu7hjcq",
+                concept_wikibase_id="Q523",
+                classifier_id="t9kpjjab",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="3j4qadvf",
+                concept_wikibase_id="Q528",
+                classifier_id="zjmxvf2p",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="2gvuuvnw",
+                concept_wikibase_id="Q789",
+                classifier_id="anfhdhxm",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="mtg8hg7x",
+                concept_wikibase_id="Q516",
+                classifier_id="6vyhx47j",
+                count=3,
+            ),
+            Document.ConceptV2(
+                concept_id="rns7bps4",
+                concept_wikibase_id="Q500",
+                classifier_id="nd9bzgv5",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="awgxsauj",
+                concept_wikibase_id="Q501",
+                classifier_id="gjx26rb3",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="nhhzwfva",
+                concept_wikibase_id="Q374",
+                classifier_id="4xdbmh5t",
+                count=9,
+            ),
+            Document.ConceptV2(
+                concept_id="xaqt5dpj",
+                concept_wikibase_id="Q502",
+                classifier_id="28zh5bs4",
+                count=4,
+            ),
+            Document.ConceptV2(
+                concept_id="ca7awjjg",
+                concept_wikibase_id="Q525",
+                classifier_id="3snuveg6",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="egnxgkd8",
+                concept_wikibase_id="Q524",
+                classifier_id="46rgzfnu",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="bahk6avj",
+                concept_wikibase_id="Q518",
+                classifier_id="fqez4pu2",
+                count=2,
+            ),
+            Document.ConceptV2(
+                concept_id="9tskhyxb",
+                concept_wikibase_id="Q527",
+                classifier_id="3ehtcmgr",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="jr3s4jsa",
+                concept_wikibase_id="Q503",
+                classifier_id="zqmpxwvx",
+                count=4,
+            ),
+            Document.ConceptV2(
+                concept_id="w7s2zf4v",
+                concept_wikibase_id="Q517",
+                classifier_id="f5597c7c",
+                count=2,
+            ),
+            Document.ConceptV2(
+                concept_id="zhj5vezx",
+                concept_wikibase_id="Q508",
+                classifier_id="hr5fnv8a",
+                count=6,
+            ),
+            Document.ConceptV2(
+                concept_id="ah84cx9r",
+                concept_wikibase_id="Q526",
+                classifier_id="b9htgybc",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="3nj2mmps",
+                concept_wikibase_id="Q510",
+                classifier_id="aukd7tza",
+                count=5,
+            ),
+            Document.ConceptV2(
+                concept_id="3h6q3tmx",
+                concept_wikibase_id="Q509",
+                classifier_id="6anbektb",
+                count=6,
+            ),
+            Document.ConceptV2(
+                concept_id="9nzh8ngn",
+                concept_wikibase_id="Q519",
+                classifier_id="y8t4ztbx",
+                count=2,
+            ),
+            Document.ConceptV2(
+                concept_id="rfrb6hue",
+                concept_wikibase_id="Q514",
+                classifier_id="3dhbaxdc",
+                count=3,
+            ),
+            Document.ConceptV2(
+                concept_id="q5dt2x5y",
+                concept_wikibase_id="Q515",
+                classifier_id="jd5bafz5",
+                count=3,
+            ),
+            Document.ConceptV2(
+                concept_id="bqm9freh",
+                concept_wikibase_id="Q123",
+                classifier_id="arevhgbf",
+                count=3,
+            ),
+            Document.ConceptV2(
+                concept_id="8gpdnspp",
+                concept_wikibase_id="Q507",
+                classifier_id="cqt336zm",
+                count=9,
+            ),
+            Document.ConceptV2(
+                concept_id="kynzgerh",
+                concept_wikibase_id="Q505",
+                classifier_id="a2u6z83b",
+                count=9,
+            ),
+            Document.ConceptV2(
+                concept_id="tntx3gy5",
+                concept_wikibase_id="Q512",
+                classifier_id="ukwxdeh3",
+                count=4,
+            ),
+            Document.ConceptV2(
+                concept_id="xzknej96",
+                concept_wikibase_id="Q521",
+                classifier_id="z6txkdwk",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="r7nmt2kg",
+                concept_wikibase_id="Q456",
+                classifier_id="ebvzbghd",
+                count=0,
+            ),
+            Document.ConceptV2(
+                concept_id="w3wrtq64",
+                concept_wikibase_id="Q511",
+                classifier_id="h5n4vrvw",
+                count=4,
+            ),
+            Document.ConceptV2(
+                concept_id="dw5brr9c",
+                concept_wikibase_id="Q504",
+                classifier_id="q2b4mq7k",
+                count=2,
+            ),
+            Document.ConceptV2(
+                concept_id="w9z6qa9t",
+                concept_wikibase_id="Q522",
+                classifier_id="d2gk7ksc",
+                count=1,
+            ),
+            Document.ConceptV2(
+                concept_id="gmerqh8z",
+                concept_wikibase_id="Q513",
+                classifier_id="fz3ejy99",
+                count=4,
+            ),
+        ],
+    )
+
+    # Parse it into a Document object
+    document = Document.from_vespa_response(document_data)
+    assert document == expected_document
+
+    # Dump it to JSON to ensure serialisation works
+    document_json = document.model_dump(mode="json")
+
+    # Load it back to verify round-trip
+    assert Document.model_validate(document_json) == expected_document

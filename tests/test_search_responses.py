@@ -911,6 +911,20 @@ def test_document_passage_parse_from_valid_response():
                     "parent_concept_ids_flat": "Q0,Q1,",
                 },
             ],
+            "spans": [
+                {
+                    "start": 128,
+                    "end": 133,
+                    "concepts_v2": [
+                        {
+                            "concept_id": "jr3s4jsa",
+                            "concept_wikibase_id": "Q503",
+                            "classifier_id": "5ul69f0j",
+                        }
+                    ],
+                    "concepts_v2_flat": "jr3s4jsa:Q503:5ul69f0j",
+                }
+            ],
         },
     }
 
@@ -930,6 +944,7 @@ def test_document_passage_parse_from_valid_response():
         document_content_type=None,
         document_cdn_object=None,
         document_source_url=None,
+        document_title=None,
         corpus_type_name=None,
         corpus_import_id=None,
         metadata=None,
@@ -970,5 +985,18 @@ def test_document_passage_parse_from_valid_response():
             (613.6128, 261.1368),
             (613.6128, 356.8968),
             (529.1136, 356.8968),
+        ],
+        spans=[
+            Passage.Span(
+                start=128,
+                end=133,
+                concepts_v2=[
+                    Passage.Span.ConceptV2(
+                        concept_id="jr3s4jsa",
+                        concept_wikibase_id="Q503",
+                        classifier_id="5ul69f0j",
+                    )
+                ],
+            )
         ],
     )

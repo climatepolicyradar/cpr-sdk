@@ -1,11 +1,12 @@
 import re
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Literal, Optional, Sequence
+from typing import Annotated, Any, List, Literal, Optional, Sequence
 
 from pydantic import (
     AliasChoices,
     BaseModel,
+    NonNegativeInt,
     ConfigDict,
     Field,
     computed_field,
@@ -538,7 +539,40 @@ class Hit(BaseModel):
 class Document(Hit):
     """A document search result hit."""
 
+    class ConceptV2(BaseModel):
+        """Concepts (v2) instances in the document."""
+
+        concept_id: Annotated[
+            str,
+            Field(
+                description="A unique ID for the concept",
+                examples=["5d4xcy5g"],
+            ),
+        ]
+        concept_wikibase_id: Annotated[
+            Optional[str],
+            Field(
+                description="The Wikibase (Concept Store) ID",
+                examples=["Q100"],
+            ),
+        ] = None
+        classifier_id: Annotated[
+            str,
+            Field(
+                description="A unique ID for the classifier",
+                examples=["zv3r45ae"],
+            ),
+        ]
+        count: Annotated[
+            NonNegativeInt,
+            Field(description="Number of instances of this concept in this document"),
+        ]
+
     concept_counts: Optional[dict[str, int]] = None
+    concepts_v2: Annotated[
+        Optional[Sequence[ConceptV2]],
+        Field(description="Concepts identified in this document", default=None),
+    ]
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Document":
@@ -579,11 +613,55 @@ class Document(Hit):
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
             concept_counts=fields.get("concept_counts"),
+            concepts_v2=fields.get("concepts_v2", []),
         )
 
 
 class Passage(Hit):
     """A passage search result hit."""
+
+    class Span(BaseModel):
+        """Spans in the passage."""
+
+        class ConceptV2(BaseModel):
+            """Concepts (v2) instances in the passage."""
+
+            concept_id: Annotated[
+                str,
+                Field(
+                    description="Unique ID for the concept",
+                    examples=["5d4xcy5g"],
+                ),
+            ]
+            concept_wikibase_id: Annotated[
+                str,
+                Field(
+                    description="Wikibase (Concept Store) ID",
+                    examples=["Q100"],
+                ),
+            ]
+            classifier_id: Annotated[
+                str,
+                Field(
+                    description="Unique ID for the classifier",
+                    examples=["zv3r45ae"],
+                ),
+            ]
+
+        start: Annotated[
+            NonNegativeInt,
+            Field(description="Index start position character"),
+        ]
+        end: Annotated[
+            NonNegativeInt,
+            Field(description="Index start position character"),
+        ]
+        concepts_v2: Annotated[
+            Sequence[ConceptV2],
+            Field(
+                description="Concepts identified in this span",
+            ),
+        ]
 
     class Concept(BaseModel):
         """
@@ -643,6 +721,13 @@ class Passage(Hit):
     text_block_page: Optional[int] = None
     text_block_coords: Optional[Sequence[tuple[float, float]]] = None
     concepts: Optional[Sequence[Concept]] = None
+    spans: Annotated[
+        Optional[Sequence[Span]],
+        Field(
+            description="Spans within the passage",
+            default=None,
+        ),
+    ]
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Passage":
@@ -685,6 +770,7 @@ class Passage(Hit):
             text_block_coords=fields.get("text_block_coords"),
             metadata=fields.get("metadata"),
             concepts=fields.get("concepts"),
+            spans=fields.get("spans", []),
             relevance=response_hit.get("relevance"),
             rank_features=fields.get("summaryfeatures"),
         )
