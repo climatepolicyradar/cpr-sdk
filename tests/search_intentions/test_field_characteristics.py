@@ -140,6 +140,16 @@ test_cases = [
         all_or_any="all",
         known_failure=True,
     ),
+    FieldCharacteristicsTestCase(
+        search_terms="statement",
+        test_field="text_block_text",
+        exact_match=False,
+        characteristics_test=(lambda x: x not in {"plum"}),
+        description="Semantic search should not return obviously irrelevant passages",
+        k=100,
+        document_id="Sabin.document.18746.18749",
+        known_failure=True,
+    ),
 ]
 
 
