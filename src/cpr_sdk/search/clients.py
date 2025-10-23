@@ -1,106 +1,109 @@
 """Adaptors for searching CPR data"""
 
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 from dataclasses import dataclass
-from enum import Enum
-import logging
-import time
-from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Generic, TypeVar, Union
+from typing import Any, Generic, Protocol, TypeVar, runtime_checkable
 
 from pydantic import BaseModel
-from typing_extensions import override
-
-from requests.exceptions import HTTPError
 from vespa.application import Vespa
-from vespa.exceptions import VespaError
 
-from cpr_sdk.exceptions import DocumentNotFoundError, FetchError, QueryError
 import cpr_sdk.search.models as models
-from cpr_sdk.vespa import (
-    VespaErrorDetails,
-    build_vespa_request_body,
-    find_vespa_cert_paths,
-    parse_vespa_response,
-    split_document_id,
-)
+from cpr_sdk.vespa import find_vespa_cert_paths
 
 
-class Client(ABC):
+P = TypeVar("P", contravariant=True)  # Params
+R = TypeVar("R", covariant=True)  # Result
+
+
+@runtime_checkable
+class Client(Protocol, Generic[P, R]):
+    """Generic client protocol that all clients must satisfy for a service."""
+
     _client: Vespa
+
+    def query(self, params: P) -> Sequence[R]:
+        """Send a query to Vespa to get 0 or more documents."""
+        ...
+
+    def get(self, id: str) -> R:
+        """Get a single document from Vespa."""
+        ...
+
+
+class Concept:
+    """Concept client implementation."""
 
     def __init__(self, _client: Vespa):
         self._client = _client
 
-    @abstractmethod
-    def query(self, params: Any) -> Sequence[Any]:
-        """Search with type-specific parameters"""
-        ...
-
-    @abstractmethod
-    def get(self, id: Any) -> Any:
-        """Get by type-specific ID"""
-        ...
-
-
-class Concept(Client):
-    @override
-    def query(self, params: models.Concept) -> Sequence[models.Concept]:
+    def query(self, params: Any) -> Sequence[models.Concept]:
+        """Send a query to Vespa to get 0 or more concepts."""
         return NotImplemented
 
-    @override
     def get(self, id: str) -> models.Concept:
+        """Get a single concept from Vespa."""
         return NotImplemented
 
 
-class AuthnMethods:
+class AuthMethods:
+    """Possible authentication methods for Vespa."""
+
     @dataclass
     class CloudToken:
-        """Authentication using Vespa Cloud secret token"""
+        """Authentication using Vespa Cloud secret token."""
 
         token: str
 
     @dataclass
     class Certificate:
-        """Authentication using certificates"""
+        """Authentication using certificates."""
 
-        cert_directory: str | None = None  # None means auto-discover certs
+        cert_directory: str
+
+    @dataclass
+    class AutoDiscoverCertificate:
+        """Authentication using auto discovered certificates."""
 
     @dataclass
     class Local:
-        """No authentication (for local/development instances)"""
-
-        pass
+        """No authentication (for local/development instances)."""
 
 
-# This is the ADT - a union of the possible authentication methods
-Authn = AuthnMethods.CloudToken | AuthnMethods.Certificate | AuthnMethods.Local
+Auth = (
+    AuthMethods.CloudToken
+    | AuthMethods.Certificate
+    | AuthMethods.AutoDiscoverCertificate
+    | AuthMethods.Local
+)
 
 
 class Session(BaseModel):
     """Session manages connection configuration and creates clients."""
 
     instance_url: str
-    authn: Authn
+    auth: Auth
     _client: Vespa | None = None
 
     def _create_vespa_client(self) -> Vespa:
         """Create Vespa client based on authentication method."""
-        match self.authn:
-            case AuthnMethods.CloudToken(token):
+        match self.auth:
+            case AuthMethods.CloudToken(token):
                 return Vespa(url=self.instance_url, vespa_cloud_secret_token=token)
-            case AuthnMethods.Certificate(cert_directory):
-                if cert_directory is None:
-                    cert_path, key_path = find_vespa_cert_paths()
-                else:
-                    cert_path = (Path(cert_directory) / "cert.pem").__str__()
-                    key_path = (Path(cert_directory) / "key.pem").__str__()
+            case AuthMethods.Certificate(cert_directory):
+                cert_path = (Path(cert_directory) / "cert.pem").__str__()
+                key_path = (Path(cert_directory) / "key.pem").__str__()
+
                 return Vespa(url=self.instance_url, cert=cert_path, key=key_path)
-            case AuthnMethods.Local():
+            case AuthMethods.AutoDiscoverCertificate():
+                cert_path, key_path = find_vespa_cert_paths()
+
+                return Vespa(url=self.instance_url, cert=cert_path, key=key_path)
+            case AuthMethods.Local():
                 return Vespa(url=self.instance_url)
 
-    def client(self, service: str) -> Client:
+    def client(self, service: str) -> Concept:
+        """Create a client instance."""
         if self._client is None:
             self._client = self._create_vespa_client()
 
@@ -112,22 +115,33 @@ class Session(BaseModel):
 
 def session(
     instance_url: str,
-    authn: Authn,
+    auth: Auth,
 ) -> Session:
     """Create a session with the specified authentication method."""
     return Session(
         instance_url=instance_url,
-        authn=authn,
+        auth=auth,
     )
 
 
 def client(
     service: str,
     instance_url: str,
-    authn: Authn,
-) -> Client:
-    """Create a client with the specified authentication method."""
+    auth: Auth,
+) -> Concept:
+    """Create a client for the service with the specified authentication method."""
     return Session(
         instance_url=instance_url,
-        authn=authn,
+        auth=auth,
     ).client(service)
+
+
+def concept(
+    instance_url: str,
+    auth: Auth,
+) -> Concept:
+    return client(
+        service="concept",
+        instance_url=instance_url,
+        auth=auth,
+    )

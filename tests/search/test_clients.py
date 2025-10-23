@@ -1,4 +1,4 @@
-from cpr_sdk.search.clients import client, Session, Concept, AuthnMethods
+from cpr_sdk.search.clients import client, Session, Concept, AuthMethods
 
 
 def test_client():
@@ -6,14 +6,14 @@ def test_client():
         client(
             service="concept",
             instance_url="localhost:8080",
-            authn=AuthnMethods.CloudToken("test"),
+            auth=AuthMethods.CloudToken("test"),
         ),
         Concept,
     )
 
 
 def test_session():
-    session = Session(instance_url="localhost:8080", authn=AuthnMethods.Local())
+    session = Session(instance_url="localhost:8080", auth=AuthMethods.Local())
 
     assert isinstance(
         session.client(service="concept"),
