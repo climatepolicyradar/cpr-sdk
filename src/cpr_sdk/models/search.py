@@ -3,11 +3,11 @@ from pydantic_core import CoreSchema, core_schema
 from typing import Any, Callable
 from datetime import datetime
 from enum import Enum
-from typing import Annotated, Any, List, Literal, Optional, Sequence
+from typing import Annotated, List, Literal, Optional, Sequence, TypeAlias
 from functools import total_ordering
-from typing import NewType
 
 from cpr_sdk.result import Result, Error, Ok, Err
+from typing_extensions import assert_never
 from cpr_sdk.utils import dig
 from pydantic import (
     AliasChoices,
@@ -46,6 +46,10 @@ filter_fields = {
 
 _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
+
+SCHEMA_NAME_FIELD_NAME = "sddocname"
+
+JsonDict: TypeAlias = dict[str, Any]
 
 
 @total_ordering
@@ -568,7 +572,7 @@ class Hit(BaseModel):
     concept_counts: Optional[dict[str, int]] = None
 
     @classmethod
-    def from_vespa_response(cls, response_hit: dict) -> "Hit":
+    def from_vespa_response(cls, response_hit: JsonDict) -> "Hit":
         """
         Create a Hit from a Vespa response hit.
 
@@ -578,18 +582,21 @@ class Hit(BaseModel):
         """
         # vespa structures its response differently depending on the api endpoint
         # for searches, the response should contain a sddocname field
-        response_type = response_hit.get("fields", {}).get("sddocname")
-        if response_type is None:
-            # for get_by_id, the response should contain an id field
-            response_type = response_hit["id"].split(":")[2]
-
-        if response_type == "family_document":
-            hit = Document.from_vespa_response(response_hit=response_hit)
-        elif response_type == "document_passage":
-            hit = Passage.from_vespa_response(response_hit=response_hit)
-        else:
-            raise ValueError(f"Unknown response type: {response_type}")
-        return hit
+        match extract_schema_name(response_hit):
+            case Ok(schema_name):
+                match schema_name:
+                    case "family_document":
+                        return Document.from_vespa_response(response_hit=response_hit)
+                    case "document_passage":
+                        return Passage.from_vespa_response(response_hit=response_hit)
+                    case _:
+                        raise ValueError(
+                            f"response hit wasn't a concept, it had schema name `{schema_name}`"
+                        )
+            case Err(error):
+                raise ValueError(error.msg)
+            case _ as unreachable:
+                assert_never(unreachable)
 
     def __eq__(self, other):
         """
@@ -903,32 +910,33 @@ class SearchResponse(BaseModel):
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
 
 
-JsonDict = NewType("JsonDict", dict[str, Any])
+def extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
+    """
+    Extract schema name from a Vespa response.
 
-SCHEMA_NAME_FIELD_NAME = "sddocname"
+    Example:
+    ```
+    {
+      "id": "id:doc_search:concept::Q290.w2m7ymf7",
+      "relevance": 0.0,
+      "source": "family-document-passage",
+      "fields": {
+        "sddocname": "concept",
+        "documentid": "id:doc_search:concept::w2m7ymf7",
+        "wikibase_id": "Q290",
+        ..
+        "subconcept_of": [
+          "hzaw3hdg"
+        ],
+        "recursive_has_subconcept": false
+      }
+    }
+    ```
 
-
-# Example:
-#
-# {
-#   "id": "id:doc_search:concept::w2m7ymf7",
-#   "relevance": 0.0,
-#   "source": "family-document-passage",
-#   "fields": {
-#     "sddocname": "concept",
-#     "documentid": "id:doc_search:concept::w2m7ymf7",
-#     "id": "w2m7ymf7",
-#     "wikibase_id": "Q290",
-#     "wikibase_url": "https://wikibase.example.org/wiki/Item:Q290",
-#     "preferred_label": "pollution",
-#     "subconcept_of": [
-#       "hzaw3hdg"
-#     ],
-#     "recursive_has_subconcept": false
-#   }
-# }
-def _extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
-    """Extract schema name from the Vespa response."""
+    This will try first to to get the schema field name, and from it,
+    return `concept`. If that wasn't present, it would extract
+    `concept` from the top-level `"id"` field.
+    """
     schema_name: str | None = dig(response_hit, "fields", SCHEMA_NAME_FIELD_NAME)
 
     if schema_name is not None:
