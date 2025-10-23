@@ -6,12 +6,13 @@ without relying on exceptions for control flow.
 """
 
 from dataclasses import dataclass
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Callable, Generic, TypeVar, final
 
 T = TypeVar("T")
 E = TypeVar("E")
 
 
+@final
 @dataclass
 class Ok(Generic[T]):
     """Represents a successful result containing a value of type T."""
@@ -23,6 +24,7 @@ class Ok(Generic[T]):
         return f"Ok({self._value})"
 
 
+@final
 @dataclass
 class Err(Generic[E]):
     """Represents a failed result containing an error of type E."""
