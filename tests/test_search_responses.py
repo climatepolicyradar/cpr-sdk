@@ -1,9 +1,10 @@
 from datetime import datetime
+from cpr_sdk.result import Error, Ok, Err
 import json
 
 import pytest
 from cpr_sdk.exceptions import FetchError
-from cpr_sdk.models.search import Hit
+from cpr_sdk.models.search import Hit, extract_schema_name, SCHEMA_NAME_FIELD_NAME
 from cpr_sdk.vespa import parse_vespa_response, split_document_id
 from cpr_sdk.models.search import Passage
 from vespa.io import VespaResponse
@@ -1000,3 +1001,52 @@ def test_document_passage_parse_from_valid_response():
             )
         ],
     )
+
+
+@pytest.mark.parametrize(
+    ("hit", "expected"),
+    [
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {},
+            },
+            Ok("family_document"),
+        ),
+        (
+            {
+                "id": "id:doc_search:document_passage::CCLW.family.11171.0.220",
+                "fields": {},
+            },
+            Ok("document_passage"),
+        ),
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {SCHEMA_NAME_FIELD_NAME: "family_document"},
+            },
+            Ok("family_document"),
+        ),
+        (
+            {
+                "id": "id:doc_search:family_document::CCLW.family.11171.0",
+                "fields": {SCHEMA_NAME_FIELD_NAME: "document_passage"},
+            },
+            Ok("document_passage"),
+        ),
+        (
+            {
+                "id": "invalid",
+                "fields": {},
+            },
+            Err(
+                Error(
+                    msg="Could not parse response type from ID: invalid",
+                    metadata={},
+                ),
+            ),
+        ),
+    ],
+)
+def test_extract_schema_name(hit, expected):
+    assert extract_schema_name(hit) == expected
