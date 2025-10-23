@@ -110,6 +110,17 @@ class Session(BaseModel):
             raise ValueError(f"unknown service: {service}")
 
 
+def session(
+    instance_url: str,
+    authn: Authn,
+) -> Session:
+    """Create a session with the specified authentication method."""
+    return Session(
+        instance_url=instance_url,
+        authn=authn,
+    )
+
+
 def client(
     service: str,
     instance_url: str,
