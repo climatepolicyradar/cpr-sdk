@@ -1,4 +1,6 @@
 import re
+from pydantic_core import CoreSchema, core_schema
+from typing import Any, Callable
 from datetime import datetime
 from enum import Enum
 from typing import Annotated, Any, List, Literal, Optional, Sequence, TypeAlias
@@ -51,48 +53,61 @@ JsonDict: TypeAlias = dict[str, Any]
 
 
 @total_ordering
-class WikibaseId(BaseModel):
+class WikibaseId(str):
     """A Wikibase ID, which is a string that starts with a 'Q' followed by a number."""
 
-    numeric: PositiveInt
+    regex = r"^Q[1-9][0-9]*$"
 
-    @field_validator("numeric", mode="before")
-    @classmethod
-    def parse_wikibase_id(cls, value):
-        """Parse Wikibase ID from string or return numeric value"""
-        if isinstance(value, str):
-            if not re.match(r"^Q[1-9]\d*$", value):
-                raise ValueError(f"{value} is not a valid Wikibase ID")
-            return int(value[1:])
+    def __new__(cls, value):
+        """Validate the Wikibase ID string and create a new instance."""
+        cls._validate(value)
+        return str.__new__(cls, value)
 
-        return value
+    @property
+    def numeric(self) -> int:
+        """The numeric value of the Wikibase ID"""
+        return int(self[1:])
 
     def __lt__(self, other) -> bool:
         """Compare two Wikibase IDs numerically"""
+        if isinstance(other, str):
+            other = WikibaseId(other)
         if not isinstance(other, WikibaseId):
             return NotImplemented
-
         return self.numeric < other.numeric
 
     def __eq__(self, other) -> bool:
         """Check if two Wikibase IDs are equal"""
-
+        if isinstance(other, str):
+            other = WikibaseId(other)
         if not isinstance(other, WikibaseId):
             return NotImplemented
-
         return self.numeric == other.numeric
 
     def __hash__(self) -> int:
         """Hash a Wikibase ID consistently with string representation"""
         return hash(str(self))
 
-    def __str__(self) -> str:
-        """Return string representation"""
-        return f"Q{self.numeric}"
+    @classmethod
+    def _validate(cls, __input_value: Any) -> str:
+        """Validate that the Wikibase ID is in the correct format."""
+        if not isinstance(__input_value, str):
+            raise ValueError(f"Wikibase ID must be a string, got {type(__input_value)}")
+        if not re.match(cls.regex, __input_value):
+            raise ValueError(f"'{__input_value}' is not a valid Wikibase ID")
+        return __input_value
 
-    def __repr__(self) -> str:
-        """Return string representation"""
-        return f"Q{self.numeric}"
+    @classmethod
+    def __get_pydantic_core_schema__(
+        cls,
+        source_type: Any,
+        handler: Callable[[Any], CoreSchema],  # type: ignore
+    ) -> CoreSchema:
+        """Returns a pydantic_core.CoreSchema object for Pydantic V2 compatibility."""
+        return core_schema.json_or_python_schema(
+            json_schema=core_schema.str_schema(),
+            python_schema=core_schema.no_info_plain_validator_function(cls._validate),
+        )
 
 
 class OperandTypeEnum(Enum):
@@ -999,20 +1014,6 @@ class Concept(BaseModel):
     )
 
     response_raw: JsonDict = Field(exclude=True)  # Don't include in serialisation
-
-    @field_validator("wikibase_id", mode="before")
-    @classmethod
-    def convert_wikibase_id(cls, v):
-        """
-        Convert string to Wikibase ID, if needed.
-
-        Pydantic can be odd, and expect either a dict or an actual
-        class instance.
-        """
-        if isinstance(v, str):
-            return {"numeric": v}
-
-        return v
 
     @classmethod
     def from_vespa_response(cls, response_hit: JsonDict) -> "Concept":

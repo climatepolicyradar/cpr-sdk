@@ -1,0 +1,33 @@
+{
+    "root": {
+        "id": "toplevel",
+        "relevance": 1.0,
+        "fields": {
+            "totalCount": 6
+        },
+        "coverage": {
+            "coverage": 100,
+            "documents": 6,
+            "full": true,
+            "nodes": 1,
+            "results": 1,
+            "resultsFull": 1
+        },
+        "children": [
+            {
+                "id": "id:doc_search:concept::hzaw3hdg",
+                "relevance": 0.0,
+                "source": "family-document-passage",
+                "fields": {
+                    "sddocname": "concept",
+                    "documentid": "id:doc_search:concept::hzaw3hdg",
+                    "id": "hzaw3hdg",
+                    "wikibase_id": "Q730",
+                    "wikibase_url": "https://wikibase.example.org/wiki/Item:Q730",
+                    "preferred_label": "fishing sector",
+                    "subconcept_of": ["njhxa72q"]
+                }
+            }
+        ]
+    }
+}
