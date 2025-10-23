@@ -925,7 +925,7 @@ def _extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
             )
 
         match id.split(":"):
-            case [_, schema_name, *_]:
+            case [_, _, schema_name, *_]:
                 return Ok(schema_name)
             case _:
                 return Err(
@@ -944,7 +944,9 @@ def _extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
 
 
 class Concept(BaseModel):
-    id: str
+    """As from our Concept Store."""
+
+    id: str  # A canonical ID
     wikibase_id: WikibaseId
     wikibase_url: AnyHttpUrl
     preferred_label: str = Field(
@@ -1009,13 +1011,13 @@ class Concept(BaseModel):
         class instance.
         """
         if isinstance(v, str):
-            return WikibaseId(numeric=v)
+            return {"numeric": v}
 
         return v
 
     @classmethod
     def from_vespa_response(cls, response_hit: JsonDict) -> "Concept":
-        match _extract_schema_name(response_hit):
+        match extract_schema_name(response_hit):
             case Ok(schema_name):
                 if schema_name != "concept":
                     raise ValueError(
