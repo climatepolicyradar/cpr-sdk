@@ -30,6 +30,7 @@ vespa_deploy_app:
 .ONESHELL:
 vespa_load_data:
 	vespa feed --target local --wait 60 tests/local_vespa/test_documents/*.json
+	vespa feed --target local --wait 60 tests/local_vespa/test_documents/concept/*.json
 
 # Deletes all test data from local Vespa instance
 .ONESHELL:

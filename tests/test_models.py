@@ -7,7 +7,7 @@ import json
 import pandas as pd
 import pytest
 from datasets import Dataset as HuggingFaceDataset
-from pydantic import ValidationError
+from pydantic import AnyHttpUrl, ValidationError
 
 from cpr_sdk.models import (
     BaseDocument,
@@ -21,6 +21,7 @@ from cpr_sdk.models import (
     TextBlock,
 )
 from cpr_sdk.models.search import Document, Passage, MetadataFilter
+from cpr_sdk.models.search import Concept, JsonDict, WikibaseId
 
 
 @pytest.fixture

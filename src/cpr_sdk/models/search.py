@@ -1,14 +1,21 @@
 import re
+from pydantic_core import CoreSchema, core_schema
+from typing import Any, Callable
 from datetime import datetime
 from enum import Enum
-from typing import Annotated, Any, List, Literal, Optional, Sequence
+from typing import Annotated, Any, List, Literal, Optional, Sequence, TypeAlias
+from functools import total_ordering
 
+from cpr_sdk.result import Result, Error, Ok, Err
+from cpr_sdk.utils import dig
 from pydantic import (
     AliasChoices,
+    AnyHttpUrl,
     BaseModel,
     NonNegativeInt,
     ConfigDict,
     Field,
+    PositiveInt,
     computed_field,
     field_validator,
     model_validator,
@@ -39,6 +46,68 @@ filter_fields = {
 
 _ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
+
+SCHEMA_NAME_FIELD_NAME = "sddocname"
+
+JsonDict: TypeAlias = dict[str, Any]
+
+
+@total_ordering
+class WikibaseId(str):
+    """A Wikibase ID, which is a string that starts with a 'Q' followed by a number."""
+
+    regex = r"^Q[1-9][0-9]*$"
+
+    def __new__(cls, value):
+        """Validate the Wikibase ID string and create a new instance."""
+        cls._validate(value)
+        return str.__new__(cls, value)
+
+    @property
+    def numeric(self) -> int:
+        """The numeric value of the Wikibase ID"""
+        return int(self[1:])
+
+    def __lt__(self, other) -> bool:
+        """Compare two Wikibase IDs numerically"""
+        if isinstance(other, str):
+            other = WikibaseId(other)
+        if not isinstance(other, WikibaseId):
+            return NotImplemented
+        return self.numeric < other.numeric
+
+    def __eq__(self, other) -> bool:
+        """Check if two Wikibase IDs are equal"""
+        if isinstance(other, str):
+            other = WikibaseId(other)
+        if not isinstance(other, WikibaseId):
+            return NotImplemented
+        return self.numeric == other.numeric
+
+    def __hash__(self) -> int:
+        """Hash a Wikibase ID consistently with string representation"""
+        return hash(str(self))
+
+    @classmethod
+    def _validate(cls, __input_value: Any) -> str:
+        """Validate that the Wikibase ID is in the correct format."""
+        if not isinstance(__input_value, str):
+            raise ValueError(f"Wikibase ID must be a string, got {type(__input_value)}")
+        if not re.match(cls.regex, __input_value):
+            raise ValueError(f"'{__input_value}' is not a valid Wikibase ID")
+        return __input_value
+
+    @classmethod
+    def __get_pydantic_core_schema__(
+        cls,
+        source_type: Any,
+        handler: Callable[[Any], CoreSchema],  # type: ignore
+    ) -> CoreSchema:
+        """Returns a pydantic_core.CoreSchema object for Pydantic V2 compatibility."""
+        return core_schema.json_or_python_schema(
+            json_schema=core_schema.str_schema(),
+            python_schema=core_schema.no_info_plain_validator_function(cls._validate),
+        )
 
 
 class OperandTypeEnum(Enum):
@@ -497,7 +566,7 @@ class Hit(BaseModel):
     concept_counts: Optional[dict[str, int]] = None
 
     @classmethod
-    def from_vespa_response(cls, response_hit: dict) -> "Hit":
+    def from_vespa_response(cls, response_hit: JsonDict) -> "Hit":
         """
         Create a Hit from a Vespa response hit.
 
@@ -507,18 +576,19 @@ class Hit(BaseModel):
         """
         # vespa structures its response differently depending on the api endpoint
         # for searches, the response should contain a sddocname field
-        response_type = response_hit.get("fields", {}).get("sddocname")
-        if response_type is None:
-            # for get_by_id, the response should contain an id field
-            response_type = response_hit["id"].split(":")[2]
-
-        if response_type == "family_document":
-            hit = Document.from_vespa_response(response_hit=response_hit)
-        elif response_type == "document_passage":
-            hit = Passage.from_vespa_response(response_hit=response_hit)
-        else:
-            raise ValueError(f"Unknown response type: {response_type}")
-        return hit
+        match extract_schema_name(response_hit):
+            case Ok(schema_name):
+                match schema_name:
+                    case "family_document":
+                        return Document.from_vespa_response(response_hit=response_hit)
+                    case "document_passage":
+                        return Passage.from_vespa_response(response_hit=response_hit)
+                    case _:
+                        raise ValueError(
+                            f"response hit wasn't a concept, it had schema name `{schema_name}`"
+                        )
+            case Err(error):
+                raise ValueError(error.msg)
 
     def __eq__(self, other):
         """
@@ -830,3 +900,133 @@ class SearchResponse(BaseModel):
         ]
 
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
+
+
+# Example:
+#
+# {
+#   "id": "id:doc_search:concept::w2m7ymf7",
+#   "relevance": 0.0,
+#   "source": "family-document-passage",
+#   "fields": {
+#     "sddocname": "concept",
+#     "documentid": "id:doc_search:concept::w2m7ymf7",
+#     "id": "w2m7ymf7",
+#     "wikibase_id": "Q290",
+#     "wikibase_url": "https://wikibase.example.org/wiki/Item:Q290",
+#     "preferred_label": "pollution",
+#     "subconcept_of": [
+#       "hzaw3hdg"
+#     ],
+#     "recursive_has_subconcept": false
+#   }
+# }
+def extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
+    """Extract schema name from the Vespa response."""
+    schema_name: str | None = dig(response_hit, "fields", SCHEMA_NAME_FIELD_NAME)
+
+    if schema_name is not None:
+        return Ok(schema_name)
+
+    # For `get_by_id()`, extract from ID field
+    if id := response_hit.get("id"):
+        if not isinstance(id, str):
+            return Err(
+                Error(
+                    msg=f"Expected string ID, got {type(id).__name__}: {id}",
+                    metadata=None,
+                ),
+            )
+
+        match id.split(":"):
+            case [_, _, schema_name, *_]:
+                return Ok(schema_name)
+            case _:
+                return Err(
+                    Error(
+                        msg=f"Could not parse response type from ID: {id}",
+                        metadata={},
+                    ),
+                )
+    else:
+        return Err(
+            Error(
+                msg=f"Response had neither {SCHEMA_NAME_FIELD_NAME} nor ID field",
+                metadata={},
+            ),
+        )
+
+
+class Concept(BaseModel):
+    """As from our Concept Store."""
+
+    id: str  # A canonical ID
+    wikibase_id: WikibaseId
+    wikibase_url: AnyHttpUrl
+    preferred_label: str = Field(
+        ...,
+        description="The preferred label for the concept",
+        min_length=1,
+    )
+    description: str | None = Field(
+        default=None,
+        description=(
+            "A short description of the concept which should be sufficient to "
+            "disambiguate it from other concepts with similar labels"
+        ),
+        min_length=1,
+    )
+    definition: str | None = Field(
+        default=None,
+        description=(
+            "A more exhaustive definition of the concept, which should be enough for a "
+            "human labeller to identify instances of the concept in a given text. "
+        ),
+    )
+    alternative_labels: Sequence[str] = Field(
+        default_factory=list,
+        description="List of alternative labels for the concept",
+    )
+    negative_labels: Sequence[str] = Field(
+        default_factory=list,
+        description=(
+            "Labels which should not be matched instances of the concept. "
+            "Negative labels should be unique, and cannot overlap with positive labels."
+        ),
+    )
+    subconcept_of: Sequence[str] = Field(
+        default_factory=list,
+        description="List of parent concept IDs",
+    )
+    has_subconcept: Sequence[str] = Field(
+        default_factory=list, description="List of sub-concept IDs"
+    )
+    related_concepts: Sequence[str] = Field(
+        default_factory=list, description="List of related concept IDs"
+    )
+    recursive_concept_of: Sequence[str] | None = Field(
+        default=None,
+        description="List of all parent concept IDs, recursively up the hierarchy",
+    )
+    recursive_has_subconcept: Sequence[str] | None = Field(
+        default=None,
+        description="List of all sub-concept IDs, recursively down the hierarchy",
+    )
+
+    response_raw: JsonDict = Field(exclude=True)  # Don't include in serialisation
+
+    @classmethod
+    def from_vespa_response(cls, response_hit: JsonDict) -> "Concept":
+        match extract_schema_name(response_hit):
+            case Ok(schema_name):
+                if schema_name != "concept":
+                    raise ValueError(
+                        f"response hit wasn't a concept, it had schema name `{schema_name}`"
+                    )
+            case Err(error):
+                raise ValueError(error.msg)
+
+        if fields := dig(response_hit, "fields"):
+            return cls(**fields, response_raw=response_hit)
+        else:
+            raise ValueError("response hit was missing `fields`")
