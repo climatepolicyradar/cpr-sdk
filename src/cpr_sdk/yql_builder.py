@@ -7,7 +7,7 @@ from cpr_sdk.models.search import Filters, SearchParameters
 
 
 class YQLBuilder:
-    """Used to assemble yql queries"""
+    """Used to assemble YQL queries"""
 
     yql_base = Template(
         """

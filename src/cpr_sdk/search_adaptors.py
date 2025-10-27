@@ -54,9 +54,9 @@ class SearchAdapter(ABC):
     @abstractmethod
     def get_by_id(self, document_id: str) -> Hit:
         """
-        Get a single document by its id
+        Get a single document by its ID
 
-        :param str document_id: document id
+        :param str document_id: document ID
         :return Hit: a single document or passage
         """
         raise NotImplementedError
@@ -76,7 +76,7 @@ class VespaSearchAdapter(SearchAdapter):
         vespa_cloud_secret_token: str | None = None,
     ):
         """
-        Initialize the Vespa search adapter.
+        Initialise the Vespa search adapter.
 
         :param instance_url: URL of the Vespa instance to connect to
         :param cert_directory: Optional directory containing cert.pem and key.pem files.
@@ -168,7 +168,7 @@ class VespaSearchAdapter(SearchAdapter):
     @override
     def get_by_id(self, document_id: str) -> Hit:
         """
-        Get a single document by its id
+        Get a single document by its ID
 
         :param str document_id: IDs should look something like
             "id:doc_search:family_document::CCLW.family.11171.0"
