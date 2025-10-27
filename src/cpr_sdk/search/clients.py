@@ -8,7 +8,7 @@ from typing import Any, Generic, Protocol, TypeVar, runtime_checkable
 from pydantic import BaseModel
 from vespa.application import Vespa
 
-import cpr_sdk.search.models as models
+import cpr_sdk.models.search as models
 from cpr_sdk.vespa import find_vespa_cert_paths
 
 
