@@ -82,6 +82,8 @@ env_files = """
 """
 markers = ["vespa", "search_test"]
 
+[tool.pyright]
+
 [tool.black-jupyter]
 line-length = 88
 target-version = ["py39"]
