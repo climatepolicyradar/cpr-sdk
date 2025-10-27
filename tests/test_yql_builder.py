@@ -8,12 +8,13 @@ from cpr_sdk.models.search import (
     ConceptV2PassageFilter,
     Filters,
     OperandTypeEnum,
+    SearchConceptParameters,
     SearchParameters,
     sort_fields,
     sort_orders,
 )
 from cpr_sdk.vespa import VespaErrorDetails
-from cpr_sdk.yql_builder import YQLBuilder
+from cpr_sdk.yql_builder import ConceptYQLBuilder, YQLBuilder
 
 
 def test_whether_document_only_search_ignores_passages_in_yql():
@@ -451,3 +452,60 @@ def test_concept_v2_filters_appear_in_yql():
         yql
         == "select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{\"targetNumHits\": 1000, \"distanceThreshold\": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (spans contains sameElement(concepts_v2_flat matches 'Q374')) and (concepts_v2 contains sameElement(concept_id contains 'nhhzwfva', count = 1)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
     )
+
+
+@pytest.mark.parametrize(
+    "params,expected_query",
+    [
+        (
+            SearchConceptParameters(),
+            "select * from concept where true limit 100",
+        ),
+        (
+            SearchConceptParameters(id="abc123", limit=25),
+            'select * from concept where id contains "abc123" limit 25',
+        ),
+        (
+            SearchConceptParameters(wikibase_id="Q374", limit=50),
+            'select * from concept where wikibase_id contains "Q374" limit 50',
+        ),
+        (
+            SearchConceptParameters(wikibase_revision=2200, limit=75),
+            "select * from concept where wikibase_revision contains 2200 limit 75",
+        ),
+        (
+            SearchConceptParameters(preferred_label="renewable energy", limit=200),
+            'select * from concept where preferred_label contains "renewable energy" limit 200',
+        ),
+    ],
+)
+def test_concept_yql_builder_complete_queries(
+    params: SearchConceptParameters, expected_query: str
+):
+    """Test that ConceptYQLBuilder generates complete correct queries."""
+    query = ConceptYQLBuilder.build(params)
+    query_str = str(query)
+
+    assert query_str == expected_query
+
+
+def test_concept_yql_builder_with_continuation_tokens():
+    """Test that ConceptYQLBuilder correctly adds continuation tokens to queries."""
+    params = SearchConceptParameters(
+        preferred_label="climate", limit=10, continuation_tokens=["ABC", "DEF"]
+    )
+    query = ConceptYQLBuilder.build(params)
+
+    assert "preferred_label" in query
+    assert "limit 10" in query
+    assert "| { 'continuations': ['ABC', 'DEF'] }" in query
+
+
+def test_concept_yql_builder_without_continuation_tokens():
+    """Test that ConceptYQLBuilder doesn't add continuation clause when tokens are not provided."""
+    params = SearchConceptParameters(preferred_label="climate", limit=10)
+    query = ConceptYQLBuilder.build(params)
+
+    assert "preferred_label" in query
+    assert "limit 10" in query
+    assert "continuations" not in query

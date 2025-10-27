@@ -7,6 +7,7 @@ from unittest.mock import patch
 import pytest
 
 from cpr_sdk.models.search import (
+    Concept,
     ConceptCountFilter,
     ConceptFilter,
     ConceptV2DocumentFilter,
@@ -18,8 +19,10 @@ from cpr_sdk.models.search import (
     MetadataFilter,
     OperandTypeEnum,
     Passage,
+    SearchConceptParameters,
     SearchParameters,
     SearchResponse,
+    WikibaseId,
     sort_fields,
 )
 from cpr_sdk.search_adaptors import VespaSearchAdapter
@@ -48,6 +51,56 @@ async def async_vespa_search(
     except Exception as e:
         pytest.fail(
             f"Vespa async query failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return response
+
+
+def vespa_get_concept(adaptor: VespaSearchAdapter, concept_id: str) -> Concept:
+    try:
+        concept = adaptor.get_concept(concept_id)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa get_concept failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return concept
+
+
+async def async_vespa_get_concept(
+    adaptor: VespaSearchAdapter, concept_id: str
+) -> Concept:
+    try:
+        concept = await adaptor.async_get_concept(concept_id)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa async get_concept failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return concept
+
+
+def vespa_search_concepts(
+    adaptor: VespaSearchAdapter, request: SearchConceptParameters
+) -> SearchResponse[Concept]:
+    try:
+        response = adaptor.search_concepts(request)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa search_concepts failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return response
+
+
+async def async_vespa_search_concepts(
+    adaptor: VespaSearchAdapter, request: SearchConceptParameters
+) -> SearchResponse[Concept]:
+    try:
+        response = await adaptor.async_search_concepts(request)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa async search_concepts failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
             f"{traceback.format_exc()}"
         )
     return response
@@ -2429,3 +2482,139 @@ def test_vespa_search_adaptor__v2_concept_with_query_string(test_vespa):
                 break
         # Should find at least one passage with concepts_v2
         assert found_concepts_v2, "Expected at least one passage with concepts_v2"
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__get_concept(test_vespa):
+    # Test getting a specific concept by ID using fixture data
+    concept_id = "id:doc_search:concept::Q730.hzaw3hdg"  # From test fixture
+    concept = vespa_get_concept(test_vespa, concept_id)
+    assert isinstance(concept, Concept)
+    assert concept.id == "hzaw3hdg"
+    assert concept.wikibase_id == WikibaseId("Q730")
+    assert concept.preferred_label == "fishing sector"
+    assert concept.subconcept_of == ["njhxa72q"]
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_concept(test_vespa):
+    # Test async getting a specific concept by ID using fixture data
+    concept_id = "id:doc_search:concept::Q730.hzaw3hdg"
+    concept = await async_vespa_get_concept(test_vespa, concept_id)
+    assert isinstance(concept, Concept)
+    assert concept.id == "hzaw3hdg"
+    assert concept.wikibase_id == WikibaseId("Q730")
+    assert concept.preferred_label == "fishing sector"
+    assert concept.subconcept_of == ["njhxa72q"]
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__search_concepts(test_vespa):
+    # Test querying concepts by preferred label using fixture data
+    request = SearchConceptParameters(preferred_label="fishing sector", limit=10)
+    response = vespa_search_concepts(test_vespa, request)
+
+    assert isinstance(response, SearchResponse)
+    assert isinstance(response.results, list)
+    concepts = response.results  # The concepts are in the results field
+
+    # Should find the fishing sector concept
+    fishing_concept = next((c for c in concepts if c.id == "hzaw3hdg"), None)
+    assert fishing_concept is not None, "didn't find fishing concept"
+    assert fishing_concept.wikibase_id == WikibaseId("Q730")
+    assert fishing_concept.preferred_label == "fishing sector"
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__search_concepts(test_vespa):
+    # Test async querying concepts by preferred label using fixture data
+    request = SearchConceptParameters(preferred_label="fishing sector", limit=10)
+    response = await async_vespa_search_concepts(test_vespa, request)
+
+    assert isinstance(response, SearchResponse)
+    assert isinstance(response.results, list)
+    concepts = response.results  # The concepts are in the results field
+
+    # Should find the fishing sector concept
+    fishing_concept = next((c for c in concepts if c.id == "hzaw3hdg"), None)
+    assert fishing_concept is not None, "didn't find fishing concept"
+    if fishing_concept:
+        assert fishing_concept.wikibase_id == WikibaseId("Q730")
+        assert fishing_concept.preferred_label == "fishing sector"
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__continuation_tokens__concepts(test_vespa):
+    # Test that continuation tokens work for paginating through concepts
+    limit = 3
+
+    # Make an initial request to get continuation tokens and results
+    request = SearchConceptParameters(limit=limit)
+    response = vespa_search_concepts(test_vespa, request)
+    first_concept_ids = [c.id for c in response.results]
+    concept_continuation = response.continuation_token
+    assert len(response.results) == 3
+
+    # If there's a continuation token, use it to get the next page
+    if concept_continuation:
+        request = SearchConceptParameters(
+            limit=limit,
+            continuation_tokens=[concept_continuation],
+        )
+        response = vespa_search_concepts(test_vespa, request)
+        prev_concept_continuation = response.prev_continuation_token
+        assert len(response.results) <= 3
+
+        # Concepts should have changed
+        second_concept_ids = [c.id for c in response.results]
+        assert sorted(first_concept_ids) != sorted(second_concept_ids)
+
+        # Using prev_continuation_token should give initial results
+        if prev_concept_continuation:
+            request = SearchConceptParameters(
+                limit=limit,
+                continuation_tokens=[prev_concept_continuation],
+            )
+            response = vespa_search_concepts(test_vespa, request)
+            prev_concept_ids = [c.id for c in response.results]
+            assert prev_concept_ids == first_concept_ids
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__continuation_tokens__concepts(test_vespa):
+    # Test that continuation tokens work for paginating through concepts asynchronously
+    limit = 3
+
+    # Make an initial request to get continuation tokens and results
+    request = SearchConceptParameters(limit=limit)
+    response = await async_vespa_search_concepts(test_vespa, request)
+    first_concept_ids = [c.id for c in response.results]
+    concept_continuation = response.continuation_token
+    assert len(response.results) == 3
+
+    # If there's a continuation token, use it to get the next page
+    if concept_continuation:
+        request = SearchConceptParameters(
+            limit=limit,
+            continuation_tokens=[concept_continuation],
+        )
+        response = await async_vespa_search_concepts(test_vespa, request)
+        prev_concept_continuation = response.prev_continuation_token
+        assert len(response.results) <= 3
+
+        # Concepts should have changed
+        second_concept_ids = [c.id for c in response.results]
+        assert sorted(first_concept_ids) != sorted(second_concept_ids)
+
+        # Using prev_continuation_token should give initial results
+        if prev_concept_continuation:
+            request = SearchConceptParameters(
+                limit=limit,
+                continuation_tokens=[prev_concept_continuation],
+            )
+            response = await async_vespa_search_concepts(test_vespa, request)
+            prev_concept_ids = [c.id for c in response.results]
+            assert prev_concept_ids == first_concept_ids
