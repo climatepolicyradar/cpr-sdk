@@ -22,4 +22,4 @@ class DocumentNotFoundError(DataAccessError):
 
     def __init__(self, document_id):
         self.document_id = document_id
-        super().__init__(f"Failed to find document with id: {document_id}")
+        super().__init__(f"Failed to find document with ID: {document_id}")
