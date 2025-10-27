@@ -1,89 +1,42 @@
-"""Adaptors for searching CPR data"""
+"""Main client classes for CPR SDK."""
 
-from collections.abc import Sequence
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Generic, Protocol, TypeVar, runtime_checkable
 
-from pydantic import BaseModel
 from vespa.application import Vespa
 
-import cpr_sdk.models.search as models
+from cpr_sdk.search.base import Auth, AuthMethods
+from cpr_sdk.search.concepts import AsyncConceptResource, ConceptResource
+from cpr_sdk.search.families import AsyncFamilyResource, FamilyResource
+from cpr_sdk.search.passages import AsyncPassageResource, PassageResource
 from cpr_sdk.vespa import find_vespa_cert_paths
 
 
-P = TypeVar("P", contravariant=True)  # Params
-R = TypeVar("R", covariant=True)  # Result
+class BaseClient:
+    """Base client with shared implementation for sync and async clients."""
 
+    def __init__(
+        self,
+        instance_url: str,
+        auth: Auth,
+        vespa_client: Vespa | None = None,
+    ):
+        """
+        Initialize a base CPR SDK client.
 
-@runtime_checkable
-class Client(Protocol, Generic[P, R]):
-    """Generic client protocol that all clients must satisfy for a service."""
+        Args:
+            instance_url: The Vespa instance URL.
+            auth: Authentication method (CloudToken, Certificate, AutoDiscoverCertificate, or Local).
+            vespa_client: Optional Vespa client for dependency injection (useful for testing).
+        """
+        self.instance_url = instance_url
+        self.auth = auth
+        self._vespa_client = vespa_client
 
-    _client: Vespa
-
-    def query(self, params: P) -> Sequence[R]:
-        """Send a query to Vespa to get 0 or more documents."""
-        ...
-
-    def get(self, id: str) -> R:
-        """Get a single document from Vespa."""
-        ...
-
-
-class Concept:
-    """Concept client implementation."""
-
-    def __init__(self, _client: Vespa):
-        self._client = _client
-
-    def query(self, params: Any) -> Sequence[models.Concept]:
-        """Send a query to Vespa to get 0 or more concepts."""
-        return NotImplemented
-
-    def get(self, id: str) -> models.Concept:
-        """Get a single concept from Vespa."""
-        return NotImplemented
-
-
-class AuthMethods:
-    """Possible authentication methods for Vespa."""
-
-    @dataclass
-    class CloudToken:
-        """Authentication using Vespa Cloud secret token."""
-
-        token: str
-
-    @dataclass
-    class Certificate:
-        """Authentication using certificates."""
-
-        cert_directory: str
-
-    @dataclass
-    class AutoDiscoverCertificate:
-        """Authentication using auto discovered certificates."""
-
-    @dataclass
-    class Local:
-        """No authentication (for local/development instances)."""
-
-
-Auth = (
-    AuthMethods.CloudToken
-    | AuthMethods.Certificate
-    | AuthMethods.AutoDiscoverCertificate
-    | AuthMethods.Local
-)
-
-
-class Session(BaseModel):
-    """Session manages connection configuration and creates clients."""
-
-    instance_url: str
-    auth: Auth
-    _client: Vespa | None = None
+    def _get_vespa_client(self) -> Vespa:
+        """Get or create the Vespa client."""
+        if self._vespa_client is None:
+            self._vespa_client = self._create_vespa_client()
+        return self._vespa_client
 
     def _create_vespa_client(self) -> Vespa:
         """Create Vespa client based on authentication method."""
@@ -102,46 +55,90 @@ class Session(BaseModel):
             case AuthMethods.Local():
                 return Vespa(url=self.instance_url)
 
-    def client(self, service: str) -> Concept:
-        """Create a client instance."""
-        if self._client is None:
-            self._client = self._create_vespa_client()
 
-        if service == "concept":
-            return Concept(_client=self._client)
-        else:
-            raise ValueError(f"unknown service: {service}")
+class Client(BaseClient):
+    """Synchronous CPR SDK client."""
+
+    def __init__(
+        self,
+        instance_url: str,
+        auth: Auth,
+        vespa_client: Vespa | None = None,
+    ):
+        """
+        Initialize a CPR SDK client.
+
+        Args:
+            instance_url: The Vespa instance URL.
+            auth: Authentication method (CloudToken, Certificate, AutoDiscoverCertificate, or Local).
+            vespa_client: Optional Vespa client for dependency injection (useful for testing).
+        """
+        super().__init__(instance_url, auth, vespa_client)
+        self._concepts_resource: ConceptResource | None = None
+        self._passages_resource: PassageResource | None = None
+        self._families_resource: FamilyResource | None = None
+
+    @property
+    def concepts(self) -> ConceptResource:
+        """Access concept operations."""
+        if self._concepts_resource is None:
+            self._concepts_resource = ConceptResource(self._get_vespa_client())
+        return self._concepts_resource
+
+    @property
+    def passages(self) -> PassageResource:
+        """Access passage operations."""
+        if self._passages_resource is None:
+            self._passages_resource = PassageResource(self._get_vespa_client())
+        return self._passages_resource
+
+    @property
+    def families(self) -> FamilyResource:
+        """Access family (document) operations."""
+        if self._families_resource is None:
+            self._families_resource = FamilyResource(self._get_vespa_client())
+        return self._families_resource
 
 
-def session(
-    instance_url: str,
-    auth: Auth,
-) -> Session:
-    """Create a session with the specified authentication method."""
-    return Session(
-        instance_url=instance_url,
-        auth=auth,
-    )
+class AsyncClient(BaseClient):
+    """Asynchronous CPR SDK client."""
 
+    def __init__(
+        self,
+        instance_url: str,
+        auth: Auth,
+        vespa_client: Vespa | None = None,
+    ):
+        """
+        Initialize an async CPR SDK client.
 
-def client(
-    service: str,
-    instance_url: str,
-    auth: Auth,
-) -> Concept:
-    """Create a client for the service with the specified authentication method."""
-    return Session(
-        instance_url=instance_url,
-        auth=auth,
-    ).client(service)
+        Args:
+            instance_url: The Vespa instance URL.
+            auth: Authentication method (CloudToken, Certificate, AutoDiscoverCertificate, or Local).
+            vespa_client: Optional Vespa client for dependency injection (useful for testing).
+        """
+        super().__init__(instance_url, auth, vespa_client)
+        self._concepts_resource: AsyncConceptResource | None = None
+        self._passages_resource: AsyncPassageResource | None = None
+        self._families_resource: AsyncFamilyResource | None = None
 
+    @property
+    def concepts(self) -> AsyncConceptResource:
+        """Access async concept operations."""
+        if self._concepts_resource is None:
+            self._concepts_resource = AsyncConceptResource(self._get_vespa_client())
+        return self._concepts_resource
 
-def concept(
-    instance_url: str,
-    auth: Auth,
-) -> Concept:
-    return client(
-        service="concept",
-        instance_url=instance_url,
-        auth=auth,
-    )
+    @property
+    def passages(self) -> AsyncPassageResource:
+        """Access async passage operations."""
+        if self._passages_resource is None:
+            self._passages_resource = AsyncPassageResource(self._get_vespa_client())
+        return self._passages_resource
+
+    @property
+    def families(self) -> AsyncFamilyResource:
+        """Access async family (document) operations."""
+        if self._families_resource is None:
+            self._families_resource = AsyncFamilyResource(self._get_vespa_client())
+        return self._families_resource
