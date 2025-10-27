@@ -445,6 +445,8 @@ class SearchParameters(BaseModel):
         """Validate against mutually exclusive fields"""
         if self.exact_match and self.all_results:
             raise ValueError("`exact_match` and `all_results` are mutually exclusive")
+        if not self.query_string:
+            self.all_results = True
         return self
 
     @model_validator(mode="after")
@@ -472,13 +474,6 @@ class SearchParameters(BaseModel):
                     f"Expected continuation tokens to be uppercase: {token}"
                 )
         return continuation_tokens
-
-    @model_validator(mode="after")
-    def query_string_must_not_be_empty(self):
-        """Validate that the query string is not empty."""
-        if not self.query_string:
-            self.all_results = True
-        return self
 
     @field_validator("family_ids", "document_ids")
     def ids_must_fit_pattern(cls, ids):
