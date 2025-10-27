@@ -3,7 +3,6 @@ from vespa.querybuilder import QueryField, Query
 import vespa.querybuilder as qb
 from typing import Optional
 
-from rich import print as rprint
 
 from cpr_sdk.models.search import Filters, SearchConceptParameters, SearchParameters
 
