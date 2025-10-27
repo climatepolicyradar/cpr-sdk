@@ -1,9 +1,11 @@
 from string import Template
+from vespa.querybuilder import QueryField, Query
+import vespa.querybuilder as qb
 from typing import Optional
 
 from rich import print as rprint
 
-from cpr_sdk.models.search import Filters, SearchParameters
+from cpr_sdk.models.search import Filters, SearchConceptParameters, SearchParameters
 
 
 class YQLBuilder:
@@ -384,23 +386,61 @@ class YQLBuilder:
         return " ".join(yql.split())
 
 
-if __name__ == "__main__":
-    # YQL example
-    params = SearchParameters(
-        query_string="climate",
-        exact_match=False,
-        limit=10,
-        max_hits_per_family=10,
-        filters=Filters(
-            **{"document_languages": ["value"], "family_source": ["value"]}
-        ),
-        year_range=(2000, 2020),
-        continuation_tokens=None,
-    )
+class ConceptYQLBuilder:
+    """Used to assemble YQL queries for concepts"""
 
-    yql_new = YQLBuilder(
-        params=params,
-        sensitive=False,
-    ).to_str()
+    @staticmethod
+    def build(parameters: SearchConceptParameters) -> str:
+        """Build a query for concepts"""
+        q: Query = qb.select("*").from_(  # pyright: ignore[reportGeneralTypeIssues]
+            "concept"
+        )
 
-    rprint(yql_new)
+        # Track if we have any filters
+        has_filters = False
+        if any(
+            [
+                parameters.id,
+                parameters.wikibase_id,
+                parameters.wikibase_revision,
+                parameters.preferred_label,
+            ]
+        ):
+            if parameters.id:
+                q = q.where(QueryField("id").contains(parameters.id))
+                has_filters = True
+
+            if parameters.wikibase_id:
+                q = q.where(QueryField("wikibase_id").contains(parameters.wikibase_id))
+                has_filters = True
+
+            if parameters.wikibase_revision:
+                q = q.where(
+                    QueryField("wikibase_revision").contains(
+                        parameters.wikibase_revision
+                    )
+                )
+                has_filters = True
+
+            if parameters.preferred_label:
+                q = q.where(
+                    QueryField("preferred_label").contains(parameters.preferred_label)
+                )
+                has_filters = True
+        else:
+            # If no filters provided, add 'where true' as fallback
+            if not has_filters:
+                q = q.where(True)
+
+        q = q.set_limit(parameters.limit)
+
+        # Convert to string
+        yql_str = str(q)
+
+        # Add continuation tokens if present (following the same pattern as YQLBuilder for families)
+        if parameters.continuation_tokens:
+            continuations = ", ".join(f"'{c}'" for c in parameters.continuation_tokens)
+            continuation_clause = f" | {{ 'continuations': [{continuations}] }}"
+            yql_str += continuation_clause
+
+        return yql_str

@@ -539,6 +539,63 @@ class SearchParameters(BaseModel):
         return sort_orders.get(self.sort_order)
 
 
+class SearchConceptParameters(BaseModel):
+    """Parameters for a concept search request"""
+
+    id: Optional[str] = None
+    """
+    The ID to search for in concepts.
+    For example: 'y28e4s6n'
+    """
+
+    wikibase_id: Optional[str] = None
+    """
+    The Wikibase ID to search for in concepts.
+    For example: 'Q880'
+    """
+
+    wikibase_revision: Optional[int] = None
+    """
+    The Wikibase revision to search for in concepts.
+    For example: 2200
+    """
+
+    preferred_label: Optional[str] = None
+    """
+    The preferred label to search for in concepts.
+    For example: 'climate change' or 'renewable energy'
+    """
+
+    limit: int = Field(ge=0, default=100, le=500)
+    """
+    Refers to the maximum number of results to return from the
+    query result.
+    """
+
+    continuation_tokens: Optional[Sequence[str]] = None
+    """
+    Use to return the next page of results from a specific search, the next token
+    can be found on the response object.
+    """
+
+    @field_validator("continuation_tokens")
+    def continuation_tokens_must_be_upper_strings(cls, continuation_tokens):
+        """Validate continuation_tokens match the expected format"""
+        if not continuation_tokens:
+            return continuation_tokens
+
+        for token in continuation_tokens:
+            if token == "":
+                continue
+            if not token.isalpha():
+                raise ValueError(f"Expected continuation tokens to be letters: {token}")
+            if not token.isupper():
+                raise ValueError(
+                    f"Expected continuation tokens to be uppercase: {token}"
+                )
+        return continuation_tokens
+
+
 class Hit(BaseModel):
     """Common model for all search result hits."""
 
@@ -970,7 +1027,7 @@ def extract_schema_name(response_hit: JsonDict) -> Result[str, Error]:
 
 
 class Concept(BaseModel):
-    """As from our Concept Store."""
+    """As from our Concept Store via Vespa."""
 
     id: str  # A canonical ID
     wikibase_id: WikibaseId
