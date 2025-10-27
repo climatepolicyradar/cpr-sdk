@@ -1,6 +1,6 @@
 import re
 from pydantic_core import CoreSchema, core_schema
-from typing import Any, Callable
+from typing import Any, Callable, Generic, TypeVar
 from datetime import datetime
 from enum import Enum
 from typing import Annotated, List, Literal, Optional, Sequence, TypeAlias
@@ -874,14 +874,17 @@ class Family(BaseModel):
         return all(getattr(self, f) == getattr(other, f) for f in fields_to_compare)
 
 
-class SearchResponse(BaseModel):
+R = TypeVar("R")  # Result
+
+
+class SearchResponse(BaseModel, Generic[R]):
     """Relevant results, and search response metadata"""
 
     total_hits: int
-    total_family_hits: int = 0
+    total_result_hits: int = 0
     query_time_ms: Optional[int] = None
     total_time_ms: Optional[int] = None
-    families: Sequence[Family]
+    results: Sequence[R]
     continuation_token: Optional[str] = None
     this_continuation_token: Optional[str] = None
     prev_continuation_token: Optional[str] = None

@@ -12,6 +12,7 @@ from cpr_sdk.models.search import (
     ConceptV2DocumentFilter,
     ConceptV2PassageFilter,
     Document,
+    Family,
     Filters,
     Hit,
     MetadataFilter,
@@ -28,7 +29,7 @@ from cpr_sdk.vespa import build_vespa_request_body
 
 def vespa_search(
     adaptor: VespaSearchAdapter, request: SearchParameters
-) -> SearchResponse:
+) -> SearchResponse[Family]:
     try:
         response = adaptor.search(request)
     except Exception as e:
@@ -41,7 +42,7 @@ def vespa_search(
 
 async def async_vespa_search(
     adaptor: VespaSearchAdapter, request: SearchParameters
-) -> SearchResponse:
+) -> SearchResponse[Family]:
     try:
         response = await adaptor.async_search(request)
     except Exception as e:
@@ -110,9 +111,9 @@ def test_vespa_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")
     response = vespa_search(test_vespa, request)
 
-    assert len(response.families) == response.total_family_hits == 4
+    assert len(response.results) == response.total_result_hits == 4
     assert response.query_time_ms < response.total_time_ms
-    total_passage_count = sum([f.total_passage_hits for f in response.families])
+    total_passage_count = sum([f.total_passage_hits for f in response.results])
     assert total_passage_count == response.total_hits
 
 
@@ -122,9 +123,9 @@ async def test_vespa_async_search_adaptor__works(test_vespa):
     request = SearchParameters(query_string="the")
     response = await async_vespa_search(test_vespa, request)
 
-    assert len(response.families) == response.total_family_hits == 4
+    assert len(response.results) == response.total_result_hits == 4
     assert response.query_time_ms < response.total_time_ms
-    total_passage_count = sum([f.total_passage_hits for f in response.families])
+    total_passage_count = sum([f.total_passage_hits for f in response.results])
     assert total_passage_count == response.total_hits
 
 
@@ -133,7 +134,7 @@ def test_vespa_search_adaptor_relevance_scoring(test_vespa):
     request = SearchParameters(query_string="the")
     response = vespa_search(test_vespa, request)
 
-    for family in response.families:
+    for family in response.results:
         assert isinstance(family.relevance, float)
         for hit in family.hits:
             assert isinstance(hit.relevance, float)
@@ -145,7 +146,7 @@ async def test_vespa_async_search_adaptor_relevance_scoring(test_vespa):
     request = SearchParameters(query_string="the")
     response = await async_vespa_search(test_vespa, request)
 
-    for family in response.families:
+    for family in response.results:
         assert isinstance(family.relevance, float)
         for hit in family.hits:
             assert isinstance(hit.relevance, float)
@@ -156,7 +157,7 @@ def test_vespa_search_adaptor_rank_features(test_vespa):
     request = SearchParameters(query_string="the")
     response = vespa_search(test_vespa, request)
 
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             assert isinstance(hit.rank_features, dict)
 
@@ -167,7 +168,7 @@ async def test_vespa_async_search_adaptor_rank_features(test_vespa):
     request = SearchParameters(query_string="the")
     response = await async_vespa_search(test_vespa, request)
 
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             assert isinstance(hit.rank_features, dict)
 
@@ -180,7 +181,7 @@ def test_vespa_search_adaptor__exact_search(test_vespa):
     response = vespa_search(test_vespa, request)
 
     assert response.total_hits > 0
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if isinstance(hit, Passage):
                 assert "biodiversity" in hit.text_block.lower()
@@ -195,7 +196,7 @@ async def test_vespa_async_search_adaptor__exact_search(test_vespa):
     response = await async_vespa_search(test_vespa, request)
 
     assert response.total_hits > 0
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if isinstance(hit, Passage):
                 assert "biodiversity" in hit.text_block.lower()
@@ -253,7 +254,7 @@ async def test_vespa_async_search_adaptor__is_fast_enough(test_vespa, params):
 def test_vespa_search_adaptor__family_ids(test_vespa, family_ids):
     request = SearchParameters(query_string="the", family_ids=family_ids)
     response = vespa_search(test_vespa, request)
-    got_family_ids = [f.id for f in response.families]
+    got_family_ids = [f.id for f in response.results]
     assert sorted(got_family_ids) == sorted(family_ids)
 
 
@@ -271,7 +272,7 @@ def test_vespa_search_adaptor__family_ids(test_vespa, family_ids):
 async def test_vespa_async_search_adaptor__family_ids(test_vespa, family_ids):
     request = SearchParameters(query_string="the", family_ids=family_ids)
     response = await async_vespa_search(test_vespa, request)
-    got_family_ids = [f.id for f in response.families]
+    got_family_ids = [f.id for f in response.results]
     assert sorted(got_family_ids) == sorted(family_ids)
 
 
@@ -291,7 +292,7 @@ def test_vespa_search_adaptor__document_ids(test_vespa, document_ids):
 
     # As passages are returned we need to collect and deduplicate them to get id list
     got_document_ids = []
-    for fam in response.families:
+    for fam in response.results:
         for doc in fam.hits:
             got_document_ids.append(doc.document_import_id)
     got_document_ids = list(set(got_document_ids))
@@ -316,7 +317,7 @@ async def test_vespa_async_search_adaptor__document_ids(test_vespa, document_ids
 
     # As passages are returned we need to collect and deduplicate them to get id list
     got_document_ids = []
-    for fam in response.families:
+    for fam in response.results:
         for doc in fam.hits:
             got_document_ids.append(doc.document_import_id)
     got_document_ids = list(set(got_document_ids))
@@ -387,7 +388,7 @@ def test_vespa_search_adaptor__hybrid(test_vespa):
     # Was the family searched for in the results.
     # Note that this is a fairly loose test
     got_family_names = []
-    for fam in response.families:
+    for fam in response.results:
         got_family_names.append(fam.hits[0].family_name)
     assert family_name in got_family_names
 
@@ -402,7 +403,7 @@ async def test_vespa_async_search_adaptor__hybrid(test_vespa):
     # Was the family searched for in the results.
     # Note that this is a fairly loose test
     got_family_names = []
-    for fam in response.families:
+    for fam in response.results:
         got_family_names.append(fam.hits[0].family_name)
     assert family_name in got_family_names
 
@@ -411,7 +412,7 @@ async def test_vespa_async_search_adaptor__hybrid(test_vespa):
 def test_vespa_search_adaptor__all(test_vespa):
     request = SearchParameters(query_string="", all_results=True)
     response = vespa_search(test_vespa, request)
-    assert len(response.families) == response.total_family_hits
+    assert len(response.results) == response.total_result_hits
 
     # Filtering should still work
     family_id = "CCLW.family.i00000003.n0000"
@@ -419,8 +420,8 @@ def test_vespa_search_adaptor__all(test_vespa):
         query_string="", all_results=True, family_ids=[family_id]
     )
     response = vespa_search(test_vespa, request)
-    assert len(response.families) == 1
-    assert response.families[0].id == family_id
+    assert len(response.results) == 1
+    assert response.results[0].id == family_id
 
 
 @pytest.mark.vespa
@@ -428,7 +429,7 @@ def test_vespa_search_adaptor__all(test_vespa):
 async def test_vespa_async_search_adaptor__all(test_vespa):
     request = SearchParameters(query_string="", all_results=True)
     response = await async_vespa_search(test_vespa, request)
-    assert len(response.families) == response.total_family_hits
+    assert len(response.results) == response.total_result_hits
 
     # Filtering should still work
     family_id = "CCLW.family.i00000003.n0000"
@@ -436,8 +437,8 @@ async def test_vespa_async_search_adaptor__all(test_vespa):
         query_string="", all_results=True, family_ids=[family_id]
     )
     response = await async_vespa_search(test_vespa, request)
-    assert len(response.families) == 1
-    assert response.families[0].id == family_id
+    assert len(response.results) == 1
+    assert response.results[0].id == family_id
 
 
 @pytest.mark.vespa
@@ -446,7 +447,7 @@ def test_vespa_search_adaptor__exact(test_vespa):
     request = SearchParameters(query_string=query_string, exact_match=True)
     response = vespa_search(test_vespa, request)
     got_family_names = []
-    for fam in response.families:
+    for fam in response.results:
         for doc in fam.hits:
             got_family_names.append(doc.family_name)
     # For an exact query where this term only exists in the family name, we'd expect
@@ -458,7 +459,7 @@ def test_vespa_search_adaptor__exact(test_vespa):
     query_string = "no such string as this can be found in the test documents"
     request = SearchParameters(query_string=query_string, exact_match=True)
     response = vespa_search(test_vespa, request)
-    assert len(response.families) == 0
+    assert len(response.results) == 0
 
 
 @pytest.mark.vespa
@@ -468,7 +469,7 @@ async def test_vespa_async_search_adaptor__exact(test_vespa):
     request = SearchParameters(query_string=query_string, exact_match=True)
     response = await async_vespa_search(test_vespa, request)
     got_family_names = []
-    for fam in response.families:
+    for fam in response.results:
         for doc in fam.hits:
             got_family_names.append(doc.family_name)
     # For an exact query where this term only exists in the family name, we'd expect
@@ -480,7 +481,7 @@ async def test_vespa_async_search_adaptor__exact(test_vespa):
     query_string = "no such string as this can be found in the test documents"
     request = SearchParameters(query_string=query_string, exact_match=True)
     response = await async_vespa_search(test_vespa, request)
-    assert len(response.families) == 0
+    assert len(response.results) == 0
 
 
 @pytest.mark.vespa
@@ -490,7 +491,7 @@ def test_vespa_search_adaptor__sensitive(test_vespa):
     response = vespa_search(test_vespa, request)
 
     # Without being too prescriptive, we'd expect something back for this
-    assert len(response.families) > 0
+    assert len(response.results) > 0
 
 
 @pytest.mark.vespa
@@ -500,7 +501,7 @@ async def test_vespa_async_search_adaptor__sensitive(test_vespa):
     response = await async_vespa_search(test_vespa, request)
 
     # Without being too prescriptive, we'd expect something back for this
-    assert len(response.families) > 0
+    assert len(response.results) > 0
 
 
 @pytest.mark.parametrize(
@@ -523,8 +524,8 @@ def test_vespa_search_adaptor__limits(test_vespa, family_limit, max_hits_per_fam
     )
     response = vespa_search(test_vespa, request)
 
-    assert len(response.families) == family_limit
-    for fam in response.families:
+    assert len(response.results) == family_limit
+    for fam in response.results:
         assert len(fam.hits) <= max_hits_per_family
 
 
@@ -551,8 +552,8 @@ async def test_vespa_async_search_adaptor__limits(
     )
     response = await async_vespa_search(test_vespa, request)
 
-    assert len(response.families) == family_limit
-    for fam in response.families:
+    assert len(response.results) == family_limit
+    for fam in response.results:
         assert len(fam.hits) <= max_hits_per_family
 
 
@@ -587,10 +588,10 @@ def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
         max_hits_per_family=max_hits_per_family,
     )
     response = vespa_search(test_vespa, request)
-    first_family_ids = [f.id for f in response.families]
+    first_family_ids = [f.id for f in response.results]
     family_continuation = response.continuation_token
-    assert len(response.families) == 2
-    assert response.total_family_hits == 4
+    assert len(response.results) == 2
+    assert response.total_result_hits == 4
 
     # Family increment
     request = SearchParameters(
@@ -601,11 +602,11 @@ def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
     )
     response = vespa_search(test_vespa, request)
     prev_family_continuation = response.prev_continuation_token
-    assert len(response.families) == 2
-    assert response.total_family_hits == 4
+    assert len(response.results) == 2
+    assert response.total_result_hits == 4
 
     # Family should have changed
-    second_family_ids = [f.id for f in response.families]
+    second_family_ids = [f.id for f in response.results]
     assert sorted(first_family_ids) != sorted(second_family_ids)
     # As this is the end of the results we also expect no more tokens
     assert response.continuation_token is None
@@ -618,7 +619,7 @@ def test_vespa_search_adaptor__continuation_tokens__families(test_vespa):
         continuation_tokens=[prev_family_continuation],
     )
     response = vespa_search(test_vespa, request)
-    prev_family_ids = [f.id for f in response.families]
+    prev_family_ids = [f.id for f in response.results]
     assert prev_family_ids == first_family_ids
 
 
@@ -636,10 +637,10 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families(test_ve
         max_hits_per_family=max_hits_per_family,
     )
     response = await async_vespa_search(test_vespa, request)
-    first_family_ids = [f.id for f in response.families]
+    first_family_ids = [f.id for f in response.results]
     family_continuation = response.continuation_token
-    assert len(response.families) == 2
-    assert response.total_family_hits == 4
+    assert len(response.results) == 2
+    assert response.total_result_hits == 4
 
     # Family increment
     request = SearchParameters(
@@ -650,11 +651,11 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families(test_ve
     )
     response = await async_vespa_search(test_vespa, request)
     prev_family_continuation = response.prev_continuation_token
-    assert len(response.families) == 2
-    assert response.total_family_hits == 4
+    assert len(response.results) == 2
+    assert response.total_result_hits == 4
 
     # Family should have changed
-    second_family_ids = [f.id for f in response.families]
+    second_family_ids = [f.id for f in response.results]
     assert sorted(first_family_ids) != sorted(second_family_ids)
     # As this is the end of the results we also expect no more tokens
     assert response.continuation_token is None
@@ -667,7 +668,7 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families(test_ve
         continuation_tokens=[prev_family_continuation],
     )
     response = await async_vespa_search(test_vespa, request)
-    prev_family_ids = [f.id for f in response.families]
+    prev_family_ids = [f.id for f in response.results]
     assert prev_family_ids == first_family_ids
 
 
@@ -686,15 +687,15 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
     initial_response = vespa_search(test_vespa, request)
 
     # Collect family & hits for comparison later
-    initial_family_id = initial_response.families[0].id
+    initial_family_id = initial_response.results[0].id
     initial_passages = [
         h.text_block_id
-        for h in initial_response.families[0].hits
+        for h in initial_response.results[0].hits
         if isinstance(h, Passage)
     ]
 
     this_continuation = initial_response.this_continuation_token
-    passage_continuation = initial_response.families[0].continuation_token
+    passage_continuation = initial_response.results[0].continuation_token
 
     # Passage Increment
     request = SearchParameters(
@@ -704,14 +705,14 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
         continuation_tokens=[this_continuation, passage_continuation],
     )
     response = vespa_search(test_vespa, request)
-    prev_passage_continuation = response.families[0].prev_continuation_token
+    prev_passage_continuation = response.results[0].prev_continuation_token
 
     # Family should not have changed
-    assert response.families[0].id == initial_family_id
+    assert response.results[0].id == initial_family_id
 
     # But Passages SHOULD have changed
     new_passages = sorted(
-        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+        [h.text_block_id for h in response.results[0].hits if isinstance(h, Passage)]
     )
     assert sorted(new_passages) != sorted(initial_passages)
 
@@ -723,9 +724,9 @@ def test_vespa_search_adaptor__continuation_tokens__passages(test_vespa):
         continuation_tokens=[this_continuation, prev_passage_continuation],
     )
     response = vespa_search(test_vespa, request)
-    assert response.families[0].id == initial_family_id
+    assert response.results[0].id == initial_family_id
     prev_passages = sorted(
-        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+        [h.text_block_id for h in response.results[0].hits if isinstance(h, Passage)]
     )
     assert sorted(prev_passages) != sorted(new_passages)
     assert sorted(prev_passages) == sorted(initial_passages)
@@ -747,15 +748,15 @@ async def test_vespa_async_search_adaptor__continuation_tokens__passages(test_ve
     initial_response = await async_vespa_search(test_vespa, request)
 
     # Collect family & hits for comparison later
-    initial_family_id = initial_response.families[0].id
+    initial_family_id = initial_response.results[0].id
     initial_passages = [
         h.text_block_id
-        for h in initial_response.families[0].hits
+        for h in initial_response.results[0].hits
         if isinstance(h, Passage)
     ]
 
     this_continuation = initial_response.this_continuation_token
-    passage_continuation = initial_response.families[0].continuation_token
+    passage_continuation = initial_response.results[0].continuation_token
 
     # Passage Increment
     request = SearchParameters(
@@ -765,14 +766,14 @@ async def test_vespa_async_search_adaptor__continuation_tokens__passages(test_ve
         continuation_tokens=[this_continuation, passage_continuation],
     )
     response = await async_vespa_search(test_vespa, request)
-    prev_passage_continuation = response.families[0].prev_continuation_token
+    prev_passage_continuation = response.results[0].prev_continuation_token
 
     # Family should not have changed
-    assert response.families[0].id == initial_family_id
+    assert response.results[0].id == initial_family_id
 
     # But Passages SHOULD have changed
     new_passages = sorted(
-        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+        [h.text_block_id for h in response.results[0].hits if isinstance(h, Passage)]
     )
     assert sorted(new_passages) != sorted(initial_passages)
 
@@ -784,9 +785,9 @@ async def test_vespa_async_search_adaptor__continuation_tokens__passages(test_ve
         continuation_tokens=[this_continuation, prev_passage_continuation],
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.families[0].id == initial_family_id
+    assert response.results[0].id == initial_family_id
     prev_passages = sorted(
-        [h.text_block_id for h in response.families[0].hits if isinstance(h, Passage)]
+        [h.text_block_id for h in response.results[0].hits if isinstance(h, Passage)]
     )
     assert sorted(prev_passages) != sorted(new_passages)
     assert sorted(prev_passages) == sorted(initial_passages)
@@ -825,7 +826,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[
             response_two.this_continuation_token,
-            response_two.families[0].continuation_token,
+            response_two.results[0].continuation_token,
         ],
     )
     response_three = vespa_search(test_vespa, request_three)
@@ -836,7 +837,7 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[
             response_two.this_continuation_token,
-            response_three.families[0].continuation_token,
+            response_three.results[0].continuation_token,
         ],
     )
     response_four = vespa_search(test_vespa, request_four)
@@ -846,28 +847,28 @@ def test_vespa_search_adaptor__continuation_tokens__families_and_passages(
         sorted(
             [
                 h.text_block_id
-                for h in response_one.families[0].hits
+                for h in response_one.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_two.families[0].hits
+                for h in response_two.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_three.families[0].hits
+                for h in response_three.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_four.families[0].hits
+                for h in response_four.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
@@ -908,7 +909,7 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families_and_pas
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[
             response_two.this_continuation_token,
-            response_two.families[0].continuation_token,
+            response_two.results[0].continuation_token,
         ],
     )
     response_three = await async_vespa_search(test_vespa, request_three)
@@ -919,7 +920,7 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families_and_pas
         max_hits_per_family=max_hits_per_family,
         continuation_tokens=[
             response_two.this_continuation_token,
-            response_three.families[0].continuation_token,
+            response_three.results[0].continuation_token,
         ],
     )
     response_four = await async_vespa_search(test_vespa, request_four)
@@ -929,28 +930,28 @@ async def test_vespa_async_search_adaptor__continuation_tokens__families_and_pas
         sorted(
             [
                 h.text_block_id
-                for h in response_one.families[0].hits
+                for h in response_one.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_two.families[0].hits
+                for h in response_two.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_three.families[0].hits
+                for h in response_three.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
         != sorted(
             [
                 h.text_block_id
-                for h in response_four.families[0].hits
+                for h in response_four.results[0].hits
                 if isinstance(h, Passage)
             ]
         )
@@ -994,7 +995,7 @@ def test_vespa_search_no_passages_search(test_vespa):
         test_vespa,
         SearchParameters(all_results=True, documents_only=True),
     )
-    for family in no_passages.families:
+    for family in no_passages.results:
         for hit in family.hits:
             assert isinstance(hit, Document)
 
@@ -1003,7 +1004,7 @@ def test_vespa_search_no_passages_search(test_vespa):
         SearchParameters(all_results=True),
     )
     found_a_passage = False
-    for family in with_passages.families:
+    for family in with_passages.results:
         for hit in family.hits:
             if isinstance(hit, Passage):
                 found_a_passage = True
@@ -1017,7 +1018,7 @@ async def test_vespa_async_search_no_passages_search(test_vespa):
         test_vespa,
         SearchParameters(all_results=True, documents_only=True),
     )
-    for family in no_passages.families:
+    for family in no_passages.results:
         for hit in family.hits:
             assert isinstance(hit, Document)
 
@@ -1026,7 +1027,7 @@ async def test_vespa_async_search_no_passages_search(test_vespa):
         SearchParameters(all_results=True),
     )
     found_a_passage = False
-    for family in with_passages.families:
+    for family in with_passages.results:
         for hit in family.hits:
             if isinstance(hit, Passage):
                 found_a_passage = True
@@ -1056,8 +1057,8 @@ def test_vespa_search_adaptor__corpus_type_name(
         corpus_type_names=corpus_type_names,
     )
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
@@ -1088,8 +1089,8 @@ async def test_vespa_async_search_adaptor__corpus_type_name(
         corpus_type_names=corpus_type_names,
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.corpus_type_name not in [None, []]
@@ -1139,8 +1140,8 @@ def test_vespa_search_adaptor__concept_filter(test_vespa, concept_filters: list[
         documents_only=False,
     )
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             assert hit.concepts and hit.concepts != []
             assert all(
@@ -1219,8 +1220,8 @@ async def test_vespa_async_search_adaptor__concept_filter(
         documents_only=False,
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             assert hit.concepts and hit.concepts != []
             assert all(
@@ -1276,8 +1277,8 @@ def test_vespa_search_adaptor__corpus_import_ids(
         corpus_import_ids=corpus_import_ids,
     )
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             assert hit.corpus_import_id not in [None, []]
             assert hit.corpus_import_id in corpus_import_ids
@@ -1307,8 +1308,8 @@ async def test_vespa_async_search_adaptor__corpus_import_ids(
         corpus_import_ids=corpus_import_ids,
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             assert hit.corpus_import_id not in [None, []]
             assert hit.corpus_import_id in corpus_import_ids
@@ -1341,8 +1342,8 @@ def test_vespa_search_adaptor__metadata(test_vespa, query_string, metadata_filte
         ],
     )
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.metadata not in [None, []]
@@ -1380,8 +1381,8 @@ async def test_vespa_async_search_adaptor__metadata(
         ],
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         assert len(family.hits) > 0
         for hit in family.hits:
             assert hit.metadata not in [None, []]
@@ -1410,8 +1411,8 @@ def test_vespa_search_adaptor__filters(test_vespa, query_string, filters):
         filters=Filters.model_validate(filters),
     )
     response = vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             for filter_name, filter_values in filters.items():
                 attribute_value_from_hit = getattr(hit, filter_name)
@@ -1441,8 +1442,8 @@ async def test_vespa_async_search_adaptor__filters(test_vespa, query_string, fil
         filters=Filters.model_validate(filters),
     )
     response = await async_vespa_search(test_vespa, request)
-    assert response.total_family_hits > 0
-    for family in response.families:
+    assert response.total_result_hits > 0
+    for family in response.results:
         for hit in family.hits:
             for filter_name, filter_values in filters.items():
                 attribute_value_from_hit = getattr(hit, filter_name)
@@ -1576,7 +1577,7 @@ def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
         ),
     )
 
-    assert response.families != response_null_field_weight.families
+    assert response.results != response_null_field_weight.results
 
 
 @pytest.mark.vespa
@@ -1621,7 +1622,7 @@ async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_s
         ),
     )
 
-    assert response.families != response_null_field_weight.families
+    assert response.results != response_null_field_weight.results
 
 
 @pytest.mark.vespa
@@ -1758,12 +1759,10 @@ def test_vespa_search_adaptor__concept_counts(
     if sort_order:
         request.sort_order = sort_order
     response = vespa_search(test_vespa, request)
-    assert (
-        set([family.id for family in response.families]) == expected_response_families
-    )
+    assert set([family.id for family in response.results]) == expected_response_families
 
     counts = []
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if hit.concept_counts:
                 counts.append(max(hit.concept_counts.values()))
@@ -1910,12 +1909,10 @@ async def test_vespa_async_search_adaptor__concept_counts(
     if sort_order:
         request.sort_order = sort_order
     response = await async_vespa_search(test_vespa, request)
-    assert (
-        set([family.id for family in response.families]) == expected_response_families
-    )
+    assert set([family.id for family in response.results]) == expected_response_families
 
     counts = []
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if hit.concept_counts:
                 counts.append(max(hit.concept_counts.values()))
@@ -1974,7 +1971,7 @@ def test_vespa_search_adaptor__concept_counts_with_other_filters(
 ) -> None:
     response = vespa_search(test_vespa, search_parameters)
 
-    assert response.total_family_hits > 0
+    assert response.total_result_hits > 0
 
 
 @pytest.mark.vespa
@@ -2025,7 +2022,7 @@ async def test_vespa_async_search_adaptor__concept_counts_with_other_filters(
 ) -> None:
     response = await async_vespa_search(test_vespa, search_parameters)
 
-    assert response.total_family_hits > 0
+    assert response.total_result_hits > 0
 
 
 @pytest.mark.skip(
@@ -2051,10 +2048,10 @@ def test_acronym_replacement(test_vespa):
     )
 
     assert "Nationally Determined Contribution" in str(
-        ndc_response.families[0].hits[0].family_name
+        ndc_response.results[0].hits[0].family_name
     )
     assert "Nationally Determined Contribution" not in str(
-        ndc_response_no_replacement.families[0].hits[0].family_name
+        ndc_response_no_replacement.results[0].hits[0].family_name
     )
 
     methane_ch4_response = vespa_search(
@@ -2072,17 +2069,15 @@ def test_acronym_replacement(test_vespa):
         ),
     )
 
-    assert isinstance(methane_ch4_response.families[0].hits[0], Passage)
-    assert "methane" in methane_ch4_response.families[0].hits[0].text_block.lower()
+    assert isinstance(methane_ch4_response.results[0].hits[0], Passage)
+    assert "methane" in methane_ch4_response.results[0].hits[0].text_block.lower()
 
     assert (
         not (
-            isinstance(methane_ch4_response_no_replacement.families[0].hits[0], Passage)
+            isinstance(methane_ch4_response_no_replacement.results[0].hits[0], Passage)
         )
         or "methane"
-        not in methane_ch4_response_no_replacement.families[0]
-        .hits[0]
-        .text_block.lower()
+        not in methane_ch4_response_no_replacement.results[0].hits[0].text_block.lower()
     )
 
 
@@ -2104,7 +2099,7 @@ def test_acronym_replacement_exact_match_search(test_vespa, caplog):
     )
 
     assert "Exact match and replace_acronyms are incompatible." in caplog.text
-    assert len(ndc_response.families) == 0
+    assert len(ndc_response.results) == 0
 
 
 @pytest.mark.vespa
@@ -2159,11 +2154,11 @@ def test_vespa_search_adaptor__concept_v2_passage_filter(
     )
     response = vespa_search(test_vespa, request)
 
-    actual_documents = {family.id for family in response.families}
+    actual_documents = {family.id for family in response.results}
     assert actual_documents == expected_documents
 
     # Verify concepts_v2 deserialization in passage spans
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if isinstance(hit, Passage) and hit.spans:
                 # At least some passages should have spans with concepts_v2
@@ -2258,7 +2253,7 @@ def test_vespa_search_adaptor__concept_v2_document_filter(
 
     response_family_ids = {
         hit.family_slug
-        for family in response.families
+        for family in response.results
         for hit in family.hits
         if hit.family_slug
     }
@@ -2270,11 +2265,11 @@ def test_vespa_search_adaptor__concept_v2_document_filter(
     if "AF.family.009MHNWR.0" in expected_families:
         # At minimum should include our test family if we're filtering for its concepts
         if not any(getattr(f, "negate", False) for f in concept_v2_document_filters):
-            assert response.total_family_hits > 0
+            assert response.total_result_hits > 0
 
     # Verify concepts_v2 deserialization at document level
     found_concepts_v2 = False
-    for family in response.families:
+    for family in response.results:
         for hit in family.hits:
             if isinstance(hit, Document) and hit.concepts_v2:
                 found_concepts_v2 = True
@@ -2324,13 +2319,13 @@ async def test_vespa_async_search_adaptor__concept_v2_document_filter(
 
     # Should find documents with the specified v2 concept counts
     assert (
-        response.total_family_hits >= 0
+        response.total_result_hits >= 0
     )  # May be 0 if concept doesn't exist in test data
 
     # Verify concepts_v2 deserialization at document level
-    if response.total_family_hits > 0:
+    if response.total_result_hits > 0:
         found_concepts_v2 = False
-        for family in response.families:
+        for family in response.results:
             for hit in family.hits:
                 if isinstance(hit, Document) and hit.concepts_v2:
                     found_concepts_v2 = True
@@ -2363,14 +2358,14 @@ def test_vespa_search_adaptor__combined_v2_concept_filters(test_vespa):
 
     # Should find results that match both filters
     # Results may be limited due to the combined filtering
-    assert response.total_family_hits >= 0
+    assert response.total_result_hits >= 0
 
     # Verify both passage and document concepts_v2 deserialization
-    if response.total_family_hits > 0:
+    if response.total_result_hits > 0:
         found_document_concepts_v2 = False
         found_passage_concepts_v2 = False
 
-        for family in response.families:
+        for family in response.results:
             for hit in family.hits:
                 # Check document-level concepts_v2
                 if isinstance(hit, Document) and hit.concepts_v2:
@@ -2409,13 +2404,13 @@ def test_vespa_search_adaptor__v2_concept_with_query_string(test_vespa):
     response = vespa_search(test_vespa, request)
 
     # Should find results that match both the query and the concept filter
-    assert response.total_family_hits >= 0
+    assert response.total_result_hits >= 0
     assert response.query_time_ms > 0  # Ensure query was processed
 
     # Verify concepts_v2 deserialization in passage spans
-    if response.total_family_hits > 0:
+    if response.total_result_hits > 0:
         found_concepts_v2 = False
-        for family in response.families:
+        for family in response.results:
             for hit in family.hits:
                 if isinstance(hit, Passage) and hit.spans:
                     for span in hit.spans:
