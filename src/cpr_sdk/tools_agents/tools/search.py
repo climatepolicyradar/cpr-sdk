@@ -53,7 +53,7 @@ def search_database(
 
     response: SearchResponse = search_adapter.search(search_parameters)
 
-    all_results = [hit for family in response.families for hit in family.hits]
+    all_results = [hit for family in response.results for hit in family.hits]
 
     if return_type == "documents":
         return [hit for hit in all_results if isinstance(hit, Document)]
@@ -87,7 +87,7 @@ def search_for_documents_by_title(
     search_adapter = _get_search_adapter()
     response: SearchResponse = search_adapter.search(search_parameters)
 
-    all_results = [hit for family in response.families for hit in family.hits]
+    all_results = [hit for family in response.results for hit in family.hits]
 
     # We set the limit here as the limit in the query doesn't seem to work.
     # TODO: Investigate why the limit in the query doesn't work.
@@ -114,10 +114,10 @@ def search_within_document(
 
     response: SearchResponse = search_adapter.search(search_parameters)
 
-    if len(response.families) == 0:
+    if len(response.results) == 0:
         return []
 
     hits: list[Passage] = [
-        _hit for _hit in response.families[0].hits if isinstance(_hit, Passage)
+        _hit for _hit in response.results[0].hits if isinstance(_hit, Passage)
     ]
     return hits

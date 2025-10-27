@@ -4,7 +4,7 @@ from typing import Any, List, NamedTuple, Optional
 
 import yaml
 from vespa.exceptions import VespaError
-from vespa.io import VespaResponse
+from vespa.io import VespaQueryResponse
 
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import Family, Hit, SearchParameters, SearchResponse
@@ -148,7 +148,7 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
     return vespa_request_body
 
 
-def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
+def parse_vespa_response(vespa_response: VespaQueryResponse) -> SearchResponse[Family]:
     """
     Parse a vespa response into a SearchResponse object
 
@@ -156,7 +156,7 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
     :param VespaResponse vespa_response: The response from the vespa instance
     :raises FetchError: if the vespa response status code is not 200, indicating an
         error in the query, or the vespa instance
-    :return SearchResponse: a list of families, with response metadata
+    :return SearchResponse[Family]: a list of families, with response metadata
     """
     if vespa_response.status_code != 200:
         raise FetchError(
@@ -194,11 +194,11 @@ def parse_vespa_response(vespa_response: VespaResponse) -> SearchResponse:
     )
     this_family_continuation = dig(root, "children", 0, "continuation", "this")
     total_hits = dig(root, "fields", "totalCount", default=0)
-    total_family_hits = dig(root, "children", 0, "fields", "count()", default=0)
+    total_result_hits = dig(root, "children", 0, "fields", "count()", default=0)
     return SearchResponse(
         total_hits=total_hits,
-        total_family_hits=total_family_hits,
-        families=families,
+        total_result_hits=total_result_hits,
+        results=families,
         continuation_token=next_family_continuation,
         this_continuation_token=this_family_continuation,
         prev_continuation_token=prev_family_continuation,

@@ -193,7 +193,7 @@ Note that `this_continuation_token` is used to mark the current continuation of 
 follow_up_response = adaptor.search(follow_up_request)
 
 this_token = follow_up_response.this_continuation_token
-passage_token = follow_up_response.families[0].continuation_token
+passage_token = follow_up_response.results[0].continuation_token
 
 follow_up_request = SearchParameters(
     query_string="forest fires"

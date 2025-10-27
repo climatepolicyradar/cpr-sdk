@@ -31,7 +31,7 @@ def get_rank_feature_names(search_response: SearchResponse) -> list[str]:
     defined in the Vespa schema.
     """
     rank_feature_names = set()
-    for family in search_response.families:
+    for family in search_response.results:
         for hit in family.hits:
             if hit.rank_features:
                 rank_feature_names.update(
@@ -100,8 +100,8 @@ def main(
     # rprint(search_response_raw.json)
     # breakpoint()
 
-    search_response = parse_vespa_response(search_response_raw)
-    n_results = len(search_response.families)
+    search_response = parse_vespa_response(search_response_raw)  # type: ignore[arg-type]
+    n_results = len(search_response.results)
     rank_feature_names = get_rank_feature_names(search_response)
 
     pager = console.pager(styles=True, links=True) if page_results else nullcontext()
@@ -123,7 +123,7 @@ def main(
         table.add_column("Hits")
         table.add_column("Slug")
 
-        for family in search_response.families:
+        for family in search_response.results:
             family_data = family.hits[0].model_dump()
             table.add_row(
                 family_data["family_name"],
@@ -137,7 +137,7 @@ def main(
 
         console.print(Markdown("# Results"))
 
-        for idx, family in enumerate(search_response.families, start=1):
+        for idx, family in enumerate(search_response.results, start=1):
             family_data = family.hits[0].model_dump()
             console.rule(
                 title=f"Family {idx}/{n_results}: '{family_data['family_name']}' ({family_data['family_geography']}). Score: {round(family_data['relevance'], 3)}"

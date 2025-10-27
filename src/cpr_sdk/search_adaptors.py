@@ -28,23 +28,25 @@ class SearchAdapter(ABC):
     """Base class for all search adapters."""
 
     @abstractmethod
-    def search(self, parameters: SearchParameters) -> SearchResponse:
+    def search(self, parameters: SearchParameters) -> SearchResponse[Family]:
         """
         Search a dataset
 
         :param SearchParameters parameters: a search request object
-        :return SearchResponse: a list of parent families, each containing relevant
+        :return SearchResponse[Family]: a list of parent families, each containing relevant
             child documents and passages
         """
         raise NotImplementedError
 
     @abstractmethod
-    async def async_search(self, parameters: SearchParameters) -> SearchResponse:
+    async def async_search(
+        self, parameters: SearchParameters
+    ) -> SearchResponse[Family]:
         """
         Search a dataset asynchronously
 
         :param SearchParameters parameters: a search request object
-        :return SearchResponse: a list of parent families, each containing relevant
+        :return SearchResponse[Family]: a list of parent families, each containing relevant
             child documents and passages
         """
         raise NotImplementedError
@@ -102,12 +104,12 @@ class VespaSearchAdapter(SearchAdapter):
             self.client = Vespa(url=instance_url, cert=cert_path, key=key_path)
 
     @override
-    def search(self, parameters: SearchParameters) -> SearchResponse:
+    def search(self, parameters: SearchParameters) -> SearchResponse[Family]:
         """
         Search a vespa instance
 
         :param SearchParameters parameters: a search request object
-        :return SearchResponse: a list of families, with response metadata
+        :return SearchResponse[Family]: a list of families, with response metadata
         """
         total_time_start = time.time()
         vespa_request_body = build_vespa_request_body(parameters)
@@ -131,12 +133,14 @@ class VespaSearchAdapter(SearchAdapter):
         return response
 
     @override
-    async def async_search(self, parameters: SearchParameters) -> SearchResponse:
+    async def async_search(
+        self, parameters: SearchParameters
+    ) -> SearchResponse[Family]:
         """
         Search a vespa instance asynchronously
 
         :param SearchParameters parameters: a search request object
-        :return SearchResponse: a list of families, with response metadata
+        :return SearchResponse[Family]: a list of families, with response metadata
         """
         total_time_start = time.time()
         vespa_request_body = build_vespa_request_body(parameters)

@@ -102,7 +102,7 @@ def test_whether_invalid_document_id_raises_value_error():
 def test_whether_empty_response_is_parsed_correctly(empty_vespa_search_response):
     response = parse_vespa_response(vespa_response=empty_vespa_search_response)
     assert response.total_hits == 0
-    assert response.families == []
+    assert response.results == []
     assert response.continuation_token is None
 
 
