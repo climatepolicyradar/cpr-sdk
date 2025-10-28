@@ -12,7 +12,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 license = "LICENSE"
-requires-python = ">=3.10,<3.11"
+requires-python = ">=3.13,<3.14"
 dependencies = [
   "pydantic>=2.10.4,<3",
   "boto3>=1.35.86,<2",
@@ -86,7 +86,7 @@ markers = ["vespa", "search_test"]
 
 [tool.black-jupyter]
 line-length = 88
-target-version = ["py39"]
+target-version = ["py310"]
 
 [tool.ruff]
 line-length = 88
