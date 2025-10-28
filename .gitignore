@@ -148,3 +148,5 @@ dmypy.json
 .idea/
 
 search_test_report.html
+
+tmp/
