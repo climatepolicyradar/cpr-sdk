@@ -45,13 +45,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs:
-      [
-        precommit-checks,
-        fixme-checks,
-        placeholder-version-checks,
-        package-version-checks,
-      ]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v5
@@ -61,7 +54,13 @@ jobs:
 
   test-publish:
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [
+      test,
+      precommit-checks,
+      fixme-checks,
+      placeholder-version-checks,
+      package-version-checks,
+    ]
     timeout-minutes: 10
     steps:
       - name: Check out repository code
