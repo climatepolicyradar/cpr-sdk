@@ -612,13 +612,14 @@ class BaseDocument(BaseModel):
 
         spans_unique = sorted(spans_unique, key=lambda span: span.text_block_text_hash)
 
-        for block_text_hash, spans in itertools.groupby(
+        for block_text_hash, spans_iter in itertools.groupby(
             spans_unique, key=lambda span: span.text_block_text_hash
-        ):  # type: ignore
+        ):
+            spans = list(spans_iter)
             idxs = self._text_block_idx_hash_map[block_text_hash]
             for idx in idxs:
                 try:
-                    self.text_blocks[idx]._add_spans(
+                    _ = self.text_blocks[idx]._add_spans(
                         spans, raise_on_error=raise_on_error, skip_check=True
                     )
                 except Exception as e:
