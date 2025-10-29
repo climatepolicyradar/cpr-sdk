@@ -1077,7 +1077,7 @@ def test_parse_get_concept_response():
             subconcept_of=["njhxa72q"],
             has_subconcept=[],
             related_concepts=[],
-            recursive_concept_of=None,
+            recursive_subconcept_of=None,
             recursive_has_subconcept=None,
             response_raw={
                 "pathId": "/document/v1/doc_search/concept/docid/Q730.hzaw3hdg",
@@ -1118,7 +1118,7 @@ def test_parse_query_concept_response():
             subconcept_of=["njhxa72q"],
             has_subconcept=[],
             related_concepts=[],
-            recursive_concept_of=None,
+            recursive_subconcept_of=None,
             recursive_has_subconcept=None,
             response_raw={
                 "id": "id:doc_search:concept::Q730.hzaw3hdg",
