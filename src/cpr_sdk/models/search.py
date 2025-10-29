@@ -1074,7 +1074,7 @@ class Concept(BaseModel):
     related_concepts: Sequence[str] = Field(
         default_factory=list, description="List of related concept IDs"
     )
-    recursive_concept_of: Sequence[str] | None = Field(
+    recursive_subconcept_of: Sequence[str] | None = Field(
         default=None,
         description="List of all parent concept IDs, recursively up the hierarchy",
     )
