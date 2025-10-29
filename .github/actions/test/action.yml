@@ -4,19 +4,6 @@ description: Run tests
 runs:
   using: composite
   steps:
-    - name: Check out repository code
-      uses: actions/checkout@v4
-
-    - name: Install poetry
-      shell: bash
-      run: pipx install poetry
-
-    - name: Install python or load from cache with dependencies
-      uses: actions/setup-python@v5
-      with:
-        python-version-file: pyproject.toml
-        cache: poetry
-
     - name: Install dependencies
       shell: bash
       run: make install
