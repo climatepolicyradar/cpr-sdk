@@ -11,6 +11,15 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v5
 
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install python or load from cache with dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: pyproject.toml
+          cache: poetry
+
       - name: Run pre-commit checks
         uses: ./.github/actions/precommit-checks
 
@@ -53,6 +62,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v5
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install python or load from cache with dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: pyproject.toml
+          cache: poetry
 
       - name: Run tests
         uses: ./.github/actions/test
