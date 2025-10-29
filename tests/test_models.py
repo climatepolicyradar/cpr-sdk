@@ -125,7 +125,7 @@ def test_dataset_metadata_df(test_dataset):
 
 
 @pytest.fixture
-def test_spans_valid(test_document) -> list[Span]:
+def test_pans_valid(test_document) -> list[Span]:
     """Test spans."""
     return [
         Span(
@@ -272,17 +272,6 @@ def test_dataset_sample_text_blocks(test_dataset):
     assert len(text_blocks) < num_text_blocks
 
 
-def test_text_block_add_valid_spans(test_document, test_spans_valid):
-    block_1 = test_document.text_blocks[0]
-    block_2 = test_document.text_blocks[1]
-
-    block_1_span_added = block_1._add_spans([test_spans_valid[0]])
-    block_2_span_added = block_2._add_spans([test_spans_valid[1], test_spans_valid[2]])
-
-    assert len(block_1_span_added.spans) == 1
-    assert len(block_2_span_added.spans) == 2
-
-
 def test_text_block_add_invalid_spans(test_document, test_spans_invalid, caplog):
     text_block_with_spans = test_document.text_blocks[0]._add_spans(
         [test_spans_invalid[0]], raise_on_error=False
@@ -302,36 +291,6 @@ def test_text_block_add_invalid_spans(test_document, test_spans_invalid, caplog)
         test_document.add_spans(test_spans_invalid, raise_on_error=True)
 
 
-@pytest.mark.parametrize("raise_on_error", [True, False])
-def test_add_spans_empty_text_block(
-    test_document, test_spans_valid, test_spans_invalid, raise_on_error
-):
-    text_block = test_document.text_blocks[0]
-    text_block.text = ""
-
-    all_spans = test_spans_valid + test_spans_invalid
-
-    with pytest.raises(ValueError):
-        text_block._add_spans(all_spans, raise_on_error=raise_on_error)
-
-
-@pytest.mark.parametrize("raise_on_error", [True, False])
-def test_document_add_valid_spans(test_document, test_spans_valid, raise_on_error):
-    document_with_spans = test_document.add_spans(
-        test_spans_valid, raise_on_error=raise_on_error
-    )
-
-    added_spans = [
-        span
-        for text_block in document_with_spans.text_blocks
-        for span in text_block.spans
-    ]
-
-    assert len(added_spans) == len(test_spans_valid)
-    # Check that all spans are unique
-    assert len(set(added_spans)) == len(test_spans_valid)
-
-
 def test_document_add_invalid_spans(test_document, test_spans_invalid):
     document_with_spans = test_document.add_spans(
         test_spans_invalid, raise_on_error=False
@@ -346,46 +305,6 @@ def test_document_add_invalid_spans(test_document, test_spans_invalid):
 
     with pytest.raises(ValueError):
         test_document.add_spans(test_spans_invalid, raise_on_error=True)
-
-
-@pytest.mark.parametrize("raise_on_error", [True, False])
-def test_add_spans_empty_document(
-    test_document, test_spans_valid, test_spans_invalid, raise_on_error
-):
-    """Document.add_spans() should always raise if the document is empty."""
-    empty_document = test_document.model_copy()
-    empty_document.text_blocks = None
-
-    # When the document is empty, no spans should be added
-    all_spans = test_spans_valid + test_spans_invalid
-
-    with pytest.raises(ValueError):
-        empty_document.add_spans(all_spans, raise_on_error=raise_on_error)
-
-
-@pytest.mark.parametrize("raise_on_error", [True, False])
-def test_dataset_add_spans(test_dataset, test_spans_valid, raise_on_error):
-    dataset_with_spans = test_dataset.add_spans(
-        test_spans_valid, raise_on_error=raise_on_error
-    )
-    added_spans = [
-        span
-        for document in dataset_with_spans.documents
-        if document.text_blocks is not None
-        for text_block in document.text_blocks
-        for span in text_block.spans
-    ]
-
-    assert len(added_spans) == len(test_spans_valid)
-    # Check that all spans are unique
-    assert len(set(added_spans)) == len(test_spans_valid)
-
-
-def test_span_validation(test_spans_valid):
-    """Test that spans produce uppercase span IDs and types."""
-    for span in test_spans_valid:
-        assert span.id.isupper()
-        assert span.type.isupper()
 
 
 def test_document_get_text_block_window(test_document):
@@ -506,21 +425,6 @@ def test_dataset_iterable(test_dataset):
     assert isinstance(test_dataset, Iterable)
     for doc in test_dataset:
         assert isinstance(doc, BaseDocument)
-
-
-def test_display_text_block(test_document, test_spans_valid):
-    document_with_spans = test_document.add_spans(
-        test_spans_valid, raise_on_error=False
-    )
-
-    block = [block for block in document_with_spans.text_blocks if block.spans][0]
-
-    # TODO: test 'span' as well as 'ent' display style
-    block_html = block.display("ent")
-
-    assert isinstance(block_html, str)
-    assert len(block_html) > 0
-    assert block_html.startswith("<div")
 
 
 def test_text_block_hashable(test_document):

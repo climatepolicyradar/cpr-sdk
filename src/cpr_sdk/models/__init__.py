@@ -400,64 +400,6 @@ class TextBlock(BaseModel):
         # Return last token index if character index is at the end of the document
         return len(doc) - 1
 
-    def display(self, style: Literal["ent", "span"] = "span", nlp=None) -> str:
-        """
-        Use spacy to display any annotations on the text block.
-
-        :return str: HTML string of text block with annotations
-        """
-        try:
-            from spacy import displacy
-        except ImportError as e:
-            raise ImportError(
-                "spacy is required to use the display method. Please install it with `pip install spacy`."
-            ) from e
-
-        if style == "ent":
-            ents = [
-                {"start": span.start_idx, "end": span.end_idx, "label": span.type}
-                for span in self._spans
-            ]
-
-            block_object = [{"text": self.to_string(), "ents": ents, "title": None}]
-
-            return displacy.render(block_object, style="ent", manual=True)
-
-        elif style == "span":
-            if nlp is None:
-                raise ValueError(
-                    "Spacy pipeline object is required to use the display method with style='span'."
-                )
-
-            # TODO: we should store tokens in the text block object rather than creating them here
-            spacy_doc = nlp(self.to_string())
-            block_tokens = [tok.text for tok in spacy_doc]
-
-            ents = [
-                {
-                    "start_token": self.character_idx_to_token_idx(
-                        spacy_doc, span.start_idx
-                    ),
-                    "end_token": self.character_idx_to_token_idx(
-                        spacy_doc, span.end_idx
-                    )
-                    + 1,
-                    "label": span.type,
-                }
-                for span in self._spans
-            ]
-
-            block_object = [
-                {
-                    "text": self.to_string(),
-                    "spans": ents,
-                    "tokens": block_tokens,
-                    "title": None,
-                }
-            ]
-
-            return displacy.render(block_object, style="span", manual=True)
-
 
 class PageMetadata(BaseModel):
     """
@@ -670,7 +612,9 @@ class BaseDocument(BaseModel):
 
         spans_unique = sorted(spans_unique, key=lambda span: span.text_block_text_hash)
 
-        for block_text_hash, spans in itertools.groupby(spans_unique, key=lambda span: span.text_block_text_hash):  # type: ignore
+        for block_text_hash, spans in itertools.groupby(
+            spans_unique, key=lambda span: span.text_block_text_hash
+        ):  # type: ignore
             idxs = self._text_block_idx_hash_map[block_text_hash]
             for idx in idxs:
                 try:
@@ -1466,7 +1410,11 @@ class Dataset:
                     type=row["type"],
                     type_confidence=row["type_confidence"],
                     page_number=row["page_number"],
-                    coords=[tuple(c) for c in row["coords"].tolist()] if row["coords"] is not None else None,  # type: ignore
+                    coords=(
+                        [tuple(c) for c in row["coords"].tolist()]
+                        if row["coords"] is not None
+                        else None
+                    ),  # type: ignore
                 )
                 for _, row in doc_df.iterrows()
             ]
@@ -1535,6 +1483,8 @@ class Dataset:
 
         # TODO: validate the result coming from the below method
         if passage_level_and_flat:
-            return self._from_huggingface_passage_level_flat_parquet(huggingface_dataset, limit)  # type: ignore
+            return self._from_huggingface_passage_level_flat_parquet(
+                huggingface_dataset, limit
+            )  # type: ignore
         else:
             return self._from_huggingface_parquet(huggingface_dataset, limit)  # type: ignore
