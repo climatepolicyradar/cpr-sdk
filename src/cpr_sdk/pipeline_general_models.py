@@ -120,6 +120,7 @@ class PipelineUpdates(BaseModel):
 
     new_documents: List[BackendDocument]
     updated_documents: dict[str, List[Update]]
+    existing_document_ids: List[str] | None = None
 
 
 class ExecutionData(BaseModel):
