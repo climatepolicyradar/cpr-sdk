@@ -2,9 +2,12 @@
 
 from cpr_sdk.exceptions import DocumentNotFoundError, FetchError, QueryError
 from cpr_sdk.models.search import (
+    ClassifiersProfile,
+    ClassifiersProfiles,
     Concept,
     Family,
     Hit,
+    SearchClassifiersProfileParameters,
     SearchConceptParameters,
     SearchParameters,
     SearchResponse,
@@ -25,7 +28,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 
-from cpr_sdk.yql_builder import ConceptYQLBuilder
+from cpr_sdk.yql_builder import ClassifiersProfileYQLBuilder, ConceptYQLBuilder
 from typing_extensions import override
 
 from requests.exceptions import HTTPError
@@ -115,6 +118,70 @@ class SearchAdapter(ABC):
 
         :param SearchConceptParameters parameters: search parameters
         :return SearchResponse[Concept]: search response with concepts
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_classifiers_profile(self, profile_id: str) -> "ClassifiersProfile":
+        """
+        Get a single classifiers profile by its ID
+
+        :param str profile_id: classifiers profile ID
+        :return ClassifiersProfile: a single classifiers profile
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def async_get_classifiers_profile(
+        self, profile_id: str
+    ) -> "ClassifiersProfile":
+        """
+        Get a single classifiers profile by its ID asynchronously
+
+        :param str profile_id: classifiers profile ID
+        :return ClassifiersProfile: a single classifiers profile
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def search_classifiers_profiles(
+        self, parameters: "SearchClassifiersProfileParameters"
+    ) -> "SearchResponse[ClassifiersProfile]":
+        """
+        Query classifiers profiles
+
+        :param SearchClassifiersProfileParameters parameters: search parameters
+        :return SearchResponse[ClassifiersProfile]: search response with classifiers profiles
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def async_search_classifiers_profiles(
+        self, parameters: "SearchClassifiersProfileParameters"
+    ) -> "SearchResponse[ClassifiersProfile]":
+        """
+        Query classifiers profiles asynchronously
+
+        :param SearchClassifiersProfileParameters parameters: search parameters
+        :return SearchResponse[ClassifiersProfile]: search response with classifiers profiles
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_classifiers_profiles(self) -> "ClassifiersProfiles":
+        """
+        Get the singleton classifiers profiles registry
+
+        :return ClassifiersProfiles: the classifiers profiles registry
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def async_get_classifiers_profiles(self) -> "ClassifiersProfiles":
+        """
+        Get the singleton classifiers profiles registry asynchronously
+
+        :return ClassifiersProfiles: the classifiers profiles registry
         """
         raise NotImplementedError
 
@@ -412,3 +479,211 @@ class VespaSearchAdapter(SearchAdapter):
             this_continuation_token=this_continuation,
             prev_continuation_token=prev_continuation,
         )
+
+    @override
+    def get_classifiers_profile(self, profile_id: str) -> ClassifiersProfile:
+        """
+        Get a single classifiers profile by its ID
+
+        :param str profile_id: classifiers profile ID
+        :return ClassifiersProfile: a single classifiers profile
+        """
+        document_id_parts = split_document_id(profile_id)
+        try:
+            vespa_response = self.client.get_data(
+                namespace=document_id_parts.namespace,
+                schema=document_id_parts.schema,
+                data_id=document_id_parts.data_id,
+            )
+        except HTTPError as e:
+            if e.response is not None:
+                status_code = e.response.status_code
+            else:
+                status_code = "Unknown"
+            if status_code == 404:
+                raise DocumentNotFoundError(profile_id) from e
+            else:
+                raise FetchError(
+                    f"Received status code {status_code} when fetching "
+                    f"classifiers profile {profile_id}",
+                    status_code=status_code,
+                ) from e
+
+        return ClassifiersProfile.from_vespa_response(vespa_response.json)
+
+    @override
+    async def async_get_classifiers_profile(
+        self, profile_id: str
+    ) -> ClassifiersProfile:
+        """
+        Get a single classifiers profile by its ID asynchronously
+
+        :param str profile_id: classifiers profile ID
+        :return ClassifiersProfile: a single classifiers profile
+        """
+        document_id_parts = split_document_id(profile_id)
+        try:
+            async with self.client.asyncio() as session:
+                vespa_response = await session.get_data(
+                    namespace=document_id_parts.namespace,
+                    schema=document_id_parts.schema,
+                    data_id=document_id_parts.data_id,
+                )
+        except HTTPError as e:
+            if e.response is not None:
+                status_code = e.response.status_code
+            else:
+                status_code = "Unknown"
+            if status_code == 404:
+                raise DocumentNotFoundError(profile_id) from e
+            else:
+                raise FetchError(
+                    f"Received status code {status_code} when fetching "
+                    f"classifiers profile {profile_id}",
+                    status_code=status_code,
+                ) from e
+
+        return ClassifiersProfile.from_vespa_response(vespa_response.json)
+
+    @override
+    def search_classifiers_profiles(
+        self, parameters: SearchClassifiersProfileParameters
+    ) -> SearchResponse[ClassifiersProfile]:
+        """
+        Query classifiers profiles
+
+        :param SearchClassifiersProfileParameters parameters: search parameters
+        :return SearchResponse[ClassifiersProfile]: search response with classifiers profiles
+        """
+        q = ClassifiersProfileYQLBuilder().build(parameters)
+
+        try:
+            vespa_response: VespaQueryResponse = self.client.query(yql=q)  # type: ignore[assignment]
+        except VespaError as e:
+            err_details = VespaErrorDetails(e)
+            if err_details.is_invalid_query_parameter:
+                LOGGER.error(err_details.message)
+                raise QueryError(err_details.summary)
+            else:
+                raise e
+
+        # Parse the response
+        root = vespa_response.json.get("root", {})
+        hits = root.get("children", [])
+        profiles = []
+        for hit in hits:
+            if "fields" in hit:
+                profiles.append(ClassifiersProfile.from_vespa_response(hit))
+
+        # Create SearchResponse with classifiers profiles as results
+        total_hits = len(profiles)
+        return SearchResponse[ClassifiersProfile](
+            total_hits=total_hits,
+            total_result_hits=1,  # One "classifiers profile result set"
+            results=profiles,  # The classifiers profiles themselves
+        )
+
+    @override
+    async def async_search_classifiers_profiles(
+        self, parameters: SearchClassifiersProfileParameters
+    ) -> SearchResponse[ClassifiersProfile]:
+        """
+        Query classifiers profiles asynchronously
+
+        :param SearchClassifiersProfileParameters parameters: search parameters
+        :return SearchResponse[ClassifiersProfile]: search response with classifiers profiles
+        """
+        q = ClassifiersProfileYQLBuilder().build(parameters)
+
+        try:
+            async with self.client.asyncio() as session:
+                vespa_response = await session.query(yql=q)
+        except VespaError as e:
+            err_details = VespaErrorDetails(e)
+            if err_details.is_invalid_query_parameter:
+                LOGGER.error(err_details.message)
+                raise QueryError(err_details.summary)
+            else:
+                raise e
+
+        # Parse the response
+        root = vespa_response.json.get("root", {})
+        hits = root.get("children", [])
+        profiles: list[ClassifiersProfile] = []
+        for hit in hits:
+            if "fields" in hit:
+                profiles.append(ClassifiersProfile.from_vespa_response(hit))
+
+        # Create SearchResponse with classifiers profiles as results
+        total_hits = len(profiles)
+        return SearchResponse[ClassifiersProfile](
+            total_hits=total_hits,
+            # One "classifiers profile result set". This is from the SearchResponse originally being for a family.
+            total_result_hits=1,
+            results=profiles,  # The classifiers profiles themselves
+        )
+
+    @override
+    def get_classifiers_profiles(self) -> ClassifiersProfiles:
+        """
+        Get the singleton classifiers profiles registry
+
+        :return ClassifiersProfiles: the classifiers profiles registry
+        """
+        # The document ID for the singleton is always "default"
+        document_id = "id:doc_search:classifiers_profiles::default"
+        document_id_parts = split_document_id(document_id)
+        try:
+            vespa_response = self.client.get_data(
+                namespace=document_id_parts.namespace,
+                schema=document_id_parts.schema,
+                data_id=document_id_parts.data_id,
+            )
+        except HTTPError as e:
+            if e.response is not None:
+                status_code = e.response.status_code
+            else:
+                status_code = "Unknown"
+            if status_code == 404:
+                raise DocumentNotFoundError(document_id) from e
+            else:
+                raise FetchError(
+                    f"Received status code {status_code} when fetching "
+                    f"classifiers profiles registry",
+                    status_code=status_code,
+                ) from e
+
+        return ClassifiersProfiles.from_vespa_response(vespa_response.json)
+
+    @override
+    async def async_get_classifiers_profiles(self) -> ClassifiersProfiles:
+        """
+        Get the singleton classifiers profiles registry asynchronously
+
+        :return ClassifiersProfiles: the classifiers profiles registry
+        """
+        # The document ID for the singleton is always "default"
+        document_id = "id:doc_search:classifiers_profiles::default"
+        document_id_parts = split_document_id(document_id)
+        try:
+            async with self.client.asyncio() as session:
+                vespa_response = await session.get_data(
+                    namespace=document_id_parts.namespace,
+                    schema=document_id_parts.schema,
+                    data_id=document_id_parts.data_id,
+                )
+        except HTTPError as e:
+            if e.response is not None:
+                status_code = e.response.status_code
+            else:
+                status_code = "Unknown"
+            if status_code == 404:
+                raise DocumentNotFoundError(document_id) from e
+            else:
+                raise FetchError(
+                    f"Received status code {status_code} when fetching "
+                    f"classifiers profiles registry",
+                    status_code=status_code,
+                ) from e
+
+        return ClassifiersProfiles.from_vespa_response(vespa_response.json)

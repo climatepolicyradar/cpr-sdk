@@ -482,7 +482,6 @@ def test_concept_v2_filters_appear_in_yql():
 def test_concept_yql_builder_complete_queries(
     params: SearchConceptParameters, expected_query: str
 ):
-    """Test that ConceptYQLBuilder generates complete correct queries."""
     query = ConceptYQLBuilder.build(params)
     query_str = str(query)
 

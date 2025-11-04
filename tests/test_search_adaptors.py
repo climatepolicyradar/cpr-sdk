@@ -7,6 +7,8 @@ from unittest.mock import patch
 import pytest
 
 from cpr_sdk.models.search import (
+    ClassifiersProfile,
+    ClassifiersProfiles,
     Concept,
     ConceptCountFilter,
     ConceptFilter,
@@ -19,6 +21,7 @@ from cpr_sdk.models.search import (
     MetadataFilter,
     OperandTypeEnum,
     Passage,
+    SearchClassifiersProfileParameters,
     SearchConceptParameters,
     SearchParameters,
     SearchResponse,
@@ -104,6 +107,84 @@ async def async_vespa_search_concepts(
             f"{traceback.format_exc()}"
         )
     return response
+
+
+def vespa_get_classifiers_profile(
+    adaptor: VespaSearchAdapter, profile_id: str
+) -> ClassifiersProfile:
+    try:
+        profile = adaptor.get_classifiers_profile(profile_id)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa get_classifiers_profile failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return profile
+
+
+async def async_vespa_get_classifiers_profile(
+    adaptor: VespaSearchAdapter, profile_id: str
+) -> ClassifiersProfile:
+    try:
+        profile = await adaptor.async_get_classifiers_profile(profile_id)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa async get_classifiers_profile failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return profile
+
+
+def vespa_search_classifiers_profiles(
+    adaptor: VespaSearchAdapter, request: SearchClassifiersProfileParameters
+) -> SearchResponse[ClassifiersProfile]:
+    try:
+        response = adaptor.search_classifiers_profiles(request)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa search_classifiers_profiles failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return response
+
+
+async def async_vespa_search_classifiers_profiles(
+    adaptor: VespaSearchAdapter, request: SearchClassifiersProfileParameters
+) -> SearchResponse[ClassifiersProfile]:
+    try:
+        response = await adaptor.async_search_classifiers_profiles(request)
+    except Exception as e:
+        pytest.fail(
+            f"Vespa async search_classifiers_profiles failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return response
+
+
+def vespa_get_classifiers_profiles(
+    adaptor: VespaSearchAdapter,
+) -> ClassifiersProfiles:
+    try:
+        profiles = adaptor.get_classifiers_profiles()
+    except Exception as e:
+        pytest.fail(
+            f"Vespa get_classifiers_profiles failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return profiles
+
+
+async def async_vespa_get_classifiers_profiles(
+    adaptor: VespaSearchAdapter,
+) -> ClassifiersProfiles:
+    try:
+        profiles = await adaptor.async_get_classifiers_profiles()
+    except Exception as e:
+        pytest.fail(
+            f"Vespa async get_classifiers_profiles failed. {e.__class__.__name__}: {e}\n\nTraceback:\n"
+            f"{traceback.format_exc()}"
+        )
+    return profiles
 
 
 def profile_search(
@@ -2618,3 +2699,77 @@ async def test_vespa_async_search_adaptor__continuation_tokens__concepts(test_ve
             response = await async_vespa_search_concepts(test_vespa, request)
             prev_concept_ids = [c.id for c in response.results]
             assert prev_concept_ids == first_concept_ids
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__get_classifiers_profile(test_vespa):
+    profile_id = "id:doc_search:classifiers_profile::primary.j2ssznnr"
+    profile = vespa_get_classifiers_profile(test_vespa, profile_id)
+    assert isinstance(profile, ClassifiersProfile)
+    assert profile.id == "j2ssznnr"
+    assert profile.name == "primary"
+    assert not profile.multi
+    assert len(profile.mappings) == 2
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_classifiers_profile(test_vespa):
+    profile_id = "id:doc_search:classifiers_profile::primary.j2ssznnr"
+    profile = await async_vespa_get_classifiers_profile(test_vespa, profile_id)
+    assert isinstance(profile, ClassifiersProfile)
+    assert profile.id == "j2ssznnr"
+    assert profile.name == "primary"
+    assert not profile.multi
+    assert len(profile.mappings) == 2
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__search_classifiers_profiles(test_vespa):
+    request = SearchClassifiersProfileParameters(name="primary", limit=10)
+    response = vespa_search_classifiers_profiles(test_vespa, request)
+
+    assert isinstance(response, SearchResponse)
+    assert isinstance(response.results, list)
+    profiles = response.results
+
+    primary_profile = next((p for p in profiles if p.id == "j2ssznnr"), None)
+    assert primary_profile is not None
+    assert primary_profile.name == "primary"
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__search_classifiers_profiles(test_vespa):
+    request = SearchClassifiersProfileParameters(name="primary", limit=10)
+    response = await async_vespa_search_classifiers_profiles(test_vespa, request)
+
+    assert isinstance(response, SearchResponse)
+    assert isinstance(response.results, list)
+    profiles = response.results
+
+    primary_profile = next((p for p in profiles if p.id == "j2ssznnr"), None)
+    assert primary_profile is not None
+    if primary_profile:
+        assert primary_profile.name == "primary"
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__get_classifiers_profiles(test_vespa):
+    profiles = vespa_get_classifiers_profiles(test_vespa)
+    assert isinstance(profiles, ClassifiersProfiles)
+    assert profiles.id == "default"
+    assert "primary" in profiles.mappings
+    assert "experimental" in profiles.mappings
+    assert "retired" in profiles.mappings
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_classifiers_profiles(test_vespa):
+    profiles = await async_vespa_get_classifiers_profiles(test_vespa)
+    assert isinstance(profiles, ClassifiersProfiles)
+    assert profiles.id == "default"
+    assert "primary" in profiles.mappings
+    assert "experimental" in profiles.mappings
+    assert "retired" in profiles.mappings
