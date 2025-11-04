@@ -1,0 +1,62 @@
+{
+    "root": {
+        "id": "toplevel",
+        "relevance": 1.0,
+        "fields": {
+            "totalCount": 2
+        },
+        "coverage": {
+            "coverage": 100,
+            "documents": 4,
+            "full": true,
+            "nodes": 1,
+            "results": 2,
+            "resultsFull": 2
+        },
+        "children": [
+            {
+                "id": "id:doc_search:classifiers_profile::primary.j2ssznnr",
+                "relevance": 1.0,
+                "source": "family-document-passage",
+                "fields": {
+                    "sddocname": "classifiers_profile",
+                    "documentid": "id:doc_search:classifiers_profile::primary.j2ssznnr",
+                    "id": "j2ssznnr",
+                    "name": "primary",
+                    "multi": false,
+                    "mappings": [
+                        {
+                            "concept_id": "r3dkctge",
+                            "concept_wikibase_id": "Q125",
+                            "classifier_id": "kx7m3p9w"
+                        },
+                        {
+                            "concept_id": "ycwjhefq",
+                            "concept_wikibase_id": "Q456",
+                            "classifier_id": "w3kb7x1s"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "id:doc_search:classifiers_profile::experimental.ger8qyfc",
+                "relevance": 0.95,
+                "source": "family-document-passage",
+                "fields": {
+                    "sddocname": "classifiers_profile",
+                    "documentid": "id:doc_search:classifiers_profile::experimental.ger8qyfc",
+                    "id": "ger8qyfc",
+                    "name": "experimental",
+                    "multi": true,
+                    "mappings": [
+                        {
+                            "concept_id": "abc123xy",
+                            "concept_wikibase_id": "Q999",
+                            "classifier_id": "xyz789ab"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

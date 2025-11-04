@@ -1,0 +1,11 @@
+{
+    "pathId": "/document/v1/doc_search/classifiers_profiles/docid/default",
+    "id": "id:doc_search:classifiers_profiles::default",
+    "fields": {
+        "mappings": {
+            "primary": "primary.j2ssznnr",
+            "experimental": "experimental.ger8qyfc",
+            "retired": "retired.39vikj2a"
+        }
+    }
+}

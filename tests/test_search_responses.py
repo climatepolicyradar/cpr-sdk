@@ -6,6 +6,8 @@ import json
 import pytest
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import (
+    ClassifiersProfile,
+    ClassifiersProfiles,
     Hit,
     extract_schema_name,
     SCHEMA_NAME_FIELD_NAME,
@@ -1133,6 +1135,120 @@ def test_parse_query_concept_response():
                     "wikibase_url": "https://wikibase.example.org/wiki/Item:Q730",
                     "preferred_label": "fishing sector",
                     "subconcept_of": ["njhxa72q"],
+                },
+            },
+        )
+
+
+def test_parse_get_classifiers_profile_response():
+    # $ vespa document get --target local --application doc_search 'id:doc_search:classifiers_profile::primary.j2ssznnr' | jq
+    with open(
+        "tests/test_data/search_responses/get_classifiers_profile_response.json"
+    ) as f:
+        response_json = json.load(f)
+        assert ClassifiersProfile.from_vespa_response(
+            response_json
+        ) == ClassifiersProfile(
+            id="j2ssznnr",
+            name="primary",
+            multi=False,
+            mappings=[
+                ClassifiersProfile.Mapping(
+                    concept_id="r3dkctge",
+                    concept_wikibase_id=WikibaseId("Q125"),
+                    classifier_id="kx7m3p9w",
+                ),
+                ClassifiersProfile.Mapping(
+                    concept_id="ycwjhefq",
+                    concept_wikibase_id=WikibaseId("Q456"),
+                    classifier_id="w3kb7x1s",
+                ),
+            ],
+            response_raw={
+                "pathId": "/document/v1/doc_search/classifiers_profile/docid/primary.j2ssznnr",
+                "id": "id:doc_search:classifiers_profile::primary.j2ssznnr",
+                "fields": {
+                    "id": "j2ssznnr",
+                    "name": "primary",
+                    "multi": False,
+                    "mappings": [
+                        {
+                            "concept_id": "r3dkctge",
+                            "concept_wikibase_id": "Q125",
+                            "classifier_id": "kx7m3p9w",
+                        },
+                        {
+                            "concept_id": "ycwjhefq",
+                            "concept_wikibase_id": "Q456",
+                            "classifier_id": "w3kb7x1s",
+                        },
+                    ],
+                },
+            },
+        )
+
+
+def test_parse_query_classifiers_profile_response():
+    # $ vespa query --target local --application doc_search 'select * from classifiers_profile where name contains "primary" limit 2' | jq
+    with open(
+        "tests/test_data/search_responses/query_classifiers_profile_response.json"
+    ) as f:
+        response_json = json.load(f)
+
+        children = dig(response_json, "root", "children")
+        assert len(children) == 2
+
+        profiles = [ClassifiersProfile.from_vespa_response(child) for child in children]
+        profiles_by_id = {p.id: p for p in profiles}
+
+        assert "j2ssznnr" in profiles_by_id
+        primary_profile = profiles_by_id["j2ssznnr"]
+        assert primary_profile.name == "primary"
+        assert not primary_profile.multi
+        assert len(primary_profile.mappings) == 2
+        assert primary_profile.mappings[0].concept_id == "r3dkctge"
+        assert primary_profile.mappings[0].concept_wikibase_id == WikibaseId("Q125")
+        assert primary_profile.mappings[0].classifier_id == "kx7m3p9w"
+        assert primary_profile.mappings[1].concept_id == "ycwjhefq"
+        assert primary_profile.mappings[1].concept_wikibase_id == WikibaseId("Q456")
+        assert primary_profile.mappings[1].classifier_id == "w3kb7x1s"
+
+        assert "ger8qyfc" in profiles_by_id
+        experimental_profile = profiles_by_id["ger8qyfc"]
+        assert experimental_profile.name == "experimental"
+        assert experimental_profile.multi
+        assert len(experimental_profile.mappings) == 1
+        assert experimental_profile.mappings[0].concept_id == "abc123xy"
+        assert experimental_profile.mappings[0].concept_wikibase_id == WikibaseId(
+            "Q999"
+        )
+        assert experimental_profile.mappings[0].classifier_id == "xyz789ab"
+
+
+def test_parse_get_classifiers_profiles_response():
+    # $ vespa document get --target local --application doc_search 'id:doc_search:classifiers_profiles::default' | jq
+    with open(
+        "tests/test_data/search_responses/get_classifiers_profiles_response.json"
+    ) as f:
+        response_json = json.load(f)
+        assert ClassifiersProfiles.from_vespa_response(
+            response_json
+        ) == ClassifiersProfiles(
+            id="default",
+            mappings={
+                "primary": "primary.j2ssznnr",
+                "experimental": "experimental.ger8qyfc",
+                "retired": "retired.39vikj2a",
+            },
+            response_raw={
+                "pathId": "/document/v1/doc_search/classifiers_profiles/docid/default",
+                "id": "id:doc_search:classifiers_profiles::default",
+                "fields": {
+                    "mappings": {
+                        "primary": "primary.j2ssznnr",
+                        "experimental": "experimental.ger8qyfc",
+                        "retired": "retired.39vikj2a",
+                    }
                 },
             },
         )

@@ -578,6 +578,34 @@ class SearchConceptParameters(BaseModel):
     can be found on the response object.
     """
 
+
+class SearchClassifiersProfileParameters(BaseModel):
+    """Parameters for a classifiers profile search request"""
+
+    id: Optional[str] = None
+    """
+    The ID to search for in classifiers profiles.
+    For example: 'j2ssznnr'
+    """
+
+    name: Optional[str] = None
+    """
+    The name to search for in classifiers profiles.
+    For example: 'primary', 'experimental', 'retired'
+    """
+
+    limit: int = Field(ge=0, default=100, le=500)
+    """
+    Refers to the maximum number of results to return from the
+    query result.
+    """
+
+    continuation_tokens: Optional[Sequence[str]] = None
+    """
+    Use to return the next page of results from a specific search, the next token
+    can be found on the response object.
+    """
+
     @field_validator("continuation_tokens")
     def continuation_tokens_must_be_upper_strings(cls, continuation_tokens):
         """Validate continuation_tokens match the expected format"""
@@ -1104,5 +1132,148 @@ class Concept(BaseModel):
 
         if fields := dig(response_hit, "fields"):
             return cls(**fields, response_raw=response_hit)
+        else:
+            raise ValueError("response hit was missing `fields`")
+
+
+class ClassifiersProfile(BaseModel):
+    """A mapping over classifers to the versions to be used."""
+
+    class Mapping(BaseModel):
+        """A mapping between a concept and the classifier to use for it."""
+
+        concept_id: Annotated[
+            str,
+            Field(
+                description="Canonical ID of the concept being mapped",
+                examples=["r3dkctge"],
+            ),
+        ]
+        concept_wikibase_id: Annotated[
+            WikibaseId,
+            Field(
+                description="Wikibase ID of the concept being mapped",
+                examples=[WikibaseId("Q789")],
+            ),
+        ]
+        classifier_id: Annotated[
+            str,
+            Field(
+                description="Canonical ID of the classifier to use for this concept",
+                examples=["kx7m3p9w"],
+            ),
+        ]
+
+    id: Annotated[
+        str,
+        Field(
+            description="Document ID as in Vespa",
+            examples=["primary.p34ehv2x"],
+        ),
+    ]
+    name: Annotated[
+        str,
+        Field(
+            description="Semantic, human readable name",
+            examples=["primary", "experimental", "retired"],
+        ),
+    ]
+    mappings: Annotated[
+        list[Mapping],
+        Field(
+            description="List of mappings between concepts and classifiers for this profile",
+            examples=[
+                [
+                    Mapping(
+                        concept_id="r3dkctge",
+                        concept_wikibase_id=WikibaseId("Q125"),
+                        classifier_id="kx7m3p9w",
+                    )
+                ]
+            ],
+        ),
+    ]
+    multi: Annotated[
+        bool,
+        Field(
+            description="Whether this classifiers profile can have multiple mappings per Wikibase ID",
+            examples=[False],
+        ),
+    ]
+
+    response_raw: JsonDict = Field(exclude=True)  # Don't include in serialisation
+
+    @classmethod
+    def from_vespa_response(cls, response_hit: JsonDict) -> "ClassifiersProfile":
+        """
+        Create a ClassifiersProfile from a Vespa response hit.
+
+        :param dict response_hit: part of a json response from Vespa
+        :return ClassifiersProfile: a populated ClassifiersProfile
+        """
+        match extract_schema_name(response_hit):
+            case Ok(schema_name):
+                if schema_name != "classifiers_profile":
+                    raise ValueError(
+                        f"response hit wasn't a classifiers_profile, it had schema name `{schema_name}`"
+                    )
+            case Err(error):
+                raise ValueError(error.msg)
+
+        if fields := dig(response_hit, "fields"):
+            return cls(**fields, response_raw=response_hit)
+        else:
+            raise ValueError("response hit was missing `fields`")
+
+
+class ClassifiersProfiles(BaseModel):
+    """A singleton mapping over unique classifiers profiles to their version."""
+
+    id: Annotated[
+        str,
+        Field(
+            description="Document ID as in Vespa",
+            examples=["default"],
+        ),
+    ]
+    mappings: Annotated[
+        dict[str, str],
+        Field(
+            description="Pairs of classifiers profile name to a version of it",
+            examples=[
+                {
+                    "primary": "primary.j2ssznnr",
+                    "experimental": "experimental.ger8qyfc",
+                    "retired": "retired.39vikj2a",
+                }
+            ],
+        ),
+    ]
+
+    response_raw: JsonDict = Field(exclude=True)  # Don't include in serialisation
+
+    @classmethod
+    def from_vespa_response(cls, response_hit: JsonDict) -> "ClassifiersProfiles":
+        """
+        Create a ClassifiersProfiles from a Vespa response hit.
+
+        :param dict response_hit: part of a json response from Vespa
+        :return ClassifiersProfiles: a populated ClassifiersProfiles
+        """
+        match extract_schema_name(response_hit):
+            case Ok(schema_name):
+                if schema_name != "classifiers_profiles":
+                    raise ValueError(
+                        f"response hit wasn't a classifiers_profiles, it had schema name `{schema_name}`"
+                    )
+            case Err(error):
+                raise ValueError(error.msg)
+
+        if fields := dig(response_hit, "fields"):
+            # Extract the ID from the document ID since it's not in the fields
+            # Document ID format: "id:doc_search:classifiers_profiles::default"
+            doc_id = response_hit.get("id", "")
+            extracted_id = doc_id.split("::")[-1] if "::" in doc_id else "default"
+            return cls(id=extracted_id, **fields, response_raw=response_hit)
         else:
             raise ValueError("response hit was missing `fields`")
