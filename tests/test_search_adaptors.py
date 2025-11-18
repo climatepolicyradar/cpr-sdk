@@ -2,10 +2,11 @@ import traceback
 from collections.abc import Mapping
 from timeit import timeit
 from typing import Union
-from unittest.mock import patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
+from cpr_sdk.exceptions import DocumentNotFoundError
 from cpr_sdk.models.search import (
     ClassifiersProfile,
     ClassifiersProfiles,
@@ -2773,3 +2774,77 @@ async def test_vespa_async_search_adaptor__get_classifiers_profiles(test_vespa):
     assert "primary" in profiles.mappings
     assert "experimental" in profiles.mappings
     assert "retired" in profiles.mappings
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__get_concept_with_nonexistent_id(test_vespa):
+    """Test that 404 responses are handled correctly for get_concept"""
+    concept_id = "id:doc_search:concept::Q999.nonexistent"
+    with pytest.raises(DocumentNotFoundError) as exc_info:
+        test_vespa.get_concept(concept_id)
+    assert exc_info.value.document_id == concept_id
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_concept_with_nonexistent_id(test_vespa):
+    """Test that 404 responses are handled correctly for async_get_concept"""
+    concept_id = "id:doc_search:concept::Q999.nonexistent"
+    with pytest.raises(DocumentNotFoundError) as exc_info:
+        await test_vespa.async_get_concept(concept_id)
+    assert exc_info.value.document_id == concept_id
+
+
+def test_vespa_search_adaptor__get_classifiers_profiles_with_missing_fields():
+    """Test that missing fields in response raises DocumentNotFoundError"""
+    adaptor = VespaSearchAdapter(instance_url="http://localhost:8080")
+
+    # Since there are fixtures loaded into Vespa, mock a response from Vespa
+    mock_response = Mock()
+    mock_response.json = {}  # No "fields" key
+    mock_response.is_successful.return_value = True
+
+    with patch.object(adaptor.client, "get_data", return_value=mock_response):
+        with pytest.raises(DocumentNotFoundError):
+            adaptor.get_classifiers_profiles()
+
+
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_classifiers_profiles_with_missing_fields():
+    """Test that missing fields in response raises DocumentNotFoundError for async"""
+    adaptor = VespaSearchAdapter(instance_url="http://localhost:8080")
+
+    # Since there are fixtures loaded into Vespa, mock a response from Vespa
+    mock_response = Mock()
+    mock_response.json = {}  # No "fields" key
+    mock_response.is_successful.return_value = True
+
+    mock_session = AsyncMock()
+    mock_session.get_data = AsyncMock(return_value=mock_response)
+    mock_session.__aenter__ = AsyncMock(return_value=mock_session)
+    mock_session.__aexit__ = AsyncMock(return_value=None)
+
+    with patch.object(adaptor.client, "asyncio", return_value=mock_session):
+        with pytest.raises(DocumentNotFoundError):
+            await adaptor.async_get_classifiers_profiles()
+
+
+@pytest.mark.vespa
+def test_vespa_search_adaptor__get_classifiers_profile_with_nonexistent_id(test_vespa):
+    """Test that 404 responses are handled correctly for get_classifiers_profile"""
+    profile_id = "id:doc_search:classifiers_profile::nonexistent.xyz123"
+    with pytest.raises(DocumentNotFoundError) as exc_info:
+        test_vespa.get_classifiers_profile(profile_id)
+    assert exc_info.value.document_id == profile_id
+
+
+@pytest.mark.vespa
+@pytest.mark.asyncio
+async def test_vespa_async_search_adaptor__get_classifiers_profile_with_nonexistent_id(
+    test_vespa,
+):
+    """Test that 404 responses are handled correctly for async_get_classifiers_profile"""
+    profile_id = "id:doc_search:classifiers_profile::nonexistent.xyz123"
+    with pytest.raises(DocumentNotFoundError) as exc_info:
+        await test_vespa.async_get_classifiers_profile(profile_id)
+    assert exc_info.value.document_id == profile_id

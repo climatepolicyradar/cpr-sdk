@@ -352,6 +352,14 @@ class VespaSearchAdapter(SearchAdapter):
                     status_code=status_code,
                 ) from e
 
+        if not vespa_response.is_successful():
+            if vespa_response.status_code == 404:
+                raise DocumentNotFoundError(concept_id)
+
+            raise ValueError(
+                f"failed when getting document {concept_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
+
         return Concept.from_vespa_response(vespa_response.json)
 
     @override
@@ -383,6 +391,14 @@ class VespaSearchAdapter(SearchAdapter):
                     f"concept {concept_id}",
                     status_code=status_code,
                 ) from e
+
+        if not vespa_response.is_successful():
+            if vespa_response.status_code == 404:
+                raise DocumentNotFoundError(concept_id)
+
+            raise ValueError(
+                f"failed when getting document {concept_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
 
         return Concept.from_vespa_response(vespa_response.json)
 
@@ -509,6 +525,14 @@ class VespaSearchAdapter(SearchAdapter):
                     status_code=status_code,
                 ) from e
 
+        if not vespa_response.is_successful():
+            if vespa_response.status_code == 404:
+                raise DocumentNotFoundError(profile_id)
+
+            raise ValueError(
+                f"failed when getting document {profile_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
+
         return ClassifiersProfile.from_vespa_response(vespa_response.json)
 
     @override
@@ -542,6 +566,14 @@ class VespaSearchAdapter(SearchAdapter):
                     f"classifiers profile {profile_id}",
                     status_code=status_code,
                 ) from e
+
+        if not vespa_response.is_successful():
+            if vespa_response.status_code == 404:
+                raise DocumentNotFoundError(profile_id)
+
+            raise ValueError(
+                f"failed when getting document {profile_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
 
         return ClassifiersProfile.from_vespa_response(vespa_response.json)
 
@@ -630,8 +662,9 @@ class VespaSearchAdapter(SearchAdapter):
 
         :return ClassifiersProfiles: the classifiers profiles registry
         """
-        # The document ID for the singleton is always "default"
-        document_id = "id:doc_search:classifiers_profiles::default"
+        # The document ID for the singleton is always the same
+        name = "default"
+        document_id = f"id:doc_search:classifiers_profiles::{name}"
         document_id_parts = split_document_id(document_id)
         try:
             vespa_response = self.client.get_data(
@@ -653,6 +686,14 @@ class VespaSearchAdapter(SearchAdapter):
                     status_code=status_code,
                 ) from e
 
+        if not dig(vespa_response.json, "fields"):
+            raise DocumentNotFoundError(document_id)
+
+        if not vespa_response.is_successful():
+            raise ValueError(
+                f"failed when getting document {document_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
+
         return ClassifiersProfiles.from_vespa_response(vespa_response.json)
 
     @override
@@ -662,8 +703,9 @@ class VespaSearchAdapter(SearchAdapter):
 
         :return ClassifiersProfiles: the classifiers profiles registry
         """
-        # The document ID for the singleton is always "default"
-        document_id = "id:doc_search:classifiers_profiles::default"
+        # The document ID for the singleton is always the same
+        name = "default"
+        document_id = f"id:doc_search:classifiers_profiles::{name}"
         document_id_parts = split_document_id(document_id)
         try:
             async with self.client.asyncio() as session:
@@ -685,5 +727,13 @@ class VespaSearchAdapter(SearchAdapter):
                     f"classifiers profiles registry",
                     status_code=status_code,
                 ) from e
+
+        if not dig(vespa_response.json, "fields"):
+            raise DocumentNotFoundError(document_id)
+
+        if not vespa_response.is_successful():
+            raise ValueError(
+                f"failed when getting document {document_id}. status code: {vespa_response.status_code}, JSON: {vespa_response.get_json()}"
+            )
 
         return ClassifiersProfiles.from_vespa_response(vespa_response.json)
