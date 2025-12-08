@@ -775,6 +775,47 @@ class Document(Hit):
         )
 
 
+def _extract_passage_base_fields(response_hit: dict) -> dict[str, Any]:
+    """
+    Extract common passage fields from Vespa response.
+
+    Shared logic for Passage and PassageV2 from_vespa_response methods.
+    """
+    fields = response_hit["fields"]
+    family_publication_ts = fields.get("family_publication_ts")
+    family_publication_ts = (
+        datetime.fromisoformat(family_publication_ts) if family_publication_ts else None
+    )
+
+    return {
+        "family_name": fields.get("family_name"),
+        "family_description": fields.get("family_description"),
+        "family_source": fields.get("family_source"),
+        "family_import_id": fields.get("family_import_id"),
+        "family_slug": fields.get("family_slug"),
+        "family_category": fields.get("family_category"),
+        "family_publication_ts": family_publication_ts,
+        "family_geography": fields.get("family_geography"),
+        "family_geographies": fields.get("family_geographies", []),
+        "document_import_id": fields.get("document_import_id"),
+        "document_slug": fields.get("document_slug"),
+        "document_languages": fields.get("document_languages", []),
+        "document_content_type": fields.get("document_content_type"),
+        "document_cdn_object": fields.get("document_cdn_object"),
+        "document_source_url": fields.get("document_source_url"),
+        "corpus_type_name": fields.get("corpus_type_name"),
+        "corpus_import_id": fields.get("corpus_import_id"),
+        "text_block": fields["text_block"],
+        "text_block_id": fields["text_block_id"],
+        "text_block_type": fields["text_block_type"],
+        "metadata": fields.get("metadata"),
+        "concepts": fields.get("concepts"),
+        "spans": fields.get("spans", []),
+        "relevance": response_hit.get("relevance"),
+        "rank_features": fields.get("summaryfeatures"),
+    }
+
+
 class Passage(Hit):
     """A passage search result hit."""
 
@@ -876,8 +917,6 @@ class Passage(Hit):
     text_block: str
     text_block_id: str
     text_block_type: str
-    text_block_page: Optional[int] = None
-    text_block_coords: Optional[Sequence[tuple[float, float]]] = None
     concepts: Optional[Sequence[Concept]] = None
     spans: Annotated[
         Optional[Sequence[Span]],
@@ -886,6 +925,9 @@ class Passage(Hit):
             default=None,
         ),
     ]
+
+    text_block_page: Optional[int] = None
+    text_block_coords: Optional[Sequence[tuple[float, float]]] = None
 
     @classmethod
     def from_vespa_response(cls, response_hit: dict) -> "Passage":
@@ -896,41 +938,102 @@ class Passage(Hit):
         :return Passage: a populated passage
         """
         fields = response_hit["fields"]
-        family_publication_ts = fields.get("family_publication_ts")
-        family_publication_ts = (
-            datetime.fromisoformat(family_publication_ts)
-            if family_publication_ts
-            else None
-        )
+        base_fields = _extract_passage_base_fields(response_hit)
 
         return cls(
-            family_name=fields.get("family_name"),
-            family_description=fields.get("family_description"),
-            family_source=fields.get("family_source"),
-            family_import_id=fields.get("family_import_id"),
-            family_slug=fields.get("family_slug"),
-            family_category=fields.get("family_category"),
-            family_publication_ts=family_publication_ts,
-            family_geography=fields.get("family_geography"),
-            family_geographies=fields.get("family_geographies", []),
-            document_import_id=fields.get("document_import_id"),
-            document_slug=fields.get("document_slug"),
-            document_languages=fields.get("document_languages", []),
-            document_content_type=fields.get("document_content_type"),
-            document_cdn_object=fields.get("document_cdn_object"),
-            document_source_url=fields.get("document_source_url"),
-            corpus_type_name=fields.get("corpus_type_name"),
-            corpus_import_id=fields.get("corpus_import_id"),
-            text_block=fields["text_block"],
-            text_block_id=fields["text_block_id"],
-            text_block_type=fields["text_block_type"],
+            **base_fields,
             text_block_page=fields.get("text_block_page"),
             text_block_coords=fields.get("text_block_coords"),
-            metadata=fields.get("metadata"),
-            concepts=fields.get("concepts"),
-            spans=fields.get("spans", []),
-            relevance=response_hit.get("relevance"),
-            rank_features=fields.get("summaryfeatures"),
+        )
+
+
+class Page(BaseModel):
+    """Bounding boxes for a specific page."""
+
+    class BoundingBox(BaseModel):
+        """A bounding box defined by a specific number coordinate points."""
+
+        class Coordinate(BaseModel):
+            """A single (x, y) coordinate point."""
+
+            x: Annotated[float, Field(ge=0, description="X dimension of point.")]
+            y: Annotated[float, Field(ge=0, description="Y dimension of point.")]
+
+        coordinates: Annotated[
+            list[Coordinate],
+            Field(
+                min_length=4,
+                max_length=4,
+                description="A restricted number of coordinates to represent the bounding box.",
+            ),
+        ]
+
+    number: Annotated[
+        int,
+        Field(ge=0, description="Page number this entry corresponds to."),
+    ]
+
+    bounding_boxes: Annotated[
+        list[BoundingBox],
+        Field(
+            min_length=1,
+            description="List of bounding boxes on this page.",
+        ),
+    ]
+
+
+class PassageV2(Hit):
+    """A passage search result hit."""
+
+    id: Annotated[
+        str,
+        Field(description="Global ID. Replaces `text_block_id`."),
+    ]
+
+    text_block: str
+    text_block_id: str
+    text_block_type: str
+    concepts: Optional[Sequence[Passage.Concept]] = None
+    spans: Annotated[
+        Optional[Sequence[Passage.Span]],
+        Field(
+            description="Spans within the passage",
+            default=None,
+        ),
+    ]
+
+    idx: Annotated[int, Field(strict=True, ge=0)]
+
+    pages: Annotated[
+        list[Page],
+        Field(
+            min_length=1,
+            description="Page(s) within the document that this text block is found on.",
+        ),
+    ]
+
+    heading_id: Optional[str] = None
+    tokens: Optional[list[str]] = None
+    serialised_text: Optional[str] = None
+
+    @classmethod
+    def from_vespa_response(cls, response_hit: dict) -> "PassageV2":
+        """
+        Create a PassageV2 from a Vespa response hit.
+
+        :param dict response_hit: part of a json response from Vespa
+        :return PassageV2: a populated passage
+        """
+        fields = response_hit["fields"]
+        base_fields = _extract_passage_base_fields(response_hit)
+
+        return cls(
+            **base_fields,
+            idx=fields.get("idx", 0),
+            heading_id=fields.get("heading_id"),
+            pages=fields.get("pages"),
+            tokens=fields.get("tokens"),
+            serialised_text=fields.get("serialised_text"),
         )
 
 
