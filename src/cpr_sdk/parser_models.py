@@ -4,7 +4,17 @@ import logging.config
 from collections import Counter
 from datetime import date
 from enum import Enum
-from typing import Any, Final, List, Optional, Sequence, Tuple, TypeVar, Union
+from typing import (
+    Any,
+    Final,
+    List,
+    Optional,
+    Sequence,
+    Tuple,
+    TypeVar,
+    Union,
+    Annotated,
+)
 
 from cpr_sdk.pipeline_general_models import (
     CONTENT_TYPE_HTML,
@@ -117,6 +127,83 @@ class PDFTextBlock(TextBlock):
         return " ".join([line.strip() for line in self.text])
 
 
+class Page(BaseModel):
+    """Bounding boxes for a specific page."""
+
+    class BoundingBox(BaseModel):
+        """A bounding box defined by a specific number coordinate points."""
+
+        class Coordinate(BaseModel):
+            """A single (x, y) coordinate point."""
+
+            x: Annotated[float, Field(ge=0, description="X dimension of point.")]
+            y: Annotated[float, Field(ge=0, description="Y dimension of point.")]
+
+        coordinates: Annotated[
+            list[Coordinate],
+            Field(
+                min_length=4,
+                max_length=4,
+                description="A restricted number of coordinates to represent the bounding box.",
+            ),
+        ]
+
+    number: Annotated[
+        int,
+        Field(ge=0, description="Page number this entry corresponds to."),
+    ]
+
+    bounding_boxes: Annotated[
+        list[BoundingBox],
+        Field(
+            min_length=1,
+            description="List of bounding boxes on this page.",
+        ),
+    ]
+
+
+class PDFTextBlockV2(TextBlock):
+    """Text block parsed from a PDF document"""
+
+    id: Annotated[
+        str,
+        Field(description="Global ID. Replaces `text_block_id`."),
+    ]
+
+    idx: Annotated[
+        int,
+        Field(
+            strict=True,
+            ge=0,
+            description="Index of this text block within the range of all text blocks on the parent document",
+        ),
+    ]
+
+    pages: Annotated[
+        list[Page],
+        Field(
+            min_length=1,
+            description="Page(s) within the document that this text block is found on.",
+        ),
+    ]
+
+    # Override base class `List[str]` with `str`. This reflects the
+    # new chunking approach.
+    text: str
+
+    heading_id: Optional[str] = None
+    tokens: Optional[list[str]] = None
+    serialised_text: Optional[str] = None
+
+    def to_string(self) -> str:
+        """
+        Returns the text content as a string.
+
+        Included to maintain backwards compatible API.
+        """
+        return self.text
+
+
 class ParserInput(BaseModel):
     """Base class for input to a parser."""
 
@@ -166,6 +253,21 @@ class PDFData(BaseModel):
     page_metadata: Sequence[PDFPageMetadata]
     md5sum: str
     text_blocks: Sequence[PDFTextBlock]
+
+
+class PDFDataV2(BaseModel):
+    """
+    Set of metadata unique to PDF documents.
+
+    :attribute pages: List of pages contained in the document :attribute filename:
+    Name of the PDF file, without extension :attribute md5sum: md5sum of PDF content
+    :attribute language: list of 2-letter ISO language codes, optional. If null,
+    the OCR processor didn't support language detection
+    """
+
+    page_metadata: Sequence[PDFPageMetadata]
+    md5sum: str
+    text_blocks: Sequence[PDFTextBlockV2]
 
 
 _PO = TypeVar("_PO", bound="BaseParserOutput")
@@ -231,7 +333,7 @@ class BaseParserOutput(BaseModel):
             return self.pdf_data.text_blocks
         return []
 
-    def to_string(self) -> str:  # type: ignore
+    def to_string(self) -> str:
         """Return the text blocks in the parser output as a string"""
 
         return " ".join(
@@ -348,6 +450,12 @@ class BaseParserOutput(BaseModel):
         return self
 
 
+class BaseParserOutputV2(BaseParserOutput):
+    """Base class for an output from a parser."""
+
+    pdf_data: Optional[PDFDataV2] = None
+
+
 class ParserOutput(BaseParserOutput):
     """Output to a parser with the metadata format used by the CPR backend."""
 
@@ -415,8 +523,146 @@ class ParserOutput(BaseParserOutput):
             )
         )
 
-        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(list(HTMLTextBlock.model_fields.keys()))  # type: ignore
-        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(list(PDFTextBlock.model_fields.keys()))  # type: ignore
+        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(
+            list(HTMLTextBlock.model_fields.keys())
+        )  # type: ignore
+        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(
+            list(PDFTextBlock.model_fields.keys())
+        )  # type: ignore
+
+        if not self.text_blocks:
+            passages_array_filled = [
+                {key: None for key in empty_html_text_block_keys}
+                | {key: None for key in empty_pdf_text_block_keys}
+                | fixed_fields_dict
+                | {"text_block.index": 0, PDF_PAGE_METADATA_KEY: None}
+            ]
+
+            return passages_array_filled
+
+        passages_array = [
+            fixed_fields_dict
+            | self._rename_text_block_keys(
+                json.loads(block.model_dump_json(exclude={"text"}))
+            )
+            | {"text_block.text": block.to_string(), "text_block.index": idx}
+            for idx, block in enumerate(self.text_blocks)
+        ]
+
+        # TODO: do we need this code?
+        for passage in passages_array:
+            page_number = passage.get("text_block.page_number", None)
+            passage[PDF_PAGE_METADATA_KEY] = (
+                self.get_page_metadata_by_page_number(page_number)
+                if page_number is not None
+                else None
+            )
+
+        passages_array_filled = []
+        for passage in passages_array:
+            for key in empty_html_text_block_keys:
+                if key not in passage:
+                    passage[key] = None
+            for key in empty_pdf_text_block_keys:
+                if key not in passage:
+                    passage[key] = None
+            passages_array_filled.append(passage)
+
+        return passages_array_filled
+
+    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
+        """
+        Retrieve the first element of PDF page metadata where the page number matches the given page number.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
+
+        :param pdf_data: PDFData object containing the metadata.
+        :param page_number: The page number to match.
+        :return: The first matching PDFPageMetadata object, or None if no match is found.
+        """
+        if self.pdf_data and self.pdf_data.page_metadata:
+            for metadata in self.pdf_data.page_metadata:
+                if metadata.page_number == page_number:
+                    return json.loads(metadata.model_dump_json())
+        return None
+
+
+class ParserOutputV2(BaseParserOutputV2):
+    """Output to a parser with the metadata format used by the CPR backend."""
+
+    document_metadata: BackendDocument
+
+    @staticmethod
+    def from_flat_json(data: dict):
+        """Instantiate a parser output object from flat json."""
+
+        unflattened = unflatten_json(data)
+
+        # We remove optional fields that have complex nested structures.
+        # E.g. if html_data had a value of None for has_valid_text, we need to remove
+        # it as this would throw a validation error.
+        unflattened = remove_key_if_all_nested_vals_none(unflattened, "html_data")
+        unflattened = remove_key_if_all_nested_vals_none(unflattened, "pdf_data")
+
+        return ParserOutput.model_validate(unflattened)
+
+    @staticmethod
+    def _rename_text_block_keys(
+        keys: Union[list[str], dict[str, Any]],
+    ) -> Union[list[str], dict[str, Any]]:
+        """Prepend text_block. to the keys in the dictionary or list."""
+
+        if isinstance(keys, list):
+            return [f"text_block.{key}" for key in keys]
+
+        if isinstance(keys, dict):
+            return {f"text_block.{key}": value for key, value in keys.items()}
+
+        raise ValueError("keys must be a list or a dictionary")
+
+    def to_passage_level_json(self, include_empty: bool = True) -> list[dict[str, Any]]:
+        """
+        Convert the parser output to a passage-level JSON format.
+
+        In passage-level format we have a row for every text block in the document. This
+        is as for natural language processing tasks we often want to work with text at
+        the passage level.
+
+        HTML data won't contain PDF fields and vice versa, thus we must fill this in.
+        We could rely on the hugging face dataset transformation to fill in the missing
+        fields, but this is more explicit and provides default values.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
+
+        :param include_empty: Whether to output the document metadata if there are no
+        text blocks in the ParserOutput. If True, outputs a single dict with None values
+        for each text block related field. If False, returns an empty list.
+        """
+
+        if not self.text_blocks and not include_empty:
+            return []
+
+        fixed_fields_dict = json.loads(
+            self.model_dump_json(
+                exclude={
+                    "pdf_data": PDF_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
+                    "html_data": HTML_DATA_PASSAGE_LEVEL_EXPAND_FIELDS,
+                }
+            )
+        )
+
+        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(
+            list(HTMLTextBlock.model_fields.keys())
+        )  # type: ignore
+        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(
+            list(PDFTextBlock.model_fields.keys())
+        )  # type: ignore
 
         if not self.text_blocks:
             passages_array_filled = [
