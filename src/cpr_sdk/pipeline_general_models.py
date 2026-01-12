@@ -92,6 +92,7 @@ class UpdateTypes(str, Enum):
             reprocessing but not redownload from source.
         REPROCESS (str): Indicates that the document should be reprocessed, including
             redownload from source and reparse.
+        NO_DATA (str): Indicates that the document has no physical document (e.g. pdf).
     """
 
     NAME = "name"
@@ -101,6 +102,7 @@ class UpdateTypes(str, Enum):
     METADATA = "metadata"
     REPARSE = "reparse"
     REPROCESS = "reprocess"
+    NO_DATA = "no_data"
 
 
 class Update(BaseModel):
