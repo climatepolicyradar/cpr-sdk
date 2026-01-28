@@ -7,8 +7,10 @@ from enum import Enum
 from typing import (
     Any,
     Final,
+    Generic,
     List,
     Optional,
+    Protocol,
     Sequence,
     Tuple,
     TypeVar,
@@ -68,29 +70,70 @@ class BlockType(str, Enum):
     FOOT_NOTE = "footnote"
 
 
-class TextBlock(BaseModel):
+class _TextBlockProto(Protocol):
     """
-    Base class for a text block.
+    Protocol capturing the shared interface of text block types.
 
-    :attribute text: list of text lines contained in the text block :attribute
-    text_block_id: unique identifier for the text block :attribute language: language
-    of the text block. 2-letter ISO code, optional. :attribute type: predicted type of
-    the text block :attribute type_confidence: confidence score of the text block
-    being of the predicted type
+    All text blocks (TextBlock, TextBlockV2, HTMLTextBlock) share these
+    attributes/methods from _TextBlockMixin.
     """
 
-    text: List[str]
-    text_block_id: str
+    language: Optional[str]
+
+    def to_string(self) -> str: ...
+
+    def model_dump_json(
+        self, *, exclude: Union[set[str], dict[str, Any], None] = None
+    ) -> str: ...
+
+
+class _TextBlockMixin:
+    """
+    Shared fields for TextBlock* classes.
+
+    Must be used with a class that inherits from Pydantic's BaseModel.
+    """
+
     language: Optional[str] = (
         None  # TODO: validate this against a list of language ISO codes
     )
     type: BlockType
     type_confidence: float = Field(ge=0, le=1)
 
+
+class TextBlock(_TextBlockMixin, BaseModel):
+    """
+    text block with text as a list (v1).
+
+    :attribute text: list of text lines contained in the text block
+    """
+
+    text_block_id: str
+    text: List[str]
+
     def to_string(self) -> str:
         """Returns lines in a text block separated by spaces as a string."""
 
         return " ".join([line.strip() for line in self.text])
+
+
+class TextBlockV2(_TextBlockMixin, BaseModel):
+    """
+    text block with text as singular (v2).
+
+    :attribute text: text lines in the text block
+    """
+
+    text: str
+
+    def to_string(self) -> str:
+        """
+        Returns lines in a text block separated by spaces as a string.
+
+        For backwards compatibility with v1.
+        """
+
+        return self.text
 
 
 class HTMLTextBlock(TextBlock):
@@ -100,9 +143,6 @@ class HTMLTextBlock(TextBlock):
     Type is set to "Text" with a confidence of 1.0 by default, as we do not predict
     types for text blocks parsed from HTML.
     """
-
-    type: BlockType = BlockType.TEXT
-    type_confidence: float = 1.0
 
 
 class PDFTextBlock(TextBlock):
@@ -162,8 +202,8 @@ class Page(BaseModel):
     ]
 
 
-class PDFTextBlockV2(TextBlock):
-    """Text block parsed from a PDF document"""
+class PDFTextBlockV2(TextBlockV2):
+    """V2 text block parsed from a PDF document with str text."""
 
     id: Annotated[
         str,
@@ -187,10 +227,6 @@ class PDFTextBlockV2(TextBlock):
         ),
     ]
 
-    # Override base class `List[str]` with `str`. This reflects the
-    # new chunking approach.
-    text: str
-
     heading_id: Optional[str] = None
     tokens: Optional[list[str]] = None
     serialised_text: Optional[str] = None
@@ -199,7 +235,7 @@ class PDFTextBlockV2(TextBlock):
         """
         Returns the text content as a string.
 
-        Included to maintain backwards compatible API.
+        For backwards compatibility with v1.
         """
         return self.text
 
@@ -270,11 +306,14 @@ class PDFDataV2(BaseModel):
     text_blocks: Sequence[PDFTextBlockV2]
 
 
-_PO = TypeVar("_PO", bound="BaseParserOutput")
+_PO = TypeVar("_PO", bound="_BaseParserOutputFieldsMixin")
+
+PDFDataT = TypeVar("PDFDataT", PDFData, PDFDataV2)
+PDFTextBlockT = TypeVar("PDFTextBlockT", PDFTextBlock, PDFTextBlockV2)
 
 
-class BaseParserOutput(BaseModel):
-    """Base class for an output to a parser."""
+class _BaseParserOutputFieldsMixin(BaseModel, Generic[PDFDataT, PDFTextBlockT]):
+    """Shared fields and methods for BaseParserOutput* classes."""
 
     document_id: str
     document_metadata: dict
@@ -289,8 +328,39 @@ class BaseParserOutput(BaseModel):
     languages: Optional[Sequence[str]] = None
     translated: bool = False
     html_data: Optional[HTMLData] = None
-    pdf_data: Optional[PDFData] = None
+    pdf_data: Optional[PDFDataT] = None
+
     pipeline_metadata: Json = {}  # note: defaulting to {} here is safe (pydantic)
+
+    @property
+    def text_blocks(self) -> Sequence[_TextBlockProto]:
+        """
+        Return the text blocks in the document.
+
+        These could differ in format depending on the content type.
+        """
+
+        if self.html_data is not None:
+            return self.html_data.text_blocks
+        elif self.pdf_data is not None:
+            return self.pdf_data.text_blocks
+        return []
+
+    def get_text_blocks(
+        self, including_invalid_html=False
+    ) -> Sequence[_TextBlockProto]:
+        """A method for getting text blocks with the option to include invalid html."""
+        if self.document_content_type == CONTENT_TYPE_HTML and self.html_data:
+            if not including_invalid_html and not self.html_data.has_valid_text:
+                return []
+        return self.text_blocks
+
+    def to_string(self) -> str:
+        """Return the text blocks in the parser output as a string"""
+
+        return " ".join(
+            [text_block.to_string().strip() for text_block in self.text_blocks]
+        )
 
     @model_validator(mode="after")
     def check_html_pdf_metadata(self):
@@ -309,36 +379,6 @@ class BaseParserOutput(BaseModel):
             )
 
         return self
-
-    def get_text_blocks(self, including_invalid_html=False) -> Sequence[TextBlock]:
-        """A method for getting text blocks with the option to include invalid html."""
-        if self.document_content_type == CONTENT_TYPE_HTML and self.html_data:
-            if not including_invalid_html and not self.html_data.has_valid_text:
-                return []
-        return self.text_blocks
-
-    @property
-    def text_blocks(self) -> Sequence[TextBlock]:
-        """
-        Return the text blocks in the document.
-
-        These could differ in format depending on the content type.
-
-        :return: Sequence[TextBlock]
-        """
-
-        if self.html_data is not None:
-            return self.html_data.text_blocks
-        elif self.pdf_data is not None:
-            return self.pdf_data.text_blocks
-        return []
-
-    def to_string(self) -> str:
-        """Return the text blocks in the parser output as a string"""
-
-        return " ".join(
-            [text_block.to_string().strip() for text_block in self.text_blocks]
-        )
 
     def detect_and_set_languages(self: _PO) -> _PO:
         """
@@ -404,6 +444,10 @@ class BaseParserOutput(BaseModel):
 
         return self
 
+
+class BaseParserOutput(_BaseParserOutputFieldsMixin[PDFData, PDFTextBlock]):
+    """Base class for an output to a parser (v1)."""
+
     def vertically_flip_text_block_coords(self: _PO) -> _PO:
         """
         Flips the coordinates of all PDF text blocks vertically.
@@ -450,21 +494,21 @@ class BaseParserOutput(BaseModel):
         return self
 
 
-class BaseParserOutputV2(BaseParserOutput):
-    """Base class for an output from a parser."""
-
-    pdf_data: Optional[PDFDataV2] = None
+class BaseParserOutputV2(_BaseParserOutputFieldsMixin[PDFDataV2, PDFTextBlockV2]):
+    """Base class for an output from a parser (v2)."""
 
 
-class ParserOutput(BaseParserOutput):
-    """Output to a parser with the metadata format used by the CPR backend."""
+class _ParserOutputMethodsMixin(BaseModel):
+    """
+    Shared methods for ParserOutput classes.
 
-    document_metadata: BackendDocument
+    This mixin provides methods that work with both BaseParserOutput and BaseParserOutputV2.
+    Expected to be used with classes that inherit from _BaseParserOutputFieldsMixin.
+    """
 
-    @staticmethod
-    def from_flat_json(data: dict):
+    @classmethod
+    def from_flat_json(cls, data: dict):
         """Instantiate a parser output object from flat json."""
-
         unflattened = unflatten_json(data)
 
         # We remove optional fields that have complex nested structures.
@@ -473,7 +517,7 @@ class ParserOutput(BaseParserOutput):
         unflattened = remove_key_if_all_nested_vals_none(unflattened, "html_data")
         unflattened = remove_key_if_all_nested_vals_none(unflattened, "pdf_data")
 
-        return ParserOutput.model_validate(unflattened)
+        return cls.model_validate(unflattened)
 
     @staticmethod
     def _rename_text_block_keys(
@@ -488,6 +532,31 @@ class ParserOutput(BaseParserOutput):
             return {f"text_block.{key}": value for key, value in keys.items()}
 
         raise ValueError("keys must be a list or a dictionary")
+
+    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
+        """
+        Retrieve the first element of PDF page metadata where the page number matches the given page number.
+
+        The reason we convert from the pydantic BaseModel to a string using the
+        model_dump_json method and then reloading with json.load is as objects like
+        Enums and child pydantic objects persist when using the model_dump method.
+        We don't want these when we push to huggingface.
+
+        :param pdf_data: PDFData object containing the metadata.
+        :param page_number: The page number to match.
+        :return: The first matching PDFPageMetadata object, or None if no match is found.
+        """
+        if self.pdf_data and self.pdf_data.page_metadata:  # type: ignore[attr-defined]
+            for metadata in self.pdf_data.page_metadata:  # type: ignore[attr-defined]
+                if metadata.page_number == page_number:
+                    return json.loads(metadata.model_dump_json())
+        return None
+
+
+class ParserOutput(_ParserOutputMethodsMixin, BaseParserOutput):
+    """Output to a parser with the metadata format used by the CPR backend."""
+
+    document_metadata: BackendDocument  # type: ignore[override]
 
     def to_passage_level_json(self, include_empty: bool = True) -> list[dict[str, Any]]:
         """
@@ -523,12 +592,13 @@ class ParserOutput(BaseParserOutput):
             )
         )
 
-        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(
+        # For v1, we use HTMLTextBlock and PDFTextBlock directly
+        empty_html_text_block_keys = self._rename_text_block_keys(
             list(HTMLTextBlock.model_fields.keys())
-        )  # type: ignore
-        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(
+        )
+        empty_pdf_text_block_keys = self._rename_text_block_keys(
             list(PDFTextBlock.model_fields.keys())
-        )  # type: ignore
+        )
 
         if not self.text_blocks:
             passages_array_filled = [
@@ -570,58 +640,11 @@ class ParserOutput(BaseParserOutput):
 
         return passages_array_filled
 
-    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
-        """
-        Retrieve the first element of PDF page metadata where the page number matches the given page number.
 
-        The reason we convert from the pydantic BaseModel to a string using the
-        model_dump_json method and then reloading with json.load is as objects like
-        Enums and child pydantic objects persist when using the model_dump method.
-        We don't want these when we push to huggingface.
-
-        :param pdf_data: PDFData object containing the metadata.
-        :param page_number: The page number to match.
-        :return: The first matching PDFPageMetadata object, or None if no match is found.
-        """
-        if self.pdf_data and self.pdf_data.page_metadata:
-            for metadata in self.pdf_data.page_metadata:
-                if metadata.page_number == page_number:
-                    return json.loads(metadata.model_dump_json())
-        return None
-
-
-class ParserOutputV2(BaseParserOutputV2):
+class ParserOutputV2(_ParserOutputMethodsMixin, BaseParserOutputV2):
     """Output to a parser with the metadata format used by the CPR backend."""
 
-    document_metadata: BackendDocument
-
-    @staticmethod
-    def from_flat_json(data: dict):
-        """Instantiate a parser output object from flat json."""
-
-        unflattened = unflatten_json(data)
-
-        # We remove optional fields that have complex nested structures.
-        # E.g. if html_data had a value of None for has_valid_text, we need to remove
-        # it as this would throw a validation error.
-        unflattened = remove_key_if_all_nested_vals_none(unflattened, "html_data")
-        unflattened = remove_key_if_all_nested_vals_none(unflattened, "pdf_data")
-
-        return ParserOutput.model_validate(unflattened)
-
-    @staticmethod
-    def _rename_text_block_keys(
-        keys: Union[list[str], dict[str, Any]],
-    ) -> Union[list[str], dict[str, Any]]:
-        """Prepend text_block. to the keys in the dictionary or list."""
-
-        if isinstance(keys, list):
-            return [f"text_block.{key}" for key in keys]
-
-        if isinstance(keys, dict):
-            return {f"text_block.{key}": value for key, value in keys.items()}
-
-        raise ValueError("keys must be a list or a dictionary")
+    document_metadata: BackendDocument  # type: ignore[override]
 
     def to_passage_level_json(self, include_empty: bool = True) -> list[dict[str, Any]]:
         """
@@ -657,12 +680,13 @@ class ParserOutputV2(BaseParserOutputV2):
             )
         )
 
-        empty_html_text_block_keys: list[str] = self._rename_text_block_keys(
+        # For v2, we use HTMLTextBlock and PDFTextBlockV2 directly
+        empty_html_text_block_keys = self._rename_text_block_keys(
             list(HTMLTextBlock.model_fields.keys())
-        )  # type: ignore
-        empty_pdf_text_block_keys: list[str] = self._rename_text_block_keys(
-            list(PDFTextBlock.model_fields.keys())
-        )  # type: ignore
+        )
+        empty_pdf_text_block_keys = self._rename_text_block_keys(
+            list(PDFTextBlockV2.model_fields.keys())
+        )
 
         if not self.text_blocks:
             passages_array_filled = [
@@ -703,22 +727,3 @@ class ParserOutputV2(BaseParserOutputV2):
             passages_array_filled.append(passage)
 
         return passages_array_filled
-
-    def get_page_metadata_by_page_number(self, page_number: int) -> Optional[dict]:
-        """
-        Retrieve the first element of PDF page metadata where the page number matches the given page number.
-
-        The reason we convert from the pydantic BaseModel to a string using the
-        model_dump_json method and then reloading with json.load is as objects like
-        Enums and child pydantic objects persist when using the model_dump method.
-        We don't want these when we push to huggingface.
-
-        :param pdf_data: PDFData object containing the metadata.
-        :param page_number: The page number to match.
-        :return: The first matching PDFPageMetadata object, or None if no match is found.
-        """
-        if self.pdf_data and self.pdf_data.page_metadata:
-            for metadata in self.pdf_data.page_metadata:
-                if metadata.page_number == page_number:
-                    return json.loads(metadata.model_dump_json())
-        return None
