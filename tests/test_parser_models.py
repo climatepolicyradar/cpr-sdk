@@ -7,8 +7,11 @@ from cpr_sdk.parser_models import (
     HTMLTextBlock,
     ParserInput,
     ParserOutput,
+    ParserOutputV2,
     PDFData,
+    PDFDataV2,
     PDFTextBlock,
+    PDFTextBlockV2,
     TextBlock,
     VerticalFlipError,
     PDF_PAGE_METADATA_KEY,
@@ -238,3 +241,114 @@ def test_to_passage_level_json_method(
         passage_level_array_pdf_first_doc.keys()
         == passage_level_array_html_first_doc.keys()
     )
+
+
+def test_rename_text_block_keys_static_method() -> None:
+    """Test the _rename_text_block_keys static method of _ParserOutputMethodsMixin."""
+    # Test with list input
+    keys_list = ["text", "language", "type"]
+    result_list = ParserOutput._rename_text_block_keys(keys_list)
+    assert result_list == ["text_block.text", "text_block.language", "text_block.type"]
+
+    # Test with dict input
+    keys_dict = {"text": "foo", "language": "en"}
+    result_dict = ParserOutput._rename_text_block_keys(keys_dict)
+    assert result_dict == {"text_block.text": "foo", "text_block.language": "en"}
+
+    # Test with invalid input raises ValueError
+    with pytest.raises(ValueError):
+        ParserOutput._rename_text_block_keys("invalid")  # type: ignore
+
+
+def test_from_flat_json_classmethod(
+    parser_output_json_flat: dict,
+) -> None:
+    """Test the from_flat_json classmethod of _ParserOutputMethodsMixin."""
+    # from_flat_json should succeed where model_validate fails on flat data
+    with pytest.raises(pydantic.ValidationError):
+        ParserOutput.model_validate(parser_output_json_flat)
+
+    # from_flat_json should handle flat JSON correctly
+    parser_output = ParserOutput.from_flat_json(parser_output_json_flat)
+    assert parser_output.document_id == parser_output_json_flat["document_id"]
+    assert parser_output.text_blocks is not None
+    assert len(parser_output.text_blocks) > 0
+
+
+def test_get_page_metadata_by_page_number(
+    parser_output_json_pdf: dict,
+) -> None:
+    """Test the get_page_metadata_by_page_number method of _ParserOutputMethodsMixin."""
+    parser_output = ParserOutput.model_validate(parser_output_json_pdf)
+    assert parser_output.pdf_data is not None
+
+    # Get page 1 metadata (should exist)
+    page_1_metadata = parser_output.get_page_metadata_by_page_number(1)
+    assert page_1_metadata is not None
+    assert page_1_metadata["page_number"] == 1
+
+    # Get page 999 metadata (should not exist)
+    page_999_metadata = parser_output.get_page_metadata_by_page_number(999)
+    assert page_999_metadata is None
+
+    # Test with HTML document (no PDF data)
+    with open("tests/test_data/valid/test_html.json") as f:
+        html_data = __import__("json").load(f)
+
+    parser_output_html = ParserOutput.model_validate(html_data)
+    page_metadata = parser_output_html.get_page_metadata_by_page_number(1)
+    assert page_metadata is None
+
+
+def test_rename_text_block_keys_v2_static_method() -> None:
+    """Test the _rename_text_block_keys static method works for V2."""
+    # Test with list input
+    keys_list = ["text", "language", "type"]
+    result_list = ParserOutputV2._rename_text_block_keys(keys_list)
+    assert result_list == ["text_block.text", "text_block.language", "text_block.type"]
+
+    # Test with dict input
+    keys_dict = {"text": "foo", "language": "en"}
+    result_dict = ParserOutputV2._rename_text_block_keys(keys_dict)
+    assert result_dict == {"text_block.text": "foo", "text_block.language": "en"}
+
+
+def test_get_page_metadata_by_page_number_v2(
+    parser_output_json_pdf_v2: dict,
+) -> None:
+    """Test the get_page_metadata_by_page_number method of _ParserOutputMethodsMixin with V2."""
+    parser_output = ParserOutputV2.model_validate(parser_output_json_pdf_v2)
+    assert parser_output.pdf_data is not None
+    assert isinstance(parser_output.pdf_data, PDFDataV2)
+
+    # Get page 1 metadata (should exist)
+    page_1_metadata = parser_output.get_page_metadata_by_page_number(1)
+    assert page_1_metadata is not None
+    assert page_1_metadata["page_number"] == 1
+
+    # Get page 999 metadata (should not exist)
+    page_999_metadata = parser_output.get_page_metadata_by_page_number(999)
+    assert page_999_metadata is None
+
+
+def test_parser_output_v2_object(
+    parser_output_json_pdf_v2: dict,
+) -> None:
+    """Test that we correctly instantiate the ParserOutputV2 object."""
+    # Instantiate the parser output object
+    parser_output = ParserOutputV2.model_validate(parser_output_json_pdf_v2)
+    assert parser_output.document_id == parser_output_json_pdf_v2["document_id"]
+    assert parser_output.pdf_data is not None
+    assert isinstance(parser_output.pdf_data, PDFDataV2)
+
+    # Test text blocks are V2 type with string text
+    assert len(parser_output.text_blocks) > 0
+    assert isinstance(parser_output.text_blocks[0], PDFTextBlockV2)
+    assert isinstance(parser_output.text_blocks[0].text, str)
+    assert isinstance(parser_output.text_blocks[0].id, str)
+    assert isinstance(parser_output.text_blocks[0].idx, int)
+    assert isinstance(parser_output.text_blocks[0].pages, list)
+
+    # Test to_string method works
+    assert parser_output.to_string() != ""
+    assert isinstance(parser_output.to_string(), str)
