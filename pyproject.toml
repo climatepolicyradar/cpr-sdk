@@ -25,6 +25,7 @@ dependencies = [
   "flatten-dict>=0.4.2,<1",
   "rich>=13.9.4,<14",
   "pytest-asyncio>=1.1.0,<2",
+  "greenlet (>=3.3.1,<4.0.0)",
 ]
 
 [project.optional-dependencies]
