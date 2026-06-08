@@ -428,13 +428,6 @@ class SearchParameters(BaseModel):
     See docs: https://docs.vespa.ai/en/query-rewriting.html#rule-bases
     """
 
-    distance_threshold: Optional[float] = 0.24
-    """
-    Optional threshold for the nearest neighbor search distance. Results with a
-    distance score below this threshold will be excluded. Based on the 'innerproduct'
-    distance metric, lower scores are less relevant.
-    """
-
     by_document_title: bool = False
     """
     Whether to search by document title rather than family title.
