@@ -113,26 +113,17 @@ def test_filter_profiles_return_different_queries():
         params=SearchParameters(
             query_string="test", year_range=(2000, 2023), exact_match=True
         ),
-        sensitive=False,
     ).to_str()
     assert "stem: false" in exact_yql
     assert "nearestNeighbor" not in exact_yql
 
-    hybrid_yql = YQLBuilder(
+    default_yql = YQLBuilder(
         params=SearchParameters(
             query_string="test", year_range=(2000, 2023), exact_match=False
         ),
-        sensitive=False,
     ).to_str()
-    assert "nearestNeighbor" in hybrid_yql
-
-    sensitive_yql = YQLBuilder(
-        params=SearchParameters(
-            query_string="test", year_range=(2000, 2023), exact_match=False
-        ),
-        sensitive=True,
-    ).to_str()
-    assert "nearestNeighbor" not in sensitive_yql
+    assert "nearestNeighbor" not in default_yql
+    assert "userInput" in default_yql
 
     all_yql = YQLBuilder(
         params=SearchParameters(
@@ -143,7 +134,7 @@ def test_filter_profiles_return_different_queries():
     assert "2024" in all_yql
     assert "test query string" not in all_yql
 
-    queries = [exact_yql, hybrid_yql, sensitive_yql, all_yql]
+    queries = [exact_yql, default_yql, all_yql]
     assert len(queries) == len(set(queries))
 
 
@@ -212,23 +203,6 @@ def test_yql_builder_build_concept_count_filter() -> None:
     assert concept_count_filter_clause.replace("  ", "").replace("\n", "") == (
         '((concept_counts contains sameElement(key contains "concept_1_1", value = 101)))'
     )
-
-
-def test_distance_threshold_appears_in_yql():
-    """Test whether the distance_threshold clause appears in the YQL when specified."""
-    # Test with distance_threshold set
-    threshold = 0.7
-    params_with_threshold = SearchParameters(
-        query_string="test", distance_threshold=threshold
-    )
-    yql_with_threshold = YQLBuilder(params_with_threshold).to_str()
-    expected_substring = f'"distanceThreshold": {threshold}'
-    assert expected_substring in yql_with_threshold
-
-    # Test with distance_threshold (default is a Float)
-    params_without_threshold = SearchParameters(query_string="test")
-    yql_without_threshold = YQLBuilder(params_without_threshold).to_str()
-    assert "distanceThreshold" in yql_without_threshold
 
 
 def test_by_document_title_appears_in_yql():
@@ -419,7 +393,7 @@ def test_concept_v2_filters_appear_in_yql():
     yql = YQLBuilder(params).to_str()
     assert (
         yql
-        == 'select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{"targetNumHits": 1000, "distanceThreshold": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (spans contains sameElement(concepts_v2_flat matches \'Q374\')) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )'
+        == "select * from sources family_document, document_passage where ( (userInput(@query_string)) ) and (spans contains sameElement(concepts_v2_flat matches 'Q374')) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
     )
 
     # Test document filter
@@ -434,7 +408,7 @@ def test_concept_v2_filters_appear_in_yql():
     yql = YQLBuilder(params).to_str()
     assert (
         yql
-        == 'select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{"targetNumHits": 1000, "distanceThreshold": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (concepts_v2 contains sameElement(concept_wikibase_id contains \'Q374\', count >= 5)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )'
+        == "select * from sources family_document, document_passage where ( (userInput(@query_string)) ) and (concepts_v2 contains sameElement(concept_wikibase_id contains 'Q374', count >= 5)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
     )
 
     # Test both filters together
@@ -450,7 +424,7 @@ def test_concept_v2_filters_appear_in_yql():
     yql = YQLBuilder(params).to_str()
     assert (
         yql
-        == "select * from sources family_document, document_passage where ( (userInput(@query_string)) or ( [{\"targetNumHits\": 1000, \"distanceThreshold\": 0.24}] nearestNeighbor(text_embedding,query_embedding) ) ) and (spans contains sameElement(concepts_v2_flat matches 'Q374')) and (concepts_v2 contains sameElement(concept_id contains 'nhhzwfva', count = 1)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
+        == "select * from sources family_document, document_passage where ( (userInput(@query_string)) ) and (spans contains sameElement(concepts_v2_flat matches 'Q374')) and (concepts_v2 contains sameElement(concept_id contains 'nhhzwfva', count = 1)) limit 0 | all( group(family_import_id) output(count()) max(100) each( output(count()) max(10) each( output( summary(search_summary) ) ) ) )"
     )
 
 
