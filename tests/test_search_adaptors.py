@@ -294,7 +294,7 @@ def test_vespa_search_adaptor_rank_features(test_vespa):
 
     for family in response.results:
         for hit in family.hits:
-            assert isinstance(hit.rank_features, dict)
+            assert hit.rank_features is None or isinstance(hit.rank_features, dict)
 
 
 @pytest.mark.vespa
@@ -305,7 +305,7 @@ async def test_vespa_async_search_adaptor_rank_features(test_vespa):
 
     for family in response.results:
         for hit in family.hits:
-            assert isinstance(hit.rank_features, dict)
+            assert hit.rank_features is None or isinstance(hit.rank_features, dict)
 
 
 @pytest.mark.vespa
@@ -617,26 +617,6 @@ async def test_vespa_async_search_adaptor__exact(test_vespa):
     request = SearchParameters(query_string=query_string, exact_match=True)
     response = await async_vespa_search(test_vespa, request)
     assert len(response.results) == 0
-
-
-@pytest.mark.vespa
-@patch("cpr_sdk.vespa.SENSITIVE_QUERY_TERMS", {"Government"})
-def test_vespa_search_adaptor__sensitive(test_vespa):
-    request = SearchParameters(query_string="Government")
-    response = vespa_search(test_vespa, request)
-
-    # Without being too prescriptive, we'd expect something back for this
-    assert len(response.results) > 0
-
-
-@pytest.mark.vespa
-@pytest.mark.asyncio
-async def test_vespa_async_search_adaptor__sensitive(test_vespa):
-    request = SearchParameters(query_string="Government")
-    response = await async_vespa_search(test_vespa, request)
-
-    # Without being too prescriptive, we'd expect something back for this
-    assert len(response.results) > 0
 
 
 @pytest.mark.parametrize(
@@ -1623,143 +1603,6 @@ def test_vespa_search_response__geographies(
 
 
 @pytest.mark.vespa
-def test_vespa_search_hybrid_no_closeness_profile(test_vespa):
-    query_string = "the"
-
-    request_no_closeness = SearchParameters(
-        query_string=query_string,
-        custom_vespa_request_body={"ranking.profile": "hybrid_no_closeness"},
-    )
-    response_no_closeness = vespa_search(test_vespa, request_no_closeness)
-
-    request_null_closeness_weights = SearchParameters(
-        query_string=query_string,
-        custom_vespa_request_body={
-            "input.query(description_closeness_weight)": 0,
-            "input.query(passage_closeness_weight)": 0,
-        },
-    )
-    response_null_closeness_weights = vespa_search(
-        test_vespa, request_null_closeness_weights
-    )
-
-    assert response_no_closeness == response_null_closeness_weights
-
-
-@pytest.mark.vespa
-@pytest.mark.asyncio
-async def test_vespa_async_search_hybrid_no_closeness_profile(test_vespa):
-    query_string = "the"
-
-    request_no_closeness = SearchParameters(
-        query_string=query_string,
-        custom_vespa_request_body={"ranking.profile": "hybrid_no_closeness"},
-    )
-    response_no_closeness = await async_vespa_search(test_vespa, request_no_closeness)
-
-    request_null_closeness_weights = SearchParameters(
-        query_string=query_string,
-        custom_vespa_request_body={
-            "input.query(description_closeness_weight)": 0,
-            "input.query(passage_closeness_weight)": 0,
-        },
-    )
-    response_null_closeness_weights = await async_vespa_search(
-        test_vespa, request_null_closeness_weights
-    )
-
-    assert response_no_closeness == response_null_closeness_weights
-
-
-@pytest.mark.vespa
-@pytest.mark.parametrize(
-    "weight_name,query_string",
-    [
-        (
-            "name_weight",
-            "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
-        ),
-        (
-            "description_weight",
-            "forestry and forest resources, biodiversity and sensitive ecosystems",
-        ),
-        ("passage_weight", "climate change adaptation action"),
-    ],
-)
-def test_vespa_search_field_weights(test_vespa, weight_name, query_string):
-    """
-    Test that search results differ when field weights are set to 0.
-
-    TODO: it'd be great if we could focus these tests on whether the field weights
-    actually affect the fields they're supposed to, but there doesn't seem to be a
-    simple way of doing this. The issue could be to do with the lack of diversity
-    of families in the test data.
-    """
-    response = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string=query_string,
-        ),
-    )
-
-    response_null_field_weight = vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string=query_string,
-            custom_vespa_request_body={
-                f"input.query({weight_name})": 0,
-            },
-        ),
-    )
-
-    assert response.results != response_null_field_weight.results
-
-
-@pytest.mark.vespa
-@pytest.mark.parametrize(
-    "weight_name,query_string",
-    [
-        (
-            "name_weight",
-            "Nationally Determined Contribution: Climate Change Adaptation and Low Emissions Growth Strategy by 2035",
-        ),
-        (
-            "description_weight",
-            "forestry and forest resources, biodiversity and sensitive ecosystems",
-        ),
-        ("passage_weight", "climate change adaptation action"),
-    ],
-)
-@pytest.mark.asyncio
-async def test_vespa_async_search_field_weights(test_vespa, weight_name, query_string):
-    """
-    Test that search results differ when field weights are set to 0.
-
-    TODO: it'd be great if we could focus these tests on whether the field weights
-    actually affect the fields they're supposed to, but there doesn't seem to be a
-    simple way of doing this. The issue could be to do with the lack of diversity
-    of families in the test data.
-    """
-    response = await async_vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string=query_string,
-        ),
-    )
-
-    response_null_field_weight = await async_vespa_search(
-        test_vespa,
-        SearchParameters(
-            query_string=query_string,
-            custom_vespa_request_body={
-                f"input.query({weight_name})": 0,
-            },
-        ),
-    )
-
-    assert response.results != response_null_field_weight.results
-
-
 @pytest.mark.vespa
 @pytest.mark.parametrize(
     "concept_count_filters,expected_response_families,sort_by,sort_order",

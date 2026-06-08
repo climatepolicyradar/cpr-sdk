@@ -40,9 +40,8 @@ class YQLBuilder:
     """
     )
 
-    def __init__(self, params: SearchParameters, sensitive: bool = False) -> None:
+    def __init__(self, params: SearchParameters) -> None:
         self.params = params
-        self.sensitive = sensitive
 
     def _escape_apostrophes(self, value: Optional[str]) -> str:
         """Escape a apostrophes for safe inclusion in a single-quoted YQL literal."""
@@ -59,20 +58,14 @@ class YQLBuilder:
 
     def build_search_term(self) -> str:
         """Create the part of the query that matches a users search text"""
-        if self.params.all_results:
+        if self.params.all_results or not self.params.query_string:
             return "( true )"
-        if self.params.exact_match:
+        elif self.params.exact_match:
             return """
                 (
                     (family_name_not_stemmed contains({stem: false}@query_string)) or
                     (family_description_not_stemmed contains({stem: false}@query_string)) or
                     (text_block_not_stemmed contains ({stem: false}@query_string))
-                )
-            """
-        elif self.sensitive:
-            return """
-                (
-                    (userInput(@query_string)) 
                 )
             """
         elif self.params.by_document_title:
@@ -82,21 +75,9 @@ class YQLBuilder:
                 )
             """
         else:
-            # if specified in the search parameters, add a threshold for the distance
-            # between the query and the text_embedding
-            distance_threshold_clause = (
-                f', "distanceThreshold": {self.params.distance_threshold}'
-                if self.params.distance_threshold is not None
-                else ""
-            )
-
-            return f"""
+            return """
                 (
-                    (userInput(@query_string)) 
-                    or (
-                        [{{\"targetNumHits\": 1000{distance_threshold_clause}}}]
-                        nearestNeighbor(text_embedding,query_embedding)
-                    )
+                    (userInput(@query_string))
                 )
             """
 

@@ -1,6 +1,3 @@
-import re
-from unittest.mock import patch
-
 import pytest
 from pydantic import ValidationError
 
@@ -8,16 +5,12 @@ from cpr_sdk.models.search import Filters, SearchParameters, sort_fields, sort_o
 from cpr_sdk.vespa import build_vespa_request_body
 
 
-@patch(
-    "cpr_sdk.vespa.SENSITIVE_QUERY_TERMS",
-    {re.compile(r"\b" + re.escape("sensitive") + r"\b")},
-)
 @pytest.mark.parametrize(
     "expected_rank_profile, params",
     [
-        ("hybrid", SearchParameters(query_string="test")),
+        (None, SearchParameters()),
+        (None, SearchParameters(query_string="test")),
         ("exact_not_stemmed", SearchParameters(query_string="test", exact_match=True)),
-        ("hybrid_no_closeness", SearchParameters(query_string="sensitive")),
         (
             "bm25_document_title",
             SearchParameters(query_string="test", by_document_title=True),
@@ -26,11 +19,16 @@ from cpr_sdk.vespa import build_vespa_request_body
 )
 def test_build_vespa_request_body(expected_rank_profile, params):
     body = build_vespa_request_body(parameters=params)
-    assert body["ranking.profile"] == expected_rank_profile
+    assert body.get("ranking.profile") == expected_rank_profile
     for key, value in body.items():
         assert (
             not isinstance(value, str) or len(value) > 0
         ), f"Search parameters: {params} has an empty value for {key}: {value}"
+
+
+def test_build_vespa_request_body__default_has_no_ranking_profile():
+    body = build_vespa_request_body(parameters=SearchParameters(query_string="test"))
+    assert "ranking.profile" not in body
 
 
 def test_build_vespa_request_body__all():
