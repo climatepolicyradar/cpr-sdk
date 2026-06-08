@@ -122,11 +122,53 @@ Explainers of specific search types follow, from lowest to highest complexity.
 > [!WARNING]
 > In the following sections, example YQL queries and rank profiles are used to explain the mechanics of each search. **These will not necessarily be the same as are in product by the time you read this!** These are more meant as practical ways to explain relevant mechanics of Vespa and our searches.
 
+## Default text search
+
+Default text search is the default search on our tool. It uses Vespa's `userInput` operator to turn a free text query into the most suitable lower-level query, ranked by BM25.
+
+### Annotated YQL
+
+In the retrieval part, [userInput](https://docs.vespa.ai/en/reference/query-language-reference.html#userinput) turns the query string into the lower-level query Vespa thinks is most suitable. It operates on the *default fieldset* defined in each schema.
+
+``` sql
+select * from sources family_document, document_passage where (
+    (userInput(@query_string))
+)
+limit 0
+| all(
+    group(family_import_id)
+    output(count()) max(20)
+    each( output(count()) max(10) each( output( summary(search_summary) ) ) )
+)
+```
+
+### Relevant schema parts for default search
+
+No explicit rank profile is set for default text search, so Vespa uses its built-in `default` profile which applies BM25 ranking over the default fieldset for each schema.
+
+[BM25](https://en.wikipedia.org/wiki/Okapi_BM25) ranks according to the number of times a term in the query appears in each record, penalising occurrences (like 'climate') which appear in lots of records compared to those that are rarer.
+
+The default fieldsets are:
+
+``` js
+// family_document schema
+fieldset default {
+    fields: family_name_index, family_description_index
+}
+
+// document_passage schema
+fieldset default {
+    fields: text_block
+}
+```
+
 ## Exact search
 
 The intention of this search is to return documents with the *exact phrase used* in their titles, descriptions or full text. Expert users tend to use this when they're searching for something very specific and often technical, or to count documents that mention a phrase. (Having said that, around 1% of users performed this search before we recently made it harder to find).
 
-### Annotated YQL
+Like default text search, exact search uses the same grouping structure — the difference is in retrieval and ranking. Instead of `userInput`, it uses `contains` with stemming disabled, and selects the `exact_not_stemmed` rank profile.
+
+### Annotated exact search YQL
 
 ```sql
 -- RETRIEVAL PART
@@ -158,7 +200,7 @@ all(
 )
 ```
 
-### Relevant parts of schemas
+### Relevant schema parts for exact search
 
 #### `family_document` schema
 
@@ -232,89 +274,3 @@ rank-profile exact_not_stemmed inherits default_passage {
     summary-features: query(passage_weight) text_score()
 }
 ```
-
-## Hybrid search
-
-Hybrid search is the default search on our tool. It's implementation is similar to exact match search, but with a few extra parts to the query and schema. Here, just the differences will be highlighted.
-
-### Annotated YQL
-
-The group clause is exactly the same as before! But in the retrieval part, instead of using `contains` we use:
-
-- [userInput](https://docs.vespa.ai/en/reference/query-language-reference.html#userinput): Vespa's way of turning a free text query into the lower-level query that it thinks is most suitable. Operates on the *default fieldset* defined in each schema.
-- [nearestNeighbour](https://docs.vespa.ai/en/nearest-neighbor-search.html#querying-using-nearestneighbor-query-operator): performs approximate nearest neighbour search using an embedding of the query and the `text_embedding` field, which is the the vector-encoded version of each text block. This is what makes our search 'semantic'.
-
-``` sql
-select * from sources family_document, document_passage where ( 
-    ---
-    (userInput(@query_string)) 
-    or ( 
-        [{\"targetNumHits\": 1000}] nearestNeighbor(text_embedding,query_embedding) ) 
-    ) 
-    limit 0 
-| all( 
-    group(family_import_id) 
-    output(count()) max(20) 
-    each( output(count()) max(10) each( output( summary(search_summary) ) ) ) 
-)
-```
-
-### Relevant parts of schemas
-
-The ranking for each field is as follows:
-
-- family names are ranked using BM25.
-- family descriptions are ranked using a weighted sum of BM25 and vector similarity. The weight of the latter is set to 0 in the SDK, disabling vector search on descriptions.
-- passages are ranked using a weighted sum of BM25 and vector similarity.
-
-[BM25](https://en.wikipedia.org/wiki/Okapi_BM25) ranks according to the number of times a term in the query appears in each record, penalising occurrences (like 'climate') which appear in lots of records compared to those that are rarer.
-
-> [!TIP]
-> The `description_closeness_weight` has been set to 0 in the SDK code, rather than updating the default value in the schema. This method doesn't require a Vespa schema change thus redeploy, and changing values in code rather than the schema means SDK and backend unit tests can be run on the change.
-
-``` js
-// family_document hybrid rank profile
-rank-profile hybrid inherits default_family {
-    inputs {
-        query(query_embedding) tensor<float>(x[768])
-        query(description_bm25_weight) double: 1.0
-        // NOTE: this is set to 0 in the SDK, disabling embedding search on descriptions
-        query(description_closeness_weight) double: 1.0
-    }
-    function name_score() {
-        expression: bm25(family_name_index)
-    }
-    function description_score() {
-        expression: query(description_bm25_weight) * bm25(family_description_index) + query(description_closeness_weight) * closeness(family_description_embedding)
-    }
-    first-phase {
-        expression: (query(name_weight) * name_score()) + (query(description_weight) * description_score())
-    }
-    summary-features: name_score() description_score() bm25(family_name_index) bm25(family_description_index) closeness(family_description_embedding)
-}
-
-// document_passage hybrid rank profile
-rank-profile hybrid inherits default_passage {
-    inputs {
-        query(query_embedding) tensor<float>(x[768])
-        query(passage_bm25_weight) double: 1.0
-        query(passage_closeness_weight) double: 1.0
-    }
-    function text_score() {
-        expression: query(passage_bm25_weight) * bm25(text_block) + query(passage_closeness_weight) * closeness(text_embedding)
-    }
-    first-phase {
-        expression: query(passage_weight) * text_score()
-    }
-    summary-features: text_score() bm25(text_block) closeness(text_embedding) query(passage_weight)
-}
-
-```
-
-### Disabling vector search for sensitive queries
-
-The embedding model we use is trained on English Wikipedia and a dataset of out-of-copyright books then finetuned on thousands of Bing searches (a dataset called msmarco). As a result, there are some troublesome biases that we'd like to avoid our users seeing.
-
-As such, there's an escape hatch for any queries that contain likely sensitive terms including protected characteristics, nationalities, and some miscellaneous terms ([full list here](../../src/cpr_sdk/resources/sensitive_query_terms.tsv)).
-
-The mechanics of the sensitive query are identical to the hybrid search query, but with use of embeddings for both retrieval and ranking removed.
