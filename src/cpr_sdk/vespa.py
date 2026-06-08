@@ -8,10 +8,9 @@ from vespa.io import VespaQueryResponse
 
 from cpr_sdk.exceptions import FetchError
 from cpr_sdk.models.search import Family, Hit, SearchParameters, SearchResponse
-from cpr_sdk.utils import dig, is_sensitive_query, load_sensitive_query_terms
+from cpr_sdk.utils import dig
 from cpr_sdk.yql_builder import YQLBuilder
 
-SENSITIVE_QUERY_TERMS = load_sensitive_query_terms()
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -88,19 +87,13 @@ def find_vespa_cert_paths() -> tuple[Optional[str], Optional[str]]:
 
 def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
     """Constructs the payload for a vespa query"""
-    sensitive = (
-        is_sensitive_query(parameters.query_string, SENSITIVE_QUERY_TERMS)
-        if parameters.query_string
-        else False
-    )
-
     if parameters.by_document_title and not parameters.documents_only:
         _LOGGER.warning(
             "Searching by document title is not supported when documents_only is False. Setting documents_only to True."
         )
         parameters.documents_only = True
 
-    yql = YQLBuilder(params=parameters, sensitive=sensitive).to_str()
+    yql = YQLBuilder(params=parameters).to_str()
     vespa_request_body: dict[str, Any] = {
         "yql": yql,
         "timeout": "20",
@@ -112,15 +105,8 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
         pass
     elif parameters.exact_match:
         vespa_request_body["ranking.profile"] = "exact_not_stemmed"
-    elif sensitive:
-        vespa_request_body["ranking.profile"] = "hybrid_no_closeness"
     elif parameters.by_document_title:
         vespa_request_body["ranking.profile"] = "bm25_document_title"
-    else:
-        vespa_request_body["ranking.profile"] = "hybrid"
-        vespa_request_body["input.query(query_embedding)"] = (
-            "embed(msmarco-distilbert-dot-v5, @query_string)"
-        )
 
     if parameters.custom_vespa_request_body is not None:
         overlapping_keys = set(vespa_request_body.keys()) & set(
@@ -141,9 +127,6 @@ def build_vespa_request_body(parameters: SearchParameters) -> dict[str, str]:
         else:
             vespa_request_body["rules.off"] = False
             vespa_request_body["rules.rulebase"] = "acronyms"
-
-    # Disabling embedding search for descriptions
-    vespa_request_body["input.query(description_closeness_weight)"] = 0
 
     return vespa_request_body
 
