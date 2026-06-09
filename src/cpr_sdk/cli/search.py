@@ -1,6 +1,5 @@
 import time
 from contextlib import nullcontext
-from typing import Optional
 
 import typer
 from rich.console import Console
@@ -66,10 +65,6 @@ def main(
         default=[],
         help="Filter results by concept ID. Can be used multiple times in the same run.",
     ),
-    distance_threshold: Optional[float] = typer.Option(
-        default=None,
-        help="Optional threshold for the vector component of hybrid search. Passages with an inner product score below this threshold will be excluded.",
-    ),
 ):
     """Run a search query with different rank profiles."""
     console = Console()
@@ -81,7 +76,6 @@ def main(
         concept_filters=[
             ConceptFilter(name="id", value=concept_id) for concept_id in concept_id
         ],
-        distance_threshold=distance_threshold,
     )
     request_body = build_vespa_request_body(search_parameters)
 
