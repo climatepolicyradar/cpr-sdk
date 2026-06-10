@@ -150,3 +150,6 @@ dmypy.json
 search_test_report.html
 
 tmp/
+
+# Claude Working Directory
+.claude
