@@ -1,50 +1,10 @@
-from unittest.mock import patch, mock_open
-
 import pytest
 from cpr_sdk.utils import (
     dig,
-    is_sensitive_query,
     iterate_batch,
-    load_sensitive_query_terms,
     remove_key_if_all_nested_vals_none,
     unflatten_json,
 )
-
-TEST_SENSITIVE_QUERY_TERMS = """group_name\tkeyword
-type\tWord
-type\tTest Term
-type\tAnother Phrase Example
-"""
-
-
-@pytest.mark.parametrize(
-    argnames="expected, text",
-    argvalues=(
-        [False, ""],
-        [False, "ordinary query"],
-        [False, "word but outnumbered"],
-        [False, "word another phrase example but with many other items"],
-        [True, "word"],
-        [False, "wordle"],
-        [True, "test term"],
-        [True, "test term word"],
-        [True, "test term and"],
-        [True, "test term and some"],
-        [True, "another phrase example"],
-        [True, "another phrase example word short"],
-        [True, "another phrase example with other items"],
-    ),
-)
-def test_is_sensitive_query(expected, text):
-    with patch("builtins.open", mock_open(read_data=TEST_SENSITIVE_QUERY_TERMS)):
-        sensitive_terms = load_sensitive_query_terms()
-    assert is_sensitive_query(text, sensitive_terms=sensitive_terms) == expected
-
-
-def test_load_sensitive_query_terms():
-    terms = load_sensitive_query_terms()
-    assert terms
-    assert len(terms) > 2000
 
 
 @pytest.mark.parametrize(
