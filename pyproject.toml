@@ -14,18 +14,18 @@ classifiers = [
 license = "LICENSE"
 requires-python = ">=3.10,<3.14"
 dependencies = [
-  "pydantic>=2.10.4,<3",
-  "boto3>=1.35.86,<2",
-  "tqdm>=4.67.1,<5",
+  "pydantic>=2.13.4,<3",
+  "boto3>=1.43.6,<2",
+  "tqdm>=4.67.3,<5",
   "aws-error-utils>=2.7.0,<3",
-  "pandas>=2.2.3,<3",
-  "datasets>=3.2.0,<4",
+  "pandas>=2.3.3,<3",
+  "datasets>=3.6.0,<4",
   "langdetect>=1.0.9,<2",
   "deprecation>=2.1.0,<3",
-  "flatten-dict>=0.4.2,<1",
+  "flatten-dict>=0.5.0,<1",
   "rich>=13.9.4,<14",
-  "pytest-asyncio>=1.1.0,<2",
-  "greenlet (>=3.3.1,<4.0.0)",
+  "pytest-asyncio>=1.3.0,<2",
+  "greenlet (>=3.5.0,<4.0.0)",
 ]
 
 [project.optional-dependencies]
@@ -48,30 +48,30 @@ search = "cpr_sdk.cli.search:app"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^4.0.1"
-pyright = "^1.1.391"
-pytest = "^8.3.4"
-black = "^24.10.0"
-moto = { extras = ["s3"], version = "^5.0.24" }
+pre-commit = "^4.6.0"
+pyright = "^1.1.409"
+pytest = "^8.4.2"
+black = "^26.3.1"
+moto = { extras = ["s3"], version = "^5.2.1" }
 pytest-dotenv = "^0.5.2"
 
 [tool.poetry.group.search_tests]
 optional = true
 
 [tool.poetry.group.search_tests.dependencies]
-typer = "^0.12.5"
-pytest = "^8.3.3"
-pytest-html = "^4.1.1"
-ipykernel = "^6.29.5"
-pyvespa = "^0.62.0"
-python-dotenv = ">=0.21.0"
+typer = "^0.15.4"
+pytest = "^8.4.2"
+pytest-html = "^4.2.0"
+ipykernel = "^7.2.0"
+pyvespa = "^1.2.0"
+python-dotenv = ">=1.2.2"
 pytest-dotenv = "^0.5.2"
 
 [tool.poetry.group.tools_agents]
 optional = true
 
 [tool.poetry.group.tools_agents.dependencies]
-pydantic-ai = "^0.1.9"
+pydantic-ai = "^0.6.0"
 
 [tool.pytest.ini_options]
 addopts = "-p no:cacheprovider"
