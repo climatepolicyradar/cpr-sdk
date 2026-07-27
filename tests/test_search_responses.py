@@ -1054,4 +1054,3 @@ def test_document_passage_parse_from_valid_response():
 )
 def test_extract_schema_name(hit, expected):
     assert extract_schema_name(hit) == expected
-

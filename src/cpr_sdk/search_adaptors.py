@@ -206,4 +206,3 @@ class VespaSearchAdapter(SearchAdapter):
                 ) from e
 
         return Hit.from_vespa_response(vespa_response.json)
-
