@@ -1,13 +1,9 @@
 from string import Template
-from vespa.querybuilder import QueryField, Query
-import vespa.querybuilder as qb
 from typing import Optional
 
 
 from cpr_sdk.models.search import (
     Filters,
-    SearchClassifiersProfileParameters,
-    SearchConceptParameters,
     SearchParameters,
 )
 
@@ -369,96 +365,3 @@ class YQLBuilder:
             MAX_HITS_PER_FAMILY=self.build_max_hits_per_family(),
         )
         return " ".join(yql.split())
-
-
-class ConceptYQLBuilder:
-    """Used to assemble YQL queries for concepts"""
-
-    @staticmethod
-    def build(parameters: SearchConceptParameters) -> str:
-        """Build a query for concepts"""
-        q: Query = qb.select("*").from_(  # pyright: ignore[reportGeneralTypeIssues]
-            "concept"
-        )
-
-        # Track if we have any filters
-        has_filters = False
-        if any(
-            [
-                parameters.id,
-                parameters.wikibase_id,
-                parameters.wikibase_revision,
-                parameters.preferred_label,
-            ]
-        ):
-            if parameters.id:
-                q = q.where(QueryField("id").contains(parameters.id))
-                has_filters = True
-
-            if parameters.wikibase_id:
-                q = q.where(QueryField("wikibase_id").contains(parameters.wikibase_id))
-                has_filters = True
-
-            if parameters.wikibase_revision:
-                q = q.where(
-                    QueryField("wikibase_revision").contains(
-                        parameters.wikibase_revision
-                    )
-                )
-                has_filters = True
-
-            if parameters.preferred_label:
-                q = q.where(
-                    QueryField("preferred_label").contains(parameters.preferred_label)
-                )
-                has_filters = True
-        else:
-            # If no filters provided, add 'where true' as fallback
-            if not has_filters:
-                q = q.where(True)
-
-        q = q.set_limit(parameters.limit)
-
-        # Convert to string
-        yql_str = str(q)
-
-        # Add continuation tokens if present (following the same pattern as YQLBuilder for families)
-        if parameters.continuation_tokens:
-            continuations = ", ".join(f"'{c}'" for c in parameters.continuation_tokens)
-            continuation_clause = f" | {{ 'continuations': [{continuations}] }}"
-            yql_str += continuation_clause
-
-        return yql_str
-
-
-class ClassifiersProfileYQLBuilder:
-    """Used to assemble YQL queries for classifiers profiles"""
-
-    @staticmethod
-    def build(parameters: SearchClassifiersProfileParameters) -> str:
-        """Build a query for classifiers profiles"""
-        q: Query = qb.select("*").from_(  # pyright: ignore[reportGeneralTypeIssues]
-            "classifiers_profile"
-        )
-
-        # Track if we have any filters
-        has_filters = False
-        if any([parameters.id, parameters.name]):
-            if parameters.id:
-                q = q.where(QueryField("id").contains(parameters.id))
-                has_filters = True
-
-            if parameters.name:
-                q = q.where(QueryField("name").contains(parameters.name))
-                has_filters = True
-        else:
-            # If no filters provided, add 'where true' as fallback
-            if not has_filters:
-                q = q.where(True)
-
-        q = q.set_limit(parameters.limit)
-
-        # Convert to string
-        yql_str = str(q)
-
-        return yql_str
