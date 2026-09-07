@@ -43,7 +43,7 @@ filter_fields = {
     "source": "family_source",
 }
 
-_ID_ELEMENT = r"[a-zA-Z0-9]+([-_]?[a-zA-Z0-9]+)*"
+_ID_ELEMENT = r"[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*"
 ID_PATTERN = re.compile(rf"{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}\.{_ID_ELEMENT}")
 
 SCHEMA_NAME_FIELD_NAME = "sddocname"

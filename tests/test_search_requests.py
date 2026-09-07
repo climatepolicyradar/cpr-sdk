@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from pydantic import ValidationError
 
@@ -145,6 +147,73 @@ def test_whether_an_invalid_document_id_raises_a_validation_error(bad_id):
     assert f"id seems invalid: {bad_id}" in str(
         excinfo.value
     ), f"expected failure on {bad_id}"
+
+
+@pytest.mark.parametrize(
+    "bad_id",
+    [
+        "CCLW.executive.9724.rtl--174",
+        "CCLW.executive.9724.rtl__174",
+        "CCLW.executive.9724.-rtl_174",
+        "CCLW.executive.9724.rtl_174-",
+        "-CCLW.executive.9724.rtl_174",
+        "CCLW.executive_.9724.rtl_174",
+    ],
+)
+def test_whether_misplaced_separators_raise_a_validation_error(bad_id):
+    with pytest.raises(ValidationError) as excinfo:
+        SearchParameters(
+            query_string="test",
+            family_ids=("CCLW.family.i00000003.n0000", bad_id),
+        )
+    assert f"id seems invalid: {bad_id}" in str(
+        excinfo.value
+    ), f"expected failure on {bad_id}"
+
+
+@pytest.mark.parametrize(
+    "good_id",
+    [
+        "CCLW.executive.9724.rtl_174",
+        "UNFCCC.non-party.1267.0",
+        "CCLW.executive.10014.4470",
+        "CCLW.family.i00000003.n0000",
+    ],
+)
+def test_whether_ids_with_single_inner_separators_are_accepted(good_id):
+    params = SearchParameters(query_string="test", family_ids=(good_id,))
+    assert isinstance(params, SearchParameters)
+
+
+@pytest.mark.parametrize(
+    "bad_id",
+    [
+        # A slug with no dots at all: the id pattern can never match it, and a
+        # backtracking-prone pattern takes exponential time to prove that.
+        "a" * 26,
+        # A four-part id whose final element is long and ends in a character the
+        # pattern rejects. The valid prefix multiplies the cost of failing, so a
+        # cheap dot-count pre-check would not save us here.
+        "CCLW.executive.10014." + "b" * 10 + "%",
+    ],
+)
+def test_whether_invalid_ids_are_rejected_quickly(bad_id):
+    """
+    Guard against catastrophic backtracking in ID_PATTERN (ReDoS).
+
+    The inputs are kept just long enough that a regression blows the budget by
+    an order of magnitude, so a revert fails in seconds rather than hanging CI.
+    A pattern without the ambiguity rejects these in microseconds regardless of
+    length.
+    """
+    start = time.perf_counter()
+    with pytest.raises(ValidationError):
+        SearchParameters(query_string="test", family_ids=(bad_id,))
+    elapsed = time.perf_counter() - start
+    assert elapsed < 0.5, (
+        f"validating {bad_id!r} took {elapsed:.3f}s; ID_PATTERN is probably "
+        "backtracking catastrophically"
+    )
 
 
 @pytest.mark.parametrize("field", sort_fields.keys())
